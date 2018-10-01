@@ -1,0 +1,814 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Профиль абонента</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаОбновить" id="240">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>false</OnlyInAllActions>
+				<CommandName>Form.Command.Обновить</CommandName>
+				<ExtendedTooltip name="ФормаОбновитьРасширеннаяПодсказка" id="241"/>
+			</Button>
+			<Button name="ФормаЗаписатьЗакрыть" id="60">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ЗаписатьЗакрыть</CommandName>
+				<ExtendedTooltip name="ФормаЗаписатьЗакрытьРасширеннаяПодсказка" id="61"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<Pages name="ГруппаСтраниц" id="86">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы</v8:content>
+				</v8:item>
+			</Title>
+			<ExtendedTooltip name="ГруппаСтраницРасширеннаяПодсказка" id="87"/>
+			<ChildItems>
+				<Page name="СтраницаПродажи" id="88">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Настройки продавца</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="СтраницаПродажиРасширеннаяПодсказка" id="89"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаРегионыПродажи" id="257">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Регионы продаж (для доставки)</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>NormalSeparation</Representation>
+							<ExtendedTooltip name="ГруппаРегионыПродажиРасширеннаяПодсказка" id="258"/>
+							<ChildItems>
+								<CheckBoxField name="РегионыПродажиВозможнаДоставка" id="254">
+									<DataPath>РегионыПродажиВозможнаДоставка</DataPath>
+									<TitleLocation>Right</TitleLocation>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="РегионыПродажиВозможнаДоставкаКонтекстноеМеню" id="255"/>
+									<ExtendedTooltip name="РегионыПродажиВозможнаДоставкаРасширеннаяПодсказка" id="256"/>
+									<Events>
+										<Event name="OnChange">РегионыПродажиВозможнаДоставкаПриИзменении</Event>
+									</Events>
+								</CheckBoxField>
+								<Table name="РегионыПродажи" id="5">
+									<Representation>List</Representation>
+									<HeightInTableRows>1</HeightInTableRows>
+									<AutoInsertNewRow>true</AutoInsertNewRow>
+									<EnableStartDrag>true</EnableStartDrag>
+									<EnableDrag>true</EnableDrag>
+									<DataPath>РегионыПродажи</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Регионы продаж и поставок</v8:content>
+										</v8:item>
+									</Title>
+									<RowFilter xsi:nil="true"/>
+									<ContextMenu name="РегионыПродажиКонтекстноеМеню" id="6"/>
+									<AutoCommandBar name="РегионыПродажиКоманднаяПанель" id="7">
+										<ChildItems>
+											<Button name="РегионыАбонентаПродажиЗаполнить" id="62">
+												<Type>CommandBarButton</Type>
+												<CommandName>Form.Command.ЗаполнитьРегионыПродажи</CommandName>
+												<ExtendedTooltip name="РегионыАбонентаПродажиЗаполнитьРасширеннаяПодсказка" id="63"/>
+											</Button>
+										</ChildItems>
+									</AutoCommandBar>
+									<ExtendedTooltip name="РегионыПродажиРасширеннаяПодсказка" id="8"/>
+									<SearchStringAddition name="РегионыПродажиСтрокаПоиска" id="9">
+										<AdditionSource>
+											<Item>РегионыПродажи</Item>
+											<Type>SearchStringRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыПродажиСтрокаПоискаКонтекстноеМеню" id="10"/>
+										<ExtendedTooltip name="РегионыПродажиСтрокаПоискаРасширеннаяПодсказка" id="11"/>
+									</SearchStringAddition>
+									<ViewStatusAddition name="РегионыПродажиСостояниеПросмотра" id="12">
+										<AdditionSource>
+											<Item>РегионыПродажи</Item>
+											<Type>ViewStatusRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыПродажиСостояниеПросмотраКонтекстноеМеню" id="13"/>
+										<ExtendedTooltip name="РегионыПродажиСостояниеПросмотраРасширеннаяПодсказка" id="14"/>
+									</ViewStatusAddition>
+									<SearchControlAddition name="РегионыПродажиУправлениеПоиском" id="15">
+										<AdditionSource>
+											<Item>РегионыПродажи</Item>
+											<Type>SearchControl</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыПродажиУправлениеПоискомКонтекстноеМеню" id="16"/>
+										<ExtendedTooltip name="РегионыПродажиУправлениеПоискомРасширеннаяПодсказка" id="17"/>
+									</SearchControlAddition>
+									<Events>
+										<Event name="BeforeAddRow">РегионыПродажиПередНачаломДобавления</Event>
+										<Event name="OnChange">РегионыПродажиПриИзменении</Event>
+									</Events>
+									<ChildItems>
+										<InputField name="РегионыПродажиПредставление" id="18">
+											<DataPath>РегионыПродажи.Представление</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Регион</v8:content>
+												</v8:item>
+											</Title>
+											<EditMode>EnterOnInput</EditMode>
+											<ChoiceButton>true</ChoiceButton>
+											<TextEdit>false</TextEdit>
+											<ContextMenu name="РегионыПродажиПредставлениеКонтекстноеМеню" id="19"/>
+											<ExtendedTooltip name="РегионыПродажиПредставлениеРасширеннаяПодсказка" id="20"/>
+											<Events>
+												<Event name="StartChoice">РегионыПродажиНачалоВыбора</Event>
+											</Events>
+										</InputField>
+									</ChildItems>
+								</Table>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаАдресаПродажи" id="259">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Адреса складов (для самовывоза)</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>NormalSeparation</Representation>
+							<ExtendedTooltip name="ГруппаАдресаПродажиРасширеннаяПодсказка" id="260"/>
+							<ChildItems>
+								<CheckBoxField name="АдресаПродажиВозможенСамовывоз" id="261">
+									<DataPath>АдресаПродажиВозможенСамовывоз</DataPath>
+									<TitleLocation>Right</TitleLocation>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="АдресаПродажиВозможенСамовывозКонтекстноеМеню" id="262"/>
+									<ExtendedTooltip name="АдресаПродажиВозможенСамовывозРасширеннаяПодсказка" id="263"/>
+									<Events>
+										<Event name="OnChange">АдресаПродажиВозможенСамовывозПриИзменении</Event>
+									</Events>
+								</CheckBoxField>
+								<Table name="АдресаПродажи" id="213">
+									<Representation>List</Representation>
+									<HeightInTableRows>1</HeightInTableRows>
+									<AutoInsertNewRow>true</AutoInsertNewRow>
+									<EnableStartDrag>true</EnableStartDrag>
+									<EnableDrag>true</EnableDrag>
+									<DataPath>АдресаПродажи</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Адреса магазинов и складов</v8:content>
+										</v8:item>
+									</Title>
+									<RowFilter xsi:nil="true"/>
+									<ContextMenu name="АдресаПродажиКонтекстноеМеню" id="214"/>
+									<AutoCommandBar name="АдресаПродажиКоманднаяПанель" id="215">
+										<ChildItems>
+											<Button name="АдресаАбонентаЗаполнить" id="238">
+												<Type>CommandBarButton</Type>
+												<CommandName>Form.Command.ЗаполнитьАдресаПродажи</CommandName>
+												<ExtendedTooltip name="АдресаАбонентаЗаполнитьРасширеннаяПодсказка" id="239"/>
+											</Button>
+										</ChildItems>
+									</AutoCommandBar>
+									<ExtendedTooltip name="АдресаПродажиРасширеннаяПодсказка" id="216"/>
+									<SearchStringAddition name="АдресаПродажиСтрокаПоиска" id="217">
+										<AdditionSource>
+											<Item>АдресаПродажи</Item>
+											<Type>SearchStringRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаПродажиСтрокаПоискаКонтекстноеМеню" id="218"/>
+										<ExtendedTooltip name="АдресаПродажиСтрокаПоискаРасширеннаяПодсказка" id="219"/>
+									</SearchStringAddition>
+									<ViewStatusAddition name="АдресаПродажиСостояниеПросмотра" id="220">
+										<AdditionSource>
+											<Item>АдресаПродажи</Item>
+											<Type>ViewStatusRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаПродажиСостояниеПросмотраКонтекстноеМеню" id="221"/>
+										<ExtendedTooltip name="АдресаПродажиСостояниеПросмотраРасширеннаяПодсказка" id="222"/>
+									</ViewStatusAddition>
+									<SearchControlAddition name="АдресаПродажиУправлениеПоиском" id="223">
+										<AdditionSource>
+											<Item>АдресаПродажи</Item>
+											<Type>SearchControl</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаПродажиУправлениеПоискомКонтекстноеМеню" id="224"/>
+										<ExtendedTooltip name="АдресаПродажиУправлениеПоискомРасширеннаяПодсказка" id="225"/>
+									</SearchControlAddition>
+									<Events>
+										<Event name="BeforeAddRow">АдресаПередНачаломДобавления</Event>
+										<Event name="OnChange">АдресаПриИзменении</Event>
+									</Events>
+									<ChildItems>
+										<InputField name="АдресаПредставление" id="226">
+											<DataPath>АдресаПродажи.Представление</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Адрес</v8:content>
+												</v8:item>
+											</Title>
+											<EditMode>EnterOnInput</EditMode>
+											<ChoiceButton>true</ChoiceButton>
+											<TextEdit>false</TextEdit>
+											<ContextMenu name="АдресаПредставлениеКонтекстноеМеню" id="227"/>
+											<ExtendedTooltip name="АдресаПредставлениеРасширеннаяПодсказка" id="228"/>
+											<Events>
+												<Event name="StartChoice">АдресаПредставлениеНачалоВыбора</Event>
+											</Events>
+										</InputField>
+									</ChildItems>
+								</Table>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаЗакупки" id="90">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Настройки покупателя</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="СтраницаЗакупкиРасширеннаяПодсказка" id="91"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаРегионыЗакупки" id="264">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Регионы закупок (для самовывоза)</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>NormalSeparation</Representation>
+							<ExtendedTooltip name="ГруппаРегионыЗакупкиРасширеннаяПодсказка" id="265"/>
+							<ChildItems>
+								<CheckBoxField name="РегионыЗакупкиВозможенСамовывоз" id="266">
+									<DataPath>РегионыЗакупкиВозможенСамовывоз</DataPath>
+									<TitleLocation>Right</TitleLocation>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="РегионыЗакупкиВозможенСамовывозКонтекстноеМеню" id="267"/>
+									<ExtendedTooltip name="РегионыЗакупкиВозможенСамовывозРасширеннаяПодсказка" id="268"/>
+									<Events>
+										<Event name="OnChange">РегионыЗакупкиВозможенСамовывозПриИзменении</Event>
+									</Events>
+								</CheckBoxField>
+								<Table name="РегионыЗакупки" id="94">
+									<Representation>List</Representation>
+									<AutoMaxHeight>false</AutoMaxHeight>
+									<HeightInTableRows>1</HeightInTableRows>
+									<AutoInsertNewRow>true</AutoInsertNewRow>
+									<EnableStartDrag>true</EnableStartDrag>
+									<EnableDrag>true</EnableDrag>
+									<DataPath>РегионыЗакупки</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Регионы закупок и приемки</v8:content>
+										</v8:item>
+									</Title>
+									<RowFilter xsi:nil="true"/>
+									<ContextMenu name="РегионыЗакупкиКонтекстноеМеню" id="95"/>
+									<AutoCommandBar name="РегионыЗакупкиКоманднаяПанель" id="96">
+										<ChildItems>
+											<Button name="РегионыЗакупкиЗаполнить" id="119">
+												<Type>CommandBarButton</Type>
+												<CommandName>Form.Command.ЗаполнитьРегионыЗакупки</CommandName>
+												<ExtendedTooltip name="РегионыЗакупкиЗаполнитьРасширеннаяПодсказка" id="120"/>
+											</Button>
+										</ChildItems>
+									</AutoCommandBar>
+									<ExtendedTooltip name="РегионыЗакупкиРасширеннаяПодсказка" id="97"/>
+									<SearchStringAddition name="РегионыЗакупкиСтрокаПоиска" id="98">
+										<AdditionSource>
+											<Item>РегионыЗакупки</Item>
+											<Type>SearchStringRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыЗакупкиСтрокаПоискаКонтекстноеМеню" id="99"/>
+										<ExtendedTooltip name="РегионыЗакупкиСтрокаПоискаРасширеннаяПодсказка" id="100"/>
+									</SearchStringAddition>
+									<ViewStatusAddition name="РегионыЗакупкиСостояниеПросмотра" id="101">
+										<AdditionSource>
+											<Item>РегионыЗакупки</Item>
+											<Type>ViewStatusRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыЗакупкиСостояниеПросмотраКонтекстноеМеню" id="102"/>
+										<ExtendedTooltip name="РегионыЗакупкиСостояниеПросмотраРасширеннаяПодсказка" id="103"/>
+									</ViewStatusAddition>
+									<SearchControlAddition name="РегионыЗакупкиУправлениеПоиском" id="104">
+										<AdditionSource>
+											<Item>РегионыЗакупки</Item>
+											<Type>SearchControl</Type>
+										</AdditionSource>
+										<ContextMenu name="РегионыЗакупкиУправлениеПоискомКонтекстноеМеню" id="105"/>
+										<ExtendedTooltip name="РегионыЗакупкиУправлениеПоискомРасширеннаяПодсказка" id="106"/>
+									</SearchControlAddition>
+									<Events>
+										<Event name="BeforeAddRow">РегионыЗакупкиПередНачаломДобавления</Event>
+										<Event name="OnChange">РегионыЗакупкиПриИзменении</Event>
+									</Events>
+									<ChildItems>
+										<InputField name="РегионыЗакупкиПредставление" id="163">
+											<DataPath>РегионыЗакупки.Представление</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Регион</v8:content>
+												</v8:item>
+											</Title>
+											<EditMode>EnterOnInput</EditMode>
+											<ChoiceButton>true</ChoiceButton>
+											<TextEdit>false</TextEdit>
+											<ContextMenu name="РегионыЗакупкиПредставлениеКонтекстноеМеню" id="164"/>
+											<ExtendedTooltip name="РегионыЗакупкиПредставлениеРасширеннаяПодсказка" id="165"/>
+											<Events>
+												<Event name="StartChoice">РегионыЗакупкиНачалоВыбора</Event>
+											</Events>
+										</InputField>
+									</ChildItems>
+								</Table>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаАдресаЗакупки" id="269">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Адреса складов (для доставки)</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>NormalSeparation</Representation>
+							<ExtendedTooltip name="ГруппаАдресаЗакупкиРасширеннаяПодсказка" id="270"/>
+							<ChildItems>
+								<CheckBoxField name="АдресаЗакупкиВозможнаПриемка" id="271">
+									<DataPath>АдресаЗакупкиВозможнаПриемка</DataPath>
+									<TitleLocation>Right</TitleLocation>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="АдресаЗакупкиВозможнаПриемкаКонтекстноеМеню" id="272"/>
+									<ExtendedTooltip name="АдресаЗакупкиВозможнаПриемкаРасширеннаяПодсказка" id="273"/>
+									<Events>
+										<Event name="OnChange">РегионыЗакупкиТребуетсяДоставкаПриИзменении</Event>
+									</Events>
+								</CheckBoxField>
+								<Table name="АдресаЗакупки" id="274">
+									<Representation>List</Representation>
+									<HeightInTableRows>1</HeightInTableRows>
+									<AutoInsertNewRow>true</AutoInsertNewRow>
+									<EnableStartDrag>true</EnableStartDrag>
+									<EnableDrag>true</EnableDrag>
+									<DataPath>АдресаЗакупки</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Адреса складов (для доставки)</v8:content>
+										</v8:item>
+									</Title>
+									<RowFilter xsi:nil="true"/>
+									<ContextMenu name="АдресаЗакупкиКонтекстноеМеню" id="275"/>
+									<AutoCommandBar name="АдресаЗакупкиКоманднаяПанель" id="276">
+										<ChildItems>
+											<Button name="АдресаЗакупкиЗаполнитьАдресаЗакупки" id="297">
+												<Type>CommandBarButton</Type>
+												<CommandName>Form.Command.ЗаполнитьАдресаЗакупки</CommandName>
+												<ExtendedTooltip name="АдресаЗакупкиЗаполнитьАдресаЗакупкиРасширеннаяПодсказка" id="298"/>
+											</Button>
+										</ChildItems>
+									</AutoCommandBar>
+									<ExtendedTooltip name="АдресаЗакупкиРасширеннаяПодсказка" id="277"/>
+									<SearchStringAddition name="АдресаЗакупкиСтрокаПоиска" id="278">
+										<AdditionSource>
+											<Item>АдресаЗакупки</Item>
+											<Type>SearchStringRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаЗакупкиСтрокаПоискаКонтекстноеМеню" id="279"/>
+										<ExtendedTooltip name="АдресаЗакупкиСтрокаПоискаРасширеннаяПодсказка" id="280"/>
+									</SearchStringAddition>
+									<ViewStatusAddition name="АдресаЗакупкиСостояниеПросмотра" id="281">
+										<AdditionSource>
+											<Item>АдресаЗакупки</Item>
+											<Type>ViewStatusRepresentation</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаЗакупкиСостояниеПросмотраКонтекстноеМеню" id="282"/>
+										<ExtendedTooltip name="АдресаЗакупкиСостояниеПросмотраРасширеннаяПодсказка" id="283"/>
+									</ViewStatusAddition>
+									<SearchControlAddition name="АдресаЗакупкиУправлениеПоиском" id="284">
+										<AdditionSource>
+											<Item>АдресаЗакупки</Item>
+											<Type>SearchControl</Type>
+										</AdditionSource>
+										<ContextMenu name="АдресаЗакупкиУправлениеПоискомКонтекстноеМеню" id="285"/>
+										<ExtendedTooltip name="АдресаЗакупкиУправлениеПоискомРасширеннаяПодсказка" id="286"/>
+									</SearchControlAddition>
+									<Events>
+										<Event name="BeforeAddRow">АдресаЗакупкиПередНачаломДобавления</Event>
+										<Event name="OnChange">АдресаЗакупкиПриИзменении</Event>
+									</Events>
+									<ChildItems>
+										<InputField name="АдресаЗакупкиПредставление" id="287">
+											<DataPath>АдресаЗакупки.Представление</DataPath>
+											<EditMode>EnterOnInput</EditMode>
+											<ChoiceButton>true</ChoiceButton>
+											<TextEdit>false</TextEdit>
+											<ContextMenu name="АдресаЗакупкиПредставлениеКонтекстноеМеню" id="288"/>
+											<ExtendedTooltip name="АдресаЗакупкиПредставлениеРасширеннаяПодсказка" id="289"/>
+											<Events>
+												<Event name="StartChoice">АдресаЗакупкиПредставлениеНачалоВыбора</Event>
+											</Events>
+										</InputField>
+									</ChildItems>
+								</Table>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+		<LabelDecoration name="ДекорацияПояснение" id="299">
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<TextColor>style:ПоясняющийТекст</TextColor>
+			<Title formatted="false">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Для возможности поиска по регионам, ввод контактной информации необходимо производить только с использование адресного классификатора, не используя свободный режим ввода.</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="ДекорацияПояснениеКонтекстноеМеню" id="300"/>
+			<ExtendedTooltip name="ДекорацияПояснениеРасширеннаяПодсказка" id="301"/>
+		</LabelDecoration>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.ТорговыеПредложения</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РегионыПродажи" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Регионы продаж</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="Представление" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>500</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЗначенияПолей" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значения полей</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="АдресаПродажи" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адреса продажи</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="Представление" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>500</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЗначенияПолей" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значения полей</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ПрограммноеЗакрытие" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Программное закрытие</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РегионыЗакупки" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Регионы закупки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="Представление" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>500</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЗначенияПолей" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значения полей</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="РегионыПродажиВозможнаДоставка" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможна доставка</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресаПродажиВозможенСамовывоз" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможен самовывоз</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресаЗакупки" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адреса закупки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="Представление" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Адрес</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>500</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЗначенияПолей" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значения полей</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="РегионыЗакупкиТребуетсяДоставка" id="10">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможна приемка</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РегионыЗакупкиВозможенСамовывоз" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможен самовывоз</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресаЗакупкиВозможнаПриемка" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможна приемка</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ТребуетсяРегистрацияОрганизации" id="13">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Требуется регистрация организации</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ЗаписатьЗакрыть" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать и закрыть</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать закрыть</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаписатьЗакрыть</Action>
+		</Command>
+		<Command name="ЗаполнитьРегионыПродажи" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить регионы продажи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьРегионыПродажи</Action>
+		</Command>
+		<Command name="ЗаполнитьАдресаПродажи" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить адреса продажи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьАдресаПродажи</Action>
+		</Command>
+		<Command name="ЗаполнитьРегионыЗакупки" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить регионы продажи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьРегионыЗакупки</Action>
+		</Command>
+		<Command name="Обновить" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Refresh</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Обновить</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="ЗаполнитьАдресаЗакупки" id="10">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить регионы продажи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьАдресаЗакупки</Action>
+		</Command>
+	</Commands>
+</Form>

@@ -1,0 +1,313 @@
+﻿<xs:schema xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:tns="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://v8.1c.ru/8.1/data/enterprise/current-config" attributeFormDefault="unqualified" elementFormDefault="qualified">
+	<xs:import namespace="http://v8.1c.ru/8.1/data/core"/>
+	<xs:import namespace="http://v8.1c.ru/8.1/data/enterprise"/>
+	<xs:complexType name="CatalogObject.ВариантыАнализаЦелевыхПоказателей">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:CatalogRef.ВариантыАнализаЦелевыхПоказателей"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ВариантОтображения" type="xs:string"/>
+			<xs:element name="ДатаОбновления" type="xs:dateTime"/>
+			<xs:element name="КатегорияЦели" type="xs:string"/>
+			<xs:element name="Результат" type="v8:ValueStorage"/>
+			<xs:element name="ОтчетыДляРасшифровки" type="tns:CatalogTabularSectionRow.ВариантыАнализаЦелевыхПоказателей.ОтчетыДляРасшифровки" minOccurs="0" maxOccurs="99999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogObject.ВариантыОтчетов">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:CatalogRef.ВариантыОтчетов"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ДатаОбновления" type="xs:dateTime"/>
+			<xs:element name="КлючВарианта" type="xs:string"/>
+			<xs:element name="Настройки" type="v8:ValueStorage"/>
+			<xs:element name="Результат" type="v8:ValueStorage"/>
+			<xs:element name="ПользовательскиеНастройкиВариантовОтчетов" type="tns:CatalogTabularSectionRow.ВариантыОтчетов.ПользовательскиеНастройкиВариантовОтчетов" minOccurs="0" maxOccurs="99999"/>
+			<xs:element name="Размещение" type="tns:CatalogTabularSectionRow.ВариантыОтчетов.Размещение" minOccurs="0" maxOccurs="99999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogObject.ВидыКонтактнойИнформации">
+		<xs:sequence>
+			<xs:element name="IsFolder" type="xs:boolean"/>
+			<xs:element name="Ref" type="tns:CatalogRef.ВидыКонтактнойИнформации"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Parent" type="tns:CatalogRef.ВидыКонтактнойИнформации"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ERPКод" type="xs:string"/>
+			<xs:element name="Тип" type="tns:EnumRef.ТипыКонтактнойИнформации" minOccurs="0"/>
+			<xs:element name="РеквизитДопУпорядочивания" type="xs:decimal" minOccurs="0"/>
+			<xs:element name="РедактированиеТолькоВДиалоге" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="МожноИзменятьСпособРедактирования" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="АдресТолькоРоссийский" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ВключатьСтрануВПредставление" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ОбязательноеЗаполнение" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ПроверятьКорректность" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ЗапрещатьВводНекорректного" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="СкрыватьНеактуальныеАдреса" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="Подсказка" type="xs:string" minOccurs="0"/>
+			<xs:element name="РазрешитьВводНесколькихЗначений" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogObject.КонтактныеЛицаПартнеров">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:CatalogRef.КонтактныеЛицаПартнеров"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Owner" type="ent:AnyRef" nillable="true"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="ERPКод" type="xs:string"/>
+			<xs:element name="ДатаРождения" type="xs:dateTime"/>
+			<xs:element name="ДолжностьПоВизитке" type="xs:string"/>
+			<xs:element name="Комментарий" type="xs:string"/>
+			<xs:element name="КонтактнаяИнформация" type="tns:CatalogTabularSectionRow.КонтактныеЛицаПартнеров.КонтактнаяИнформация" minOccurs="0" maxOccurs="99999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogObject.Партнеры">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:CatalogRef.Партнеры"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Parent" type="tns:CatalogRef.Партнеры"/>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="НаименованиеПолное" type="xs:string"/>
+			<xs:element name="ДополнительнаяИнформация" type="v8:ValueStorage"/>
+			<xs:element name="КонтактнаяИнформация" type="tns:CatalogTabularSectionRow.Партнеры.КонтактнаяИнформация" minOccurs="0" maxOccurs="99999"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogObject.СтраныМира">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:CatalogRef.СтраныМира"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="PredefinedDataName" type="xs:string" minOccurs="0"/>
+			<xs:element name="НаименованиеПолное" type="xs:string"/>
+			<xs:element name="КодАльфа2" type="xs:string"/>
+			<xs:element name="КодАльфа3" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="CatalogRef.ВариантыАнализаЦелевыхПоказателей">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:simpleType name="CatalogRef.ВариантыОтчетов">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:simpleType name="CatalogRef.ВидыКонтактнойИнформации">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:simpleType name="CatalogRef.КонтактныеЛицаПартнеров">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:simpleType name="CatalogRef.Партнеры">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:simpleType name="CatalogRef.СтраныМира">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:complexType name="CatalogTabularSectionRow.ВариантыАнализаЦелевыхПоказателей.ОтчетыДляРасшифровки">
+		<xs:sequence>
+			<xs:element name="ВариантОтчетаИД" type="v8:UUID"/>
+			<xs:element name="ДатаОбновления" type="xs:dateTime"/>
+			<xs:element name="РезультатОтчета" type="v8:ValueStorage"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogTabularSectionRow.ВариантыОтчетов.ПользовательскиеНастройкиВариантовОтчетов">
+		<xs:sequence>
+			<xs:element name="КлючНастройки" type="xs:string"/>
+			<xs:element name="ПредставлениеНастройки" type="xs:string"/>
+			<xs:element name="Результат" type="v8:ValueStorage"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogTabularSectionRow.ВариантыОтчетов.Размещение">
+		<xs:sequence>
+			<xs:element name="РазделИлиГруппа" type="xs:string"/>
+			<xs:element name="Важный" type="xs:boolean"/>
+			<xs:element name="БыстрыйДоступ" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogTabularSectionRow.КонтактныеЛицаПартнеров.КонтактнаяИнформация">
+		<xs:sequence>
+			<xs:element name="Тип" type="tns:EnumRef.ТипыКонтактнойИнформации"/>
+			<xs:element name="Вид" type="tns:CatalogRef.ВидыКонтактнойИнформации"/>
+			<xs:element name="Представление" type="xs:string"/>
+			<xs:element name="ЗначенияПолей" type="xs:string"/>
+			<xs:element name="Страна" type="xs:string"/>
+			<xs:element name="Регион" type="xs:string"/>
+			<xs:element name="Город" type="xs:string"/>
+			<xs:element name="АдресЭП" type="xs:string"/>
+			<xs:element name="ДоменноеИмяСервера" type="xs:string"/>
+			<xs:element name="НомерТелефона" type="xs:string"/>
+			<xs:element name="НомерТелефонаБезКодов" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CatalogTabularSectionRow.Партнеры.КонтактнаяИнформация">
+		<xs:sequence>
+			<xs:element name="Тип" type="tns:EnumRef.ТипыКонтактнойИнформации"/>
+			<xs:element name="Вид" type="tns:CatalogRef.ВидыКонтактнойИнформации"/>
+			<xs:element name="Представление" type="xs:string"/>
+			<xs:element name="ЗначенияПолей" type="xs:string"/>
+			<xs:element name="Страна" type="xs:string"/>
+			<xs:element name="Регион" type="xs:string"/>
+			<xs:element name="Город" type="xs:string"/>
+			<xs:element name="АдресЭП" type="xs:string"/>
+			<xs:element name="ДоменноеИмяСервера" type="xs:string"/>
+			<xs:element name="НомерТелефона" type="xs:string"/>
+			<xs:element name="НомерТелефонаБезКодов" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.АдресЦентральнойБазы">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ВерсияПриложения">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ВерсияУТУП">
+		<xs:sequence>
+			<xs:element name="Value" type="tns:EnumRef.ВерсииУТ_УП"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ГруппироватьМониторПоВажности">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:decimal"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ДемоРежим">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ДобавлениеИзменениеКлиентов">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ИспользоватьВариантыАнализаЦелевыхПоказателей">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ИспользоватьВариантыОтчетов">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ИспользоватьКонтактныеЛица">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ИспользоватьПартнеры">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ИспользоватьСинхронизацию">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.НаименованиеУстройства">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ПользовательЦентральнойБазы">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ПредупреждениеВремяОбмена">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:decimal"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConstantValueManager.ПредупреждениеРазмерПакета">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:decimal"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="EnumRef.ВерсииУТ_УП">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+			<xs:enumeration value="УТ11_1_1_11"/>
+			<xs:enumeration value="УТ11_1_2_9"/>
+			<xs:enumeration value="УТ11_1_9_1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EnumRef.ВидыСценариевОбмена">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+			<xs:enumeration value="Полный"/>
+			<xs:enumeration value="Монитор_Выборочный"/>
+			<xs:enumeration value="Монитор_Полный"/>
+			<xs:enumeration value="Отчеты_Выборочный"/>
+			<xs:enumeration value="Отчеты_Полный"/>
+			<xs:enumeration value="Партнеры_Выборочный"/>
+			<xs:enumeration value="Партнеры_Полный"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EnumRef.ЗоныВниманияВариантовАнализа">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+			<xs:enumeration value="КритическоеСостояние"/>
+			<xs:enumeration value="Важно"/>
+			<xs:enumeration value="КСведению"/>
+			<xs:enumeration value="РассчитанныеСОшибками"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EnumRef.ТипыКонтактнойИнформации">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+			<xs:enumeration value="Адрес"/>
+			<xs:enumeration value="Телефон"/>
+			<xs:enumeration value="АдресЭлектроннойПочты"/>
+			<xs:enumeration value="Skype"/>
+			<xs:enumeration value="ВебСтраница"/>
+			<xs:enumeration value="Факс"/>
+			<xs:enumeration value="Другое"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ExchangePlanObject.МобильноеПриложениеМониторERP">
+		<xs:sequence>
+			<xs:element name="Ref" type="tns:ExchangePlanRef.МобильноеПриложениеМониторERP"/>
+			<xs:element name="DeletionMark" type="xs:boolean"/>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element name="Description" type="xs:string"/>
+			<xs:element name="SentNo" type="xs:decimal"/>
+			<xs:element name="ReceivedNo" type="xs:decimal"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ExchangePlanRef.МобильноеПриложениеМониторERP">
+		<xs:restriction base="ent:AnyRef"/>
+	</xs:simpleType>
+	<xs:complexType name="InformationRegisterRecord.СтатистикаВыполненияОбмена">
+		<xs:sequence>
+			<xs:element name="Period" type="xs:dateTime"/>
+			<xs:element name="НизкаяСкоростьСоединения" type="xs:boolean"/>
+			<xs:element name="ВидСценарияОбмена" type="tns:EnumRef.ВидыСценариевОбмена"/>
+			<xs:element name="ВремяВыполнения" type="xs:decimal"/>
+			<xs:element name="РазмерПакета" type="xs:decimal"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InformationRegisterRecordKey.СтатистикаВыполненияОбмена">
+		<xs:sequence>
+			<xs:element name="Period" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="НизкаяСкоростьСоединения" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="ВидСценарияОбмена" type="tns:EnumRef.ВидыСценариевОбмена" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InformationRegisterRecordSet.СтатистикаВыполненияОбмена">
+		<xs:sequence>
+			<xs:element name="Filter" type="ent:Filter"/>
+			<xs:element name="Record" type="tns:InformationRegisterRecord.СтатистикаВыполненияОбмена" minOccurs="0" maxOccurs="999999999"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

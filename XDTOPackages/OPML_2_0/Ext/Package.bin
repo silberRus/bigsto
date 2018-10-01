@@ -1,0 +1,68 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.dlese.org/Metadata/opml">
+	<property xmlns:d2p1="http://www.dlese.org/Metadata/opml" name="opml" type="d2p1:opmlType"/>
+	<valueType name="rfc822Type" base="xs:string" variety="Atomic">
+		<pattern>(((Mon)|(Tue)|(Wed)|(Thu)|(Fri)|(Sat)|(Sun)), *)?\d\d? +((Jan)|(Feb)|(Mar)|(Apr)|(May)|(Jun)|(Jul)|(Aug)|(Sep)|(Oct)|(Nov)|(Dec)) +\d\d(\d\d)? +\d\d:\d\d(:\d\d)? +(([+\-]?\d\d\d\d)|(UT)|(GMT)|(EST)|(EDT)|(CST)|(CDT)|(MST)|(MDT)|(PST)|(PDT)|\w)</pattern>
+	</valueType>
+	<valueType name="tEmailAddress" base="xs:string" variety="Atomic">
+		<pattern>([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])</pattern>
+	</valueType>
+	<valueType name="typeType" base="xs:string" variety="Atomic">
+		<enumeration>atom</enumeration>
+		<enumeration>include</enumeration>
+		<enumeration>link</enumeration>
+		<enumeration>text</enumeration>
+		<enumeration>rdf</enumeration>
+		<enumeration>rss</enumeration>
+		<enumeration>text/x-opml</enumeration>
+	</valueType>
+	<valueType xmlns:d2p1="http://www.dlese.org/Metadata/opml" name="union.languageType" variety="Union" memberTypes="xs:language d2p1:unknownType"/>
+	<valueType xmlns:d2p1="http://www.dlese.org/Metadata/opml" name="union.typeType" variety="Union" memberTypes="xs:string d2p1:typeType"/>
+	<valueType name="unknownType" base="xs:string" variety="Atomic">
+		<enumeration>unknown</enumeration>
+	</valueType>
+	<valueType name="versionType" base="xs:string" variety="Atomic">
+		<enumeration>1.0</enumeration>
+		<enumeration>2.0</enumeration>
+	</valueType>
+	<objectType name="bodyType">
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="outline" type="d3p1:outlineWithTypeType" upperBound="-1"/>
+	</objectType>
+	<objectType name="headType">
+		<property name="title" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="dateCreated" type="d3p1:rfc822Type" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="dateModified" type="d3p1:rfc822Type" lowerBound="0"/>
+		<property name="ownerName" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="ownerEmail" type="d3p1:tEmailAddress" lowerBound="0"/>
+		<property name="ownerId" type="xs:anyURI" lowerBound="0"/>
+		<property name="docs" type="xs:anyURI" lowerBound="0"/>
+		<property name="expansionState" type="xs:string" lowerBound="0"/>
+		<property name="vertScrollState" type="xs:positiveInteger" lowerBound="0"/>
+		<property name="windowTop" type="xs:integer" lowerBound="0"/>
+		<property name="windowLeft" type="xs:integer" lowerBound="0"/>
+		<property name="windowBottom" type="xs:integer" lowerBound="0"/>
+		<property name="windowRight" type="xs:integer" lowerBound="0"/>
+	</objectType>
+	<objectType name="opmlType">
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="version" type="d3p1:versionType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="head" type="d3p1:headType"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="body" type="d3p1:bodyType"/>
+	</objectType>
+	<objectType name="outlineType" mixed="true" sequenced="true">
+		<property name="text" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="isComment" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="isBreakpoint" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="created" type="d3p1:rfc822Type" lowerBound="0" form="Attribute"/>
+		<property name="category" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="description" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="url" type="xs:anyURI" lowerBound="0" form="Attribute"/>
+		<property name="htmlUrl" type="xs:anyURI" lowerBound="0" form="Attribute"/>
+		<property name="xmlUrl" type="xs:anyURI" lowerBound="0" form="Attribute"/>
+		<property name="title" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="version" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://www.dlese.org/Metadata/opml" name="language" type="d3p1:union.languageType" lowerBound="0" form="Attribute"/>
+	</objectType>
+	<objectType xmlns:d2p1="http://www.dlese.org/Metadata/opml" name="outlineWithTypeType" base="d2p1:outlineType" mixed="true" sequenced="true">
+		<property name="type" type="d2p1:union.typeType" lowerBound="0" fixed="false" default="text" form="Attribute"/>
+		<property name="outline" type="d2p1:outlineWithTypeType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+</package>

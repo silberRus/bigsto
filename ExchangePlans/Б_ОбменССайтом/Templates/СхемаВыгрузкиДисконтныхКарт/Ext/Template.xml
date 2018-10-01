@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ОсновнойНаборДанных</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Объект</dataPath>
+			<field>Объект</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТипОбъекта</dataPath>
+			<field>ТипОбъекта</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидДисконтнойКарты</dataPath>
+			<field>ВидДисконтнойКарты</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДисконтнаяКарта</dataPath>
+			<field>ДисконтнаяКарта</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	КартыЛояльности.Ссылка КАК ДисконтнаяКарта,
+	"ДисконтнаяКарта" КАК ТипОбъекта
+ПОМЕСТИТЬ ВремДисконтныеКарты
+ИЗ
+	Справочник.КартыЛояльности КАК КартыЛояльности
+ГДЕ
+	ВЫБОР
+			КОГДА &amp;ПолнаяВыгрузка
+				ТОГДА ИСТИНА
+			ИНАЧЕ КартыЛояльности.Ссылка В
+					(ВЫБРАТЬ
+						КартыЛояльностиИзменения.Ссылка
+					ИЗ
+						Справочник.КартыЛояльности.Изменения КАК КартыЛояльностиИзменения
+					ГДЕ
+						КартыЛояльностиИзменения.Узел = &amp;Узел)
+		КОНЕЦ
+	И &amp;НадоВыгружатьКартыЛояльности = ИСТИНА
+{ГДЕ
+	КартыЛояльности.Ссылка.* КАК ДисконтнаяКарта,
+	КартыЛояльности.Владелец.* КАК ВидДисконтнойКарты}
+
+ИНДЕКСИРОВАТЬ ПО
+	ДисконтнаяКарта
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	ВремДисконтныеКарты.ДисконтнаяКарта.Владелец КАК ВидДисконтнойКарты,
+	"ВидДисконтнойКарты" КАК ТипОбъекта
+ПОМЕСТИТЬ ВремВидыДисконтныхКарт
+ИЗ
+	ВремДисконтныеКарты КАК ВремДисконтныеКарты
+ГДЕ
+	&amp;НадоВыгружатьВидыКартЛояльности = ИСТИНА
+
+ИНДЕКСИРОВАТЬ ПО
+	ВидДисконтнойКарты
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ВремДисконтныеКарты.ДисконтнаяКарта КАК Объект,
+	ВремДисконтныеКарты.ТипОбъекта КАК ТипОбъекта
+ИЗ
+	ВремДисконтныеКарты КАК ВремДисконтныеКарты
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВремВидыДисконтныхКарт.ВидДисконтнойКарты,
+	ВремВидыДисконтныхКарт.ТипОбъекта
+ИЗ
+	ВремВидыДисконтныхКарт КАК ВремВидыДисконтныхКарт
+;
+
+////////////////////////////////////////////////////////////////////////////////
+УНИЧТОЖИТЬ ВремДисконтныеКарты
+;
+
+////////////////////////////////////////////////////////////////////////////////
+УНИЧТОЖИТЬ ВремВидыДисконтныхКарт</query>
+	</dataSet>
+	<parameter>
+		<name>НадоВыгружатьКартыЛояльности</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Надо выгружать карты лояльности</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ПолнаяВыгрузка</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Полная выгрузка</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>Узел</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Узел</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>НадоВыгружатьВидыКартЛояльности</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Надо выгружать виды карт лояльности</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Объект</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТипОбъекта</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ВидДисконтнойКарты</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>1abc8b31-a9c1-4284-8767-d255be6cc114</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ДисконтнаяКарта</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>23e53cbf-3f41-487d-bae4-1e7884fddbcd</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

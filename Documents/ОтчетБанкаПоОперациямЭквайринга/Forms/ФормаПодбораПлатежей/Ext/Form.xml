@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Подбор платежей</v8:content>
+		</v8:item>
+	</Title>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ПеренестиВДокумент" id="125">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<SkipOnInput>false</SkipOnInput>
+				<CommandName>Form.Command.ПеренестиВДокумент</CommandName>
+				<ExtendedTooltip name="ПеренестиВДокументExtendedTooltip" id="140"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаШапка" id="172">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа шапка</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа организация</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаШапкаРасширеннаяПодсказка" id="173"/>
+			<ChildItems>
+				<InputField name="БанковскийСчет" id="174">
+					<DataPath>БанковскийСчет</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<HorizontalStretch>true</HorizontalStretch>
+					<Wrap>false</Wrap>
+					<ContextMenu name="БанковскийСчетКонтекстноеМеню" id="175"/>
+					<ExtendedTooltip name="БанковскийСчетРасширеннаяПодсказка" id="176"/>
+				</InputField>
+				<InputField name="Эквайер" id="177">
+					<DataPath>Эквайер</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<ContextMenu name="ЭквайерКонтекстноеМеню" id="178"/>
+					<ExtendedTooltip name="ЭквайерРасширеннаяПодсказка" id="179"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПлатежи" id="17">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Платежи</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа платежи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<ExtendedTooltip name="ГруппаПлатежиExtendedTooltip" id="144"/>
+			<ChildItems>
+				<Table name="ТаблицаПлатежей" id="8">
+					<Representation>List</Representation>
+					<SkipOnInput>false</SkipOnInput>
+					<ChangeRowSet>false</ChangeRowSet>
+					<ChangeRowOrder>false</ChangeRowOrder>
+					<Footer>true</Footer>
+					<UseAlternationRowColor>true</UseAlternationRowColor>
+					<AutoInsertNewRow>true</AutoInsertNewRow>
+					<InitialTreeView>ExpandAllLevels</InitialTreeView>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>ТаблицаПлатежей</DataPath>
+					<RowFilter xsi:nil="true"/>
+					<ContextMenu name="ТаблицаПлатежейКонтекстноеМеню" id="9">
+						<ChildItems>
+							<Button name="ОткрытьПлатежМеню" id="101">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>0</CommandName>
+								<ExtendedTooltip name="ОткрытьПлатежМенюExtendedTooltip" id="145"/>
+							</Button>
+						</ChildItems>
+					</ContextMenu>
+					<AutoCommandBar name="ТаблицаПлатежейКоманднаяПанель" id="10">
+						<Autofill>false</Autofill>
+						<ChildItems>
+							<Button name="ТаблицаПлатежейНайти" id="130">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.ТаблицаПлатежей.StandardCommand.Find</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейНайтиExtendedTooltip" id="146"/>
+							</Button>
+							<Button name="ТаблицаПлатежейОтменитьПоиск" id="131">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.ТаблицаПлатежей.StandardCommand.CancelSearch</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейОтменитьПоискExtendedTooltip" id="147"/>
+							</Button>
+							<Button name="ТаблицаПлатежейВыбратьПлатежи" id="126">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ВыбратьПлатежи</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейВыбратьПлатежиExtendedTooltip" id="148"/>
+							</Button>
+							<Button name="ТаблицаПлатежейИсключитьПлатежи" id="127">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ИсключитьПлатежи</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейИсключитьПлатежиExtendedTooltip" id="149"/>
+							</Button>
+							<Button name="ТаблицаПлатежейВыбратьВыделенныеПлатежи" id="128">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ВыбратьВыделенныеПлатежи</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейВыбратьВыделенныеПлатежиExtendedTooltip" id="150"/>
+							</Button>
+							<Button name="ТаблицаПлатежейИсключитьВыделенныеПлатежи" id="129">
+								<Type>CommandBarButton</Type>
+								<Representation>PictureAndText</Representation>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ИсключитьВыделенныеПлатежи</CommandName>
+								<ExtendedTooltip name="ТаблицаПлатежейИсключитьВыделенныеПлатежиExtendedTooltip" id="151"/>
+							</Button>
+						</ChildItems>
+					</AutoCommandBar>
+					<ExtendedTooltip name="ТаблицаПлатежейExtendedTooltip" id="152"/>
+					<SearchStringAddition name="ТаблицаПлатежейСтрокаПоиска" id="160">
+						<AdditionSource>
+							<Item>ТаблицаПлатежей</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ТаблицаПлатежейСтрокаПоискаКонтекстноеМеню" id="161"/>
+						<ExtendedTooltip name="ТаблицаПлатежейСтрокаПоискаРасширеннаяПодсказка" id="162"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="ТаблицаПлатежейСостояниеПросмотра" id="163">
+						<AdditionSource>
+							<Item>ТаблицаПлатежей</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ТаблицаПлатежейСостояниеПросмотраКонтекстноеМеню" id="164"/>
+						<ExtendedTooltip name="ТаблицаПлатежейСостояниеПросмотраРасширеннаяПодсказка" id="165"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="ТаблицаПлатежейУправлениеПоиском" id="166">
+						<AdditionSource>
+							<Item>ТаблицаПлатежей</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="ТаблицаПлатежейУправлениеПоискомКонтекстноеМеню" id="167"/>
+						<ExtendedTooltip name="ТаблицаПлатежейУправлениеПоискомРасширеннаяПодсказка" id="168"/>
+					</SearchControlAddition>
+					<ChildItems>
+						<CheckBoxField name="ТаблицаПлатежейВыбран" id="109">
+							<DataPath>ТаблицаПлатежей.Выбран</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="ТаблицаПлатежейВыбранКонтекстноеМеню" id="110"/>
+							<ExtendedTooltip name="ТаблицаПлатежейВыбранExtendedTooltip" id="153"/>
+						</CheckBoxField>
+						<InputField name="ТаблицаПлатежейДатаПлатежа" id="113">
+							<DataPath>ТаблицаПлатежей.ДатаПлатежа</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Wrap>false</Wrap>
+							<ContextMenu name="ТаблицаПлатежейДатаПлатежаКонтекстноеМеню" id="114"/>
+							<ExtendedTooltip name="ТаблицаПлатежейДатаПлатежаExtendedTooltip" id="154"/>
+						</InputField>
+						<InputField name="ТаблицаПлатежейСумма" id="115">
+							<DataPath>ТаблицаПлатежей.Сумма</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<FooterDataPath>СуммаВсего</FooterDataPath>
+							<FooterFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<Wrap>false</Wrap>
+							<ContextMenu name="ТаблицаПлатежейСуммаКонтекстноеМеню" id="116"/>
+							<ExtendedTooltip name="ТаблицаПлатежейСуммаExtendedTooltip" id="155"/>
+						</InputField>
+						<InputField name="ТаблицаПлатежейВалюта" id="136">
+							<DataPath>ТаблицаПлатежей.Валюта</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ТаблицаПлатежейВалютаКонтекстноеМеню" id="137"/>
+							<ExtendedTooltip name="ТаблицаПлатежейВалютаExtendedTooltip" id="156"/>
+						</InputField>
+						<InputField name="ТаблицаПлатежейНомерПлатежнойКарты" id="132">
+							<DataPath>ТаблицаПлатежей.НомерПлатежнойКарты</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ТаблицаПлатежейНомерПлатежнойКартыКонтекстноеМеню" id="133"/>
+							<ExtendedTooltip name="ТаблицаПлатежейНомерПлатежнойКартыExtendedTooltip" id="158"/>
+						</InputField>
+						<InputField name="ТаблицаПлатежейЭквайринговыйТерминал" id="138">
+							<DataPath>ТаблицаПлатежей.ЭквайринговыйТерминал</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ТаблицаПлатежейЭквайринговыйТерминалКонтекстноеМеню" id="139"/>
+							<ExtendedTooltip name="ТаблицаПлатежейЭквайринговыйТерминалExtendedTooltip" id="159"/>
+						</InputField>
+						<InputField name="ТаблицаПлатежейКодАвторизации" id="169">
+							<DataPath>ТаблицаПлатежей.КодАвторизации</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ТаблицаПлатежейКодАвторизацииКонтекстноеМеню" id="170"/>
+							<ExtendedTooltip name="ТаблицаПлатежейКодАвторизацииРасширеннаяПодсказка" id="171"/>
+						</InputField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="АдресПлатежейВХранилище" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес платежей в хранилище</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ТаблицаПлатежей" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица платежей</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Выбран" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Выбран</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ДатаПлатежа" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дата платежа</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:dateTime</v8:Type>
+						<v8:DateQualifiers>
+							<v8:DateFractions>Date</v8:DateFractions>
+						</v8:DateQualifiers>
+					</Type>
+				</Column>
+				<Column name="Сумма" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сумма</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>2</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЭквайринговыйТерминал" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Эквайринговый терминал</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.ЭквайринговыеТерминалы</v8:Type>
+					</Type>
+				</Column>
+				<Column name="НомерПлатежнойКарты" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер платежной карты</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>22</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Валюта" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Валюта</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Валюты</v8:Type>
+					</Type>
+				</Column>
+				<Column name="КодАвторизации" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Код авторизации</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>6</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="Организация" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПодборВходящихПлатежей" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подбор входящих платежей</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="СуммаВсего" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма всего</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>2</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="Валюта" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Валюта</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Валюты</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="БанковскийСчет" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Банковский счет</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.БанковскиеСчетаОрганизаций</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Эквайер" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Эквайер</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Контрагенты</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ПеренестиВДокумент" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Перенести в документ</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Перенести в документ</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПеренестиВДокумент</Action>
+		</Command>
+		<Command name="ВыбратьПлатежи" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать платежи</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать платежи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.CheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ВыбратьПлатежи</Action>
+			<Representation>Picture</Representation>
+		</Command>
+		<Command name="ИсключитьПлатежи" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Исключить платежи</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Исключить платежи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.UncheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ИсключитьПлатежи</Action>
+		</Command>
+		<Command name="ВыбратьВыделенныеПлатежи" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать выделенные</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать выделенные платежи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыбратьВыделенныеПлатежи</Action>
+		</Command>
+		<Command name="ИсключитьВыделенныеПлатежи" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Исключить выделенные</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Исключить выделенные платежи</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ИсключитьВыделенныеПлатежи</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="Организация">
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="АдресПлатежейВХранилище">
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Parameter>
+		<Parameter name="ПодборВходящихПлатежей">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="Валюта">
+			<Type>
+				<v8:Type>cfg:CatalogRef.Валюты</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="БанковскийСчет">
+			<Type>
+				<v8:Type>cfg:CatalogRef.БанковскиеСчетаОрганизаций</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="Эквайер">
+			<Type>
+				<v8:Type>cfg:CatalogRef.Контрагенты</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

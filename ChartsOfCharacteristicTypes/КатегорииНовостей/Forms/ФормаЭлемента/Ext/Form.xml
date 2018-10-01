@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<Customizable>false</Customizable>
+	<UseForFoldersAndItems>Items</UseForFoldersAndItems>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаЗаписатьИЗакрыть" id="85">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.WriteAndClose</CommandName>
+				<ExtendedTooltip name="ФормаЗаписатьИЗакрытьРасширеннаяПодсказка" id="86"/>
+			</Button>
+			<Button name="ФормаЗаписать" id="87">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.Write</CommandName>
+				<ExtendedTooltip name="ФормаЗаписатьРасширеннаяПодсказка" id="88"/>
+			</Button>
+			<Button name="ФормаСправка" id="89">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="90"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="AfterWrite">ПослеЗаписи</Event>
+		<Event name="AfterWriteAtServer">ПослеЗаписиНаСервере</Event>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="NewWriteProcessing">ОбработкаЗаписиНового</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<LabelField name="ЗагруженоССервера" id="113">
+			<DataPath>Объект.ЗагруженоССервера</DataPath>
+			<Visible>false</Visible>
+			<TitleTextColor>style:SpecialTextColor</TitleTextColor>
+			<TitleFont ref="sys:DefaultGUIFont" bold="false" italic="true" underline="false" strikeout="false" kind="WindowsFont"/>
+			<TitleLocation>None</TitleLocation>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<HorizontalStretch>true</HorizontalStretch>
+			<Format>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>БЛ=; БИ='Эта категория загружена с сервера 1С. Настройка недоступна.'</v8:content>
+				</v8:item>
+			</Format>
+			<TextColor>style:ЦветМикротекста</TextColor>
+			<Font ref="style:ШрифтМикротекста" kind="StyleItem"/>
+			<ContextMenu name="ЗагруженоССервераКонтекстноеМеню" id="114"/>
+			<ExtendedTooltip name="ЗагруженоССервераExtendedTooltip" id="115"/>
+		</LabelField>
+		<InputField name="Код" id="1">
+			<DataPath>Объект.Code</DataPath>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Допустимы только английские символы, цифры, подчеркивание и минус</v8:content>
+				</v8:item>
+			</ToolTip>
+			<EditMode>EnterOnInput</EditMode>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<ContextMenu name="КодКонтекстноеМеню" id="2"/>
+			<ExtendedTooltip name="КодExtendedTooltip" id="63"/>
+		</InputField>
+		<InputField name="Наименование" id="4">
+			<DataPath>Объект.Description</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<ContextMenu name="НаименованиеКонтекстноеМеню" id="5"/>
+			<ExtendedTooltip name="НаименованиеExtendedTooltip" id="64"/>
+		</InputField>
+		<InputField name="Родитель" id="7">
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="РодительКонтекстноеМеню" id="8"/>
+			<ExtendedTooltip name="РодительExtendedTooltip" id="65"/>
+		</InputField>
+		<CheckBoxField name="ОтборНастраиваетсяНаСервере" id="61">
+			<DataPath>Объект.ОтборНастраиваетсяНаСервере</DataPath>
+			<TitleLocation>Left</TitleLocation>
+			<TitleHeight>2</TitleHeight>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отбор по этой категории может настраиваться на сервере.
+Это полезно для уменьшения трафика.
+В качестве условия сравнения в строке подключения используется поле Идентификатор.</v8:content>
+				</v8:item>
+			</ToolTip>
+			<ToolTipRepresentation>ShowRight</ToolTipRepresentation>
+			<CheckBoxType>Auto</CheckBoxType>
+			<ContextMenu name="ОтборНастраиваетсяНаСервереКонтекстноеМеню" id="62"/>
+			<ExtendedTooltip name="ОтборНастраиваетсяНаСервереExtendedTooltip" id="66">
+				<HorizontalStretch>true</HorizontalStretch>
+			</ExtendedTooltip>
+		</CheckBoxField>
+		<CheckBoxField name="ЗаполняетсяАвтоматически" id="42">
+			<DataPath>Объект.ЗаполняетсяАвтоматически</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполняется
+автоматически</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Left</TitleLocation>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Значение этой категории будет браться из свойств конфигурации,
+то есть для него нет списка значений, заполняемого вручную.
+Значение этой категории равно </v8:content>
+				</v8:item>
+			</ToolTip>
+			<ToolTipRepresentation>ShowRight</ToolTipRepresentation>
+			<CheckBoxType>Auto</CheckBoxType>
+			<ContextMenu name="ЗаполняетсяАвтоматическиКонтекстноеМеню" id="43"/>
+			<ExtendedTooltip name="ЗаполняетсяАвтоматическиExtendedTooltip" id="67">
+				<HorizontalStretch>true</HorizontalStretch>
+			</ExtendedTooltip>
+			<Events>
+				<Event name="OnChange">ЗаполняетсяАвтоматическиПриИзменении</Event>
+			</Events>
+		</CheckBoxField>
+		<CheckBoxField name="ОбновляетсяССервера" id="50">
+			<DataPath>Объект.ОбновляетсяССервера</DataPath>
+			<UserVisible>
+				<xr:Common>false</xr:Common>
+			</UserVisible>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновляется
+с сервера</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Left</TitleLocation>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Значения этой категории обновляются автоматически,
+вручную править список доступных значений не обязательно</v8:content>
+				</v8:item>
+			</ToolTip>
+			<CheckBoxType>Auto</CheckBoxType>
+			<ContextMenu name="ОбновляетсяССервераКонтекстноеМеню" id="51"/>
+			<ExtendedTooltip name="ОбновляетсяССервераExtendedTooltip" id="68"/>
+			<Events>
+				<Event name="OnChange">ОбновляетсяССервераПриИзменении</Event>
+			</Events>
+		</CheckBoxField>
+		<InputField name="ТипЗначенияВспомогательный" id="10">
+			<DataPath>Объект.ТипЗначенияВспомогательный</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<ChooseType>false</ChooseType>
+			<TypeDomainEnabled>false</TypeDomainEnabled>
+			<AvailableTypes>
+				<v8:Type>xs:boolean</v8:Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:Type>cfg:CatalogRef.ЗначенияКатегорийНовостей</v8:Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>0</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+				<v8:DateQualifiers>
+					<v8:DateFractions>DateTime</v8:DateFractions>
+				</v8:DateQualifiers>
+			</AvailableTypes>
+			<ContextMenu name="ТипЗначенияВспомогательныйКонтекстноеМеню" id="11"/>
+			<ExtendedTooltip name="ТипЗначенияВспомогательныйExtendedTooltip" id="69"/>
+			<Events>
+				<Event name="OnChange">ТипЗначенияВспомогательныйПриИзменении</Event>
+			</Events>
+		</InputField>
+		<Pages name="ГруппаЗначенияКатегорий" id="13">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Значения категорий</v8:content>
+				</v8:item>
+			</Title>
+			<PagesRepresentation>None</PagesRepresentation>
+			<ExtendedTooltip name="ГруппаЗначенияКатегорийExtendedTooltip" id="70"/>
+			<ChildItems>
+				<Page name="СтраницаПустая" id="45">
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="СтраницаПустаяExtendedTooltip" id="71"/>
+					<ChildItems>
+						<LabelDecoration name="ДекорацияСтраницаПустая" id="47">
+							<Enabled>false</Enabled>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<AutoMaxHeight>false</AutoMaxHeight>
+							<HorizontalStretch>true</HorizontalStretch>
+							<VerticalStretch>true</VerticalStretch>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Чтобы заполнить список доступных значений, установите тип значения в "Значения категорий новостей"</v8:content>
+								</v8:item>
+							</Title>
+							<VerticalAlign>Top</VerticalAlign>
+							<ContextMenu name="ДекорацияСтраницаПустаяКонтекстноеМеню" id="48"/>
+							<ExtendedTooltip name="ДекорацияСтраницаПустаяExtendedTooltip" id="72"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаСправочник" id="15">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Категории новостей</v8:content>
+						</v8:item>
+					</Title>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="СтраницаСправочникExtendedTooltip" id="73"/>
+					<ChildItems>
+						<LabelDecoration name="ДекорацияТребуетсяОбновлениеССервера" id="55">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<AutoMaxHeight>false</AutoMaxHeight>
+							<HorizontalStretch>true</HorizontalStretch>
+							<VerticalAlign>Top</VerticalAlign>
+							<ContextMenu name="ДекорацияТребуетсяОбновлениеССервераКонтекстноеМеню" id="56"/>
+							<ExtendedTooltip name="ДекорацияТребуетсяОбновлениеССервераExtendedTooltip" id="74"/>
+							<Events>
+								<Event name="URLProcessing">ДекорацияТребуетсяОбновлениеССервераОбработкаНавигационнойСсылки</Event>
+							</Events>
+						</LabelDecoration>
+						<Table name="ЗначенияКатегорийНовостейСправочник" id="29">
+							<Representation>Tree</Representation>
+							<TitleLocation>Top</TitleLocation>
+							<UseAlternationRowColor>true</UseAlternationRowColor>
+							<InitialListView>Beginning</InitialListView>
+							<InitialTreeView>ExpandTopLevel</InitialTreeView>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>ЗначенияКатегорийНовостейСправочник</DataPath>
+							<RowPictureDataPath>ЗначенияКатегорийНовостейСправочник.DefaultPicture</RowPictureDataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Список доступных значений</v8:content>
+								</v8:item>
+							</Title>
+							<TitleTextColor>style:ЦветМикротекста</TitleTextColor>
+							<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<CommandSet>
+								<ExcludedCommand>Choose</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>DynamicListStandardSettings</ExcludedCommand>
+							</CommandSet>
+							<SearchStringLocation>None</SearchStringLocation>
+							<ViewStatusLocation>None</ViewStatusLocation>
+							<SearchControlLocation>None</SearchControlLocation>
+							<AutoRefresh>false</AutoRefresh>
+							<AutoRefreshPeriod>60</AutoRefreshPeriod>
+							<Period>
+								<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+								<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+								<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+							</Period>
+							<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+							<RestoreCurrentRow>true</RestoreCurrentRow>
+							<TopLevelParent xsi:nil="true"/>
+							<ShowRoot>true</ShowRoot>
+							<AllowRootChoice>false</AllowRootChoice>
+							<UpdateOnDataChange>Auto</UpdateOnDataChange>
+							<ContextMenu name="ЗначенияКатегорийНовостейСправочникКонтекстноеМеню" id="30"/>
+							<AutoCommandBar name="ЗначенияКатегорийНовостейСправочникКоманднаяПанель" id="31">
+								<Autofill>false</Autofill>
+								<ChildItems>
+									<Button name="ЗначенияКатегорийНовостейСправочникСоздать" id="79">
+										<Type>CommandBarButton</Type>
+										<OnlyInAllActions>true</OnlyInAllActions>
+										<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.Create</CommandName>
+										<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникСоздатьРасширеннаяПодсказка" id="80"/>
+									</Button>
+									<Button name="ЗначенияКатегорийНовостейСправочникСкопировать" id="81">
+										<Type>CommandBarButton</Type>
+										<OnlyInAllActions>true</OnlyInAllActions>
+										<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.Copy</CommandName>
+										<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникСкопироватьРасширеннаяПодсказка" id="82"/>
+									</Button>
+									<Button name="ЗначенияКатегорийНовостейСправочникУстановитьПометкуУдаления" id="83">
+										<Type>CommandBarButton</Type>
+										<OnlyInAllActions>true</OnlyInAllActions>
+										<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.SetDeletionMark</CommandName>
+										<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникУстановитьПометкуУдаленияРасширеннаяПодсказка" id="84"/>
+									</Button>
+									<Popup name="ЗначенияКатегорийНовостейСправочникГруппаПросмотр" id="94">
+										<Title>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>Просмотр</v8:content>
+											</v8:item>
+										</Title>
+										<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникГруппаПросмотрРасширеннаяПодсказка" id="95"/>
+										<ChildItems>
+											<Button name="ЗначенияКатегорийНовостейСправочникСписок" id="96">
+												<Type>CommandBarButton</Type>
+												<OnlyInAllActions>true</OnlyInAllActions>
+												<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.List</CommandName>
+												<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникСписокРасширеннаяПодсказка" id="97"/>
+											</Button>
+											<Button name="ЗначенияКатегорийНовостейСправочникИерархическийСписок" id="98">
+												<Type>CommandBarButton</Type>
+												<OnlyInAllActions>true</OnlyInAllActions>
+												<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.HierarchicalList</CommandName>
+												<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникИерархическийСписокРасширеннаяПодсказка" id="99"/>
+											</Button>
+											<Button name="ЗначенияКатегорийНовостейСправочникДерево" id="100">
+												<Type>CommandBarButton</Type>
+												<OnlyInAllActions>true</OnlyInAllActions>
+												<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.Tree</CommandName>
+												<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникДеревоРасширеннаяПодсказка" id="101"/>
+											</Button>
+										</ChildItems>
+									</Popup>
+									<Button name="ЗначенияКатегорийНовостейСправочникПеренестиЭлемент" id="102">
+										<Type>CommandBarButton</Type>
+										<OnlyInAllActions>true</OnlyInAllActions>
+										<CommandName>Form.Item.ЗначенияКатегорийНовостейСправочник.StandardCommand.MoveItem</CommandName>
+										<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникПеренестиЭлементРасширеннаяПодсказка" id="103"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникExtendedTooltip" id="75"/>
+							<SearchStringAddition name="ЗначенияКатегорийНовостейСправочникСтрокаПоиска" id="104">
+								<AdditionSource>
+									<Item>ЗначенияКатегорийНовостейСправочник</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗначенияКатегорийНовостейСправочникСтрокаПоискаКонтекстноеМеню" id="105"/>
+								<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникСтрокаПоискаРасширеннаяПодсказка" id="106"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ЗначенияКатегорийНовостейСправочникСостояниеПросмотра" id="107">
+								<AdditionSource>
+									<Item>ЗначенияКатегорийНовостейСправочник</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗначенияКатегорийНовостейСправочникСостояниеПросмотраКонтекстноеМеню" id="108"/>
+								<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникСостояниеПросмотраРасширеннаяПодсказка" id="109"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ЗначенияКатегорийНовостейСправочникУправлениеПоиском" id="110">
+								<AdditionSource>
+									<Item>ЗначенияКатегорийНовостейСправочник</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗначенияКатегорийНовостейСправочникУправлениеПоискомКонтекстноеМеню" id="111"/>
+								<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникУправлениеПоискомРасширеннаяПодсказка" id="112"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<LabelField name="ЗначенияКатегорийНовостейСправочникНаименование" id="33">
+									<DataPath>ЗначенияКатегорийНовостейСправочник.Description</DataPath>
+									<ContextMenu name="ЗначенияКатегорийНовостейСправочникНаименованиеКонтекстноеМеню" id="34"/>
+									<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникНаименованиеExtendedTooltip" id="76"/>
+								</LabelField>
+								<LabelField name="ЗначенияКатегорийНовостейСправочникКод" id="36">
+									<DataPath>ЗначенияКатегорийНовостейСправочник.Code</DataPath>
+									<ContextMenu name="ЗначенияКатегорийНовостейСправочникКодКонтекстноеМеню" id="37"/>
+									<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникКодExtendedTooltip" id="77"/>
+								</LabelField>
+								<LabelField name="ЗначенияКатегорийНовостейСправочникРодитель" id="91">
+									<DataPath>ЗначенияКатегорийНовостейСправочник.Parent</DataPath>
+									<UserVisible>
+										<xr:Common>false</xr:Common>
+									</UserVisible>
+									<ContextMenu name="ЗначенияКатегорийНовостейСправочникРодительКонтекстноеМеню" id="92"/>
+									<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникРодительРасширеннаяПодсказка" id="93"/>
+								</LabelField>
+								<LabelField name="ЗначенияКатегорийНовостейСправочникВладелец" id="39">
+									<DataPath>ЗначенияКатегорийНовостейСправочник.Owner</DataPath>
+									<UserVisible>
+										<xr:Common>false</xr:Common>
+									</UserVisible>
+									<ContextMenu name="ЗначенияКатегорийНовостейСправочникВладелецКонтекстноеМеню" id="40"/>
+									<ExtendedTooltip name="ЗначенияКатегорийНовостейСправочникВладелецExtendedTooltip" id="78"/>
+								</LabelField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:ChartOfCharacteristicTypesObject.КатегорииНовостей</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+		</Attribute>
+		<Attribute name="ЗначенияКатегорийНовостейСправочник" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Значения категорий новостей, справочник</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<UseAlways>
+				<Field>ЗначенияКатегорийНовостейСправочник.Owner</Field>
+				<Field>ЗначенияКатегорийНовостейСправочник.Parent</Field>
+				<Field>ЗначенияКатегорийНовостейСправочник.Ref</Field>
+			</UseAlways>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>false</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<MainTable>Catalog.ЗначенияКатегорийНовостей</MainTable>
+				<AutoSaveUserSettings>false</AutoSaveUserSettings>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:left xsi:type="dcscor:Field">Владелец</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">ПланВидовХарактеристик.КатегорииНовостей.ПустаяСсылка</dcsset:right>
+							<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="РольДоступнаАдминистратор" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Есть административная роль</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ОткрытаИзОбработки_УправлениеНовостями" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыта из обработки "Управление новостями"</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<CommandInterface>
+		<NavigationPanel>
+			<Item>
+				<Command>4:9e2a3552-9604-4beb-be5f-f4adbdfa28c7</Command>
+				<Type>Auto</Type>
+				<CommandGroup>FormNavigationPanelGoTo</CommandGroup>
+				<DefaultVisible>false</DefaultVisible>
+				<Visible>
+					<xr:Common>false</xr:Common>
+				</Visible>
+			</Item>
+		</NavigationPanel>
+		<CommandBar>
+			<Item>
+				<Command>0:f2f983ff-7326-4cbe-ad01-a162b3033d82</Command>
+				<Type>Auto</Type>
+				<CommandGroup>FormCommandBarImportant</CommandGroup>
+				<DefaultVisible>false</DefaultVisible>
+				<Visible>
+					<xr:Common>true</xr:Common>
+					<xr:Value name="Role.ПолныеПрава">false</xr:Value>
+					<xr:Value name="6e0df5d0-bfb9-4b96-8ec2-3710824700c5">true</xr:Value>
+					<xr:Value name="Role.РежимВсеФункции">false</xr:Value>
+					<xr:Value name="Role.ЗапускТонкогоКлиента">false</xr:Value>
+					<xr:Value name="Role.ЗапускВебКлиента">false</xr:Value>
+					<xr:Value name="Role.ЧтениеНовостей">false</xr:Value>
+				</Visible>
+			</Item>
+		</CommandBar>
+	</CommandInterface>
+</Form>

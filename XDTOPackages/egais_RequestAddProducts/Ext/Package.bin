@@ -1,0 +1,33 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/RequestAddProducts" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/CommonEnum"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef_v2"/>
+	<valueType name="UnpackedType" base="xs:integer" variety="Atomic">
+		<enumeration>0</enumeration>
+		<enumeration>1</enumeration>
+	</valueType>
+	<objectType name="RequestAddProducts" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ClientId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="RequestNumber" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property name="RequestDate" type="xs:date" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/RequestAddProducts" name="Content" type="d3p1:RequestAddSSPPositionType"/>
+	</objectType>
+	<objectType name="RequestAddSSPPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Producer" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="Type" type="d3p1:ProductType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/CommonEnum" name="VidCode" type="d3p1:Digits3" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/CommonEnum" name="CountryCode" type="d3p1:Digits3" nillable="false"/>
+		<property name="FullName" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="ShortName" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="64"/>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/RequestAddProducts" name="Unpacked_Flag" type="d3p1:UnpackedType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Capacity" type="d3p1:PositiveDecimalType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="PERCENT_ALC" type="d3p1:PositiveDecimalType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="PERCENT_ALC_min" type="d3p1:PositiveDecimalType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="PERCENT_ALC_max" type="d3p1:PositiveDecimalType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="FRAPID" type="d3p1:NoEmptyString50" lowerBound="0" nillable="false"/>
+	</objectType>
+</package>

@@ -1,0 +1,767 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.1c.ru/CustomerOrders/Exchange" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://v8.1c.ru/8.1/data/core"/>
+	<import namespace="http://v8.1c.ru/8.1/data/enterprise"/>
+	<valueType name="DocumentRef.ЗаданиеТорговомуПредставителю"/>
+	<valueType name="DocumentRef.ЗаказКлиента"/>
+	<valueType name="DocumentRef.ЗаявкаНаВозвратТоваровОтКлиента"/>
+	<valueType name="DocumentRef.ОплатаКлиента"/>
+	<valueType name="EnumRef.СистемыНалогообложения" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>Общая</enumeration>
+		<enumeration>Упрощенная</enumeration>
+	</valueType>
+	<valueType name="EnumRef.СтавкиНДС" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>НДС18</enumeration>
+		<enumeration>НДС18_118</enumeration>
+		<enumeration>НДС10</enumeration>
+		<enumeration>НДС10_110</enumeration>
+		<enumeration>НДС0</enumeration>
+		<enumeration>БезНДС</enumeration>
+	</valueType>
+	<valueType name="EnumRef.ТипыЗначенийДополнительныхРеквизитов" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>Булево</enumeration>
+		<enumeration>Дата</enumeration>
+		<enumeration>Строка</enumeration>
+		<enumeration>Число</enumeration>
+		<enumeration>СправочникСсылкаЗначенияСвойствОбъектов</enumeration>
+		<enumeration>СправочникСсылкаЗначенияСвойствОбъектовИерархия</enumeration>
+	</valueType>
+	<valueType name="EnumRef.ТипыКонтактнойИнформации" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>Адрес</enumeration>
+		<enumeration>Телефон</enumeration>
+		<enumeration>АдресЭлектроннойПочты</enumeration>
+		<enumeration xsi:type="xs:string">Skype</enumeration>
+		<enumeration>ВебСтраница</enumeration>
+		<enumeration>Факс</enumeration>
+		<enumeration>Другое</enumeration>
+	</valueType>
+	<valueType name="EnumRef.ФормыОплаты" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>Наличная</enumeration>
+		<enumeration>Безналичная</enumeration>
+		<enumeration>ПлатежнаяКарта</enumeration>
+		<enumeration>Взаимозачет</enumeration>
+	</valueType>
+	<valueType name="EnumRef.ЮрФизЛицо" base="xs:string" variety="Atomic">
+		<enumeration/>
+		<enumeration>ЮрЛицо</enumeration>
+		<enumeration>ФизЛицо</enumeration>
+		<enumeration>ЮрЛицоНеРезидент</enumeration>
+		<enumeration>ИндивидуальныйПредприниматель</enumeration>
+	</valueType>
+	<valueType name="ДокументОснованиеЗаявка" variety="Union" memberTypes="{http://www.1c.ru/CustomerOrders/Exchange}DocumentRef.ЗаказКлиента {http://www.1c.ru/CustomerOrders/Exchange}DocumentRef.ЗаданиеТорговомуПредставителю"/>
+	<objectType name="CatalogObject.Валюты">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Code" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="CatalogObject.ВидыКонтактнойИнформации">
+		<property name="IsFolder" type="xs:boolean"/>
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Тип" type="d3p1:EnumRef.ТипыКонтактнойИнформации"/>
+		<property name="РеквизитДопУпорядочивания" type="xs:decimal" lowerBound="0"/>
+		<property name="РедактированиеТолькоВДиалоге" type="xs:boolean"/>
+		<property name="МожноИзменятьСпособРедактирования" type="xs:boolean"/>
+		<property name="АдресТолькоРоссийский" type="xs:boolean"/>
+		<property name="ВключатьСтрануВПредставление" type="xs:boolean"/>
+		<property name="ОбязательноеЗаполнение" type="xs:boolean"/>
+		<property name="ПроверятьКорректность" type="xs:boolean"/>
+		<property name="СкрыватьНеактуальныеАдреса" type="xs:boolean"/>
+		<property name="Подсказка" type="xs:string" lowerBound="0" nillable="true"/>
+		<property name="РазрешитьВводНесколькихЗначений" type="xs:boolean"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ЗапрещатьВводНекорректного" type="xs:boolean"/>
+	</objectType>
+	<objectType name="CatalogObject.ВидыНоменклатуры">
+		<property name="IsFolder" type="xs:boolean"/>
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogObject.ВидыЦен">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ВалютаЦены" type="xs:string"/>
+		<property name="ЦенаВключаетНДС" type="xs:boolean"/>
+	</objectType>
+	<objectType name="CatalogObject.ДоговорыКлиентов">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКодДоговора" type="xs:string"/>
+		<property name="ERPКодСоглашения" type="xs:string"/>
+		<property name="ВалютаВзаиморасчетов" type="xs:string"/>
+		<property name="ВидЦены" type="xs:string"/>
+		<property name="Дата" type="xs:dateTime"/>
+		<property name="Действует" type="xs:boolean"/>
+		<property name="Клиент" type="xs:string"/>
+		<property name="Комиссия" type="xs:boolean"/>
+		<property name="Контрагент" type="xs:string"/>
+		<property name="Номер" type="xs:string"/>
+		<property name="Организация" type="xs:string"/>
+		<property name="Пояснение" type="xs:string"/>
+		<property name="Склад" type="xs:string"/>
+		<property name="УникальныйКлюч" type="xs:string"/>
+		<property name="Типовое" type="xs:boolean"/>
+		<property name="ЕстьУточнениеЦен" type="xs:boolean"/>
+		<property name="ИспользуютсяДоговорыКонтрагентов" type="xs:boolean"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ФормаОплаты" type="d3p1:EnumRef.ФормыОплаты" nillable="true"/>
+		<property name="РасчетыПоДоговору" type="xs:boolean"/>
+		<property name="СуммаДолгаПоДоговору" type="xs:decimal"/>
+	</objectType>
+	<objectType name="CatalogObject.ДополнительныеРеквизитыИСведения">
+		<property name="Ref" type="xs:anyType"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="Виден" type="xs:boolean"/>
+		<property name="ВладелецДополнительныхЗначений" type="xs:anyType"/>
+		<property name="ДополнительныеЗначенияИспользуются" type="xs:boolean"/>
+		<property name="ДополнительныеЗначенияСВесом" type="xs:boolean"/>
+		<property name="Доступен" type="xs:boolean"/>
+		<property name="Заголовок" type="xs:string"/>
+		<property name="ЗаголовокФормыВыбораЗначения" type="xs:string"/>
+		<property name="ЗаголовокФормыЗначения" type="xs:string"/>
+		<property name="ЗаполнятьОбязательно" type="xs:boolean"/>
+		<property name="МногострочноеПолеВвода" type="xs:decimal"/>
+		<property name="НаборСвойств" type="xs:anyType"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ТипЗначения" type="d3p1:EnumRef.ТипыЗначенийДополнительныхРеквизитов"/>
+		<property name="ФорматСвойства" type="xs:string"/>
+		<property name="ЭтоДополнительноеСведение" type="xs:boolean"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ЗависимостиДополнительныхРеквизитов" type="d3p1:CatalogTabularSectionRow.ДополнительныеРеквизитыИСведения.ЗависимостиДополнительныхРеквизитов" lowerBound="0" upperBound="99999"/>
+	</objectType>
+	<objectType name="CatalogObject.ЕдиницыИзмерения">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Code" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="МеждународноеСокращение" type="xs:string" nillable="true"/>
+		<property name="НаименованиеПолное" type="xs:string" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.ЗначенияСвойствОбъектов">
+		<property name="IsFolder" type="xs:boolean"/>
+		<property name="Ref" type="xs:anyType"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Owner" type="xs:string" nillable="true"/>
+		<property name="Parent" type="xs:string" nillable="true"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="Вес" type="xs:decimal" lowerBound="0"/>
+	</objectType>
+	<objectType name="CatalogObject.ЗначенияСвойствОбъектовИерархия">
+		<property name="Ref" type="xs:anyType"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Owner" type="xs:string" nillable="true"/>
+		<property name="Parent" type="xs:string" nillable="true"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="Вес" type="xs:decimal"/>
+	</objectType>
+	<objectType name="CatalogObject.Клиенты">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Code" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ВидЦены" type="xs:string"/>
+		<property name="ВремяДоставкиПо" type="xs:dateTime"/>
+		<property name="ВремяДоставкиС" type="xs:dateTime"/>
+		<property name="ДополнительнаяИнформацияПоДоставке" type="xs:string"/>
+		<property name="ОтгрузкаЗапрещена" type="xs:boolean"/>
+		<property name="ПричинаДобавленияВСтопЛист" type="xs:string"/>
+		<property name="Самовывоз" type="xs:boolean"/>
+		<property name="Склад" type="xs:string"/>
+		<property name="СтрокаПоиска" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ФормаОплаты" type="d3p1:EnumRef.ФормыОплаты"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ДополнительнаяИнформация" type="d3p1:ValueStorage"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="КонтактнаяИнформация" type="d3p1:CatalogTabularSectionRow.Клиенты.КонтактнаяИнформация" lowerBound="0" upperBound="99999" nillable="true"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:CatalogTabularSectionRow.Клиенты.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.КонтактныеЛицаКлиентов">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Owner" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ДатаРождения" type="xs:dateTime"/>
+		<property name="ДолжностьПоВизитке" type="xs:string"/>
+		<property name="Комментарий" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="КонтактнаяИнформация" type="d3p1:CatalogTabularSectionRow.КонтактныеЛицаКлиентов.КонтактнаяИнформация" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.Контрагенты">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ИНН" type="xs:string"/>
+		<property name="ИННКПП" type="xs:string"/>
+		<property name="Клиент" type="xs:string"/>
+		<property name="КПП" type="xs:string"/>
+		<property name="НаименованиеПолное" type="xs:string"/>
+		<property name="ПредставлениеКонтрагента" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ЮрФизЛицо" type="d3p1:EnumRef.ЮрФизЛицо"/>
+	</objectType>
+	<objectType name="CatalogObject.Номенклатура">
+		<property name="IsFolder" type="xs:boolean"/>
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Code" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКодНоменклатура" type="xs:string"/>
+		<property name="ERPКодХарактеристика" type="xs:string"/>
+		<property name="Артикул" type="xs:string"/>
+		<property name="ВесЕдиницаИзмерения" type="xs:string"/>
+		<property name="ВесЗнаменатель" type="xs:decimal"/>
+		<property name="ВесИспользовать" type="xs:boolean"/>
+		<property name="ВесМожноУказыватьВДокументах" type="xs:boolean"/>
+		<property name="ВесЧислитель" type="xs:decimal"/>
+		<property name="ВидНоменклатуры" type="xs:string"/>
+		<property name="ЕдиницаЗаказа" type="xs:string"/>
+		<property name="ЕдиницаИзмерения" type="xs:string"/>
+		<property name="НаименованиеПолное" type="xs:string"/>
+		<property name="Описание" type="xs:string"/>
+		<property name="СтавкаНДСЧислом" type="xs:decimal"/>
+		<property name="СтрокаПоиска" type="xs:string"/>
+		<property name="Услуга" type="xs:boolean"/>
+		<property name="ФайлКартинки" type="xs:string"/>
+		<property name="ЦеноваяГруппа" type="xs:string"/>
+		<property name="Штрихкод" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:CatalogTabularSectionRow.Номенклатура.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.НоменклатураПрисоединенныеФайлы">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ВладелецФайла" type="xs:string"/>
+		<property name="ДатаСоздания" type="xs:dateTime"/>
+		<property name="Описание" type="xs:string"/>
+		<property name="Размер" type="xs:decimal"/>
+		<property name="Расширение" type="xs:string"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ХранимыйФайл" type="d3p1:ValueStorage"/>
+	</objectType>
+	<objectType name="CatalogObject.Организации">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="Префикс" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="СистемаНалогообложения" type="d3p1:EnumRef.СистемыНалогообложения"/>
+		<property name="Руководитель" type="xs:string"/>
+		<property name="ГлавныйБухгалтер" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="КонтактнаяИнформация" type="d3p1:CatalogTabularSectionRow.Организации.КонтактнаяИнформация" lowerBound="0" upperBound="99999" nillable="true"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:CatalogTabularSectionRow.Организации.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+		<property name="ИНН" type="xs:string" lowerBound="0"/>
+		<property name="КПП" type="xs:string" lowerBound="0"/>
+		<property name="НаименованиеПолное" type="xs:string" lowerBound="0"/>
+		<property name="СвидетельствоСерияНомер" type="xs:string" lowerBound="0"/>
+		<property name="СвидетельствоДатаВыдачи" type="xs:dateTime" lowerBound="0"/>
+		<property name="НомерСчета" type="xs:string" lowerBound="0"/>
+		<property name="Банк" type="xs:string" lowerBound="0"/>
+		<property name="БИК" type="xs:string" lowerBound="0"/>
+		<property name="ГородБанка" type="xs:string" lowerBound="0"/>
+		<property name="КоррСчет" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ЮрФизЛицо" type="d3p1:EnumRef.ЮрФизЛицо"/>
+	</objectType>
+	<objectType name="CatalogObject.Склады">
+		<property name="IsFolder" type="xs:boolean"/>
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="ГруппаСкладов" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="КонтактнаяИнформация" type="d3p1:CatalogTabularSectionRow.Склады.КонтактнаяИнформация" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.СостоянияЗаявокНаВозвратТоваровОтКлиентов">
+		<property name="Description" type="xs:string"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="Порядок" type="xs:decimal"/>
+	</objectType>
+	<objectType name="CatalogObject.СтраныМира">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Code" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="НаименованиеПолное" type="xs:string" lowerBound="0" nillable="true"/>
+		<property name="КодАльфа2" type="xs:string" lowerBound="0" nillable="true"/>
+		<property name="КодАльфа3" type="xs:string" lowerBound="0" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogObject.УпаковкиНоменклатуры">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Owner" type="xs:string"/>
+		<property name="Parent" type="xs:string"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="ERPКод" type="xs:string"/>
+		<property name="Вес" type="xs:decimal"/>
+		<property name="ВесЕдиницаИзмерения" type="xs:string"/>
+		<property name="ЕдиницаИзмерения" type="xs:string"/>
+		<property name="Коэффициент" type="xs:decimal"/>
+		<property name="НаименованиеПолное" type="xs:string"/>
+		<property name="Владелец" type="xs:string"/>
+		<property name="Штрихкод" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="CatalogObject.ЦеновыеГруппы">
+		<property name="ref" type="xs:string"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Description" type="xs:string"/>
+		<property name="PredefinedDataName" type="xs:string" lowerBound="0"/>
+		<property name="Описание" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogStatus">
+		<property name="ref" type="xs:string"/>
+		<property name="ТипОбъекта" type="xs:string"/>
+		<property name="Успешно" type="xs:boolean"/>
+		<property name="ERPКодДоговора" type="xs:string"/>
+		<property name="ERPКодСоглашения" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.ДополнительныеРеквизитыИСведения.ЗависимостиДополнительныхРеквизитов">
+		<property name="ЗависимоеСвойство" type="xs:string"/>
+		<property name="Реквизит" type="xs:anyType" nillable="true"/>
+		<property name="Условие" type="xs:string"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Клиенты.ДополнительныеРеквизиты">
+		<property name="ТекстоваяСтрока" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Свойство" type="xs:anyType"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Клиенты.КонтактнаяИнформация">
+		<property name="Страна" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Регион" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Город" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="АдресЭП" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="ДоменноеИмяСервера" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефона" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефонаБезКодов" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Тип" type="d3p1:EnumRef.ТипыКонтактнойИнформации"/>
+		<property name="Вид" type="xs:string"/>
+		<property name="Представление" type="xs:string"/>
+		<property name="ЗначенияПолей" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.КонтактныеЛицаКлиентов.КонтактнаяИнформация">
+		<property name="Страна" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Регион" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Город" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="АдресЭП" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="ДоменноеИмяСервера" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефона" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефонаБезКодов" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Тип" type="d3p1:EnumRef.ТипыКонтактнойИнформации"/>
+		<property name="Вид" type="xs:string"/>
+		<property name="Представление" type="xs:string"/>
+		<property name="ЗначенияПолей" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Номенклатура.ДополнительныеРеквизиты">
+		<property name="ТекстоваяСтрока" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Свойство" type="xs:anyType"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Организации.ДополнительныеРеквизиты">
+		<property name="ТекстоваяСтрока" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Свойство" type="xs:anyType"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Организации.КонтактнаяИнформация">
+		<property name="Страна" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Регион" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Город" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="АдресЭП" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="ДоменноеИмяСервера" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефона" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефонаБезКодов" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Тип" type="d3p1:EnumRef.ТипыКонтактнойИнформации"/>
+		<property name="Вид" type="xs:string"/>
+		<property name="Представление" type="xs:string"/>
+		<property name="ЗначенияПолей" type="xs:string"/>
+	</objectType>
+	<objectType name="CatalogTabularSectionRow.Склады.КонтактнаяИнформация">
+		<property name="Страна" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Регион" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Город" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="АдресЭП" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="ДоменноеИмяСервера" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефона" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="НомерТелефонаБезКодов" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Тип" type="d3p1:EnumRef.ТипыКонтактнойИнформации"/>
+		<property name="Вид" type="xs:string"/>
+		<property name="Представление" type="xs:string"/>
+		<property name="ЗначенияПолей" type="xs:string"/>
+	</objectType>
+	<objectType name="DocumentObject.ЗаданиеТорговомуПредставителю">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Ref" type="d3p1:DocumentRef.ЗаданиеТорговомуПредставителю"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Date" type="xs:dateTime"/>
+		<property name="Number" type="xs:string"/>
+		<property name="Posted" type="xs:boolean"/>
+		<property name="Валюта" type="xs:anyType"/>
+		<property name="ВремяНачала" type="xs:dateTime"/>
+		<property name="ВремяОкончания" type="xs:dateTime"/>
+		<property name="ДатаВизитаПлан" type="xs:dateTime"/>
+		<property name="ДатаВизитаФакт" type="xs:dateTime"/>
+		<property name="ДетализацияПоНоменклатуре" type="xs:boolean"/>
+		<property name="ДоговорКлиента" type="xs:anyType"/>
+		<property name="ЖелаемаяДатаОтгрузки" type="xs:dateTime"/>
+		<property name="Клиент" type="xs:anyType"/>
+		<property name="Комментарий" type="xs:string"/>
+		<property name="Контрагент" type="xs:anyType"/>
+		<property name="Организация" type="xs:anyType"/>
+		<property name="Склад" type="xs:anyType"/>
+		<property name="Статус" type="xs:anyType"/>
+		<property name="СтатусОбмена" type="xs:anyType"/>
+		<property name="СуммаПлан" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Задачи" type="d3p1:DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.Задачи" lowerBound="0" upperBound="99999"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Товары" type="d3p1:DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.Товары" lowerBound="0" upperBound="99999"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДолгиПоЗаказам" type="d3p1:DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.ДолгиПоЗаказам" lowerBound="0" upperBound="99999"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="РасшифровкаДебиторскойЗадолженности" type="d3p1:DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.РасшифровкаДебиторскойЗадолженности" lowerBound="0" upperBound="99999"/>
+	</objectType>
+	<objectType name="DocumentObject.ЗаказКлиента">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Ref" type="d3p1:DocumentRef.ЗаказКлиента"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Date" type="xs:dateTime"/>
+		<property name="Number" type="xs:string"/>
+		<property name="Posted" type="xs:boolean"/>
+		<property name="АдресДоставки" type="xs:string"/>
+		<property name="Валюта" type="xs:anyType"/>
+		<property name="ВидЦены" type="xs:anyType"/>
+		<property name="ВремяДоставкиПо" type="xs:dateTime"/>
+		<property name="ВремяДоставкиС" type="xs:dateTime"/>
+		<property name="ДатаОтгрузки" type="xs:dateTime"/>
+		<property name="ДоговорКлиента" type="xs:anyType"/>
+		<property name="ДокументОснование" type="xs:anyType"/>
+		<property name="ДополнительнаяИнформацияПоДоставке" type="xs:string"/>
+		<property name="ЖелаемаяДатаОтгрузки" type="xs:dateTime"/>
+		<property name="Клиент" type="xs:anyType"/>
+		<property name="Комиссия" type="xs:boolean"/>
+		<property name="Контрагент" type="xs:anyType"/>
+		<property name="Организация" type="xs:anyType"/>
+		<property name="ПредставлениеДокумента" type="xs:string"/>
+		<property name="Самовывоз" type="xs:boolean"/>
+		<property name="Склад" type="xs:anyType"/>
+		<property name="СостояниеДокумента" type="xs:anyType"/>
+		<property name="СостояниеДокументаПорядок" type="xs:decimal"/>
+		<property name="СтатусДокумента" type="xs:anyType"/>
+		<property name="СтатусОбмена" type="xs:anyType"/>
+		<property name="СуммаДокумента" type="xs:decimal"/>
+		<property name="СуммаНДСДокумента" type="xs:decimal"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ПечатнаяФормаДокумента" type="d3p1:ValueStorage"/>
+		<property name="СтатусДокументаПорядок" type="xs:decimal"/>
+		<property name="СостояниеДокументаИБ" type="xs:anyType"/>
+		<property name="Просрочен" type="xs:boolean"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Товары" type="d3p1:DocumentTabularSectionRow.ЗаказКлиента.Товары" lowerBound="0" upperBound="99999"/>
+		<property name="СтатусОбменаПорядок" type="xs:decimal"/>
+		<property name="СуммаДолгаПоДокументу" type="xs:decimal"/>
+		<property name="СуммаОплатПоДокументу" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ФормаОплаты" type="d3p1:EnumRef.ФормыОплаты" nillable="true"/>
+		<property name="ДатаПредоплатыПоДокументу" type="xs:dateTime"/>
+		<property name="СуммаПредоплатыПоДокументу" type="xs:decimal"/>
+		<property name="ДатаОплаты" type="xs:dateTime"/>
+		<property name="ДатаСледующегоПлатежа" type="xs:dateTime"/>
+		<property name="СуммаСледующегоПлатежа" type="xs:decimal"/>
+		<property name="СуммаДолгаПоДокументуУП" type="xs:decimal"/>
+		<property name="Комментарий" type="xs:string"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:DocumentTabularSectionRow.ЗаказКлиента.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="DocumentObject.ЗаявкаНаВозвратТоваровОтКлиента">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Ref" type="d3p1:DocumentRef.ЗаявкаНаВозвратТоваровОтКлиента"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Date" type="xs:dateTime"/>
+		<property name="Number" type="xs:string"/>
+		<property name="Posted" type="xs:boolean"/>
+		<property name="АдресДоставки" type="xs:string"/>
+		<property name="Валюта" type="xs:anyType"/>
+		<property name="ВидЦены" type="xs:anyType"/>
+		<property name="ВремяДоставкиПо" type="xs:dateTime"/>
+		<property name="ВремяДоставкиС" type="xs:dateTime"/>
+		<property name="ДатаПоступления" type="xs:dateTime"/>
+		<property name="ДоговорКлиента" type="xs:anyType"/>
+		<property name="Клиент" type="xs:anyType"/>
+		<property name="Комиссия" type="xs:boolean"/>
+		<property name="Комментарий" type="xs:string"/>
+		<property name="Контрагент" type="xs:anyType"/>
+		<property name="Организация" type="xs:anyType"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ПечатнаяФормаДокумента" type="d3p1:ValueStorage"/>
+		<property name="ПредставлениеДокумента" type="xs:string"/>
+		<property name="ПричинаВозврата" type="xs:string"/>
+		<property name="Самовывоз" type="xs:boolean"/>
+		<property name="Склад" type="xs:anyType"/>
+		<property name="СостояниеДокумента" type="xs:anyType"/>
+		<property name="СостояниеДокументаПорядок" type="xs:decimal"/>
+		<property name="СтатусДокумента" type="xs:anyType"/>
+		<property name="СтатусДокументаПорядок" type="xs:decimal"/>
+		<property name="СтатусОбмена" type="xs:anyType"/>
+		<property name="СтатусОбменаПорядок" type="xs:decimal"/>
+		<property name="СуммаДокумента" type="xs:decimal"/>
+		<property name="СуммаДолгаПоДокументу" type="xs:decimal"/>
+		<property name="СуммаДолгаПоДокументуУП" type="xs:decimal"/>
+		<property name="СуммаНДСДокумента" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ФормаОплаты" type="d3p1:EnumRef.ФормыОплаты" nillable="true"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Товары" type="d3p1:DocumentTabularSectionRow.ЗаявкаНаВозвратТоваровОтКлиента.Товары" lowerBound="0" upperBound="99999"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДокументОснование" type="d3p1:ДокументОснованиеЗаявка" nillable="true"/>
+		<property name="СпособКомпенсации" type="xs:anyType"/>
+		<property name="ДополнительнаяИнформацияПоДоставке" type="xs:string"/>
+		<property name="ЖелаемаяДатаПоступления" type="xs:dateTime"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:DocumentTabularSectionRow.ЗаявкаНаВозвратТоваровОтКлиента.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="DocumentObject.ОплатаКлиента">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="Ref" type="d3p1:DocumentRef.ОплатаКлиента"/>
+		<property name="DeletionMark" type="xs:boolean"/>
+		<property name="Date" type="xs:dateTime"/>
+		<property name="Number" type="xs:string"/>
+		<property name="Posted" type="xs:boolean"/>
+		<property name="Валюта" type="xs:anyType"/>
+		<property name="ВидПлатежнойКарты" type="xs:string"/>
+		<property name="ДатаВходящегоДокумента" type="xs:dateTime" nillable="true"/>
+		<property name="ДоговорКлиента" type="xs:anyType"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДокументОснование" type="d3p1:DocumentRef.ЗаказКлиента"/>
+		<property name="Клиент" type="xs:anyType"/>
+		<property name="Контрагент" type="xs:anyType"/>
+		<property name="НомерВходящегоДокумента" type="xs:string" nillable="true"/>
+		<property name="НомерПлатежнойКарты" type="xs:string" nillable="true"/>
+		<property name="Организация" type="xs:anyType"/>
+		<property name="ПредставлениеДокумента" type="xs:string"/>
+		<property name="СтатусОбмена" type="xs:anyType"/>
+		<property name="СтатусОбменаПорядок" type="xs:decimal"/>
+		<property name="СуммаДокумента" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ФормаОплаты" type="d3p1:EnumRef.ФормыОплаты"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.ДолгиПоЗаказам">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ЗаказКлиента" type="d3p1:DocumentRef.ЗаказКлиента"/>
+		<property name="Валюта" type="xs:anyType"/>
+		<property name="НашДолг" type="xs:decimal"/>
+		<property name="ПредставлениеЗаказа" type="xs:string"/>
+		<property name="ДолгКлиента" type="xs:decimal"/>
+		<property name="КОплатеПросрочено" type="xs:decimal"/>
+		<property name="КОтгрузкеПросрочено" type="xs:decimal"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.Задачи">
+		<property name="ОписаниеЗадачи" type="xs:string"/>
+		<property name="Выполнена" type="xs:boolean"/>
+		<property name="ОписаниеРезультата" type="xs:string" nillable="true"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.РасшифровкаДебиторскойЗадолженности">
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ЗаказКлиента" type="d3p1:DocumentRef.ЗаказКлиента"/>
+		<property name="Дата" type="xs:dateTime"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="РасчетныйДокумент" type="d3p1:DocumentRef.ЗаказКлиента"/>
+		<property name="ПредставлениеРасчетногоДокумента" type="xs:string"/>
+		<property name="УменьшениеДолга" type="xs:decimal"/>
+		<property name="УвеличениеДолга" type="xs:decimal"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаданиеТорговомуПредставителю.Товары">
+		<property name="Количество" type="xs:decimal"/>
+		<property name="КоличествоУпаковок" type="xs:decimal"/>
+		<property name="КоличествоПлан" type="xs:decimal"/>
+		<property name="КоличествоУпаковокПлан" type="xs:decimal"/>
+		<property name="Номенклатура" type="xs:anyType"/>
+		<property name="ПроцентРучнойСкидки" type="xs:decimal"/>
+		<property name="Сумма" type="xs:decimal"/>
+		<property name="СуммаРучнойСкидки" type="xs:decimal"/>
+		<property name="СуммаНДС" type="xs:decimal"/>
+		<property name="Упаковка" type="xs:anyType"/>
+		<property name="Цена" type="xs:decimal"/>
+		<property name="ВидЦены" type="xs:anyType"/>
+		<property name="СуммаСНДС" type="xs:decimal"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаказКлиента.ДополнительныеРеквизиты">
+		<property name="ТекстоваяСтрока" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Свойство" type="xs:anyType"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаказКлиента.Товары">
+		<property name="Количество" type="xs:decimal"/>
+		<property name="КоличествоУпаковок" type="xs:decimal"/>
+		<property name="Номенклатура" type="xs:anyType"/>
+		<property name="Отменено" type="xs:boolean"/>
+		<property name="ПроцентРучнойСкидки" type="xs:decimal"/>
+		<property name="Склад" type="xs:anyType"/>
+		<property name="Сумма" type="xs:decimal"/>
+		<property name="СуммаРучнойСкидки" type="xs:decimal"/>
+		<property name="СуммаНДС" type="xs:decimal"/>
+		<property name="Упаковка" type="xs:anyType"/>
+		<property name="Цена" type="xs:decimal"/>
+		<property name="ВидЦены" type="xs:anyType"/>
+		<property name="СуммаСНДС" type="xs:decimal"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаявкаНаВозвратТоваровОтКлиента.ДополнительныеРеквизиты">
+		<property name="ТекстоваяСтрока" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Свойство" type="xs:anyType"/>
+		<property name="Значение" type="xs:anyType" nillable="true"/>
+	</objectType>
+	<objectType name="DocumentTabularSectionRow.ЗаявкаНаВозвратТоваровОтКлиента.Товары">
+		<property name="Количество" type="xs:decimal"/>
+		<property name="КоличествоУпаковок" type="xs:decimal"/>
+		<property name="Номенклатура" type="xs:anyType"/>
+		<property name="Отменено" type="xs:boolean"/>
+		<property name="ПроцентРучнойСкидки" type="xs:decimal"/>
+		<property name="Склад" type="xs:anyType"/>
+		<property name="Сумма" type="xs:decimal"/>
+		<property name="СуммаРучнойСкидки" type="xs:decimal"/>
+		<property name="СуммаНДС" type="xs:decimal"/>
+		<property name="Упаковка" type="xs:anyType"/>
+		<property name="Цена" type="xs:decimal"/>
+		<property name="ВидЦены" type="xs:anyType"/>
+		<property name="СуммаСНДС" type="xs:decimal"/>
+	</objectType>
+	<objectType name="InformationRegisterRecord.ПравилаПродаж">
+		<property name="Клиент" type="xs:string"/>
+		<property name="ДоговорКлиента" type="xs:string"/>
+	</objectType>
+	<objectType name="InformationRegisterRecord.ТоварыНаСкладах">
+		<property name="Номенклатура" type="xs:string"/>
+		<property name="Склад" type="xs:string"/>
+		<property name="ВНаличии" type="xs:decimal"/>
+		<property name="СостояниеОстаткаИндекс" type="xs:decimal"/>
+	</objectType>
+	<objectType name="InformationRegisterRecord.ЦеныНоменклатуры">
+		<property name="ВидЦены" type="xs:string"/>
+		<property name="Номенклатура" type="xs:string"/>
+		<property name="Склад" type="xs:string"/>
+		<property name="Цена" type="xs:decimal"/>
+		<property name="Остаток" type="xs:decimal"/>
+		<property name="Упаковка" type="xs:string"/>
+		<property name="ВидНоменклатуры" type="xs:string"/>
+		<property name="РодительНоменклатуры" type="xs:string"/>
+		<property name="СостояниеОстаткаИндекс" type="xs:decimal"/>
+		<property name="СтрокаПоиска" type="xs:string"/>
+		<property name="ЦеноваяГруппа" type="xs:string"/>
+	</objectType>
+	<objectType name="InformationRegisterRecord.ЦеныНоменклатурыПоДоговорамКлиентов">
+		<property name="ДоговорКлиента" type="xs:string"/>
+		<property name="ВидЦены" type="xs:string"/>
+		<property name="Номенклатура" type="xs:string"/>
+		<property name="Склад" type="xs:string"/>
+		<property name="Цена" type="xs:decimal"/>
+		<property name="Остаток" type="xs:decimal"/>
+		<property name="Упаковка" type="xs:string"/>
+		<property name="ВидНоменклатуры" type="xs:string"/>
+		<property name="РодительНоменклатуры" type="xs:string"/>
+		<property name="СостояниеОстаткаИндекс" type="xs:decimal"/>
+		<property name="СтрокаПоиска" type="xs:string"/>
+		<property name="ЦеноваяГруппа" type="xs:string"/>
+	</objectType>
+	<objectType name="JobTargetSettings">
+		<property name="ЗаполнятьЗаданияПоДаннымИсторииПродаж" type="xs:boolean"/>
+		<property name="ПолучатьИнформациюОРасчетахСКлиентами" type="xs:boolean"/>
+		<property name="НачалоПериодаАнализаИсторииПродаж" type="xs:dateTime"/>
+		<property name="КонецПериодаАнализаИсторииПродаж" type="xs:dateTime"/>
+	</objectType>
+	<objectType name="JobTargetStatus">
+		<property name="ref" type="xs:string"/>
+		<property name="Статус" type="xs:string"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ПечатнаяФормаЗаказа" type="d3p1:ValueStorage"/>
+	</objectType>
+	<objectType name="MessageExchange">
+		<property name="ResultMessage" type="xs:string"/>
+		<property name="Success" type="xs:boolean"/>
+		<property name="Continue" type="xs:boolean"/>
+	</objectType>
+	<objectType name="OrderStatus">
+		<property name="ref" type="xs:string"/>
+		<property name="ДатаОтгрузки" type="xs:dateTime"/>
+		<property name="Изменен" type="xs:boolean"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ПечатнаяФормаДокумента" type="d3p1:ValueStorage"/>
+		<property name="ПометкаУдаления" type="xs:boolean"/>
+		<property name="Проведен" type="xs:boolean"/>
+		<property name="Просрочен" type="xs:boolean"/>
+		<property name="Состояние" type="xs:string"/>
+		<property name="Статус" type="xs:string"/>
+		<property name="СуммаДолгаПоДокументуУП" type="xs:decimal"/>
+		<property name="СуммаДокументаУП" type="xs:decimal"/>
+		<property name="СуммаНДСДокументаУП" type="xs:decimal"/>
+		<property name="ДатаСледующегоПлатежа" type="xs:dateTime"/>
+		<property name="ДатаПредоплатыПоДокументу" type="xs:dateTime"/>
+		<property name="СуммаПредоплатыПоДокументу" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:DocumentTabularSectionRow.ЗаказКлиента.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="PaymentStatus">
+		<property name="ref" type="xs:string"/>
+		<property name="Проведен" type="xs:boolean"/>
+	</objectType>
+	<objectType name="Permit">
+		<property name="ResultMessage" type="xs:string"/>
+		<property name="Success" type="xs:boolean"/>
+		<property name="DeleteAppData" type="xs:boolean"/>
+	</objectType>
+	<objectType name="RequestToReturnStatus">
+		<property name="ref" type="xs:string"/>
+		<property name="ДатаОтгрузки" type="xs:dateTime"/>
+		<property name="ДатаПоступления" type="xs:dateTime"/>
+		<property name="Изменен" type="xs:boolean"/>
+		<property xmlns:d3p1="http://v8.1c.ru/8.1/data/core" name="ПечатнаяФормаДокумента" type="d3p1:ValueStorage"/>
+		<property name="ПометкаУдаления" type="xs:boolean"/>
+		<property name="Проведен" type="xs:boolean"/>
+		<property name="Состояние" type="xs:string"/>
+		<property name="Статус" type="xs:string"/>
+		<property name="СуммаДолгаПоДокументуУП" type="xs:decimal"/>
+		<property name="СуммаДокументаУП" type="xs:decimal"/>
+		<property name="СуммаНДСДокументаУП" type="xs:decimal"/>
+		<property xmlns:d3p1="http://www.1c.ru/CustomerOrders/Exchange" name="ДополнительныеРеквизиты" type="d3p1:DocumentTabularSectionRow.ЗаявкаНаВозвратТоваровОтКлиента.ДополнительныеРеквизиты" lowerBound="0" upperBound="99999" nillable="true"/>
+	</objectType>
+	<objectType name="Settings">
+		<property name="ResultMessage" type="xs:string"/>
+		<property name="Success" type="xs:boolean"/>
+		<property name="AddChangeCustomer" type="xs:boolean"/>
+		<property name="AddChangeCustomerOrders" type="xs:boolean"/>
+		<property name="UsingCustomerAgreement" type="xs:decimal"/>
+		<property name="UsePricesInOrderLine" type="xs:boolean"/>
+		<property name="UseCustomerContract" type="xs:boolean"/>
+		<property name="UseGoodsBalance" type="xs:boolean"/>
+		<property name="PartnersHowContractors" type="xs:boolean"/>
+		<property name="UseCommission" type="xs:boolean"/>
+		<property name="UseManualDiscounts" type="xs:boolean"/>
+		<property name="UseStoreInOrderLine" type="xs:boolean"/>
+		<property name="UseOrderStatus" type="xs:boolean"/>
+		<property name="ChangePriceInOrder" type="xs:boolean"/>
+		<property name="FrequencyExchangeRates" type="xs:decimal"/>
+		<property name="FrequencyExchangeBalance" type="xs:decimal"/>
+		<property name="PrefixIB" type="xs:string"/>
+		<property name="MessageNumberIn" type="xs:decimal"/>
+		<property name="MessageNumberOut" type="xs:decimal"/>
+		<property name="DetailJobTargets" type="xs:boolean"/>
+		<property name="UsingJobTargets" type="xs:decimal"/>
+		<property name="UseCashPayment" type="xs:boolean"/>
+		<property name="UseCardPayment" type="xs:boolean"/>
+		<property name="UseCashRegister" type="xs:boolean"/>
+		<property name="CardsTypes" type="xs:string"/>
+		<property name="UsePushNotifications" type="xs:boolean"/>
+		<property name="GoogleCloudProjectNumber" type="xs:string"/>
+		<property name="UseWeight" type="xs:boolean"/>
+		<property name="UseImages" type="xs:boolean"/>
+		<property name="UnitWeight" type="xs:string"/>
+		<property name="UseRequestsToReturnOfGoodsByClient" type="xs:boolean"/>
+		<property name="UseSimplifiedClientInput" type="xs:boolean"/>
+		<property name="CheckTINRussianRules" type="xs:boolean"/>
+		<property name="UseAdditionalProps" type="xs:boolean"/>
+		<property name="UseCommonAdditionalValues" type="xs:boolean"/>
+		<property name="UseCommonAdditionalProps" type="xs:boolean"/>
+		<property name="ShowOddments" type="xs:boolean"/>
+	</objectType>
+</package>

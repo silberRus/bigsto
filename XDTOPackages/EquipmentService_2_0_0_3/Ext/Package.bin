@@ -1,0 +1,352 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.1c.ru/EquipmentService/2.0.0.3">
+	<import namespace="http://v8.1c.ru/8.1/data/core"/>
+	<valueType name="CodeType" base="xs:string" variety="Atomic" maxLength="36"/>
+	<valueType name="StringType" base="xs:string"/>
+	<valueType name="QuantityType" base="xs:decimal" variety="Atomic" totalDigits="15" fractionDigits="3"/>
+	<valueType name="MoneyType" base="xs:decimal" variety="Atomic" totalDigits="15" fractionDigits="2"/>
+	<valueType name="ProcessedType" base="xs:dateTime" variety="Atomic"/>
+	<valueType name="PaymentType" base="xs:decimal" variety="Atomic" minInclusive="0" maxInclusive="99" fractionDigits="0"/>
+	<valueType name="NameType" base="xs:string" variety="Atomic"/>
+	<valueType name="IntegerType" base="xs:integer" variety="Atomic" minInclusive="0" fractionDigits="0"/>
+	<valueType name="StringID" base="xs:string" variety="Atomic" minLength="1" maxLength="36"/>
+	<valueType name="DecimalType" base="xs:decimal" variety="Atomic"/>
+	<valueType xmlns:d2p1="http://v8.1c.ru/8.1/data/core" name="UUIDType" base="d2p1:UUID" variety="Atomic"/>
+	<valueType name="OrderStatus" base="xs:string" variety="Atomic">
+		<enumeration xsi:type="xs:string">НеCогласован</enumeration>
+		<enumeration xsi:type="xs:string">Согласован</enumeration>
+		<enumeration xsi:type="xs:string">Отменен</enumeration>
+	</valueType>
+	<valueType name="MovementType" base="xs:string" variety="Atomic">
+		<enumeration xsi:type="xs:string">Income</enumeration>
+		<enumeration xsi:type="xs:string">Outcome</enumeration>
+	</valueType>
+	<valueType name="DocType" base="xs:string" variety="Atomic">
+		<enumeration xsi:type="xs:string">Check</enumeration>
+		<enumeration xsi:type="xs:string">Order</enumeration>
+	</valueType>
+	<valueType name="TaxRates" base="xs:string" variety="Atomic">
+		<enumeration xsi:type="xs:string">18</enumeration>
+		<enumeration xsi:type="xs:string">10</enumeration>
+		<enumeration xsi:type="xs:string">0</enumeration>
+		<enumeration xsi:type="xs:string">none</enumeration>
+	</valueType>
+	<objectType name="ExportData">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВерсияФормата" type="d3p1:IntegerType" form="Attribute" localName="FormatVersion"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Обработан" type="d3p1:ProcessedType" lowerBound="0" form="Attribute" localName="Processed"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НастройкиККМ" type="d3p1:Settings" lowerBound="0" localName="Settings"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ПрайсЛист" type="d3p1:PriceList" lowerBound="0" localName="PriceList"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Заказы" type="d3p1:Orders" lowerBound="0" localName="Orders"/>
+	</objectType>
+	<objectType name="ImportData">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВерсияФормата" type="d3p1:IntegerType" form="Attribute" localName="FormatVersion"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Обработан" type="d3p1:ProcessedType" lowerBound="0" form="Attribute" localName="Processed"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ОтчетыОПродажах" type="d3p1:SaleReports" lowerBound="0" localName="SaleReports"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВскрытияАлкогольнойТары" type="d3p1:AlcoholTareOpenings" lowerBound="0" localName="AlcoholTareOpenings"/>
+	</objectType>
+	<objectType name="Settings">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НаименованиеОрганизации" type="d3p1:NameType" lowerBound="0" localName="CompanyName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НаименованиеМагазина" type="d3p1:NameType" lowerBound="0" localName="StoreName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СистемыНалогообложения" type="d3p1:СистемыНалогообложения" lowerBound="0" localName="TaxationSystems"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ИНН" type="d3p1:StringType" lowerBound="0" localName="INN"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КПП" type="d3p1:StringType" lowerBound="0" localName="KPP"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="АдресТочкиПродажи" type="d3p1:StringType" lowerBound="0" localName="SaleAddress"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="МестоТочкиПродажи" type="d3p1:StringType" lowerBound="0" localName="SaleLocation"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЭлектроннаяПочтаОтправителяЧека" type="d3p1:StringType" lowerBound="0" localName="SenderEmail"/>
+		<property name="РазрешеноИспользоватьСкидки" type="xs:boolean" lowerBound="0" localName="AllowDiscounts"/>
+		<property name="РазрешеноИспользоватьПлатежныеКарты" type="xs:boolean" lowerBound="0" localName="AllowPaymentCards"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВидыЭлектроннойОплаты" type="d3p1:ВидыЭлектроннойОплаты" lowerBound="0" localName="ElectronicPaymentOptions"/>
+	</objectType>
+	<objectType name="PriceList">
+		<property name="ПолнаяВыгрузка" type="xs:boolean" lowerBound="0" form="Attribute" localName="FullExport"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ГруппыТоваров" type="d3p1:ГруппыТоваров" lowerBound="0" localName="Groups"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЕдиницыИзмерения" type="d3p1:ЕдиницыИзмерения" lowerBound="0" localName="Units"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДанныеАгентов" type="d3p1:ДанныеАгентов" lowerBound="0" localName="AgentsData"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДанныеПоставщиков" type="d3p1:ДанныеПоставщиков" lowerBound="0" localName="VendorsData"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Товары" type="d3p1:Товары" lowerBound="0" localName="Goods"/>
+	</objectType>
+	<objectType name="Orders">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Заказы" type="d3p1:Заказ" lowerBound="0" upperBound="-1" localName="Order"/>
+	</objectType>
+	<objectType name="Товары">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТоварЗапись" type="d3p1:ТоварЗапись" lowerBound="0" upperBound="-1" localName="Good"/>
+	</objectType>
+	<objectType name="ТоварЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Штрихкоды" type="d3p1:Штрихкоды" lowerBound="0" nillable="true" localName="Barcodes"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Цена" type="d3p1:MoneyType" lowerBound="0" form="Attribute" localName="Price"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Остаток" type="d3p1:QuantityType" lowerBound="0" form="Attribute" localName="Balance"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" form="Attribute" localName="Name"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СтавкаНДС" type="d3p1:TaxRates" form="Attribute" localName="TaxRate"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ПризнакПредметаРасчета" type="d3p1:DecimalType" form="Attribute" localName="CalculationSubject"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодБазовойЕдиницыИзмерения" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="UnitCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДБазовойЕдиницыИзмерения" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UnitUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодГруппы" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="GroupCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДГруппы" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="GroupUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Артикул" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Article"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Описание" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Description"/>
+		<property name="ЭтоВесовойТовар" type="xs:boolean" lowerBound="0" form="Attribute" localName="IsWeight"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерСекции" type="d3p1:DecimalType" lowerBound="0" form="Attribute" localName="Department"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодДанныхАгента" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="AgentDataCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДДанныхАгента" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="AgentDataUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодДанныхПоставщика" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="VendorDataCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДДанныхПоставщика" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="VendorDataUUID"/>
+		<property name="ИмеетХарактеристики" type="xs:boolean" lowerBound="0" form="Attribute" localName="HasCharacteristics"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Характеристики" type="d3p1:Характеристики" lowerBound="0" localName="Characteristics"/>
+		<property name="ИмеетУпаковки" type="xs:boolean" lowerBound="0" form="Attribute" localName="HasPacks"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Упаковки" type="d3p1:Упаковки" lowerBound="0" localName="Packs"/>
+		<property name="ЭтоАлкоголь" type="xs:boolean" lowerBound="0" form="Attribute" localName="IsAlcohol"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="АлкогольныеРеквизиты" type="d3p1:АлкогольныеРеквизиты" lowerBound="0" localName="Alcohol"/>
+	</objectType>
+	<objectType name="ВидыЭлектроннойОплаты">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВидЭлектроннойОплатыЗапись" type="d3p1:ВидЭлектроннойОплатыЗапись" upperBound="-1" localName="ElectronicPaymentOption"/>
+	</objectType>
+	<objectType name="ВидЭлектроннойОплатыЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТипЭлектроннойОплаты" type="d3p1:PaymentType" form="Attribute" localName="ElectronicPaymentType"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" form="Attribute" localName="Name"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" nillable="true" form="Attribute" localName="UUID"/>
+	</objectType>
+	<objectType name="Упаковки">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УпаковкаЗапись" type="d3p1:УпаковкаЗапись" upperBound="-1" localName="Pack"/>
+	</objectType>
+	<objectType name="УпаковкаЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" lowerBound="0" form="Attribute" localName="Name"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Коэффициент" type="d3p1:QuantityType" lowerBound="0" form="Attribute" localName="UnitsPerPack"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" nillable="false" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Штрихкоды" type="d3p1:Штрихкоды" lowerBound="0" nillable="true" localName="Barcodes"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Цена" type="d3p1:MoneyType" lowerBound="0" form="Attribute" localName="Price"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Остаток" type="d3p1:QuantityType" lowerBound="0" form="Attribute" localName="Balance"/>
+	</objectType>
+	<objectType name="Характеристики">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ХарактеристикаЗапись" type="d3p1:ХарактеристикаЗапись" upperBound="-1" localName="Characteristic"/>
+	</objectType>
+	<objectType name="ХарактеристикаЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Штрихкоды" type="d3p1:Штрихкоды" lowerBound="0" nillable="true" localName="Barcodes"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Цена" type="d3p1:MoneyType" lowerBound="0" nillable="false" form="Attribute" localName="Price"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Остаток" type="d3p1:QuantityType" lowerBound="0" nillable="true" form="Attribute" localName="Balance"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" form="Attribute" localName="Name"/>
+		<property name="ИмеетУпаковки" type="xs:boolean" lowerBound="0" form="Attribute" localName="HasPacks"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Упаковки" type="d3p1:Упаковки" lowerBound="0" localName="Packs"/>
+	</objectType>
+	<objectType name="ГруппыТоваров">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ГруппаТоваровЗапись" type="d3p1:ГруппаТоваровЗапись" lowerBound="0" upperBound="-1" localName="Group"/>
+	</objectType>
+	<objectType name="ГруппаТоваровЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" form="Attribute" localName="Name"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" nillable="false" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодГруппы" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="ParentGroupCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДГруппы" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="ParentGroupUUID"/>
+	</objectType>
+	<objectType name="ЕдиницыИзмерения">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЕдиницаИзмеренияЗапись" type="d3p1:ЕдиницаИзмеренияЗапись" upperBound="-1" localName="Unit"/>
+	</objectType>
+	<objectType name="ЕдиницаИзмеренияЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Наименование" type="d3p1:NameType" form="Attribute" localName="Name"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодОКЕИ" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="OKEICode"/>
+	</objectType>
+	<objectType name="ДанныеАгентов">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДанныеАгентаЗапись" type="d3p1:ДанныеАгентаЗапись" lowerBound="0" upperBound="-1" localName="AgentData"/>
+	</objectType>
+	<objectType name="ДанныеАгентаЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ПризнакАгента" type="d3p1:IntegerType" lowerBound="0" form="Attribute" localName="AgentType"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ОперацияПлатежногоАгента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AgentOperation"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТелефонПлатежногоАгента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AgentPhone"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТелефонОператораПриемаПлатежей" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="PaymentProcessorPhone"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТелефонОператораПеревода" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AcquirerOperatorPhone"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НаименованиеОператораПеревода" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AcquirerOperatorName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="АдресОператораПеревода" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AcquirerOperatorAddress"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ИННОператораПеревода" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AcquirerOperatorINN"/>
+	</objectType>
+	<objectType name="ДанныеПоставщиков">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДанныеПоставщикаЗапись" type="d3p1:ДанныеПоставщикаЗапись" lowerBound="0" upperBound="-1" localName="VendorData"/>
+	</objectType>
+	<objectType name="ДанныеПоставщикаЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТелефонПоставщика" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="VendorPhone"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НаименованиеПоставщика" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="VendorName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ИННПоставщика" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="VendorINN"/>
+	</objectType>
+	<objectType name="SaleReports">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ОтчетОПродажах" type="d3p1:ОтчетОПродажах" upperBound="-1" localName="SaleReport"/>
+	</objectType>
+	<objectType name="ОтчетОПродажах">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерСмены" type="d3p1:StringType" nillable="false" form="Attribute" localName="ShiftNumber"/>
+		<property name="ДатаОткрытияСмены" type="xs:dateTime" nillable="false" form="Attribute" localName="OpeningDate"/>
+		<property name="ДатаЗакрытияСмены" type="xs:dateTime" nillable="false" form="Attribute" localName="ClosingDate"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Чеки" type="d3p1:Чеки" lowerBound="0" localName="Checks"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДвиженияДС" type="d3p1:ДвиженияДС" lowerBound="0" localName="IncomeOutcomeChecks"/>
+	</objectType>
+	<objectType name="AlcoholTareOpenings">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВскрытиеАлкогольнойТары" type="d3p1:ВскрытиеАлкогольнойТары" upperBound="-1" localName="AlcoholTareOpening"/>
+	</objectType>
+	<objectType name="ВскрытиеАлкогольнойТары">
+		<property name="Дата" type="xs:dateTime" form="Attribute" localName="Date"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Номер" type="d3p1:StringType" nillable="false" form="Attribute" localName="Number"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Товары" type="d3p1:ВскрытиеАлкогольнойТарыТовары" lowerBound="0" nillable="true" localName="Goods"/>
+	</objectType>
+	<objectType name="ВскрытиеАлкогольнойТарыТовары">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ВскрытиеАлкогольнойТарыТовар" type="d3p1:ВскрытиеАлкогольнойТарыТовар" lowerBound="0" upperBound="-1" nillable="true" localName="Good"/>
+	</objectType>
+	<objectType name="ВскрытиеАлкогольнойТарыТовар">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Количество" type="d3p1:QuantityType" form="Attribute" localName="Quantity"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ШтрихкодАлкогольнойПродукции" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AlcoholExciseStamp"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДТовара" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="GoodUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДХарактеристики" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="CharacteristicUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДУпаковки" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="PackUUID"/>
+	</objectType>
+	<objectType name="ДвиженияДС">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ДвижениеДС" type="d3p1:ДвижениеДС" upperBound="-1" localName="IncomeOutcomeCheck"/>
+	</objectType>
+	<objectType name="ДвижениеДС">
+		<property name="Дата" type="xs:dateTime" form="Attribute" localName="Date"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Номер" type="d3p1:StringType" form="Attribute" localName="Number"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТипДвижения" type="d3p1:MovementType" form="Attribute" localName="Type"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Сумма" type="d3p1:DecimalType" form="Attribute" localName="Sum"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+	</objectType>
+	<objectType name="Чеки">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Чек" type="d3p1:Чек" lowerBound="0" upperBound="-1" nillable="true" localName="Check"/>
+	</objectType>
+	<objectType name="Чек">
+		<property name="Дата" type="xs:dateTime" form="Attribute" localName="Date"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Номер" type="d3p1:StringType" form="Attribute" localName="Number"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодСистемыНалогообложения" type="d3p1:IntegerType" form="Attribute" localName="TaxationSystem"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодТипаРасчета" type="d3p1:IntegerType" form="Attribute" localName="OperationType"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДСвязанногоДокументаККМ" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="RefDocumentUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТипСвязанногоДокументаККМ" type="d3p1:DocType" lowerBound="0" form="Attribute" localName="RefDocumentType"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Товары" type="d3p1:ЧекТовары" lowerBound="0" nillable="true" localName="Goods"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Оплаты" type="d3p1:Оплаты" lowerBound="0" nillable="true" localName="Payments"/>
+	</objectType>
+	<objectType name="ЧекТовары">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЧекТовар" type="d3p1:ЧекТовар" lowerBound="0" upperBound="-1" nillable="true" localName="Good"/>
+	</objectType>
+	<objectType name="ЧекТовар">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Количество" type="d3p1:QuantityType" form="Attribute" localName="Quantity"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Цена" type="d3p1:MoneyType" form="Attribute" localName="Price"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Сумма" type="d3p1:MoneyType" form="Attribute" localName="Sum"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СтавкаНДС" type="d3p1:StringType" form="Attribute" localName="TaxRate"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодПризнакаСпособаРасчета" type="d3p1:IntegerType" form="Attribute" localName="PaymentMethod"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ШтрихкодАлкогольнойПродукции" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AlcoholExciseStamp"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДТовара" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="GoodUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДХарактеристики" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="CharacteristicUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДУпаковки" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="PackingUUID"/>
+	</objectType>
+	<objectType name="Оплаты">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Оплата" type="d3p1:Оплата" upperBound="-1" localName="Payment"/>
+	</objectType>
+	<objectType name="Оплата">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СуммаНаличнойОплаты" type="d3p1:DecimalType" form="Attribute" localName="Cash"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СуммаЭлектроннойОплаты" type="d3p1:DecimalType" form="Attribute" localName="ElectronicPayment"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СуммаПредоплатой" type="d3p1:DecimalType" form="Attribute" localName="PrePayment"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СуммаПостоплатой" type="d3p1:DecimalType" form="Attribute" localName="PostPayment"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СуммаВстречнымПредоставлением" type="d3p1:DecimalType" form="Attribute" localName="Barter"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодВидаЭлектроннойОплаты" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="ElectronicPaymentOptionCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДВидаЭлектроннойОплаты" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="ElectronicPaymentOptionUUID"/>
+	</objectType>
+	<objectType name="PostDocsResponse">
+		<property name="Успешно" type="xs:boolean" nillable="false" localName="IsSuccess"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Описание" type="d3p1:StringType" lowerBound="0" nillable="true" localName="Description"/>
+	</objectType>
+	<objectType name="PriceListPackage">
+		<property name="Успешно" type="xs:boolean" nillable="false" localName="IsFormed"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ПрайсЛист" type="d3p1:PriceList" lowerBound="0" nillable="true" localName="PriceList"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерПакета" type="d3p1:IntegerType" lowerBound="0" form="Attribute" localName="PackageNumber"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ПакетовВсего" type="d3p1:IntegerType" lowerBound="0" form="Attribute" localName="PackageTotal"/>
+	</objectType>
+	<objectType name="DocTypes">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТипыДокументов" type="d3p1:ТипыДокументовЗапись" upperBound="-1" localName="RecordDocType"/>
+	</objectType>
+	<objectType name="ТипыДокументовЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ТипДокумента" type="d3p1:StringType" nillable="false" form="Attribute" localName="DocType"/>
+		<property name="МожноПолучать" type="xs:boolean" nillable="false" form="Attribute" localName="CanGet"/>
+		<property name="МожноЗагружать" type="xs:boolean" nillable="false" form="Attribute" localName="CanPost"/>
+	</objectType>
+	<objectType name="Заказ">
+		<property name="ДатаЗаказа" type="xs:dateTime" form="Attribute" localName="Date"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерЗаказа" type="d3p1:StringType" form="Attribute" localName="Number"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ГородДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressCity"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УлицаДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressStreet"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерДомаДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressBuilding"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерКвартирыДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressApartment"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерПодъездаДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressEntrance"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерЭтажаДоставки" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="AddressFloor"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="НомерТелефонаКлиента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Phone"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="EmailКлиента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Email"/>
+		<property name="ДатаДоставки" type="xs:dateTime" lowerBound="0" form="Attribute" localName="DeliveryDate"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СтатусЗаказа" type="d3p1:OrderStatus" lowerBound="0" form="Attribute" localName="Status"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Комментарий" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Comment"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ИмяКлиента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="FirstName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ФамилияКлиента" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="LastName"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Товары" type="d3p1:ЗаказТовары" lowerBound="0" localName="Goods"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Оплаты" type="d3p1:Оплаты" lowerBound="0" localName="Payments"/>
+	</objectType>
+	<objectType name="ЗаказТовары">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЗаказТоварыЗапись" type="d3p1:ЗаказТоварыЗапись" lowerBound="0" upperBound="-1" localName="Good"/>
+	</objectType>
+	<objectType name="ЗаказТоварыЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Количество" type="d3p1:DecimalType" form="Attribute" localName="Quantity"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Цена" type="d3p1:MoneyType" form="Attribute" localName="Price"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Сумма" type="d3p1:MoneyType" form="Attribute" localName="Sum"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДТовара" type="d3p1:UUIDType" form="Attribute" localName="GoodUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДХарактеристики" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="CharacteristicUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДУпаковки" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="PackUUID"/>
+	</objectType>
+	<objectType name="СистемыНалогообложения">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="СистемаНалогообложенияЗапись" type="d3p1:СистемаНалогообложенияЗапись" upperBound="-1" localName="TaxationSystem"/>
+	</objectType>
+	<objectType name="СистемаНалогообложенияЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодСистемыНалогообложения" type="d3p1:IntegerType" form="Text"/>
+	</objectType>
+	<objectType name="Штрихкоды">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ШтрихкодЗапись" type="d3p1:ШтрихкодЗапись" lowerBound="0" upperBound="-1" localName="Barcode"/>
+	</objectType>
+	<objectType name="ШтрихкодЗапись">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Штрихкод" type="d3p1:StringType" form="Attribute" localName="Value"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Тип" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Type"/>
+	</objectType>
+	<objectType name="АлкогольныеРеквизиты">
+		<property name="Маркируемый" type="xs:boolean" form="Attribute" localName="IsExcisable"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КодВидаАлкогольнойПродукции" type="d3p1:StringType" form="Attribute" localName="AlcoholKindCode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ЕмкостьТары" type="d3p1:DecimalType" form="Attribute" localName="AlcoholContainerSize"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Крепость" type="d3p1:DecimalType" form="Attribute" localName="AlcoholStrength"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ИННПроизводителя" type="d3p1:StringType" form="Attribute" localName="VendorINN"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="КПППроизводителя" type="d3p1:StringType" form="Attribute" localName="VendorKPP"/>
+		<property name="ВРозлив" type="xs:boolean" form="Attribute" localName="IsDraught"/>
+	</objectType>
+	<objectType name="PriceCheckerReports">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ОтчетОЦенниках" type="d3p1:ОтчетОЦенниках" lowerBound="0" upperBound="-1" localName="PriceCheckerReport"/>
+	</objectType>
+	<objectType name="ОтчетОЦенниках">
+		<property name="Дата" type="xs:dateTime" lowerBound="0" form="Attribute" localName="Date"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Номер" type="d3p1:StringType" lowerBound="0" form="Attribute" localName="Number"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИД" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="UUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Товары" type="d3p1:ОтчетОЦенникахТовары" lowerBound="0" localName="Goods"/>
+	</objectType>
+	<objectType name="ОтчетОЦенникахТовары">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="ОтчетОЦенникахТовар" type="d3p1:ОтчетОЦенникахТовар" lowerBound="0" upperBound="-1" localName="Good"/>
+	</objectType>
+	<objectType name="ОтчетОЦенникахТовар">
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Код" type="d3p1:CodeType" form="Attribute" localName="Code"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="Штрихкод" type="d3p1:CodeType" lowerBound="0" form="Attribute" localName="Barcode"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДТовара" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="GoodUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДХарактеристики" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="CharacteristicUUID"/>
+		<property xmlns:d3p1="http://www.1c.ru/EquipmentService/2.0.0.3" name="УУИДУпаковки" type="d3p1:UUIDType" lowerBound="0" form="Attribute" localName="PackUUID"/>
+	</objectType>
+</package>

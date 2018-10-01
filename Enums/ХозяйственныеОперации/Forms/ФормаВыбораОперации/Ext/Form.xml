@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Хозяйственные операции</v8:content>
+		</v8:item>
+	</Title>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<VerticalScroll>useIfNecessary</VerticalScroll>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаВыбрать" id="11">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.Выбрать</CommandName>
+				<ExtendedTooltip name="ФормаВыбратьРасширеннаяПодсказка" id="12"/>
+			</Button>
+			<ButtonGroup name="ФормаГруппаСписокОпераций" id="13">
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Форма группа список операций</v8:content>
+					</v8:item>
+				</Title>
+				<ToolTip>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Форма группа список операций</v8:content>
+					</v8:item>
+				</ToolTip>
+				<CommandSource>Item.СписокОпераций</CommandSource>
+				<ExtendedTooltip name="ФормаГруппаСписокОперацийРасширеннаяПодсказка" id="14"/>
+			</ButtonGroup>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<Table name="СписокОпераций" id="1">
+			<Representation>List</Representation>
+			<ChangeRowSet>false</ChangeRowSet>
+			<ChangeRowOrder>false</ChangeRowOrder>
+			<Header>false</Header>
+			<HorizontalLines>false</HorizontalLines>
+			<VerticalLines>false</VerticalLines>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<DataPath>СписокОпераций</DataPath>
+			<RowPictureDataPath>СписокОпераций.Picture</RowPictureDataPath>
+			<CommandSet>
+				<ExcludedCommand>Change</ExcludedCommand>
+				<ExcludedCommand>EndEdit</ExcludedCommand>
+				<ExcludedCommand>Pickup</ExcludedCommand>
+			</CommandSet>
+			<ContextMenu name="СписокОперацийКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="СписокОперацийКоманднаяПанель" id="3">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="СписокОперацийРасширеннаяПодсказка" id="4"/>
+			<SearchStringAddition name="СписокОперацийСтрокаПоиска" id="15">
+				<AdditionSource>
+					<Item>СписокОпераций</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокОперацийСтрокаПоискаКонтекстноеМеню" id="16"/>
+				<ExtendedTooltip name="СписокОперацийСтрокаПоискаРасширеннаяПодсказка" id="17"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="СписокОперацийСостояниеПросмотра" id="18">
+				<AdditionSource>
+					<Item>СписокОпераций</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокОперацийСостояниеПросмотраКонтекстноеМеню" id="19"/>
+				<ExtendedTooltip name="СписокОперацийСостояниеПросмотраРасширеннаяПодсказка" id="20"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="СписокОперацийУправлениеПоиском" id="21">
+				<AdditionSource>
+					<Item>СписокОпераций</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокОперацийУправлениеПоискомКонтекстноеМеню" id="22"/>
+				<ExtendedTooltip name="СписокОперацийУправлениеПоискомРасширеннаяПодсказка" id="23"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">СписокОперацийВыбор</Event>
+			</Events>
+			<ChildItems>
+				<CheckBoxField name="СписокОперацийПометка" id="8">
+					<DataPath>СписокОпераций.Check</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="СписокОперацийПометкаКонтекстноеМеню" id="9"/>
+					<ExtendedTooltip name="СписокОперацийПометкаРасширеннаяПодсказка" id="10"/>
+				</CheckBoxField>
+				<InputField name="СписокОперацийЗначение" id="5">
+					<DataPath>СписокОпераций.Value</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="СписокОперацийЗначениеКонтекстноеМеню" id="6"/>
+					<ExtendedTooltip name="СписокОперацийЗначениеРасширеннаяПодсказка" id="7"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+		<LabelDecoration name="Предупреждение" id="24">
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<TextColor>style:ToolTipTextColor</TextColor>
+			<Title formatted="false">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При выборе более одного значения возможно замедление работы списка!</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="ПредупреждениеКонтекстноеМеню" id="25"/>
+			<ExtendedTooltip name="ПредупреждениеРасширеннаяПодсказка" id="26"/>
+		</LabelDecoration>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="СписокОпераций" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список операций</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+			<Settings xsi:type="v8:TypeDescription">
+				<v8:Type>cfg:EnumRef.ХозяйственныеОперации</v8:Type>
+			</Settings>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Выбрать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Выбрать</Action>
+		</Command>
+	</Commands>
+</Form>

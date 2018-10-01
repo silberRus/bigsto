@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<AutoSaveDataInSettings>Use</AutoSaveDataInSettings>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаВыполнитьПроверки" id="31">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ВыполнитьПроверки</CommandName>
+				<ExtendedTooltip name="ФормаВыполнитьПроверкиРасширеннаяПодсказка" id="32"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnSaveDataInSettingsAtServer">ПриСохраненииДанныхВНастройкахНаСервере</Event>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnLoadDataFromSettingsAtServer">ПриЗагрузкеДанныхИзНастроекНаСервере</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<RadioButtonField name="Исправлять" id="392">
+			<DataPath>Исправлять</DataPath>
+			<TitleLocation>None</TitleLocation>
+			<RadioButtonType>Auto</RadioButtonType>
+			<ChoiceList>
+				<xr:Item>
+					<xr:Presentation/>
+					<xr:CheckState>0</xr:CheckState>
+					<xr:Value xsi:type="FormChoiceListDesTimeValue">
+						<Presentation>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Только проверка</v8:content>
+							</v8:item>
+						</Presentation>
+						<Value xsi:type="xs:decimal">0</Value>
+					</xr:Value>
+				</xr:Item>
+				<xr:Item>
+					<xr:Presentation/>
+					<xr:CheckState>0</xr:CheckState>
+					<xr:Value xsi:type="FormChoiceListDesTimeValue">
+						<Presentation>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Проверка и корректировка</v8:content>
+							</v8:item>
+						</Presentation>
+						<Value xsi:type="xs:decimal">1</Value>
+					</xr:Value>
+				</xr:Item>
+			</ChoiceList>
+			<ContextMenu name="ИсправлятьКонтекстноеМеню" id="393"/>
+			<ExtendedTooltip name="ИсправлятьРасширеннаяПодсказка" id="394"/>
+			<Events>
+				<Event name="OnChange">ИсправлятьПриИзменении</Event>
+			</Events>
+		</RadioButtonField>
+		<UsualGroup name="ГруппаСохранениеРезультата" id="390">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа сохранение результата</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа сохранение результата</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаСохранениеРезультатаРасширеннаяПодсказка" id="391"/>
+			<ChildItems>
+				<CheckBoxField name="СохранятьРезультат" id="379">
+					<DataPath>Объект.СохранятьРезультат</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="СохранятьРезультатКонтекстноеМеню" id="380"/>
+					<ExtendedTooltip name="СохранятьРезультатРасширеннаяПодсказка" id="381"/>
+					<Events>
+						<Event name="OnChange">СохранятьРезультатПриИзменении</Event>
+					</Events>
+				</CheckBoxField>
+				<InputField name="КаталогСохраненияРезультата" id="387">
+					<DataPath>Объект.КаталогСохраненияРезультата</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>в</v8:content>
+						</v8:item>
+					</Title>
+					<ChoiceButton>true</ChoiceButton>
+					<ContextMenu name="КаталогСохраненияРезультатаКонтекстноеМеню" id="388"/>
+					<ExtendedTooltip name="КаталогСохраненияРезультатаРасширеннаяПодсказка" id="389"/>
+					<Events>
+						<Event name="StartChoice">КаталогСохраненияРезультатаНачалоВыбора</Event>
+					</Events>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="Проверки" id="334">
+			<ChangeRowSet>false</ChangeRowSet>
+			<ChangeRowOrder>false</ChangeRowOrder>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>Объект.Проверки</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ПроверкиКонтекстноеМеню" id="335"/>
+			<AutoCommandBar name="ПроверкиКоманднаяПанель" id="336">
+				<ChildItems>
+					<Button name="ПроверкиУстановитьФлажки" id="347">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.УстановитьФлажки</CommandName>
+						<ExtendedTooltip name="ПроверкиУстановитьФлажкиРасширеннаяПодсказка" id="348"/>
+					</Button>
+					<Button name="ПроверкиСнятьФлажки" id="349">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.СнятьФлажки</CommandName>
+						<ExtendedTooltip name="ПроверкиСнятьФлажкиРасширеннаяПодсказка" id="350"/>
+					</Button>
+					<Button name="ПроверкиОбновить" id="395">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.Обновить</CommandName>
+						<ExtendedTooltip name="ПроверкиОбновитьРасширеннаяПодсказка" id="396"/>
+					</Button>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ПроверкиРасширеннаяПодсказка" id="337"/>
+			<SearchStringAddition name="ПроверкиСтрокаПоиска" id="338">
+				<AdditionSource>
+					<Item>Проверки</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ПроверкиСтрокаПоискаКонтекстноеМеню" id="339"/>
+				<ExtendedTooltip name="ПроверкиСтрокаПоискаРасширеннаяПодсказка" id="340"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ПроверкиСостояниеПросмотра" id="341">
+				<AdditionSource>
+					<Item>Проверки</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ПроверкиСостояниеПросмотраКонтекстноеМеню" id="342"/>
+				<ExtendedTooltip name="ПроверкиСостояниеПросмотраРасширеннаяПодсказка" id="343"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ПроверкиУправлениеПоиском" id="344">
+				<AdditionSource>
+					<Item>Проверки</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ПроверкиУправлениеПоискомКонтекстноеМеню" id="345"/>
+				<ExtendedTooltip name="ПроверкиУправлениеПоискомРасширеннаяПодсказка" id="346"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ПроверкиВыбор</Event>
+			</Events>
+			<ChildItems>
+				<LabelField name="ПроверкиНомерСтроки" id="351">
+					<DataPath>Объект.Проверки.LineNumber</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ПроверкиНомерСтрокиКонтекстноеМеню" id="352"/>
+					<ExtendedTooltip name="ПроверкиНомерСтрокиРасширеннаяПодсказка" id="353"/>
+				</LabelField>
+				<CheckBoxField name="ПроверкиПометка" id="354">
+					<DataPath>Объект.Проверки.Пометка</DataPath>
+					<TitleLocation>None</TitleLocation>
+					<EditMode>EnterOnInput</EditMode>
+					<CellHyperlink>true</CellHyperlink>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ПроверкиПометкаКонтекстноеМеню" id="355"/>
+					<ExtendedTooltip name="ПроверкиПометкаРасширеннаяПодсказка" id="356"/>
+					<Events>
+						<Event name="OnChange">ПроверкиПометкаПриИзменении</Event>
+					</Events>
+				</CheckBoxField>
+				<PictureField name="ПроверкиКартинкаНастройки" id="357">
+					<DataPath>Объект.Проверки.КартинкаНастройки</DataPath>
+					<TitleLocation>None</TitleLocation>
+					<EditMode>EnterOnInput</EditMode>
+					<CellHyperlink>true</CellHyperlink>
+					<Width>1</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ValuesPicture>
+						<xr:Ref>StdPicture.CustomizeForm</xr:Ref>
+						<xr:LoadTransparent>true</xr:LoadTransparent>
+					</ValuesPicture>
+					<ContextMenu name="ПроверкиКартинкаНастройкиКонтекстноеМеню" id="358"/>
+					<ExtendedTooltip name="ПроверкиКартинкаНастройкиРасширеннаяПодсказка" id="359"/>
+				</PictureField>
+				<LabelField name="ПроверкиНаименование" id="360">
+					<DataPath>Объект.Проверки.Наименование</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ПроверкиНаименованиеКонтекстноеМеню" id="361"/>
+					<ExtendedTooltip name="ПроверкиНаименованиеРасширеннаяПодсказка" id="362"/>
+				</LabelField>
+				<ColumnGroup name="ПроверкиГруппаПоследняяПроверка" id="363">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Последняя проверка</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Проверки группа последняя проверка</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ПроверкиГруппаПоследняяПроверкаРасширеннаяПодсказка" id="364"/>
+					<ChildItems>
+						<LabelField name="ПроверкиДата" id="371">
+							<DataPath>Объект.Проверки.Дата</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ПроверкиДатаКонтекстноеМеню" id="372"/>
+							<ExtendedTooltip name="ПроверкиДатаРасширеннаяПодсказка" id="373"/>
+						</LabelField>
+						<CheckBoxField name="ПроверкиИсправлять" id="376">
+							<DataPath>Объект.Проверки.Исправление</DataPath>
+							<UserVisible>
+								<xr:Common>false</xr:Common>
+							</UserVisible>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="ПроверкиИсправлятьКонтекстноеМеню" id="377"/>
+							<ExtendedTooltip name="ПроверкиИсправлятьРасширеннаяПодсказка" id="378"/>
+						</CheckBoxField>
+						<ColumnGroup name="ПроверкиГруппаРезультат" id="374">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Результат</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Проверки группа результат</v8:content>
+								</v8:item>
+							</ToolTip>
+							<ShowInHeader>true</ShowInHeader>
+							<ExtendedTooltip name="ПроверкиГруппаРезультатРасширеннаяПодсказка" id="375"/>
+							<ChildItems>
+								<LabelField name="ПроверкиПредставлениеРезультата" id="365">
+									<DataPath>Объект.Проверки.ПредставлениеРезультата</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ShowInHeader>false</ShowInHeader>
+									<ContextMenu name="ПроверкиПредставлениеРезультатаКонтекстноеМеню" id="366"/>
+									<ExtendedTooltip name="ПроверкиПредставлениеРезультатаРасширеннаяПодсказка" id="367"/>
+								</LabelField>
+								<LabelField name="ПроверкиПредставлениеРезультатаГиперссылка" id="368">
+									<DataPath>Объект.Проверки.ПредставлениеРезультата</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<CellHyperlink>true</CellHyperlink>
+									<ShowInHeader>false</ShowInHeader>
+									<ContextMenu name="ПроверкиПредставлениеРезультатаГиперссылкаКонтекстноеМеню" id="369"/>
+									<ExtendedTooltip name="ПроверкиПредставлениеРезультатаГиперссылкаРасширеннаяПодсказка" id="370"/>
+								</LabelField>
+							</ChildItems>
+						</ColumnGroup>
+					</ChildItems>
+				</ColumnGroup>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.ПроверкаИКорректировкаДанных</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<Save>
+				<Field>Объект.Исправлять</Field>
+				<Field>Объект.КаталогСохраненияРезультата</Field>
+				<Field>Объект.СохранятьРезультат</Field>
+			</Save>
+			<Columns>
+				<AdditionalColumns table="Объект.Проверки"/>
+			</Columns>
+		</Attribute>
+		<Attribute name="ВозможноСохранениеВЛокальныйКаталог" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Возможно сохранение в локальный каталог</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Исправлять" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Исправлять</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>1</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИдентификаторЗадания" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор задания</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:UUID</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресРезультата" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес результата</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<ConditionalAppearance>
+			<dcsset:item>
+				<dcsset:selection>
+					<dcsset:item>
+						<dcsset:field>ПроверкиПредставлениеРезультата</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:left xsi:type="dcscor:Field">Объект.Проверки.ТабличныйДокумент</dcsset:left>
+						<dcsset:comparisonType>Filled</dcsset:comparisonType>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:appearance>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>Видимость</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:use>false</dcscor:use>
+						<dcscor:parameter>Отображать</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+				</dcsset:appearance>
+			</dcsset:item>
+			<dcsset:item>
+				<dcsset:selection>
+					<dcsset:item>
+						<dcsset:field>ПроверкиПредставлениеРезультатаГиперссылка</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:left xsi:type="dcscor:Field">Объект.Проверки.ТабличныйДокумент</dcsset:left>
+						<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:appearance>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>Видимость</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:use>false</dcscor:use>
+						<dcscor:parameter>Отображать</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+				</dcsset:appearance>
+			</dcsset:item>
+		</ConditionalAppearance>
+	</Attributes>
+	<Commands>
+		<Command name="ВыполнитьПроверки" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить проверки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыполнитьПроверки</Action>
+		</Command>
+		<Command name="УстановитьФлажки" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить флажки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить флажки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.CheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УстановитьФлажки</Action>
+		</Command>
+		<Command name="СнятьФлажки" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Снять флажки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Снять флажки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.UncheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>СнятьФлажки</Action>
+		</Command>
+		<Command name="Обновить" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить результат</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Refresh</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Обновить</Action>
+		</Command>
+	</Commands>
+</Form>

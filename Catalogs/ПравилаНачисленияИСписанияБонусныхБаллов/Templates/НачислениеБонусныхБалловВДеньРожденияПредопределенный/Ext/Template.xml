@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Запрос</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Партнер</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СуммаНачисления</dataPath>
+			<field>СуммаНачисления</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма начисления</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментПартнеров</dataPath>
+			<field>СегментПартнеров</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент партнеров</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	Сегменты.Партнер КАК Партнер,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуПартнеров
+ПОМЕСТИТЬ ОтборПоСегментуПартнеров
+{ВЫБРАТЬ
+	Партнер.*}
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментПартнеров,
+	Сегменты.Партнер.* КАК Партнер}
+
+ИНДЕКСИРОВАТЬ ПО
+	Сегменты.Партнер
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	НачислениеИСписаниеБонусныхБалловБонусныеБаллы.Партнер КАК Партнер
+ПОМЕСТИТЬ ПредыдущиеНачисления
+ИЗ
+	Документ.НачислениеИСписаниеБонусныхБаллов.Начисление КАК НачислениеИСписаниеБонусныхБалловБонусныеБаллы
+ГДЕ
+	НачислениеИСписаниеБонусныхБалловБонусныеБаллы.Ссылка.ПравилоНачисления = &amp;АвтоматическоеНачисление
+	И НачислениеИСписаниеБонусныхБалловБонусныеБаллы.Ссылка.Проведен
+	И НачислениеИСписаниеБонусныхБалловБонусныеБаллы.Ссылка.Дата МЕЖДУ ВЫБОР
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.День)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕНЬ, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), НЕДЕЛЯ, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), МЕСЯЦ, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), КВАРТАЛ, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ГОД, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕКАДА, -&amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ПОЛУГОДИЕ, -&amp;КоличествоПериодов)
+			ИНАЧЕ НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ)
+		КОНЕЦ И ВЫБОР
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.День)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕНЬ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), НЕДЕЛЯ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), МЕСЯЦ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), КВАРТАЛ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ГОД, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕКАДА, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ПОЛУГОДИЕ, &amp;КоличествоПериодов)
+			ИНАЧЕ НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ)
+		КОНЕЦ
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	Партнеры.Ссылка КАК Партнер,
+	&amp;СуммаНачисления КАК СуммаНачисления
+ИЗ
+	Справочник.Партнеры КАК Партнеры
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ Справочник.КартыЛояльности КАК КартыЛояльности
+		ПО КартыЛояльности.Партнер = Партнеры.Ссылка
+		 И КартыЛояльности.Владелец.БонуснаяПрограммаЛояльности = &amp;БонуснаяПрограммаЛояльности
+ГДЕ
+	ДобавитьКДате(Партнеры.ДатаРождения, ГОД, Год(&amp;ТекущаяДата) - Год(Партнеры.ДатаРождения)) МЕЖДУ НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ) И ВЫБОР
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.День)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕНЬ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), НЕДЕЛЯ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), МЕСЯЦ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), КВАРТАЛ, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ГОД, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ДЕКАДА, &amp;КоличествоПериодов)
+			КОГДА &amp;Периодичность = ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие)
+				ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ), ПОЛУГОДИЕ, &amp;КоличествоПериодов)
+			ИНАЧЕ НАЧАЛОПЕРИОДА(&amp;ТекущаяДата, ДЕНЬ)
+		КОНЕЦ
+	И НЕ Партнеры.Ссылка В
+				(ВЫБРАТЬ
+					ПредыдущиеНачисления.Партнер
+				ИЗ
+					ПредыдущиеНачисления)
+{ГДЕ
+	(Партнеры.Ссылка В
+			(ВЫБРАТЬ
+				ОтборПоСегментуПартнеров.Партнер
+			ИЗ
+				ОтборПоСегментуПартнеров
+			ГДЕ
+				ОтборПоСегментуПартнеров.ИспользуетсяОтборПоСегментуПартнеров = &amp;ИспользуетсяОтборПоСегментуПартнеров))}</query>
+	</dataSet>
+	<parameter>
+		<name>СуммаНачисления</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Сумма начисления</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>15</v8:Digits>
+				<v8:FractionDigits>2</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>false</useRestriction>
+		<availableAsField>false</availableAsField>
+		<denyIncompleteValues>true</denyIncompleteValues>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>ТекущаяДата</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущая дата</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>Date</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>КоличествоПериодов</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Количество периодов</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>3</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">1</value>
+		<useRestriction>false</useRestriction>
+		<availableAsField>false</availableAsField>
+		<denyIncompleteValues>true</denyIncompleteValues>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>Периодичность</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Периодичность</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.Периодичность</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.Периодичность.Неделя</value>
+		<useRestriction>false</useRestriction>
+		<availableAsField>false</availableAsField>
+		<denyIncompleteValues>true</denyIncompleteValues>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>АвтоматическоеНачисление</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Автоматическое начисление</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:type="dcscor:DesignTimeValue">Справочник.АвтоматическоеНачислениеИСписаниеБонусныхБаллов.ПустаяСсылка</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуПартнеров</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту партнеров</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>БонуснаяПрограммаЛояльности</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Бонусная программа лояльности</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.БонусныеПрограммыЛояльности</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Партнер</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СуммаНачисления</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

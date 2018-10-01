@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Транспортные накладные</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаОК" id="10">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.StandardCommand.OK</CommandName>
+				<ExtendedTooltip name="ФормаОКРасширеннаяПодсказка" id="11"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<Table name="ТранспортныеНакладные" id="1">
+			<Representation>List</Representation>
+			<Header>false</Header>
+			<HorizontalLines>false</HorizontalLines>
+			<VerticalLines>false</VerticalLines>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<DataPath>СписокТранспортныхНакладных</DataPath>
+			<RowPictureDataPath>СписокТранспортныхНакладных.Picture</RowPictureDataPath>
+			<ContextMenu name="ТранспортныеНакладныеКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="ТранспортныеНакладныеКоманднаяПанель" id="3">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ТранспортныеНакладныеРасширеннаяПодсказка" id="4"/>
+			<SearchStringAddition name="ТранспортныеНакладныеСтрокаПоиска" id="12">
+				<AdditionSource>
+					<Item>ТранспортныеНакладные</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТранспортныеНакладныеСтрокаПоискаКонтекстноеМеню" id="13"/>
+				<ExtendedTooltip name="ТранспортныеНакладныеСтрокаПоискаРасширеннаяПодсказка" id="14"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ТранспортныеНакладныеСостояниеПросмотра" id="15">
+				<AdditionSource>
+					<Item>ТранспортныеНакладные</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТранспортныеНакладныеСостояниеПросмотраКонтекстноеМеню" id="16"/>
+				<ExtendedTooltip name="ТранспортныеНакладныеСостояниеПросмотраРасширеннаяПодсказка" id="17"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ТранспортныеНакладныеУправлениеПоиском" id="18">
+				<AdditionSource>
+					<Item>ТранспортныеНакладные</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ТранспортныеНакладныеУправлениеПоискомКонтекстноеМеню" id="19"/>
+				<ExtendedTooltip name="ТранспортныеНакладныеУправлениеПоискомРасширеннаяПодсказка" id="20"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ТранспортныеНакладныеВыбор</Event>
+			</Events>
+			<ChildItems>
+				<InputField name="ТранспортныеНакладныеЗначение" id="5">
+					<DataPath>СписокТранспортныхНакладных.Value</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<CellHyperlink>true</CellHyperlink>
+					<TextEdit>false</TextEdit>
+					<TextColor>style:ЦветГиперссылки</TextColor>
+					<ContextMenu name="ТранспортныеНакладныеЗначениеКонтекстноеМеню" id="6"/>
+					<ExtendedTooltip name="ТранспортныеНакладныеЗначениеРасширеннаяПодсказка" id="7"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="СписокТранспортныхНакладных" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список транспортных накладных</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+			<Settings xsi:type="v8:TypeDescription">
+				<v8:Type>cfg:DocumentRef.ТранспортнаяНакладная</v8:Type>
+			</Settings>
+		</Attribute>
+	</Attributes>
+</Form>

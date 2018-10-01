@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ЗаполнениеСвойств</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоЗаполненных</dataPath>
+			<field>КоличествоЗаполненных</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество заполненных</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Свойство</dataPath>
+			<field>Свойство</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ГруппаСвойств</dataPath>
+			<field>ГруппаСвойств</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа свойств</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоПартнеровВГруппе</dataPath>
+			<field>КоличествоПартнеровВГруппе</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество партнеров в группе</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Заполнение</dataPath>
+			<field>Заполнение</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнение %</v8:content>
+				</v8:item>
+			</title>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ЧДЦ=2</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ЗаполненныеСвойства.Ссылка.Наименование КАК ГруппаСвойств,
+	ЗаполненныеСвойства.Свойство,
+	ЗаполненныеСвойства.КоличествоЗаполненных,
+	ПартнерыПоГруппам.КоличествоПартнеров КАК КоличествоПартнеровВГруппе,
+	ЗаполненныеСвойства.КоличествоЗаполненных / ПартнерыПоГруппам.КоличествоПартнеров * 100 КАК Заполнение
+ИЗ
+	(ВЫБРАТЬ
+		ДополнительныеРеквизиты.Ссылка КАК Ссылка,
+		ДополнительныеРеквизиты.Свойство КАК Свойство,
+		КОЛИЧЕСТВО(ПартнерыДополнительныеРеквизиты.Значение) КАК КоличествоЗаполненных
+	ИЗ
+		Справочник.НаборыДополнительныхРеквизитовИСведений.ДополнительныеРеквизиты КАК ДополнительныеРеквизиты
+			ЛЕВОЕ СОЕДИНЕНИЕ Справочник.Партнеры.ДополнительныеРеквизиты КАК ПартнерыДополнительныеРеквизиты
+			ПО ДополнительныеРеквизиты.Свойство = ПартнерыДополнительныеРеквизиты.Свойство
+	
+	СГРУППИРОВАТЬ ПО
+		ДополнительныеРеквизиты.Ссылка,
+		ДополнительныеРеквизиты.Свойство) КАК ЗаполненныеСвойства
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_Партнеры_Общие) КАК ГруппаСвойств,
+			КОЛИЧЕСТВО(*) КАК КоличествоПартнеров
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_Партнеры_Клиенты),
+			КОЛИЧЕСТВО(*)
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+		ГДЕ
+			Партнеры.Клиент
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_Партнеры_Поставщики),
+			КОЛИЧЕСТВО(*)
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+		ГДЕ
+			Партнеры.Поставщик
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_Партнеры_Конкуренты),
+			КОЛИЧЕСТВО(*)
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+		ГДЕ
+			Партнеры.Конкурент
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_Партнеры_Прочие),
+			КОЛИЧЕСТВО(*)
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+		ГДЕ
+			Партнеры.ПрочиеОтношения) КАК ПартнерыПоГруппам
+		ПО ЗаполненныеСвойства.Ссылка = ПартнерыПоГруппам.ГруппаСвойств</query>
+	</dataSet>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Заполнение свойств клиентов, поставщиков</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ГруппаСвойств</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Свойство</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоличествоЗаполненных</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КоличествоПартнеровВГруппе</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Заполнение</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

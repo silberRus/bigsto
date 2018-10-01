@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ОстаткиАкцизныхМарок</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОрганизацияЕГАИС</dataPath>
+			<field>ОрганизацияЕГАИС</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация ЕГАИС</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Справка2</dataPath>
+			<field>Справка2</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Справка 2</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АлкогольнаяПродукция</dataPath>
+			<field>АлкогольнаяПродукция</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Алкогольная продукция</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Отклонение</dataPath>
+			<field>Отклонение</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отклонение</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СтатусЕГАИС</dataPath>
+			<field>СтатусЕГАИС</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Статус ЕГАИС</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СтатусИБ</dataPath>
+			<field>СтатусИБ</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Статус ИБ</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АкцизнаяМаркаЗначение</dataPath>
+			<field>АкцизнаяМаркаЗначение</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Акцизная марка (значение)</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АкцизнаяМаркаСсылка</dataPath>
+			<field>АкцизнаяМаркаСсылка</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Акцизная марка (ссылка)</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	ОтчетЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ОтчетЕГАИС.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	ОтчетЕГАИС.Справка2 КАК Справка2,
+	МАКСИМУМ(ОтчетЕГАИС.Дата) КАК Дата
+ПОМЕСТИТЬ ДатыОтчетовЕГАИС
+ИЗ
+	Документ.ОтчетЕГАИС КАК ОтчетЕГАИС
+ГДЕ
+	ОтчетЕГАИС.Ссылка В(&amp;ОтчетЕГАИС)
+
+СГРУППИРОВАТЬ ПО
+	ОтчетЕГАИС.ОрганизацияЕГАИС,
+	ОтчетЕГАИС.АлкогольнаяПродукция,
+	ОтчетЕГАИС.Справка2
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ОтчетЕГАИС.Ссылка КАК Ссылка,
+	ОтчетЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ОтчетЕГАИС.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	ОтчетЕГАИС.Справка2 КАК Справка2
+ПОМЕСТИТЬ ОтчетыЕГАИС
+ИЗ
+	ДатыОтчетовЕГАИС КАК ДатыОтчетовЕГАИС
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ Документ.ОтчетЕГАИС КАК ОтчетЕГАИС
+		ПО ДатыОтчетовЕГАИС.ОрганизацияЕГАИС = ОтчетЕГАИС.ОрганизацияЕГАИС
+			И ДатыОтчетовЕГАИС.АлкогольнаяПродукция = ОтчетЕГАИС.АлкогольнаяПродукция
+			И ДатыОтчетовЕГАИС.Справка2 = ОтчетЕГАИС.Справка2
+			И ДатыОтчетовЕГАИС.Дата = ОтчетЕГАИС.Дата
+ГДЕ
+	ОтчетЕГАИС.Ссылка В(&amp;ОтчетЕГАИС)
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	АкцизныеМаркиЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	АкцизныеМаркиЕГАИС.АкцизнаяМарка КАК АкцизнаяМаркаСсылка,
+	АкцизныеМаркиЕГАИС.АкцизнаяМарка.ЗначениеШтрихкода КАК АкцизнаяМаркаЗначение,
+	АкцизныеМаркиЕГАИС.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	АкцизныеМаркиЕГАИС.Справка2 КАК Справка2,
+	АкцизныеМаркиЕГАИС.Статус КАК Статус
+ПОМЕСТИТЬ ДанныеИБ
+ИЗ
+	РегистрСведений.АкцизныеМаркиЕГАИС КАК АкцизныеМаркиЕГАИС
+ГДЕ
+	АкцизныеМаркиЕГАИС.ОрганизацияЕГАИС В
+			(ВЫБРАТЬ
+				ОтчетыЕГАИС.ОрганизацияЕГАИС
+			ИЗ
+				ОтчетыЕГАИС КАК ОтчетыЕГАИС)
+	И АкцизныеМаркиЕГАИС.АлкогольнаяПродукция В
+			(ВЫБРАТЬ
+				ОтчетыЕГАИС.АлкогольнаяПродукция
+			ИЗ
+				ОтчетыЕГАИС КАК ОтчетыЕГАИС)
+	И АкцизныеМаркиЕГАИС.Справка2 В
+			(ВЫБРАТЬ
+				ОтчетыЕГАИС.Справка2
+			ИЗ
+				ОтчетыЕГАИС КАК ОтчетыЕГАИС)
+
+ИНДЕКСИРОВАТЬ ПО
+	ОрганизацияЕГАИС,
+	АлкогольнаяПродукция,
+	Справка2,
+	АкцизнаяМаркаЗначение
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	АкцизныеМарки.Ссылка.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ЗНАЧЕНИЕ(Справочник.ШтрихкодыУпаковокТоваров.ПустаяСсылка) КАК АкцизнаяМаркаСсылка,
+	АкцизныеМарки.КодАкцизнойМарки КАК АкцизнаяМаркаЗначение,
+	АкцизныеМарки.Ссылка.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	АкцизныеМарки.Ссылка.Справка2 КАК Справка2,
+	ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ВНаличии) КАК Статус
+ПОМЕСТИТЬ ДанныеЕГАИС
+ИЗ
+	Документ.ОтчетЕГАИС.АкцизныеМарки КАК АкцизныеМарки
+ГДЕ
+	АкцизныеМарки.Ссылка В
+			(ВЫБРАТЬ
+				ОтчетыЕГАИС.Ссылка
+			ИЗ
+				ОтчетыЕГАИС КАК ОтчетыЕГАИС)
+
+ИНДЕКСИРОВАТЬ ПО
+	ОрганизацияЕГАИС,
+	АлкогольнаяПродукция,
+	Справка2,
+	АкцизнаяМаркаЗначение
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ВложенныйЗапрос.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ВложенныйЗапрос.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	ВложенныйЗапрос.Справка2 КАК Справка2,
+	ВложенныйЗапрос.АкцизнаяМаркаЗначение КАК АкцизнаяМаркаЗначение,
+	МАКСИМУМ(ВложенныйЗапрос.АкцизнаяМаркаСсылка) КАК АкцизнаяМаркаСсылка,
+	МАКСИМУМ(ВложенныйЗапрос.СтатусИБ) КАК СтатусИБ,
+	МАКСИМУМ(ВложенныйЗапрос.СтатусЕГАИС) КАК СтатусЕГАИС
+ПОМЕСТИТЬ ДанныеОтчета
+ИЗ
+	(ВЫБРАТЬ
+		ДанныеЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+		ВЫБОР
+			КОГДА ДанныеЕГАИС.АлкогольнаяПродукция &lt;&gt; ЗНАЧЕНИЕ(Справочник.КлассификаторАлкогольнойПродукцииЕГАИС.ПустаяСсылка)
+				ТОГДА ДанныеЕГАИС.АлкогольнаяПродукция
+			ИНАЧЕ ДанныеИБ.АлкогольнаяПродукция
+		КОНЕЦ КАК АлкогольнаяПродукция,
+		ВЫБОР
+			КОГДА ДанныеЕГАИС.Справка2 &lt;&gt; ЗНАЧЕНИЕ(Справочник.Справки2ЕГАИС.ПустаяСсылка)
+				ТОГДА ДанныеЕГАИС.Справка2
+			ИНАЧЕ ДанныеИБ.Справка2
+		КОНЕЦ КАК Справка2,
+		ВЫБОР
+			КОГДА ДанныеЕГАИС.АкцизнаяМаркаСсылка &lt;&gt; ЗНАЧЕНИЕ(Справочник.ШтрихкодыУпаковокТоваров.ПустаяСсылка)
+				ТОГДА ДанныеЕГАИС.АкцизнаяМаркаСсылка
+			ИНАЧЕ ДанныеИБ.АкцизнаяМаркаСсылка
+		КОНЕЦ КАК АкцизнаяМаркаСсылка,
+		ДанныеЕГАИС.АкцизнаяМаркаЗначение КАК АкцизнаяМаркаЗначение,
+		ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ПустаяСсылка) КАК СтатусИБ,
+		ДанныеЕГАИС.Статус КАК СтатусЕГАИС
+	ИЗ
+		ДанныеЕГАИС КАК ДанныеЕГАИС
+			ЛЕВОЕ СОЕДИНЕНИЕ ДанныеИБ КАК ДанныеИБ
+			ПО ДанныеЕГАИС.АкцизнаяМаркаЗначение = ДанныеИБ.АкцизнаяМаркаЗначение
+				И (ДанныеЕГАИС.АлкогольнаяПродукция = ДанныеИБ.АлкогольнаяПродукция
+					ИЛИ ДанныеЕГАИС.Справка2 = ДанныеИБ.Справка2)
+				И ДанныеЕГАИС.ОрганизацияЕГАИС = ДанныеИБ.ОрганизацияЕГАИС
+	
+	ОБЪЕДИНИТЬ ВСЕ
+	
+	ВЫБРАТЬ
+		ДанныеИБ.ОрганизацияЕГАИС,
+		ДанныеИБ.АлкогольнаяПродукция,
+		ДанныеИБ.Справка2,
+		ДанныеИБ.АкцизнаяМаркаСсылка,
+		ДанныеИБ.АкцизнаяМаркаЗначение,
+		ДанныеИБ.Статус,
+		ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ПустаяСсылка)
+	ИЗ
+		ДанныеИБ КАК ДанныеИБ) КАК ВложенныйЗапрос
+
+СГРУППИРОВАТЬ ПО
+	ВложенныйЗапрос.ОрганизацияЕГАИС,
+	ВложенныйЗапрос.АлкогольнаяПродукция,
+	ВложенныйЗапрос.Справка2,
+	ВложенныйЗапрос.АкцизнаяМаркаЗначение
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ДанныеОтчета.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ДанныеОтчета.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	ДанныеОтчета.Справка2 КАК Справка2,
+	ДанныеОтчета.АкцизнаяМаркаСсылка КАК АкцизнаяМаркаСсылка,
+	ДанныеОтчета.АкцизнаяМаркаЗначение КАК АкцизнаяМаркаЗначение,
+	ВЫБОР
+		КОГДА ДанныеОтчета.СтатусИБ &lt;&gt; ДанныеОтчета.СтатусЕГАИС
+			ТОГДА ВЫБОР
+					КОГДА ДанныеОтчета.СтатусЕГАИС = ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.Отсутствует)
+							И ДанныеОтчета.СтатусИБ В (&amp;СтатусыОтсутствия)
+						ТОГДА 0
+					ИНАЧЕ ВЫБОР
+							КОГДА ДанныеОтчета.СтатусЕГАИС = ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ВНаличии)
+									И ДанныеОтчета.СтатусИБ В (&amp;СтатусыНаличия)
+								ТОГДА 0
+							ИНАЧЕ 1
+						КОНЕЦ
+				КОНЕЦ
+		ИНАЧЕ 0
+	КОНЕЦ КАК Отклонение,
+	ДанныеОтчета.СтатусИБ КАК СтатусИБ,
+	ДанныеОтчета.СтатусЕГАИС КАК СтатусЕГАИС
+ПОМЕСТИТЬ ИтоговыеДанные
+ИЗ
+	(ВЫБРАТЬ
+		ДанныеОтчета.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+		ДанныеОтчета.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+		ДанныеОтчета.Справка2 КАК Справка2,
+		ДанныеОтчета.АкцизнаяМаркаСсылка КАК АкцизнаяМаркаСсылка,
+		ДанныеОтчета.АкцизнаяМаркаЗначение КАК АкцизнаяМаркаЗначение,
+		ВЫБОР
+			КОГДА ДанныеОтчета.СтатусИБ = ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ПустаяСсылка)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.Отсутствует)
+			ИНАЧЕ ДанныеОтчета.СтатусИБ
+		КОНЕЦ КАК СтатусИБ,
+		ВЫБОР
+			КОГДА ДанныеОтчета.СтатусЕГАИС = ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.ПустаяСсылка)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтатусыАкцизныхМарок.Отсутствует)
+			ИНАЧЕ ДанныеОтчета.СтатусЕГАИС
+		КОНЕЦ КАК СтатусЕГАИС
+	ИЗ
+		ДанныеОтчета КАК ДанныеОтчета) КАК ДанныеОтчета
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ИтоговыеДанные.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	ИтоговыеДанные.АлкогольнаяПродукция КАК АлкогольнаяПродукция,
+	ИтоговыеДанные.Справка2 КАК Справка2,
+	ИтоговыеДанные.АкцизнаяМаркаСсылка КАК АкцизнаяМаркаСсылка,
+	ИтоговыеДанные.АкцизнаяМаркаЗначение КАК АкцизнаяМаркаЗначение,
+	ИтоговыеДанные.Отклонение КАК Отклонение,
+	ИтоговыеДанные.СтатусИБ КАК СтатусИБ,
+	ИтоговыеДанные.СтатусЕГАИС КАК СтатусЕГАИС
+ИЗ
+	ИтоговыеДанные КАК ИтоговыеДанные
+ГДЕ
+	ВЫБОР
+			КОГДА &amp;ТолькоОтклонения
+				ТОГДА ИтоговыеДанные.Отклонение &gt; 0
+			ИНАЧЕ ИСТИНА
+		КОНЕЦ</query>
+	</dataSet>
+	<totalField>
+		<dataPath>Отклонение</dataPath>
+		<expression>Сумма(Отклонение)</expression>
+	</totalField>
+	<parameter>
+		<name>ОтчетЕГАИС</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отчет ЕГАИС</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:DocumentRef.ОстаткиЕГАИС</v8:Type>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:DocumentRef.ОтчетЕГАИС</v8:Type>
+		</valueType>
+		<useRestriction>false</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+		<inputParameters>
+			<dcscor:item>
+				<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+				<dcscor:value xsi:type="dcscor:ChoiceParameters">
+					<dcscor:item>
+						<dcscor:choiceParameter>Отбор.СтатусОбработки</dcscor:choiceParameter>
+						<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыОбработкиОтчетаЕГАИС.ПолученОтчет</dcscor:value>
+					</dcscor:item>
+					<dcscor:item>
+						<dcscor:choiceParameter>Отбор.ВидДокумента</dcscor:choiceParameter>
+						<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.ВидыДокументовЕГАИС.ЗапросОтчетаОстаткиВРегистре3</dcscor:value>
+					</dcscor:item>
+				</dcscor:value>
+			</dcscor:item>
+		</inputParameters>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>ТолькоОтклонения</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Только отклонения</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>false</useRestriction>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>СтатусыОтсутствия</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Статусы отсутствия</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.СтатусыАкцизныхМарок</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыАкцизныхМарок.Реализована</value>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыАкцизныхМарок.Отсутствует</value>
+		<useRestriction>true</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+	</parameter>
+	<parameter>
+		<name>СтатусыНаличия</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Статусы наличия</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.СтатусыАкцизныхМарок</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыАкцизныхМарок.ВНаличии</value>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыАкцизныхМарок.ВРезерве</value>
+		<useRestriction>true</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Остатки акцизных марок</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>АкцизнаяМаркаСсылка</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СтатусЕГАИС</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СтатусИБ</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Отклонение</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ТолькоОтклонения</dcscor:parameter>
+					<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					<dcsset:userSettingID>26236e6a-d5aa-4fed-b289-e2ad6bae56b7</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>АлкогольнаяПродукция</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+			</dcsset:order>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Справка2</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Справка2</dcsset:left>
+							<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:use>false</dcscor:use>
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">auto</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Текст</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>&lt;Все справки 2&gt;</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>АкцизнаяМаркаСсылка</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">АкцизнаяМаркаСсылка</dcsset:left>
+							<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаПроблемаЕГАИС</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Текст</dcscor:parameter>
+							<dcscor:value xsi:type="dcscor:Field">АкцизнаяМаркаЗначение</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Отклонение</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Отклонение</dcsset:left>
+							<dcsset:comparisonType>NotEqual</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">0</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаПроблемаЕГАИС</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:useInHierarchicalGroup>DontUse</dcsset:useInHierarchicalGroup>
+					<dcsset:useInOverall>DontUse</dcsset:useInOverall>
+					<dcsset:useInFieldsHeader>DontUse</dcsset:useInFieldsHeader>
+					<dcsset:useInHeader>DontUse</dcsset:useInHeader>
+					<dcsset:useInParameters>DontUse</dcsset:useInParameters>
+					<dcsset:useInFilter>DontUse</dcsset:useInFilter>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>СтатусЕГАИС</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">СтатусЕГАИС</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыАкцизныхМарок.Отсутствует</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаПроблемаЕГАИС</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:use>false</dcscor:use>
+							<dcscor:parameter>Текст</dcscor:parameter>
+							<dcscor:value xsi:nil="true"/>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Остатки акцизных марок</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ОрганизацияЕГАИС</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>АлкогольнаяПродукция</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item xsi:type="dcsset:StructureItemGroup">
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Справка2</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:item xsi:type="dcsset:StructureItemGroup">
+							<dcsset:order>
+								<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+							</dcsset:order>
+							<dcsset:selection>
+								<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+							</dcsset:selection>
+						</dcsset:item>
+					</dcsset:item>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

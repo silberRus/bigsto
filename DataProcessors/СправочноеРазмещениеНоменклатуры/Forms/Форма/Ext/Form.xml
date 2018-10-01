@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="Записать" id="34">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<SkipOnInput>false</SkipOnInput>
+				<CommandName>Form.Command.ЗаписатьВРегистр</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.SaveFile</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Записать</v8:content>
+					</v8:item>
+				</Title>
+				<ExtendedTooltip name="ЗаписатьExtendedTooltip" id="44"/>
+			</Button>
+			<Button name="ПечатьЗаданияНаОтборРазмещениеТоваров" id="38">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<SkipOnInput>false</SkipOnInput>
+				<CommandName>Form.Command.ПечатьЗаданияНаОтборРазмещениеТоваров</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.Print</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ПечатьЗаданияНаОтборРазмещениеТоваровExtendedTooltip" id="45"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="Шапка" id="32">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Шапка</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Шапка</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ШапкаExtendedTooltip" id="46"/>
+			<ChildItems>
+				<LabelField name="ДокументПриемки" id="5">
+					<DataPath>Объект.ДокументПриемки</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<Hiperlink>true</Hiperlink>
+					<ContextMenu name="ДокументПриемкиКонтекстноеМеню" id="6"/>
+					<ExtendedTooltip name="ДокументПриемкиExtendedTooltip" id="47"/>
+				</LabelField>
+				<UsualGroup name="СкладПомещение" id="30">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Склад помещение</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Склад помещение</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="СкладПомещениеExtendedTooltip" id="48"/>
+					<ChildItems>
+						<InputField name="Склад" id="1">
+							<DataPath>Объект.Склад</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="СкладКонтекстноеМеню" id="2"/>
+							<ExtendedTooltip name="СкладExtendedTooltip" id="49"/>
+						</InputField>
+						<InputField name="Помещение" id="3">
+							<DataPath>Объект.Помещение</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ПомещениеКонтекстноеМеню" id="4"/>
+							<ExtendedTooltip name="ПомещениеExtendedTooltip" id="50"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ТабличныеЧасти" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Основные ячейки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Табличные части</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ChildItemsWidth>LeftWide</ChildItemsWidth>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ТабличныеЧастиExtendedTooltip" id="51"/>
+			<ChildItems>
+				<Table name="ОсновныеЯчейки" id="9">
+					<Representation>List</Representation>
+					<SkipOnInput>false</SkipOnInput>
+					<ChangeRowSet>false</ChangeRowSet>
+					<ChangeRowOrder>false</ChangeRowOrder>
+					<AutoInsertNewRow>true</AutoInsertNewRow>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>Объект.ОсновныеЯчейки</DataPath>
+					<RowFilter xsi:nil="true"/>
+					<ContextMenu name="ОсновныеЯчейкиКонтекстноеМеню" id="10"/>
+					<AutoCommandBar name="ОсновныеЯчейкиКоманднаяПанель" id="11">
+						<Autofill>false</Autofill>
+						<ChildItems>
+							<Button name="СделатьЯчейкуДополнительной" id="35">
+								<Type>CommandBarButton</Type>
+								<Representation>PictureAndText</Representation>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.СделатьЯчейкуДополнительной</CommandName>
+								<Picture>
+									<xr:Ref>StdPicture.MoveRight</xr:Ref>
+									<xr:LoadTransparent>true</xr:LoadTransparent>
+								</Picture>
+								<Title>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Сделать дополнительной</v8:content>
+									</v8:item>
+								</Title>
+								<ExtendedTooltip name="СделатьЯчейкуДополнительнойExtendedTooltip" id="52"/>
+							</Button>
+						</ChildItems>
+					</AutoCommandBar>
+					<ExtendedTooltip name="ОсновныеЯчейкиExtendedTooltip" id="53"/>
+					<SearchStringAddition name="ОсновныеЯчейкиСтрокаПоиска" id="66">
+						<AdditionSource>
+							<Item>ОсновныеЯчейки</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ОсновныеЯчейкиСтрокаПоискаКонтекстноеМеню" id="67"/>
+						<ExtendedTooltip name="ОсновныеЯчейкиСтрокаПоискаРасширеннаяПодсказка" id="68"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="ОсновныеЯчейкиСостояниеПросмотра" id="69">
+						<AdditionSource>
+							<Item>ОсновныеЯчейки</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ОсновныеЯчейкиСостояниеПросмотраКонтекстноеМеню" id="70"/>
+						<ExtendedTooltip name="ОсновныеЯчейкиСостояниеПросмотраРасширеннаяПодсказка" id="71"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="ОсновныеЯчейкиУправлениеПоиском" id="72">
+						<AdditionSource>
+							<Item>ОсновныеЯчейки</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="ОсновныеЯчейкиУправлениеПоискомКонтекстноеМеню" id="73"/>
+						<ExtendedTooltip name="ОсновныеЯчейкиУправлениеПоискомРасширеннаяПодсказка" id="74"/>
+					</SearchControlAddition>
+					<Events>
+						<Event name="DragCheck">ОсновныеЯчейкиПроверкаПеретаскивания</Event>
+						<Event name="OnActivateRow">ОсновныеЯчейкиПриАктивизацииСтроки</Event>
+						<Event name="Drag">ОсновныеЯчейкиПеретаскивание</Event>
+						<Event name="DragEnd">ОсновныеЯчейкиОкончаниеПеретаскивания</Event>
+						<Event name="OnChange">ОсновныеЯчейкиПриИзменении</Event>
+					</Events>
+					<ChildItems>
+						<InputField name="ОсновныеЯчейкиНомерСтрокиДокумента" id="12">
+							<DataPath>Объект.ОсновныеЯчейки.НомерСтрокиДокумента</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>N</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Top</TitleLocation>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>3</Width>
+							<HorizontalStretch>false</HorizontalStretch>
+							<ContextMenu name="ОсновныеЯчейкиНомерСтрокиДокументаКонтекстноеМеню" id="13"/>
+							<ExtendedTooltip name="ОсновныеЯчейкиНомерСтрокиДокументаExtendedTooltip" id="54"/>
+						</InputField>
+						<ColumnGroup name="ОсновныеЯчейкиГруппаТовар" id="41">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Основные ячейки группа товар</v8:content>
+								</v8:item>
+							</Title>
+							<Group>InCell</Group>
+							<ExtendedTooltip name="ОсновныеЯчейкиГруппаТоварExtendedTooltip" id="55"/>
+							<ChildItems>
+								<InputField name="ОсновныеЯчейкиНоменклатура" id="16">
+									<DataPath>Объект.ОсновныеЯчейки.Номенклатура</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Товар</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<Width>16</Width>
+									<ContextMenu name="ОсновныеЯчейкиНоменклатураКонтекстноеМеню" id="17"/>
+									<ExtendedTooltip name="ОсновныеЯчейкиНоменклатураExtendedTooltip" id="56"/>
+								</InputField>
+								<InputField name="ОсновныеЯчейкиХарактеристика" id="39">
+									<DataPath>Объект.ОсновныеЯчейки.Характеристика</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<ShowInHeader>false</ShowInHeader>
+									<Width>16</Width>
+									<ContextMenu name="ОсновныеЯчейкиХарактеристикаКонтекстноеМеню" id="40"/>
+									<ExtendedTooltip name="ОсновныеЯчейкиХарактеристикаExtendedTooltip" id="57"/>
+								</InputField>
+							</ChildItems>
+						</ColumnGroup>
+						<InputField name="ОсновныеЯчейкиСклад" id="42">
+							<DataPath>Объект.ОсновныеЯчейки.Склад</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>10</Width>
+							<ContextMenu name="ОсновныеЯчейкиСкладКонтекстноеМеню" id="43"/>
+							<ExtendedTooltip name="ОсновныеЯчейкиСкладExtendedTooltip" id="58"/>
+						</InputField>
+						<InputField name="ОсновныеЯчейкиЯчейка" id="14">
+							<DataPath>Объект.ОсновныеЯчейки.Ячейка</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ОсновныеЯчейкиЯчейкаКонтекстноеМеню" id="15"/>
+							<ExtendedTooltip name="ОсновныеЯчейкиЯчейкаExtendedTooltip" id="59"/>
+							<Events>
+								<Event name="OnChange">ОсновныеЯчейкиЯчейкаПриИзменении</Event>
+							</Events>
+						</InputField>
+					</ChildItems>
+				</Table>
+				<Table name="ДополнительныеЯчейки" id="21">
+					<Representation>List</Representation>
+					<SkipOnInput>false</SkipOnInput>
+					<AutoInsertNewRow>true</AutoInsertNewRow>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>Объект.ДополнительныеЯчейки</DataPath>
+					<CommandSet>
+						<ExcludedCommand>CancelSearch</ExcludedCommand>
+						<ExcludedCommand>EndEdit</ExcludedCommand>
+						<ExcludedCommand>Find</ExcludedCommand>
+						<ExcludedCommand>MoveDown</ExcludedCommand>
+						<ExcludedCommand>MoveUp</ExcludedCommand>
+						<ExcludedCommand>SelectAll</ExcludedCommand>
+					</CommandSet>
+					<RowFilter xsi:nil="true"/>
+					<ContextMenu name="ДополнительныеЯчейкиКонтекстноеМеню" id="22"/>
+					<AutoCommandBar name="ДополнительныеЯчейкиКоманднаяПанель" id="23">
+						<Autofill>false</Autofill>
+						<ChildItems>
+							<Button name="ДополнительныеЯчейкиДобавить" id="36">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.ДополнительныеЯчейки.StandardCommand.Add</CommandName>
+								<ExtendedTooltip name="ДополнительныеЯчейкиДобавитьExtendedTooltip" id="60"/>
+							</Button>
+							<Button name="ДополнительныеЯчейкиУдалить" id="37">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.ДополнительныеЯчейки.StandardCommand.Delete</CommandName>
+								<ExtendedTooltip name="ДополнительныеЯчейкиУдалитьExtendedTooltip" id="61"/>
+							</Button>
+							<Button name="СделатьЯчейкуОсновной" id="33">
+								<Type>CommandBarButton</Type>
+								<Representation>PictureAndText</Representation>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.СделатьЯчейкуОсновной</CommandName>
+								<Picture>
+									<xr:Ref>StdPicture.MoveLeft</xr:Ref>
+									<xr:LoadTransparent>true</xr:LoadTransparent>
+								</Picture>
+								<Title>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Сделать основной</v8:content>
+									</v8:item>
+								</Title>
+								<ExtendedTooltip name="СделатьЯчейкуОсновнойExtendedTooltip" id="62"/>
+							</Button>
+						</ChildItems>
+					</AutoCommandBar>
+					<ExtendedTooltip name="ДополнительныеЯчейкиExtendedTooltip" id="63"/>
+					<SearchStringAddition name="ДополнительныеЯчейкиСтрокаПоиска" id="75">
+						<AdditionSource>
+							<Item>ДополнительныеЯчейки</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ДополнительныеЯчейкиСтрокаПоискаКонтекстноеМеню" id="76"/>
+						<ExtendedTooltip name="ДополнительныеЯчейкиСтрокаПоискаРасширеннаяПодсказка" id="77"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="ДополнительныеЯчейкиСостояниеПросмотра" id="78">
+						<AdditionSource>
+							<Item>ДополнительныеЯчейки</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ДополнительныеЯчейкиСостояниеПросмотраКонтекстноеМеню" id="79"/>
+						<ExtendedTooltip name="ДополнительныеЯчейкиСостояниеПросмотраРасширеннаяПодсказка" id="80"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="ДополнительныеЯчейкиУправлениеПоиском" id="81">
+						<AdditionSource>
+							<Item>ДополнительныеЯчейки</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="ДополнительныеЯчейкиУправлениеПоискомКонтекстноеМеню" id="82"/>
+						<ExtendedTooltip name="ДополнительныеЯчейкиУправлениеПоискомРасширеннаяПодсказка" id="83"/>
+					</SearchControlAddition>
+					<Events>
+						<Event name="DragCheck">ДополнительныеЯчейкиПроверкаПеретаскивания</Event>
+						<Event name="BeforeAddRow">ДополнительныеЯчейкиПередНачаломДобавления</Event>
+						<Event name="Drag">ДополнительныеЯчейкиПеретаскивание</Event>
+						<Event name="OnStartEdit">ДополнительныеЯчейкиПриНачалеРедактирования</Event>
+						<Event name="DragEnd">ДополнительныеЯчейкиОкончаниеПеретаскивания</Event>
+						<Event name="OnChange">ДополнительныеЯчейкиПриИзменении</Event>
+					</Events>
+					<ChildItems>
+						<InputField name="ДополнительныеЯчейкиЯчейка" id="24">
+							<DataPath>Объект.ДополнительныеЯчейки.Ячейка</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ДополнительныеЯчейкиЯчейкаКонтекстноеМеню" id="25"/>
+							<ExtendedTooltip name="ДополнительныеЯчейкиЯчейкаExtendedTooltip" id="64"/>
+							<Events>
+								<Event name="OnChange">ДополнительныеЯчейкиЯчейкаПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="ДополнительныеЯчейкиНоменклатура" id="26">
+							<DataPath>Объект.ДополнительныеЯчейки.Номенклатура</DataPath>
+							<Visible>false</Visible>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>16</Width>
+							<ContextMenu name="ДополнительныеЯчейкиНоменклатураКонтекстноеМеню" id="27"/>
+							<ExtendedTooltip name="ДополнительныеЯчейкиНоменклатураExtendedTooltip" id="65"/>
+						</InputField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.СправочноеРазмещениеНоменклатуры</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ЗаписатьВРегистр" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать в регистр</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать в регистр</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаписатьВРегистр</Action>
+		</Command>
+		<Command name="СделатьЯчейкуОсновной" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сделать ячейку основной</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сделать ячейку основной</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СделатьЯчейкуОсновной</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="СделатьЯчейкуДополнительной" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сделать ячейку дополнительной</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сделать ячейку дополнительной</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СделатьЯчейкуДополнительной</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ПечатьЗаданияНаОтборРазмещениеТоваров" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать задания на размещение товаров</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать задания на выполнение складкой операции</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПечатьЗаданияНаОтборРазмещениеТоваров</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="ДокументПриемки">
+			<Type>
+				<v8:Type>cfg:DocumentRef.ВозвратТоваровОтКлиента</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПриобретениеТоваровУслуг</v8:Type>
+				<v8:Type>cfg:DocumentRef.ВводОстатков</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПоступлениеТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ОрдерНаОтражениеИзлишковТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПеремещениеТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПересчетТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ОприходованиеИзлишковТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.СборкаТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПриходныйОрдерНаТовары</v8:Type>
+				<v8:Type>cfg:DocumentRef.ПрочееОприходованиеТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.ОрдерНаПеремещениеТоваров</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

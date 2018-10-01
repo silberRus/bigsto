@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Класс</dataPath>
+			<field>Класс</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТипПараметраКлассификации</dataPath>
+			<field>ТипПараметраКлассификации</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Параметр классификации</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗначениеПараметраКлассификации</dataPath>
+			<field>ЗначениеПараметраКлассификации</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Клиент</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Период</dataPath>
+			<field>Период</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СтадияОтношений</dataPath>
+			<field>СтадияОтношений</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Стадия отношений</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментПартнеров</dataPath>
+			<field>СегментПартнеров</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент клиентов</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.СегментыПартнеров</v8:Type>
+			</valueType>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:ChoiceParameters">
+						<dcscor:item>
+							<dcscor:choiceParameter>Отбор.СпособФормирования</dcscor:choiceParameter>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ПериодическиОбновлять</dcscor:value>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ФормироватьВручную</dcscor:value>
+						</dcscor:item>
+					</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущееЗначениеПараметраКлассификации</dataPath>
+			<field>ТекущееЗначениеПараметраКлассификации</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущее значение параметра классификации</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущийКласс</dataPath>
+			<field>ТекущийКласс</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий класс</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущаяСтадияОтношений</dataPath>
+			<field>ТекущаяСтадияОтношений</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущая стадия отношений</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	Сегменты.Партнер КАК Партнер,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуПартнеров
+ПОМЕСТИТЬ ОтборПоСегментуПартнеров
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментПартнеров,
+	Сегменты.Партнер.* КАК Партнер}
+
+ИНДЕКСИРОВАТЬ ПО
+	Партнер,
+	ИспользуетсяОтборПоСегментуПартнеров
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ABCXYZКлассификацияКлиентов.Период КАК Период
+ПОМЕСТИТЬ Периоды
+ИЗ
+	РегистрСведений.ABCXYZКлассификацияКлиентов КАК ABCXYZКлассификацияКлиентов
+ГДЕ
+	ABCXYZКлассификацияКлиентов.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.XYZ)
+{ГДЕ
+	(ABCXYZКлассификацияКлиентов.Период &gt;= &amp;НачалоПериода),
+	(ABCXYZКлассификацияКлиентов.Период &lt;= &amp;ОкончаниеПериода),
+	ABCXYZКлассификацияКлиентов.ТипПараметраКлассификации.*,
+	ABCXYZКлассификацияКлиентов.Партнер.*}
+
+СГРУППИРОВАТЬ ПО
+	ABCXYZКлассификацияКлиентов.Период
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	Периоды.Период КАК Период,
+	Партнеры.Ссылка КАК Партнер,
+	ТипыПараметровКлассификации.Ссылка КАК ТипПараметраКлассификации
+ПОМЕСТИТЬ ПартнерыНаПериод
+ИЗ
+	Периоды КАК Периоды
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.Партнеры КАК Партнеры
+		ПО (Партнеры.ДатаРегистрации &lt; Периоды.Период)
+			И (Партнеры.Клиент),
+	Перечисление.ТипыПараметровКлассификации КАК ТипыПараметровКлассификации
+ГДЕ
+	ТипыПараметровКлассификации.Ссылка В
+			(ВЫБРАТЬ
+				ЗНАЧЕНИЕ(Перечисление.ТипыПараметровКлассификации.ВаловаяПрибыль) КАК ПараметрКлассификации
+			ИЗ
+				Константы КАК Константы
+			ГДЕ
+				Константы.ИспользоватьABCXYZКлассификациюПартнеровПоВаловойПрибыли = ИСТИНА
+		
+			ОБЪЕДИНИТЬ ВСЕ
+		
+			ВЫБРАТЬ
+				ЗНАЧЕНИЕ(Перечисление.ТипыПараметровКлассификации.Выручка)
+			ИЗ
+				Константы КАК Константы
+			ГДЕ
+				Константы.ИспользоватьABCXYZКлассификациюПартнеровПоВыручке = ИСТИНА
+		
+			ОБЪЕДИНИТЬ ВСЕ
+		
+			ВЫБРАТЬ
+				ЗНАЧЕНИЕ(Перечисление.ТипыПараметровКлассификации.Количество)
+			ИЗ
+				Константы КАК Константы
+			ГДЕ
+				Константы.ИспользоватьABCXYZКлассификациюПартнеровПоКоличествуПродаж = ИСТИНА)
+{ГДЕ
+	(Партнеры.Ссылка В
+			(ВЫБРАТЬ
+				ОтборПоСегментуПартнеров.Партнер
+			ИЗ
+				ОтборПоСегментуПартнеров
+			ГДЕ
+				ОтборПоСегментуПартнеров.ИспользуетсяОтборПоСегментуПартнеров = &amp;ИспользуетсяОтборПоСегментуПартнеров)),
+	Партнеры.Ссылка.* КАК Партнер,
+	ТипыПараметровКлассификации.Ссылка.* КАК ТипПараметраКлассификации}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПартнерыНаПериод.Период КАК Период,
+	ПартнерыНаПериод.Партнер КАК Партнер,
+	ПартнерыНаПериод.ТипПараметраКлассификации КАК ТипПараметраКлассификации,
+	ABCXYZКлассификацияКлиентов.ЗначениеПараметраКлассификации КАК ЗначениеПараметраКлассификации,
+	ABCXYZКлассификацияКлиентов.Класс КАК Класс,
+	ВЫБОР
+		КОГДА ABCXYZКлассификацияКлиентов.Класс ЕСТЬ NULL 
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент)
+		КОГДА ABCXYZКлассификацияКлиентов.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ZКласс)
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент)
+		КОГДА ABCXYZКлассификацияКлиентов.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.НеКлассифицирован)
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент)
+		ИНАЧЕ ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент)
+	КОНЕЦ КАК СтадияОтношений,
+	ВЫБОР
+		КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс ЕСТЬ NULL 
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент)
+		КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ZКласс)
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент)
+		КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.НеКлассифицирован)
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент)
+		ИНАЧЕ ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент)
+	КОНЕЦ КАК ТекущаяСтадияОтношений,
+	ABCXYZКлассификацияКлиентовСрезПоследних.Класс КАК ТекущийКласс,
+	ABCXYZКлассификацияКлиентовСрезПоследних.ЗначениеПараметраКлассификации КАК ТекущееЗначениеПараметраКлассификации
+{ВЫБРАТЬ
+	Период,
+	Партнер,
+	ТипПараметраКлассификации,
+	СтадияОтношений.*,
+	ТекущаяСтадияОтношений.*,
+	Класс.*,
+	ЗначениеПараметраКлассификации,
+	ТекущийКласс.*,
+	ТекущееЗначениеПараметраКлассификации}
+ИЗ
+	ПартнерыНаПериод КАК ПартнерыНаПериод
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ABCXYZКлассификацияКлиентов КАК ABCXYZКлассификацияКлиентов
+			ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ABCXYZКлассификацияКлиентов.СрезПоследних КАК ABCXYZКлассификацияКлиентовСрезПоследних
+			ПО ABCXYZКлассификацияКлиентов.Партнер = ABCXYZКлассификацияКлиентовСрезПоследних.Партнер
+				И ABCXYZКлассификацияКлиентов.ТипПараметраКлассификации = ABCXYZКлассификацияКлиентовСрезПоследних.ТипПараметраКлассификации
+				И ABCXYZКлассификацияКлиентов.ТипКлассификации = ABCXYZКлассификацияКлиентовСрезПоследних.ТипКлассификации
+		ПО ПартнерыНаПериод.ТипПараметраКлассификации = ABCXYZКлассификацияКлиентов.ТипПараметраКлассификации
+			И ПартнерыНаПериод.Период = ABCXYZКлассификацияКлиентов.Период
+			И ПартнерыНаПериод.Партнер = ABCXYZКлассификацияКлиентов.Партнер
+			И (ABCXYZКлассификацияКлиентов.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.XYZ))
+{ГДЕ
+	ПартнерыНаПериод.ТипПараметраКлассификации.*,
+	(ВЫБОР
+			КОГДА ABCXYZКлассификацияКлиентов.Класс ЕСТЬ NULL 
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент)
+			КОГДА ABCXYZКлассификацияКлиентов.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ZКласс)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент)
+			КОГДА ABCXYZКлассификацияКлиентов.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.НеКлассифицирован)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент)
+			ИНАЧЕ ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент)
+		КОНЕЦ).* КАК СтадияОтношений,
+	ПартнерыНаПериод.ТипПараметраКлассификации.*,
+	(ВЫБОР
+			КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс ЕСТЬ NULL 
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент)
+			КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ZКласс)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент)
+			КОГДА ABCXYZКлассификацияКлиентовСрезПоследних.Класс = ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.НеКлассифицирован)
+				ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент)
+			ИНАЧЕ ЗНАЧЕНИЕ(Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент)
+		КОНЕЦ).* КАК ТекущаяСтадияОтношений,
+	ПартнерыНаПериод.Партнер.*,
+	ABCXYZКлассификацияКлиентовСрезПоследних.Класс.* КАК ТекущийКласс,
+	ABCXYZКлассификацияКлиентовСрезПоследних.ЗначениеПараметраКлассификации КАК ТекущееЗначениеПараметраКлассификации}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<calculatedField>
+		<dataPath>ПартнерКоличество</dataPath>
+		<expression>0</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Партнер количество</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+	</calculatedField>
+	<totalField>
+		<dataPath>ЗначениеПараметраКлассификации</dataPath>
+		<expression>Сумма(ЗначениеПараметраКлассификации)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ПартнерКоличество</dataPath>
+		<expression>Количество(Различные Партнер)</expression>
+	</totalField>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>v8:StandardPeriod</v8:Type>
+		</valueType>
+		<value xsi:type="v8:StandardPeriod">
+			<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+			<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+			<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+		</value>
+		<useRestriction>false</useRestriction>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>Date</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;Период.ДатаНачала</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ОкончаниеПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Окончание периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>Date</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;Период.ДатаОкончания</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуПартнеров</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту партнеров</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Анализ лояльности клиентов (XYZ)</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПартнерКоличество</dcsset:field>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>751b4330-ea53-4a78-921b-75f352d53003</dcsset:userSettingID>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СегментПартнеров</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>135acadd-11ac-4356-83b5-6af177e5daa3</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Партнер</dcsset:left>
+					<dcsset:comparisonType>InList</dcsset:comparisonType>
+					<dcsset:right xsi:type="v8:ValueListType">
+						<v8:valueType/>
+						<v8:lastId xsi:type="xs:decimal">-1</v8:lastId>
+					</dcsset:right>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingID>bfc9155c-7569-48fd-8323-37d2cba62d91</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ТипПараметраКлассификации</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.ТипыПараметровКлассификации.Выручка</dcsset:right>
+					<dcsset:userSettingID>2c858139-7e86-4cc8-82e1-07d67269c258</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>2f4c3053-6fa4-4b3a-9b6e-f152e6b3c959</dcsset:userSettingID>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Период</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardPeriod">
+						<v8:variant xsi:type="v8:StandardPeriodVariant">FromBeginningOfThisYear</v8:variant>
+					</dcscor:value>
+					<dcsset:userSettingID>d0ad43bb-6a08-4624-a501-9eedd8144002</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:order>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>be694a17-a61f-4269-a6b9-5b7695d9bc4a</dcsset:userSettingID>
+			</dcsset:order>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection/>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветВДиаграмме</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Salmon</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:presentation xsi:type="xs:string">Потерянный клиент</dcsset:presentation>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingPresentation xsi:type="xs:string">Потерянный клиент</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection/>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветВДиаграмме</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Gainsboro</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:presentation xsi:type="xs:string">Потенциальный клиент</dcsset:presentation>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingPresentation xsi:type="xs:string">Потенциальный клиент</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection/>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветВДиаграмме</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:Gold</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:presentation xsi:type="xs:string">Разовый клиент</dcsset:presentation>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingPresentation xsi:type="xs:string">Разовый клиент</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection/>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент</dcsset:right>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветВДиаграмме</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:MediumSeaGreen</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:presentation xsi:type="xs:string">Постоянный клиент</dcsset:presentation>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingPresentation xsi:type="xs:string">Постоянный клиент</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ОформлениеОтчетовБежевый</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>РасположениеИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ТипДиаграммы</dcscor:parameter>
+					<dcscor:value xsi:type="v8ui:ChartType">StackedArea</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Анализ лояльности клиентов (XYZ)</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:use>false</dcsset:use>
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ТекущаяСтадияОтношений</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>dc747b23-a78d-456d-8262-c993054ff632</dcsset:userSettingID>
+			</dcsset:item>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ТипПараметраКлассификации</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:outputParameters>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>РасположениеИтогов</dcscor:parameter>
+						<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+						<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>Заголовок</dcscor:parameter>
+						<dcscor:value xsi:type="xs:string"/>
+					</dcscor:item>
+				</dcsset:outputParameters>
+				<dcsset:item xsi:type="dcsset:StructureItemChart">
+					<dcsset:point>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Период</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>Day</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+					</dcsset:point>
+					<dcsset:series>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>СтадияОтношений</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:filter>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПостоянныйКлиент</dcsset:right>
+							</dcsset:item>
+						</dcsset:filter>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>9e614c57-20bd-4307-b9be-30c083e52b6e</dcsset:userSettingID>
+						<dcsset:userSettingPresentation xsi:type="xs:string">Постоянный клиент</dcsset:userSettingPresentation>
+					</dcsset:series>
+					<dcsset:series>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>СтадияОтношений</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:filter>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.РазовыйКлиент</dcsset:right>
+							</dcsset:item>
+						</dcsset:filter>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>f4274810-2a77-44a9-8dd1-53bba2e1312f</dcsset:userSettingID>
+						<dcsset:userSettingPresentation xsi:type="xs:string">Разовый клиент</dcsset:userSettingPresentation>
+					</dcsset:series>
+					<dcsset:series>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>СтадияОтношений</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:filter>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПотенциальныйКлиент</dcsset:right>
+							</dcsset:item>
+						</dcsset:filter>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>876408af-d3ac-4de1-a6d3-63c1bd056250</dcsset:userSettingID>
+						<dcsset:userSettingPresentation xsi:type="xs:string">Потенциальный клиент</dcsset:userSettingPresentation>
+					</dcsset:series>
+					<dcsset:series>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>СтадияОтношений</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:filter>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">СтадияОтношений</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтадииВзаимоотношенийСКлиентами.ПотерянныйКлиент</dcsset:right>
+							</dcsset:item>
+						</dcsset:filter>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>bd940702-4881-4d2f-9473-fd559c0cb093</dcsset:userSettingID>
+						<dcsset:userSettingPresentation xsi:type="xs:string">Потерянный клиент</dcsset:userSettingPresentation>
+					</dcsset:series>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:outputParameters>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ТипДиаграммы</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:ChartType">StackedColumn</dcscor:value>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:use>false</dcscor:use>
+								<dcscor:parameter>ТипДиаграммы.СоединениеЗначенийПоСериям</dcscor:parameter>
+								<dcscor:value xmlns:d9p1="http://v8.1c.ru/8.2/data/chart" xsi:type="d9p1:ChartValuesBySeriesConnectionType">EdgesConnection</dcscor:value>
+							</dcscor:item>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:use>false</dcscor:use>
+								<dcscor:parameter>ТипДиаграммы.ЦветСоединенияЗначенийПоСериям</dcscor:parameter>
+								<dcscor:value xsi:type="v8ui:Color">web:Gainsboro</dcscor:value>
+							</dcscor:item>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:parameter>ТипДиаграммы.РежимСглаживания</dcscor:parameter>
+								<dcscor:value xmlns:d9p1="http://v8.1c.ru/8.2/data/chart" xsi:type="d9p1:ChartSplineMode">SmoothCurve</dcscor:value>
+							</dcscor:item>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:parameter>ТипДиаграммы.РежимПолупрозрачности</dcscor:parameter>
+								<dcscor:value xmlns:d9p1="http://v8.1c.ru/8.2/data/chart" xsi:type="d9p1:ChartSemitransparencyMode">Use</dcscor:value>
+							</dcscor:item>
+						</dcscor:item>
+					</dcsset:outputParameters>
+				</dcsset:item>
+			</dcsset:item>
+			<dcsset:additionalProperties>
+				<v8:Property name="ВариантНаименование">
+					<v8:Value xsi:type="xs:string">Проверка</v8:Value>
+				</v8:Property>
+				<v8:Property name="КлючВарианта">
+					<v8:Value xsi:type="xs:string">02319dfc-315a-4bc4-ae36-1dfb34a9fca5</v8:Value>
+				</v8:Property>
+			</dcsset:additionalProperties>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

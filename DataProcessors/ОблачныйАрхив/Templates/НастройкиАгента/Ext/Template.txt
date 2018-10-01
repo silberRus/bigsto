@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EnvironmentConfiguration>
+
+	<!-- Настройка разделения лог-файлов по дням. В имени каждого файла будет добавляться дата -->
+	<Log>
+		<!-- Путь до каталога с логами агента -->
+		<LogPath>C:\BackupAgent\logs</LogPath>
+		<!-- Объем файла логов в мегабайтах -->
+		<MaxLogStackSize units="MB">5</MaxLogStackSize>
+		<!-- Время жизни файлов с логами в днях -->
+		<LifeTime units="days">7</LifeTime>
+		<!-- Уровень детализации логов. Значения: DEBUG, INFORMATION, WARNING, ERROR, CRITICAL -->
+		<Level>Debug</Level>
+	</Log>
+
+	<!-- Настройка файлов статистики с информацией по статусам задач и др. -->
+	<Statistics>
+		<!-- Путь до файлов -->
+		<StatPath>C:\BackupAgent\statistics</StatPath>
+		<!-- Время хранения в днях -->
+		<DumpPeriod units="days">7</DumpPeriod>
+	</Statistics>
+
+	<!-- Настройка попыток доступа к ИБ при попытки копирования -->
+	<DBAccessPolicy>
+		<!-- количество попыток -->
+		<Attempts>5</Attempts>
+		<!-- пауза между попытками -->
+		<Timeout units="seconds">60</Timeout>
+	</DBAccessPolicy>
+
+	<!-- Временный каталог для файловых операций с БД -->
+	<OperationDirectory>C:\BackupAgent\workingDirectory</OperationDirectory>
+
+	<!-- Настройка правил для множественного запуска задач резервного копирования и загрузки -->
+	<BackupPoolSize>
+		<SimultaneousUpload>2</SimultaneousUpload> <!-- количество одновременных загрузок -->
+	</BackupPoolSize>
+
+	<!-- Параметры подключения -->
+	<Servers>
+		<AccessServer>
+			<ip>spirit.it-lite.ru</ip> <!-- 10.250.36.93 -->
+			<port>8000</port>
+		</AccessServer>
+		<FrontEndServer>
+			<ip>fes.it-lite.ru</ip> <!--- -->
+			<port>44445</port>
+		</FrontEndServer>
+	</Servers>
+
+	<!-- Закодированные логин/пароль аккаунта -->
+	<AccountInfo>login:password</AccountInfo>
+
+	<!-- Закодированные логин/пароль локального пользователя для запуска backupagent.exe -->
+	<LocalUserInfo>login:password</LocalUserInfo>
+
+</EnvironmentConfiguration>

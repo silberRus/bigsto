@@ -1,0 +1,926 @@
+<!-- edited with XML Spy v4.3 U (http://www.xmlspy.com) by Anatoly (Private) -->
+<xs:schema targetNamespace="http://bank.1c.ru/XMLSchema" xmlns:tns="http://bank.1c.ru/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ResultBank" type="tns:ResultBank"/>
+	<xs:element name="Probe" type="tns:Probe"/>
+	<xs:element name="PayDocRu" type="tns:PayDocRu"/>
+	<xs:element name="Settings" type="tns:Settings"/>
+	<xs:element name="StatusPacketNotice" type="tns:StatusPacketNotice"/>
+	<xs:element name="StatementRequest" type="tns:StatementRequest"/>
+	<xs:element name="Packet" type="tns:Packet"/>
+	<xs:element name="CancelationRequest" type="tns:CancelationRequest"/>
+	<xs:element name="StatusRequest" type="tns:StatusRequest"/>
+	<xs:element name="X509Data" type="tns:X509Data"/>
+	<xs:element name="StatusDocNotice" type="tns:StatusDocNotice"/>
+	<xs:element name="PayRequest" type="tns:PayRequest"/>
+	<xs:element name="Statement" type="tns:Statement"/>
+	<xs:simpleType name="AccNumType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="20"/>
+			<xs:pattern value="[0-9]{20}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="BankOrderApp">
+		<xs:complexContent>
+			<xs:extension base="tns:PaymentDataType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BankPartyType">
+		<xs:attribute name="bic" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="name">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="160"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BankType">
+		<xs:sequence>
+			<xs:element name="BIC">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="9"/>
+						<xs:pattern value="[0-9]{9}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Name" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="160"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="City" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CorrespAcc" type="tns:AccNumType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BudgetPaymentInfoType">
+		<xs:sequence>
+			<xs:element name="DrawerStatus">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CBC">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OKTMO">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Reason">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TaxPeriod">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DocNo">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DocDate">
+				<xs:simpleType>
+					<xs:restriction base="tns:DateString">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PayType">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancelationRequest">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+			<xs:element name="ExtID" type="tns:IDType"/>
+			<xs:element name="Reason" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="CollectionOrderApp">
+		<xs:complexContent>
+			<xs:extension base="tns:PaymentDataType">
+				<xs:sequence>
+					<xs:element name="BudgetPaymentInfo" type="tns:BudgetPaymentInfoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="ContentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="application/xml"/>
+			<xs:enumeration value="application/octet-stream"/>
+			<xs:enumeration value="text/plain"/>
+			<xs:enumeration value="text/xml"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CustomerDetailsType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="INN" type="xs:string" minOccurs="0"/>
+			<xs:element name="KPP" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Account" type="tns:AccNumType"/>
+			<xs:element name="Bank" type="tns:BankType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomerPartyType">
+		<xs:attribute name="id" type="tns:IDCustomerType" use="required"/>
+		<xs:attribute name="name">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="160"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="inn">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:minLength value="10"/>
+					<xs:maxLength value="12"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="kpp">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:length value="9"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="DateString">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="DigestType">
+		<xs:sequence>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="algorithmVersion" use="required">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DocKindType">
+		<xs:restriction base="xs:string">
+			<xs:length value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DocumentType">
+		<xs:sequence>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="fileName" type="xs:string"/>
+							<xs:attribute name="contentType" type="tns:ContentType"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Signature" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SignedData" type="xs:base64Binary"/>
+					</xs:sequence>
+					<xs:attribute name="x509IssuerName" type="xs:string" use="required"/>
+					<xs:attribute name="x509SerialNumber" type="xs:hexBinary" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="dockind" type="tns:DocKindType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="testOnly" type="xs:boolean"/>
+		<xs:attribute name="compressed" type="xs:boolean"/>
+		<xs:attribute name="encrypted" type="xs:boolean"/>
+		<xs:attribute name="signResponse" type="xs:boolean"/>
+		<xs:attribute name="notifyRequired" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="ErrorType">
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Description">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MoreInfo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="FormatVersionType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="GetPacketListResponseType">
+		<xs:sequence>
+			<xs:element name="PacketID" type="tns:IDType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="TimeStampLastPacket" type="xs:dateTime"/>
+	</xs:complexType>
+	<xs:complexType name="GetPacketResponseType">
+		<xs:complexContent>
+			<xs:extension base="tns:Packet"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GetSettingsResponseType">
+		<xs:sequence>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary">
+							<xs:attribute name="dockind" type="tns:DocKindType" use="required"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:simpleType name="IDCustomerType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IDType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="LogonCertResponseType">
+		<xs:sequence>
+			<xs:element name="EncryptedSID">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:base64Binary"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LogonResponseType">
+		<xs:sequence>
+			<xs:element name="SID" type="tns:IDType"/>
+			<xs:element name="ExtraAuth" minOccurs="0">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="OTP" minOccurs="0">
+							<xs:complexType>
+								<xs:attribute name="phoneMask">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:maxLength value="12"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MemOrderApp">
+		<xs:sequence>
+			<xs:element name="DocNo" type="xs:string"/>
+			<xs:element name="DocDate" type="xs:date"/>
+			<xs:element name="Sum" type="tns:SumType"/>
+			<xs:element name="Author" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:BankType">
+							<xs:sequence>
+								<xs:element name="Branch" minOccurs="0">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:maxLength value="255"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PartialTransitionKind" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TransitionContent" type="xs:string" minOccurs="0"/>
+			<xs:element name="AddInfo" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Packet">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:ParticipantType"/>
+			<xs:element name="Recipient" type="tns:ParticipantType"/>
+			<xs:element name="Document" type="tns:DocumentType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="ParticipantType">
+		<xs:choice>
+			<xs:element name="Customer" type="tns:CustomerPartyType" minOccurs="0"/>
+			<xs:element name="Bank" type="tns:BankPartyType" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="PayDocRu">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+			<xs:element name="Data" type="tns:PayDocRuApp"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="PayDocRuApp">
+		<xs:complexContent>
+			<xs:extension base="tns:PaymentDataType">
+				<xs:sequence>
+					<xs:element name="BudgetPaymentInfo" type="tns:BudgetPaymentInfoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PayRequest">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+			<xs:element name="Data" type="tns:PayRequestApp"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="PayRequestApp">
+		<xs:complexContent>
+			<xs:extension base="tns:PaymentDataType">
+				<xs:sequence>
+					<xs:element name="PaymentCondition">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:length value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AcceptTerm" type="xs:byte" minOccurs="0"/>
+					<xs:element name="DocDispatchDate" type="tns:DateString" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PaymentDataType">
+		<xs:sequence>
+			<xs:element name="DocNo" type="xs:string"/>
+			<xs:element name="DocDate" type="xs:date"/>
+			<xs:element name="Sum" type="tns:SumType"/>
+			<xs:element name="Payer" type="tns:CustomerDetailsType"/>
+			<xs:element name="Payee" type="tns:CustomerDetailsType"/>
+			<xs:element name="PaymentKind" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TransitionKind" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Priority" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Code" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="25"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Purpose">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="210"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaymentOrderApp">
+		<xs:complexContent>
+			<xs:extension base="tns:PaymentDataType">
+				<xs:sequence>
+					<xs:element name="TransitionContent" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="16"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PartialPaymentNo" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="3"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PartialTransitionKind" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:length value="2"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SumResidualPayment" type="tns:SumType" minOccurs="0"/>
+					<xs:element name="PartialDocNo" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="6"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PartialDocDate" type="tns:DateString" minOccurs="0"/>
+					<xs:element name="BudgetPaymentInfo" type="tns:BudgetPaymentInfoType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Probe">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="ResultBank">
+		<xs:choice>
+			<xs:element name="Success" type="tns:SuccessResultType" minOccurs="0"/>
+			<xs:element name="Error" type="tns:ErrorType" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ResultStatusType">
+		<xs:choice>
+			<xs:element name="Error" type="tns:ErrorType" minOccurs="0"/>
+			<xs:element name="Status" type="tns:StatusType" minOccurs="0"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="SendPacketResponseType">
+		<xs:sequence>
+			<xs:element name="ID" type="tns:IDType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Settings">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:BankPartyType"/>
+			<xs:element name="Recipient" type="tns:CustomerPartyType"/>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustomerID" type="tns:IDCustomerType"/>
+						<xs:element name="BankServerAddress">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:minLength value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="FormatVersion" type="tns:FormatVersionType"/>
+						<xs:element name="Encoding">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="UTF-8"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Compress" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="Logon">
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="Login" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="User">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:maxLength value="50"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Certificate" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EncryptingAlgorithm">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:maxLength value="50"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CryptoParameters" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CSPName">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:maxLength value="256"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="CSPType" type="xs:int"/>
+									<xs:element name="SignAlgorithm">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="HashAlgorithm">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:maxLength value="50"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="Encrypted" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="EncryptAlgorithm">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:maxLength value="50"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="BankTrustedRootCertificate" type="xs:base64Binary" minOccurs="0"/>
+									<xs:element name="BankCertificate" type="xs:base64Binary"/>
+									<xs:element name="CustomerSignature">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="GroupSignatures" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Certificate" type="xs:base64Binary" maxOccurs="9"/>
+														</xs:sequence>
+														<xs:attribute name="numberGroup" use="required">
+															<xs:simpleType>
+																<xs:restriction base="xs:integer"/>
+															</xs:simpleType>
+														</xs:attribute>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Document" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Signed" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="RuleSignatures">
+													<xs:simpleType>
+														<xs:restriction base="xs:string"/>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="docKind" type="tns:DocKindType" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="Statement">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:BankPartyType"/>
+			<xs:element name="Recipient" type="tns:CustomerPartyType"/>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StatementType" type="tns:StatementKindType"/>
+						<xs:element name="DateFrom" type="xs:dateTime" minOccurs="0"/>
+						<xs:element name="DateTo" type="xs:dateTime"/>
+						<xs:element name="Account" type="tns:AccNumType"/>
+						<xs:element name="Bank" type="tns:BankType"/>
+						<xs:element name="OpeningBalance" type="tns:SumType" minOccurs="0"/>
+						<xs:element name="TotalDebits" type="tns:SumType" minOccurs="0"/>
+						<xs:element name="TotalCredits" type="tns:SumType" minOccurs="0"/>
+						<xs:element name="ClosingBalance" type="tns:SumType"/>
+						<xs:element name="OperationInfo" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayDoc">
+										<xs:complexType>
+											<xs:choice>
+												<xs:element name="PayDocRu" type="tns:PayDocRuApp" minOccurs="0"/>
+												<xs:element name="PayRequest" type="tns:PayRequestApp" minOccurs="0"/>
+												<xs:element name="CollectionOrder" type="tns:CollectionOrderApp" minOccurs="0"/>
+												<xs:element name="PaymentOrder" type="tns:PaymentOrderApp" minOccurs="0"/>
+												<xs:element name="BankOrder" type="tns:BankOrderApp" minOccurs="0"/>
+												<xs:element name="MemOrder" type="tns:MemOrderApp" minOccurs="0"/>
+											</xs:choice>
+											<xs:attribute name="id" type="tns:IDType" use="required"/>
+											<xs:attribute name="docKind" type="tns:DocKindType" use="required"/>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="DC">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:length value="1"/>
+												<xs:enumeration value="1"/>
+												<xs:enumeration value="2"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="Date" type="xs:date"/>
+									<xs:element name="ExtID" type="tns:IDType" minOccurs="0"/>
+									<xs:element name="Stamp" minOccurs="0">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="tns:BankType">
+													<xs:sequence>
+														<xs:element name="Branch" minOccurs="0">
+															<xs:simpleType>
+																<xs:restriction base="xs:string">
+																	<xs:maxLength value="255"/>
+																</xs:restriction>
+															</xs:simpleType>
+														</xs:element>
+														<xs:element name="Status" type="tns:StatusType"/>
+													</xs:sequence>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Stamp" minOccurs="0">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="tns:BankType">
+										<xs:sequence>
+											<xs:element name="Branch" minOccurs="0">
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:maxLength value="255"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ExtIDStatementRequest" type="tns:IDType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:simpleType name="StatementKindType">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="StatementRequest">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+			<xs:element name="Data">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StatementType" type="tns:StatementKindType"/>
+						<xs:element name="DateFrom" type="xs:dateTime"/>
+						<xs:element name="DateTo" type="xs:dateTime"/>
+						<xs:element name="Account" type="tns:AccNumType"/>
+						<xs:element name="Bank" type="tns:BankType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="StatusDocNotice">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:ParticipantType"/>
+			<xs:element name="Recipient" type="tns:ParticipantType"/>
+			<xs:element name="ExtID" type="tns:IDType"/>
+			<xs:element name="Result" type="tns:ResultStatusType"/>
+			<xs:element name="ExtIDStatusRequest" type="tns:IDType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="StatusPacketNotice">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:ParticipantType"/>
+			<xs:element name="Recipient" type="tns:ParticipantType"/>
+			<xs:element name="IDResultSuccessResponse" type="tns:IDType"/>
+			<xs:element name="Result" type="tns:ResultStatusType"/>
+			<xs:element name="ExtIDPacket" type="tns:IDType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="StatusRequest">
+		<xs:sequence>
+			<xs:element name="Sender" type="tns:CustomerPartyType"/>
+			<xs:element name="Recipient" type="tns:BankPartyType"/>
+			<xs:element name="ExtID" type="tns:IDType"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+	<xs:complexType name="StatusType">
+		<xs:sequence>
+			<xs:element name="Code">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Name" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="25"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="MoreInfo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SuccessResultType">
+		<xs:choice>
+			<xs:element name="SendPacketResponse" type="tns:SendPacketResponseType" minOccurs="0"/>
+			<xs:element name="GetPacketListResponse" type="tns:GetPacketListResponseType" minOccurs="0"/>
+			<xs:element name="GetPacketResponse" type="tns:GetPacketResponseType" minOccurs="0"/>
+			<xs:element name="LogonResponse" type="tns:LogonResponseType" minOccurs="0"/>
+			<xs:element name="LogonCertResponse" type="tns:LogonCertResponseType" minOccurs="0"/>
+			<xs:element name="GetSettingsResponse" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tns:GetSettingsResponseType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="SumType">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="18"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UserAgentType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="X509Data">
+		<xs:sequence>
+			<xs:element name="X509IssuerName" type="xs:string"/>
+			<xs:element name="X509SerialNumber" type="xs:hexBinary"/>
+			<xs:element name="X509Certificate" type="xs:base64Binary"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="tns:IDType" use="required"/>
+		<xs:attribute name="formatVersion" type="tns:FormatVersionType" use="required"/>
+		<xs:attribute name="creationDate" type="xs:dateTime" use="required"/>
+		<xs:attribute name="userAgent" type="tns:UserAgentType"/>
+	</xs:complexType>
+</xs:schema>

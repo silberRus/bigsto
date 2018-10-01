@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Настройка фильтрации отправляемых данных</v8:content>
+		</v8:item>
+	</Title>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="КомандаОК" id="62">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.КомандаОК</CommandName>
+				<ExtendedTooltip name="КомандаОКРасширеннаяПодсказка" id="63"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="ChoiceProcessing">ОбработкаВыбора</Event>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаВсеОтборы" id="166">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа все отборы</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа все отборы</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаВсеОтборыРасширеннаяПодсказка" id="167"/>
+			<ChildItems>
+				<LabelDecoration name="ДекорацияЗаголовокВыбораПодразделенией" id="168">
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Подразделения, по которым будут отправлены данные:</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ДекорацияЗаголовокВыбораПодразделениейКонтекстноеМеню" id="169"/>
+					<ExtendedTooltip name="ДекорацияЗаголовокВыбораПодразделениейРасширеннаяПодсказка" id="170"/>
+				</LabelDecoration>
+				<UsualGroup name="ГруппаФильтрПоПодразделению" id="69">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Подразделения, по которым будут отправляться данные:</v8:content>
+						</v8:item>
+					</Title>
+					<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа фильтр по подразделению</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаФильтрПоПодразделениюРасширеннаяПодсказка" id="70"/>
+					<ChildItems>
+						<LabelDecoration name="ДекорацияОтступ" id="71">
+							<ContextMenu name="ДекорацияОтступКонтекстноеМеню" id="72"/>
+							<ExtendedTooltip name="ДекорацияОтступExtendedTooltip" id="73"/>
+						</LabelDecoration>
+						<Button name="ВыбратьПодразделения" id="79">
+							<Type>Hyperlink</Type>
+							<CommandName>Form.Command.ВыбратьПодразделения</CommandName>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>&lt;Подразделения не выбраны&gt;</v8:content>
+								</v8:item>
+							</Title>
+							<ExtendedTooltip name="ВыбратьПодразделенияРасширеннаяПодсказка" id="80"/>
+						</Button>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаФильтры" id="81">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дополнительные параметры синхронизации данных:</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа фильтры</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>NormalSeparation</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаФильтрыРасширеннаяПодсказка" id="82"/>
+			<ChildItems>
+				<LabelDecoration name="ДекорацияОтступФильтры" id="83">
+					<Font ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+					<ContextMenu name="ДекорацияОтступФильтрыКонтекстноеМеню" id="84"/>
+					<ExtendedTooltip name="ДекорацияОтступФильтрыРасширеннаяПодсказка" id="85"/>
+				</LabelDecoration>
+				<UsualGroup name="ГруппаОтборы" id="86">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дополнительные настройки отправки данных:</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа отборы</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Vertical</Group>
+					<Representation>None</Representation>
+					<ChildItemsWidth>Equal</ChildItemsWidth>
+					<ExtendedTooltip name="ГруппаОтборыРасширеннаяПодсказка" id="87"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаОтборПоОрганизациям" id="88">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Фильтр по организациям</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Отбор по организациям</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаОтборПоОрганизациямРасширеннаяПодсказка" id="89"/>
+							<ChildItems>
+								<LabelDecoration name="ДекорацияОтступФильтраОрганизации" id="90">
+									<Font ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+									<ContextMenu name="ДекорацияОтступФильтраОрганизацииКонтекстноеМеню" id="91"/>
+									<ExtendedTooltip name="ДекорацияОтступФильтраОрганизацииРасширеннаяПодсказка" id="92"/>
+								</LabelDecoration>
+								<UsualGroup name="БлокОтбораПоОрганизациям" id="93">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блок отбора по организациям</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блок отбора по организациям</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="БлокОтбораПоОрганизациямРасширеннаяПодсказка" id="94"/>
+									<ChildItems>
+										<CheckBoxField name="ИспользоватьОтборПоОрганизациям" id="173">
+											<DataPath>ИспользоватьОтборПоОрганизациям</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Отбор отправляемых данных по организациям</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Right</TitleLocation>
+											<CheckBoxType>Auto</CheckBoxType>
+											<ContextMenu name="ИспользоватьОтборПоОрганизациямКонтекстноеМеню" id="174"/>
+											<ExtendedTooltip name="ИспользоватьОтборПоОрганизациямРасширеннаяПодсказка" id="175"/>
+											<Events>
+												<Event name="OnChange">ИспользоватьОтборПоОрганизациямПриИзменении</Event>
+											</Events>
+										</CheckBoxField>
+										<Button name="ВыбратьОрганизации" id="176">
+											<Type>Hyperlink</Type>
+											<CommandName>Form.Command.ВыбратьОрганизации</CommandName>
+											<ExtendedTooltip name="ВыбратьОрганизацииРасширеннаяПодсказка" id="177"/>
+										</Button>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаОтборПоВидамЦен" id="113">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Фильтр по видам цен</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа отбор по видам цен</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаОтборПоВидамЦенРасширеннаяПодсказка" id="114"/>
+							<ChildItems>
+								<LabelDecoration name="ДекорацияОтступФильтраПоВидамЦен" id="115">
+									<Font ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+									<ContextMenu name="ДекорацияОтступФильтраПоВидамЦенКонтекстноеМеню" id="116"/>
+									<ExtendedTooltip name="ДекорацияОтступФильтраПоВидамЦенРасширеннаяПодсказка" id="117"/>
+								</LabelDecoration>
+								<UsualGroup name="БлокОтбораПоВидамЦен" id="178">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блок отбора по видам цен</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блок отбора по видам цен</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="БлокОтбораПоВидамЦенРасширеннаяПодсказка" id="179"/>
+									<ChildItems>
+										<CheckBoxField name="ИспользоватьОтборПоВидамЦен" id="180">
+											<DataPath>ИспользоватьОтборПоВидамЦен</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Отправлять информацию только по выбранным видам цен</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Right</TitleLocation>
+											<CheckBoxType>Auto</CheckBoxType>
+											<ContextMenu name="ИспользоватьОтборПоВидамЦенКонтекстноеМеню" id="181"/>
+											<ExtendedTooltip name="ИспользоватьОтборПоВидамЦенРасширеннаяПодсказка" id="182"/>
+											<Events>
+												<Event name="OnChange">ИспользоватьОтборПоВидамЦенПриИзменении</Event>
+											</Events>
+										</CheckBoxField>
+										<Button name="ВыбратьВидыЦен" id="183">
+											<Type>Hyperlink</Type>
+											<CommandName>Form.Command.ВыбратьВидыЦен</CommandName>
+											<ExtendedTooltip name="ВыбратьВидыЦенРасширеннаяПодсказка" id="184"/>
+										</Button>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаОтборПоИнформативнымОстаткам" id="138">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Передача информативных остатков</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа отбор по информативным остаткам</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаОтборПоИнформативнымОстаткамРасширеннаяПодсказка" id="139"/>
+							<ChildItems>
+								<LabelDecoration name="ДекорацияОтступФильтраПоСкладам" id="140">
+									<Font ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+									<ContextMenu name="ДекорацияОтступФильтраПоСкладамКонтекстноеМеню" id="141"/>
+									<ExtendedTooltip name="ДекорацияОтступФильтраПоСкладамРасширеннаяПодсказка" id="142"/>
+								</LabelDecoration>
+								<UsualGroup name="БлокОтбораПоСкладам" id="143">
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блок отбора по складам</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="БлокОтбораПоСкладамРасширеннаяПодсказка" id="144"/>
+									<ChildItems>
+										<RadioButtonField name="ИнформОстаткиНеОтправлять" id="145">
+											<DataPath>РежимОтправкиСкладов</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<RadioButtonType>Auto</RadioButtonType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation>
+															<v8:item>
+																<v8:lang>ru</v8:lang>
+																<v8:content>Не отправлять информативные остатки по складам</v8:content>
+															</v8:item>
+														</Presentation>
+														<Value xsi:type="xs:string">БезИнформативныхОстатков</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ИнформОстаткиНеОтправлятьКонтекстноеМеню" id="146"/>
+											<ExtendedTooltip name="ИнформОстаткиНеОтправлятьРасширеннаяПодсказка" id="147"/>
+											<Events>
+												<Event name="OnChange">ИнформОстаткиНеОтправлятьПриИзменении</Event>
+											</Events>
+										</RadioButtonField>
+										<RadioButtonField name="ИнформОстаткиОтправлятьВсе" id="148">
+											<DataPath>РежимОтправкиСкладов</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<RadioButtonType>Auto</RadioButtonType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation>
+															<v8:item>
+																<v8:lang>ru</v8:lang>
+																<v8:content>Отправлять информативные остатки по всем складам</v8:content>
+															</v8:item>
+														</Presentation>
+														<Value xsi:type="xs:string">ИнформативныеОстаткиПоВсемСкладам</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ИнформОстаткиОтправлятьВсеКонтекстноеМеню" id="149"/>
+											<ExtendedTooltip name="ИнформОстаткиОтправлятьВсеРасширеннаяПодсказка" id="150"/>
+											<Events>
+												<Event name="OnChange">ИнформОстаткиОтправлятьВсеПриИзменении</Event>
+											</Events>
+										</RadioButtonField>
+										<RadioButtonField name="ИнформОстаткиВыбранныеСклады" id="151">
+											<DataPath>РежимОтправкиСкладов</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<RadioButtonType>Auto</RadioButtonType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation>
+															<v8:item>
+																<v8:lang>ru</v8:lang>
+																<v8:content>Отправлять информативные остатки по выбранным складам</v8:content>
+															</v8:item>
+														</Presentation>
+														<Value xsi:type="xs:string">ИнформативныеОстаткиПоВыбранным</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ИнформОстаткиВыбранныеСкладыКонтекстноеМеню" id="152"/>
+											<ExtendedTooltip name="ИнформОстаткиВыбранныеСкладыРасширеннаяПодсказка" id="153"/>
+											<Events>
+												<Event name="OnChange">ИнформОстаткиВыбранныеСкладыПриИзменении</Event>
+											</Events>
+										</RadioButtonField>
+										<Button name="ВыбратьСклады" id="164">
+											<Type>Hyperlink</Type>
+											<CommandName>Form.Command.ВыбратьСклады</CommandName>
+											<ExtendedTooltip name="ВыбратьСкладыРасширеннаяПодсказка" id="165"/>
+										</Button>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="НастройкаОтборовНаУзле" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка отборов на узле</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+		<Attribute name="ВерсияКорреспондента" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Версия корреспондента</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="Подразделения" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подразделения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Подразделение" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Подразделение</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.СтруктураПредприятия</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="Организации" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организации</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Организация" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Организация</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ВидыЦен" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Виды цен</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="ВидЦены" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вид цены</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.ВидыЦен</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ИспользоватьОтборПоОрганизациям" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать отбор по организациям</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИспользоватьОтборПоВидамЦен" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать отбор по видам цен</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РежимОтправкиСкладов" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим отправки складов</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИнформативныеОстаткиПоСкладам" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Информативные остатки по складам</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Склад" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Склад</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Склады</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ВыгружатьИнформативныеОстатки" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выгружать информативные остатки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>1</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="КомандаОК" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать и закрыть</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Команда ОК</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>КомандаОК</Action>
+		</Command>
+		<Command name="ВыбратьВидыЦен" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать виды цен</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать виды цен</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыбратьВидыЦен</Action>
+		</Command>
+		<Command name="ВыбратьОрганизации" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать организации</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать организации</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыбратьОрганизации</Action>
+		</Command>
+		<Command name="ВыбратьПодразделения" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать подразделения</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать подразделения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыбратьПодразделения</Action>
+		</Command>
+		<Command name="ВыбратьСклады" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать склады</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать виды цен</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ВыбратьСклады</Action>
+		</Command>
+	</Commands>
+</Form>

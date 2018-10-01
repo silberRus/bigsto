@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Popup name="ЛентыНовостейГруппаПолучитьНовости" id="46">
+				<EnableContentChange>true</EnableContentChange>
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Получить новости...</v8:content>
+					</v8:item>
+				</Title>
+				<Picture>
+					<xr:Ref>CommonPicture.ЗагрузитьНовости</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<Representation>PictureAndText</Representation>
+				<ExtendedTooltip name="ЛентыНовостейГруппаПолучитьНовостиРасширеннаяПодсказка" id="55"/>
+				<ChildItems>
+					<Button name="ФормаКомандаЗагрузитьНовостиПоВсемЛентамНовостей" id="37">
+						<Type>CommandBarButton</Type>
+						<Representation>PictureAndText</Representation>
+						<CommandName>Form.Command.КомандаЗагрузитьНовостиПоВсемЛентамНовостей</CommandName>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>по всем лентам новостей</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ФормаКомандаЗагрузитьНовостиПоВсемЛентамНовостейExtendedTooltip" id="56"/>
+					</Button>
+					<Button name="ФормаКомандаЗагрузитьНовостиПоВыделеннымЛентамНовостей" id="45">
+						<Type>CommandBarButton</Type>
+						<Representation>PictureAndText</Representation>
+						<CommandName>Form.Command.КомандаЗагрузитьНовостиПоВыделеннымЛентамНовостей</CommandName>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>по выделенным лентам новостей</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ФормаКомандаЗагрузитьНовостиПоВыделеннымЛентамНовостейExtendedTooltip" id="57"/>
+					</Button>
+				</ChildItems>
+			</Popup>
+			<Button name="ФормаКомандаОбновитьССервера" id="33">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.КомандаОбновитьССервера</CommandName>
+				<ExtendedTooltip name="ФормаКомандаОбновитьССервераExtendedTooltip" id="58"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<LabelDecoration name="ДекорацияРежимРаботыСНовостямиЧерезИнтернет_ОбновлениеЛентНовостей" id="47">
+			<HorizontalStretch>true</HorizontalStretch>
+			<VerticalStretch>false</VerticalStretch>
+			<TextColor>style:ЦветМикротекста</TextColor>
+			<Font ref="style:ШрифтМикротекста" kind="StyleItem"/>
+			<Title formatted="false">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Включен режим работы только с локальными новостями. Обновление списка лент новостей через интернет недоступно.</v8:content>
+				</v8:item>
+			</Title>
+			<VerticalAlign>Top</VerticalAlign>
+			<ContextMenu name="ДекорацияРежимРаботыСНовостямиЧерезИнтернет_ОбновлениеЛентНовостейКонтекстноеМеню" id="48"/>
+			<ExtendedTooltip name="ДекорацияРежимРаботыСНовостямиЧерезИнтернет_ОбновлениеЛентНовостейExtendedTooltip" id="59"/>
+		</LabelDecoration>
+		<LabelDecoration name="ДекорацияТребуетсяОбновлениеССервера" id="35">
+			<HorizontalStretch>true</HorizontalStretch>
+			<VerticalStretch>false</VerticalStretch>
+			<TextColor>style:ЦветМикротекста</TextColor>
+			<Font ref="style:ШрифтМикротекста" kind="StyleItem"/>
+			<VerticalAlign>Top</VerticalAlign>
+			<ContextMenu name="ДекорацияТребуетсяОбновлениеССервераКонтекстноеМеню" id="36"/>
+			<ExtendedTooltip name="ДекорацияТребуетсяОбновлениеССервераExtendedTooltip" id="60"/>
+			<Events>
+				<Event name="URLProcessing">ДекорацияТребуетсяОбновлениеССервераОбработкаНавигационнойСсылки</Event>
+			</Events>
+		</LabelDecoration>
+		<Table name="Список" id="1">
+			<Representation>List</Representation>
+			<CommandBarLocation>None</CommandBarLocation>
+			<DefaultItem>true</DefaultItem>
+			<UseAlternationRowColor>true</UseAlternationRowColor>
+			<InitialTreeView>ExpandTopLevel</InitialTreeView>
+			<EnableStartDrag>true</EnableStartDrag>
+			<DataPath>Список</DataPath>
+			<RowPictureDataPath>Список.DefaultPicture</RowPictureDataPath>
+			<SearchStringLocation>None</SearchStringLocation>
+			<ViewStatusLocation>None</ViewStatusLocation>
+			<SearchControlLocation>None</SearchControlLocation>
+			<AutoRefresh>false</AutoRefresh>
+			<AutoRefreshPeriod>60</AutoRefreshPeriod>
+			<Period>
+				<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+				<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+				<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+			</Period>
+			<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+			<RestoreCurrentRow>false</RestoreCurrentRow>
+			<TopLevelParent xsi:nil="true"/>
+			<ShowRoot>false</ShowRoot>
+			<AllowRootChoice>false</AllowRootChoice>
+			<UpdateOnDataChange>Auto</UpdateOnDataChange>
+			<ContextMenu name="СписокКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="СписокКоманднаяПанель" id="3">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="СписокExtendedTooltip" id="61"/>
+			<SearchStringAddition name="СписокСтрокаПоиска" id="78">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокСтрокаПоискаКонтекстноеМеню" id="79"/>
+				<ExtendedTooltip name="СписокСтрокаПоискаРасширеннаяПодсказка" id="80"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="СписокСостояниеПросмотра" id="81">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокСостояниеПросмотраКонтекстноеМеню" id="82"/>
+				<ExtendedTooltip name="СписокСостояниеПросмотраРасширеннаяПодсказка" id="83"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="СписокУправлениеПоиском" id="84">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокУправлениеПоискомКонтекстноеМеню" id="85"/>
+				<ExtendedTooltip name="СписокУправлениеПоискомРасширеннаяПодсказка" id="86"/>
+			</SearchControlAddition>
+			<ChildItems>
+				<LabelField name="Наименование" id="5">
+					<DataPath>Список.Description</DataPath>
+					<DefaultItem>true</DefaultItem>
+					<Width>20</Width>
+					<HorizontalStretch>true</HorizontalStretch>
+					<ContextMenu name="НаименованиеКонтекстноеМеню" id="6"/>
+					<ExtendedTooltip name="НаименованиеExtendedTooltip" id="62"/>
+				</LabelField>
+				<LabelField name="ОбязательныйКанал" id="11">
+					<DataPath>Список.ОбязательныйКанал</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Обязательный канал</v8:content>
+						</v8:item>
+					</Title>
+					<TitleLocation>Top</TitleLocation>
+					<TitleHeight>2</TitleHeight>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Это обязательный канал,
+который нельзя отключить?</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Format>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>БЛ=; БИ='Обязательный канал'</v8:content>
+						</v8:item>
+					</Format>
+					<ContextMenu name="ОбязательныйКаналКонтекстноеМеню" id="12"/>
+					<ExtendedTooltip name="ОбязательныйКаналExtendedTooltip" id="63"/>
+				</LabelField>
+				<ColumnGroup name="ГруппаИсточникНовостей" id="29">
+					<EnableContentChange>true</EnableContentChange>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Источник новостей</v8:content>
+						</v8:item>
+					</Title>
+					<Group>InCell</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ГруппаИсточникНовостейExtendedTooltip" id="64"/>
+					<ChildItems>
+						<LabelField name="ИсточникНовостей" id="53">
+							<DataPath>Список.ИсточникНовостей</DataPath>
+							<ShowInHeader>false</ShowInHeader>
+							<Width>10</Width>
+							<ContextMenu name="ИсточникНовостейКонтекстноеМеню" id="54"/>
+							<ExtendedTooltip name="ИсточникНовостейExtendedTooltip" id="65"/>
+						</LabelField>
+						<LabelField name="Протокол" id="14">
+							<DataPath>Список.Протокол</DataPath>
+							<ShowInHeader>false</ShowInHeader>
+							<Width>10</Width>
+							<ContextMenu name="ПротоколКонтекстноеМеню" id="15"/>
+							<ExtendedTooltip name="ПротоколExtendedTooltip" id="66"/>
+						</LabelField>
+						<LabelField name="Сайт" id="23">
+							<DataPath>Список.Сайт</DataPath>
+							<ShowInHeader>false</ShowInHeader>
+							<Width>10</Width>
+							<ContextMenu name="СайтКонтекстноеМеню" id="24"/>
+							<ExtendedTooltip name="СайтExtendedTooltip" id="67"/>
+						</LabelField>
+						<LabelField name="ИмяФайла" id="26">
+							<DataPath>Список.ИмяФайла</DataPath>
+							<ShowInHeader>false</ShowInHeader>
+							<Width>10</Width>
+							<ContextMenu name="ИмяФайлаКонтекстноеМеню" id="27"/>
+							<ExtendedTooltip name="ИмяФайлаExtendedTooltip" id="68"/>
+						</LabelField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ГруппаДоступПоЛогинуПаролю" id="31">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Доступ по логину / паролю</v8:content>
+						</v8:item>
+					</Title>
+					<Group>Horizontal</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ГруппаДоступПоЛогинуПаролюExtendedTooltip" id="69"/>
+					<ChildItems>
+						<InputField name="ВариантЛогинаПароля" id="8">
+							<DataPath>Список.ВариантЛогинаПароля</DataPath>
+							<Width>5</Width>
+							<ContextMenu name="ВариантЛогинаПароляКонтекстноеМеню" id="9"/>
+							<ExtendedTooltip name="ВариантЛогинаПароляExtendedTooltip" id="70"/>
+						</InputField>
+						<InputField name="Логин" id="17">
+							<DataPath>Список.Логин</DataPath>
+							<Width>5</Width>
+							<ContextMenu name="ЛогинКонтекстноеМеню" id="18"/>
+							<ExtendedTooltip name="ЛогинExtendedTooltip" id="71"/>
+						</InputField>
+						<InputField name="Пароль" id="20">
+							<DataPath>Список.Пароль</DataPath>
+							<Width>5</Width>
+							<ContextMenu name="ПарольКонтекстноеМеню" id="21"/>
+							<ExtendedTooltip name="ПарольExtendedTooltip" id="72"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<LabelField name="Код" id="39">
+					<DataPath>Список.Code</DataPath>
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<ContextMenu name="КодКонтекстноеМеню" id="40"/>
+					<ExtendedTooltip name="КодExtendedTooltip" id="73"/>
+				</LabelField>
+				<ColumnGroup name="ГруппаСтатистикаЗагрузокНовостей" id="90">
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статистика загрузок новостей</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="ГруппаСтатистикаЗагрузокНовостейРасширеннаяПодсказка" id="91"/>
+					<ChildItems>
+						<LabelField name="ДатаЗагрузкиПоследнихНовостей" id="41">
+							<DataPath>Список.ДатаЗагрузкиПоследнихНовостей</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Дата последней успешной загрузки новостей</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Дата, когда новости были успешно загружены последний раз</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Width>20</Width>
+							<ContextMenu name="ДатаЗагрузкиПоследнихНовостейКонтекстноеМеню" id="42"/>
+							<ExtendedTooltip name="ДатаЗагрузкиПоследнихНовостейExtendedTooltip" id="74"/>
+						</LabelField>
+						<ColumnGroup name="ГруппаСтатистикаЗагрузокНовостей_ПоследняяПопытка" id="92">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Последняя попытка</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Последняя попытка загрузки новостей</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<ExtendedTooltip name="ГруппаСтатистикаЗагрузокНовостей_ПоследняяПопыткаРасширеннаяПодсказка" id="93"/>
+							<ChildItems>
+								<LabelField name="КоличествоНеудачПриЗагрузкеНовостей" id="87">
+									<DataPath>Список.КоличествоНеудачПриЗагрузкеНовостей</DataPath>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Количество неудачных попыток загрузки новостей с момента последней удачной загрузки</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Width>5</Width>
+									<ContextMenu name="КоличествоНеудачПриЗагрузкеНовостейКонтекстноеМеню" id="88"/>
+									<ExtendedTooltip name="КоличествоНеудачПриЗагрузкеНовостейРасширеннаяПодсказка" id="89"/>
+								</LabelField>
+								<LabelField name="ДатаПоследнейПопыткиЗагрузкиНовостей" id="94">
+									<DataPath>Список.ДатаПоследнейПопыткиЗагрузкиНовостей</DataPath>
+									<Width>20</Width>
+									<ContextMenu name="ДатаПоследнейПопыткиЗагрузкиНовостейКонтекстноеМеню" id="95"/>
+									<ExtendedTooltip name="ДатаПоследнейПопыткиЗагрузкиНовостейРасширеннаяПодсказка" id="96"/>
+								</LabelField>
+							</ChildItems>
+						</ColumnGroup>
+					</ChildItems>
+				</ColumnGroup>
+				<LabelField name="ЧастотаОбновления" id="43">
+					<DataPath>Список.ЧастотаОбновления</DataPath>
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<ContextMenu name="ЧастотаОбновленияКонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="ЧастотаОбновленияExtendedTooltip" id="75"/>
+				</LabelField>
+				<CheckBoxField name="ЛокальнаяЛентаНовостей" id="51">
+					<DataPath>Список.ЛокальнаяЛентаНовостей</DataPath>
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ЛокальнаяЛентаНовостейКонтекстноеМеню" id="52"/>
+					<ExtendedTooltip name="ЛокальнаяЛентаНовостейExtendedTooltip" id="76"/>
+				</CheckBoxField>
+				<LabelField name="Ссылка" id="49">
+					<DataPath>Список.Ref</DataPath>
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<ContextMenu name="СсылкаКонтекстноеМеню" id="50"/>
+					<ExtendedTooltip name="СсылкаExtendedTooltip" id="77"/>
+				</LabelField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Список" id="1">
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<UseAlways>
+				<Field>Список.Ref</Field>
+			</UseAlways>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	Спр.Ссылка,
+	Спр.ВерсияДанных,
+	Спр.ПометкаУдаления,
+	Спр.Предопределенный,
+	Спр.Код,
+	Спр.Наименование,
+	Спр.ОбязательныйКанал,
+	Спр.Сайт,
+	Спр.ИмяФайла,
+	Спр.ВариантЛогинаПароля,
+	Спр.Логин,
+	Спр.Пароль,
+	Спр.ЗагруженоССервера,
+	Спр.ВидимостьПоУмолчанию,
+	Спр.ЧастотаОбновления,
+	Спр.Комментарий,
+	Спр.ПропускатьЗагрузкуБинарныхДанных,
+	Спр.Протокол,
+	Спр.ЛокальнаяЛентаНовостей,
+	ВЫБОР
+		КОГДА (Спр.ЛокальнаяЛентаНовостей = ИСТИНА) Тогда
+			"Создаются напрямую в справочнике" // надпись будет отключаться с помощью условного оформления
+		КОГДА (Спр.Протокол = "file") Тогда
+			"Загружаются из файла"
+		Иначе // http, https
+			"Загружаются через интернет по протоколу"
+	КОНЕЦ КАК ИсточникНовостей,
+	Спр.ДоступныеКатегорииНовостей.(
+		Ссылка,
+		НомерСтроки,
+		КатегорияНовостей,
+		РазрешеноНастраиватьПользователям,
+		ОтборНастраиваетсяНаСервере
+	),
+	Спр.ИсключенияВидимости.(
+		Ссылка,
+		НомерСтроки,
+		Пользователь
+	),
+	ЕСТЬNULL(Рег.ДатаЗагрузкиПоследнихНовостей, ДАТАВРЕМЯ(0001,01,01))        КАК ДатаЗагрузкиПоследнихНовостей,
+	ЕСТЬNULL(Рег.ДатаПоследнейПопыткиЗагрузкиНовостей, ДАТАВРЕМЯ(0001,01,01)) КАК ДатаПоследнейПопыткиЗагрузкиНовостей,
+	ЕСТЬNULL(Рег.КоличествоНеудачПриЗагрузкеНовостей, 0)                      КАК КоличествоНеудачПриЗагрузкеНовостей
+ИЗ
+	Справочник.ЛентыНовостей КАК Спр
+	ЛЕВОЕ СОЕДИНЕНИЕ
+	РегистрСведений.ДатыЗагрузкиПоследнихНовостей КАК Рег
+	ПО
+		Рег.ЛентаНовостей = Спр.Ссылка</QueryText>
+				<MainTable>Catalog.ЛентыНовостей</MainTable>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ТекущаяВерсияНаКлиенте" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущая версия на клиенте</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>DateTime</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ТекущаяВерсияНаСервере" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущая версия на сервере</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>DateTime</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РольДоступнаАдминистратор" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Есть административная роль</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ОткрытаИзОбработки_УправлениеНовостями" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыта из обработки "Управление новостями"</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="КомандаОбновитьССервера" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка и обновление</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить список лент новостей с сервера</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ЗагрузитьКлассификаторы</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>КомандаОбновитьССервера</Action>
+			<FunctionalOptions>
+				<Item>FunctionalOption.РазрешенаРаботаСНовостямиЧерезИнтернет</Item>
+			</FunctionalOptions>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="КомандаЗагрузитьНовостиПоВсемЛентамНовостей" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить все новости сейчас</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить новости с серверов 1С по всем лентам новостей</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ЗагрузитьНовости</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>КомандаЗагрузитьНовости</Action>
+			<FunctionalOptions>
+				<Item>FunctionalOption.РазрешенаРаботаСНовостямиЧерезИнтернет</Item>
+			</FunctionalOptions>
+		</Command>
+		<Command name="КомандаЗагрузитьНовостиПоВыделеннымЛентамНовостей" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить новости по выделенным лентам новостей</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить новости с серверов 1С по выделенным лентам новостей</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ЗагрузитьНовости</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>КомандаЗагрузитьНовости</Action>
+			<FunctionalOptions>
+				<Item>FunctionalOption.РазрешенаРаботаСНовостямиЧерезИнтернет</Item>
+			</FunctionalOptions>
+		</Command>
+	</Commands>
+</Form>

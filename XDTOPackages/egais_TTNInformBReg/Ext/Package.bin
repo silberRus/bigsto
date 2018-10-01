@@ -1,0 +1,28 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/TTNInformBReg" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ClientRef"/>
+	<objectType name="InformBPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="InformBRegId" type="d3p1:NoEmptyString50"/>
+	</objectType>
+	<objectType name="WayBillInformBRegType">
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d5p1:IdentityType" lowerBound="0" nillable="false"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="WBRegId" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="EGAISFixNumber" type="d5p1:NoEmptyString50" lowerBound="0"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="EGAISFixDate" type="d5p1:DateNoTime" lowerBound="0"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="WBNUMBER" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="WBDate" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef" name="Shipper" type="d5p1:OrgInfo"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef" name="Consignee" type="d5p1:OrgInfo"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef" name="Supplier" type="d5p1:OrgInfo" lowerBound="0"/>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/TTNInformBReg" name="Position" type="d5p1:InformBPositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

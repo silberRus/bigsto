@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<Customizable>false</Customizable>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="Группа1" id="41">
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="42"/>
+			<ChildItems>
+				<InputField name="ДатаС" id="43">
+					<DataPath>Объект.ДатаС</DataPath>
+					<Visible>false</Visible>
+					<ContextMenu name="ДатаСКонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="ДатаСРасширеннаяПодсказка" id="45"/>
+				</InputField>
+				<InputField name="ДатаОтправки" id="4">
+					<DataPath>Объект.ДатаОтправки</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ДатаОтправкиКонтекстноеМеню" id="5"/>
+					<ExtendedTooltip name="ДатаОтправкиРасширеннаяПодсказка" id="6"/>
+				</InputField>
+				<CheckBoxField name="ФильтрПоДате" id="7">
+					<DataPath>Объект.ФильтрПоДате</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>фильтр по дате и времени из зоны доставки</v8:content>
+						</v8:item>
+					</Title>
+					<EditMode>EnterOnInput</EditMode>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ФильтрПоДатеКонтекстноеМеню" id="8"/>
+					<ExtendedTooltip name="ФильтрПоДатеРасширеннаяПодсказка" id="9"/>
+					<Events>
+						<Event name="OnChange">ФильтрПоДатеПриИзменении</Event>
+					</Events>
+				</CheckBoxField>
+				<InputField name="ЗонаДоставки" id="1">
+					<DataPath>Объект.ЗонаДоставки</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ЗонаДоставкиКонтекстноеМеню" id="2"/>
+					<ExtendedTooltip name="ЗонаДоставкиРасширеннаяПодсказка" id="3"/>
+				</InputField>
+				<Button name="Кнопка1" id="50">
+					<Type>UsualButton</Type>
+					<CommandName>Form.Command.ОбновитьСписок</CommandName>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Обновить список документов</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="Кнопка1РасширеннаяПодсказка" id="51"/>
+				</Button>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="Список" id="10">
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>Объект.Список</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="СписокКонтекстноеМеню" id="11"/>
+			<AutoCommandBar name="СписокКоманднаяПанель" id="12">
+				<ChildItems>
+					<Button name="УбратьВсе" id="48">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.УбратьВсе</CommandName>
+						<Picture>
+							<xr:Ref>StdPicture.UncheckAll</xr:Ref>
+							<xr:LoadTransparent>true</xr:LoadTransparent>
+						</Picture>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>убрать все отметки</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="УбратьВсеРасширеннаяПодсказка" id="49"/>
+					</Button>
+					<Button name="ОтметитьВсе" id="46">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.ОтметитьВсе</CommandName>
+						<Picture>
+							<xr:Ref>StdPicture.CheckAll</xr:Ref>
+							<xr:LoadTransparent>true</xr:LoadTransparent>
+						</Picture>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>отметить все документы</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ОтметитьВсеРасширеннаяПодсказка" id="47"/>
+					</Button>
+					<Button name="ОтправитьВДокумент" id="55">
+						<Type>CommandBarButton</Type>
+						<Representation>PictureAndText</Representation>
+						<CommandName>Form.Command.Загрузить</CommandName>
+						<Picture>
+							<xr:Ref>CommonPicture.НоваяПродажа</xr:Ref>
+							<xr:LoadTransparent>true</xr:LoadTransparent>
+						</Picture>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Загрузить </v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ОтправитьВДокументРасширеннаяПодсказка" id="56"/>
+					</Button>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="СписокРасширеннаяПодсказка" id="13"/>
+			<SearchStringAddition name="СписокСтрокаПоиска" id="14">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокСтрокаПоискаКонтекстноеМеню" id="15"/>
+				<ExtendedTooltip name="СписокСтрокаПоискаРасширеннаяПодсказка" id="16"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="СписокСостояниеПросмотра" id="17">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокСостояниеПросмотраКонтекстноеМеню" id="18"/>
+				<ExtendedTooltip name="СписокСостояниеПросмотраРасширеннаяПодсказка" id="19"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="СписокУправлениеПоиском" id="20">
+				<AdditionSource>
+					<Item>Список</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокУправлениеПоискомКонтекстноеМеню" id="21"/>
+				<ExtendedTooltip name="СписокУправлениеПоискомРасширеннаяПодсказка" id="22"/>
+			</SearchControlAddition>
+			<ChildItems>
+				<LabelField name="СписокНомерСтроки" id="23">
+					<DataPath>Объект.Список.LineNumber</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="СписокНомерСтрокиКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="СписокНомерСтрокиРасширеннаяПодсказка" id="25"/>
+				</LabelField>
+				<CheckBoxField name="СписокОтм" id="26">
+					<DataPath>Объект.Список.Отм</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="СписокОтмКонтекстноеМеню" id="27"/>
+					<ExtendedTooltip name="СписокОтмРасширеннаяПодсказка" id="28"/>
+				</CheckBoxField>
+				<InputField name="СписокДата" id="29">
+					<DataPath>Объект.Список.Дата</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="СписокДатаКонтекстноеМеню" id="30"/>
+					<ExtendedTooltip name="СписокДатаРасширеннаяПодсказка" id="31"/>
+				</InputField>
+				<InputField name="СписокНомер" id="32">
+					<DataPath>Объект.Список.Номер</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="СписокНомерКонтекстноеМеню" id="33"/>
+					<ExtendedTooltip name="СписокНомерРасширеннаяПодсказка" id="34"/>
+				</InputField>
+				<InputField name="СписокСсылка" id="35">
+					<DataPath>Объект.Список.Ссылка</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ChoiceButton>true</ChoiceButton>
+					<ContextMenu name="СписокСсылкаКонтекстноеМеню" id="36"/>
+					<ExtendedTooltip name="СписокСсылкаРасширеннаяПодсказка" id="37"/>
+				</InputField>
+				<CheckBoxField name="СписокСПБ" id="52">
+					<DataPath>Объект.Список.СПБ</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="СписокСПБКонтекстноеМеню" id="53"/>
+					<ExtendedTooltip name="СписокСПБРасширеннаяПодсказка" id="54"/>
+				</CheckBoxField>
+				<InputField name="СписокАдресДоставки" id="38">
+					<DataPath>Объект.Список.АдресДоставки</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="СписокАдресДоставкиКонтекстноеМеню" id="39"/>
+					<ExtendedTooltip name="СписокАдресДоставкиРасширеннаяПодсказка" id="40"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.РСМ_ПодборДокументовНаПеревозку</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ОтметитьВсе" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отметить все</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отметить все</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОтметитьВсе</Action>
+		</Command>
+		<Command name="УбратьВсе" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Убрать все</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Убрать все</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>УбратьВсе</Action>
+		</Command>
+		<Command name="ОбновитьСписок" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить список документов</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить список</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОбновитьСписок</Action>
+		</Command>
+		<Command name="Загрузить" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Загрузить</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="ДатаОтправки">
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>DateTime</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+		</Parameter>
+		<Parameter name="ЗонаДоставки">
+			<Type>
+				<v8:Type>cfg:CatalogRef.ЗоныДоставки</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

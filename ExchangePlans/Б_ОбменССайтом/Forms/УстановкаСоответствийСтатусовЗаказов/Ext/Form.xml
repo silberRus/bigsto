@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Установка соответствия статусов заказа</v8:content>
+		</v8:item>
+	</Title>
+	<Width>60</Width>
+	<AutoTitle>false</AutoTitle>
+	<VerticalScroll>useIfNecessary</VerticalScroll>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<RadioButtonField name="ИсточникСтатусов1С" id="26">
+			<DataPath>ИсточникСтатусов1С</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Источник статусов в 1С</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Top</TitleLocation>
+			<RadioButtonType>Tumbler</RadioButtonType>
+			<ChoiceList>
+				<xr:Item>
+					<xr:Presentation/>
+					<xr:CheckState>0</xr:CheckState>
+					<xr:Value xsi:type="FormChoiceListDesTimeValue">
+						<Presentation>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Статусы заказов</v8:content>
+							</v8:item>
+						</Presentation>
+						<Value xsi:type="xs:string">СтатусыЗаказов</Value>
+					</xr:Value>
+				</xr:Item>
+				<xr:Item>
+					<xr:Presentation/>
+					<xr:CheckState>0</xr:CheckState>
+					<xr:Value xsi:type="FormChoiceListDesTimeValue">
+						<Presentation>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Состояния заказов</v8:content>
+							</v8:item>
+						</Presentation>
+						<Value xsi:type="xs:string">СостоянияЗаказов</Value>
+					</xr:Value>
+				</xr:Item>
+				<xr:Item>
+					<xr:Presentation/>
+					<xr:CheckState>0</xr:CheckState>
+					<xr:Value xsi:type="FormChoiceListDesTimeValue">
+						<Presentation>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Свойство заказов</v8:content>
+							</v8:item>
+						</Presentation>
+						<Value xsi:type="xs:string">СвойствоЗаказов</Value>
+					</xr:Value>
+				</xr:Item>
+			</ChoiceList>
+			<ContextMenu name="ИсточникСтатусов1СКонтекстноеМеню" id="27"/>
+			<ExtendedTooltip name="ИсточникСтатусов1СРасширеннаяПодсказка" id="28"/>
+			<Events>
+				<Event name="OnChange">ИсточникДанных1СПриИзменении</Event>
+			</Events>
+		</RadioButtonField>
+		<Pages name="СтраницыИсточникиСтатусов" id="29">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы источники статусов</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы источники статусов</v8:content>
+				</v8:item>
+			</ToolTip>
+			<PagesRepresentation>None</PagesRepresentation>
+			<ExtendedTooltip name="СтраницыИсточникиСтатусовРасширеннаяПодсказка" id="30"/>
+			<ChildItems>
+				<Page name="СтраницаСтатусыЗаказа" id="31">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница статусы заказа</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница статусы заказа</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаСтатусыЗаказаРасширеннаяПодсказка" id="32"/>
+					<ChildItems>
+						<Table name="СоответствиеСтатусовЗаказов" id="37">
+							<Representation>List</Representation>
+							<Height>6</Height>
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>СоответствияСтатусовЗаказа</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Соответствия статусов</v8:content>
+								</v8:item>
+							</Title>
+							<CommandSet>
+								<ExcludedCommand>CancelSearch</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>CopyToClipboard</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>EndEdit</ExcludedCommand>
+								<ExcludedCommand>Find</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+								<ExcludedCommand>OutputList</ExcludedCommand>
+								<ExcludedCommand>SelectAll</ExcludedCommand>
+								<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+								<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+								<ExcludedCommand>SortListAsc</ExcludedCommand>
+								<ExcludedCommand>SortListDesc</ExcludedCommand>
+							</CommandSet>
+							<SearchStringLocation>None</SearchStringLocation>
+							<ViewStatusLocation>None</ViewStatusLocation>
+							<SearchControlLocation>None</SearchControlLocation>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="СоответствиеСтатусовЗаказовКонтекстноеМеню" id="38">
+								<Autofill>false</Autofill>
+							</ContextMenu>
+							<AutoCommandBar name="СоответствиеСтатусовЗаказовКоманднаяПанель" id="39">
+								<Autofill>false</Autofill>
+								<ChildItems>
+									<Button name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказов" id="59">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.ЗагрузитьССайтаСтатусыЗаказов</CommandName>
+										<ExtendedTooltip name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказовExtendedTooltip" id="60"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="СоответствиеСтатусовЗаказовРасширеннаяПодсказка" id="40"/>
+							<SearchStringAddition name="СоответствиеСтатусовЗаказовСтрокаПоиска" id="41">
+								<AdditionSource>
+									<Item>СоответствиеСтатусовЗаказов</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСтатусовЗаказовСтрокаПоискаКонтекстноеМеню" id="42"/>
+								<ExtendedTooltip name="СоответствиеСтатусовЗаказовСтрокаПоискаРасширеннаяПодсказка" id="43"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="СоответствиеСтатусовЗаказовСостояниеПросмотра" id="44">
+								<AdditionSource>
+									<Item>СоответствиеСтатусовЗаказов</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСтатусовЗаказовСостояниеПросмотраКонтекстноеМеню" id="45"/>
+								<ExtendedTooltip name="СоответствиеСтатусовЗаказовСостояниеПросмотраРасширеннаяПодсказка" id="46"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="СоответствиеСтатусовЗаказовУправлениеПоиском" id="47">
+								<AdditionSource>
+									<Item>СоответствиеСтатусовЗаказов</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСтатусовЗаказовУправлениеПоискомКонтекстноеМеню" id="48"/>
+								<ExtendedTooltip name="СоответствиеСтатусовЗаказовУправлениеПоискомРасширеннаяПодсказка" id="49"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<InputField name="СоответствиеСтатусовЗаказовИдСтатуса" id="61">
+									<DataPath>СоответствияСтатусовЗаказа.ИдСтатуса</DataPath>
+									<Visible>false</Visible>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСтатусовЗаказовИдСтатусаКонтекстноеМеню" id="62"/>
+									<ExtendedTooltip name="СоответствиеСтатусовЗаказовИдСтатусаРасширеннаяПодсказка" id="63"/>
+								</InputField>
+								<InputField name="СоответствиеСтатусовЗаказовНазваниеСтатуса" id="67">
+									<DataPath>СоответствияСтатусовЗаказа.НазваниеСтатуса</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСтатусовЗаказовНазваниеСтатусаКонтекстноеМеню" id="68"/>
+									<ExtendedTooltip name="СоответствиеСтатусовЗаказовНазваниеСтатусаРасширеннаяПодсказка" id="69"/>
+								</InputField>
+								<InputField name="СоответствиеСтатусовЗаказовСтатус" id="64">
+									<DataPath>СоответствияСтатусовЗаказа.Статус</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>В 1С</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСтатусовЗаказовСтатусКонтекстноеМеню" id="65"/>
+									<ExtendedTooltip name="СоответствиеСтатусовЗаказовСтатусРасширеннаяПодсказка" id="66"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаСостоянияЗаказа" id="33">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница состояния заказа</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница состояния заказа</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаСостоянияЗаказаРасширеннаяПодсказка" id="34"/>
+					<ChildItems>
+						<Table name="СоответствиеСостоянийЗаказа" id="70">
+							<Representation>List</Representation>
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>СоответствияСостоянийЗаказа</DataPath>
+							<CommandSet>
+								<ExcludedCommand>CancelSearch</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>CopyToClipboard</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>EndEdit</ExcludedCommand>
+								<ExcludedCommand>Find</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+								<ExcludedCommand>OutputList</ExcludedCommand>
+								<ExcludedCommand>SelectAll</ExcludedCommand>
+								<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+								<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+								<ExcludedCommand>SortListAsc</ExcludedCommand>
+								<ExcludedCommand>SortListDesc</ExcludedCommand>
+							</CommandSet>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="СоответствиеСостоянийЗаказаКонтекстноеМеню" id="71">
+								<Autofill>false</Autofill>
+							</ContextMenu>
+							<AutoCommandBar name="СоответствиеСостоянийЗаказаКоманднаяПанель" id="72">
+								<Autofill>false</Autofill>
+								<ChildItems>
+									<Button name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказов1" id="114">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.ЗагрузитьССайтаСтатусыЗаказов</CommandName>
+										<ExtendedTooltip name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказов1РасширеннаяПодсказка" id="115"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="СоответствиеСостоянийЗаказаРасширеннаяПодсказка" id="73"/>
+							<SearchStringAddition name="СоответствиеСостоянийЗаказаСтрокаПоиска" id="74">
+								<AdditionSource>
+									<Item>СоответствиеСостоянийЗаказа</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСостоянийЗаказаСтрокаПоискаКонтекстноеМеню" id="75"/>
+								<ExtendedTooltip name="СоответствиеСостоянийЗаказаСтрокаПоискаРасширеннаяПодсказка" id="76"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="СоответствиеСостоянийЗаказаСостояниеПросмотра" id="77">
+								<AdditionSource>
+									<Item>СоответствиеСостоянийЗаказа</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСостоянийЗаказаСостояниеПросмотраКонтекстноеМеню" id="78"/>
+								<ExtendedTooltip name="СоответствиеСостоянийЗаказаСостояниеПросмотраРасширеннаяПодсказка" id="79"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="СоответствиеСостоянийЗаказаУправлениеПоиском" id="80">
+								<AdditionSource>
+									<Item>СоответствиеСостоянийЗаказа</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеСостоянийЗаказаУправлениеПоискомКонтекстноеМеню" id="81"/>
+								<ExtendedTooltip name="СоответствиеСостоянийЗаказаУправлениеПоискомРасширеннаяПодсказка" id="82"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<InputField name="СоответствиеСостоянийЗаказаИдСтатуса" id="83">
+									<DataPath>СоответствияСостоянийЗаказа.ИдСтатуса</DataPath>
+									<Visible>false</Visible>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСостоянийЗаказаИдСтатусаКонтекстноеМеню" id="84"/>
+									<ExtendedTooltip name="СоответствиеСостоянийЗаказаИдСтатусаРасширеннаяПодсказка" id="85"/>
+								</InputField>
+								<InputField name="СоответствиеСостоянийЗаказаНазваниеСтатуса" id="89">
+									<DataPath>СоответствияСостоянийЗаказа.НазваниеСтатуса</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Название статуса</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСостоянийЗаказаНазваниеСтатусаКонтекстноеМеню" id="90"/>
+									<ExtendedTooltip name="СоответствиеСостоянийЗаказаНазваниеСтатусаРасширеннаяПодсказка" id="91"/>
+								</InputField>
+								<InputField name="СоответствиеСостоянийЗаказаСтатус" id="86">
+									<DataPath>СоответствияСостоянийЗаказа.Статус</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>В 1С</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеСостоянийЗаказаСтатусКонтекстноеМеню" id="87"/>
+									<ExtendedTooltip name="СоответствиеСостоянийЗаказаСтатусРасширеннаяПодсказка" id="88"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаСвойствоЗаказа" id="35">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница свойство заказа</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница свойство заказа</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаСвойствоЗаказаРасширеннаяПодсказка" id="36"/>
+					<ChildItems>
+						<InputField name="СвойствоЗаказа" id="118">
+							<DataPath>СвойствоЗаказа</DataPath>
+							<ContextMenu name="СвойствоЗаказаКонтекстноеМеню" id="119"/>
+							<ExtendedTooltip name="СвойствоЗаказаРасширеннаяПодсказка" id="120"/>
+						</InputField>
+						<Table name="СоответствиеЗначенийСвойствЗаказа" id="92">
+							<Representation>List</Representation>
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>СоответствияЗначенийСвойствЗаказа</DataPath>
+							<CommandSet>
+								<ExcludedCommand>CancelSearch</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>CopyToClipboard</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>EndEdit</ExcludedCommand>
+								<ExcludedCommand>Find</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+								<ExcludedCommand>OutputList</ExcludedCommand>
+								<ExcludedCommand>SelectAll</ExcludedCommand>
+								<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+								<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+								<ExcludedCommand>SortListAsc</ExcludedCommand>
+								<ExcludedCommand>SortListDesc</ExcludedCommand>
+							</CommandSet>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="СоответствиеЗначенийСвойствЗаказаКонтекстноеМеню" id="93">
+								<Autofill>false</Autofill>
+							</ContextMenu>
+							<AutoCommandBar name="СоответствиеЗначенийСвойствЗаказаКоманднаяПанель" id="94">
+								<Autofill>false</Autofill>
+								<ChildItems>
+									<Button name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказов2" id="116">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.ЗагрузитьССайтаСтатусыЗаказов</CommandName>
+										<ExtendedTooltip name="СоответствиеСтатусовЗаказовЗагрузитьССайтаСтатусыЗаказов2РасширеннаяПодсказка" id="117"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаРасширеннаяПодсказка" id="95"/>
+							<SearchStringAddition name="СоответствиеЗначенийСвойствЗаказаСтрокаПоиска" id="96">
+								<AdditionSource>
+									<Item>СоответствиеЗначенийСвойствЗаказа</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеЗначенийСвойствЗаказаСтрокаПоискаКонтекстноеМеню" id="97"/>
+								<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаСтрокаПоискаРасширеннаяПодсказка" id="98"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="СоответствиеЗначенийСвойствЗаказаСостояниеПросмотра" id="99">
+								<AdditionSource>
+									<Item>СоответствиеЗначенийСвойствЗаказа</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеЗначенийСвойствЗаказаСостояниеПросмотраКонтекстноеМеню" id="100"/>
+								<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаСостояниеПросмотраРасширеннаяПодсказка" id="101"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="СоответствиеЗначенийСвойствЗаказаУправлениеПоиском" id="102">
+								<AdditionSource>
+									<Item>СоответствиеЗначенийСвойствЗаказа</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="СоответствиеЗначенийСвойствЗаказаУправлениеПоискомКонтекстноеМеню" id="103"/>
+								<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаУправлениеПоискомРасширеннаяПодсказка" id="104"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<InputField name="СоответствиеЗначенийСвойствЗаказаИдСтатуса" id="105">
+									<DataPath>СоответствияЗначенийСвойствЗаказа.ИдСтатуса</DataPath>
+									<Visible>false</Visible>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеЗначенийСвойствЗаказаИдСтатусаКонтекстноеМеню" id="106"/>
+									<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаИдСтатусаРасширеннаяПодсказка" id="107"/>
+								</InputField>
+								<InputField name="СоответствиеЗначенийСвойствЗаказаНазваниеСтатуса" id="111">
+									<DataPath>СоответствияЗначенийСвойствЗаказа.НазваниеСтатуса</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Название статуса</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="СоответствиеЗначенийСвойствЗаказаНазваниеСтатусаКонтекстноеМеню" id="112"/>
+									<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаНазваниеСтатусаРасширеннаяПодсказка" id="113"/>
+								</InputField>
+								<InputField name="СоответствиеЗначенийСвойствЗаказаСтатус" id="108">
+									<DataPath>СоответствияЗначенийСвойствЗаказа.Статус</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>В 1С</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ChoiceParameterLinks>
+										<xr:Link>
+											<xr:Name>Отбор.Владелец</xr:Name>
+											<xr:DataPath xsi:type="xs:string">СвойствоЗаказа</xr:DataPath>
+											<xr:ValueChange>Clear</xr:ValueChange>
+										</xr:Link>
+									</ChoiceParameterLinks>
+									<ContextMenu name="СоответствиеЗначенийСвойствЗаказаСтатусКонтекстноеМеню" id="109"/>
+									<ExtendedTooltip name="СоответствиеЗначенийСвойствЗаказаСтатусРасширеннаяПодсказка" id="110"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+		<CommandBar name="ГруппаКоманд" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа команд</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа команд</v8:content>
+				</v8:item>
+			</ToolTip>
+			<HorizontalLocation>Right</HorizontalLocation>
+			<ExtendedTooltip name="ГруппаКомандРасширеннаяПодсказка" id="23"/>
+			<ChildItems>
+				<Button name="Применить" id="10">
+					<Type>CommandBarButton</Type>
+					<DefaultButton>true</DefaultButton>
+					<CommandName>Form.Command.Применить</CommandName>
+					<ExtendedTooltip name="ПрименитьРасширеннаяПодсказка" id="25"/>
+				</Button>
+				<Button name="Закрыть" id="9">
+					<Type>CommandBarButton</Type>
+					<Representation>PictureAndText</Representation>
+					<CommandName>Form.StandardCommand.Close</CommandName>
+					<ExtendedTooltip name="ЗакрытьРасширеннаяПодсказка" id="24"/>
+				</Button>
+			</ChildItems>
+		</CommandBar>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Объект</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:ExchangePlanRef.Б_ОбменССайтом</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИсточникСтатусов1С" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Источник статусов 1С</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="СоответствияСтатусовЗаказа" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Соответствия статусов заказа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="ИдСтатуса" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ид статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Статус" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.СтатусыЗаказовКлиентов</v8:Type>
+					</Type>
+				</Column>
+				<Column name="НазваниеСтатуса" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Название статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СоответствияСостоянийЗаказа" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Соответствия состояний заказа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="ИдСтатуса" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ид статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Статус" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.СостоянияЗаказовКлиентов</v8:Type>
+					</Type>
+				</Column>
+				<Column name="НазваниеСтатуса" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Название статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СоответствияЗначенийСвойствЗаказа" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Соответствия значений свойств заказа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="ИдСтатуса" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ид статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Статус" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.ЗначенияСвойствОбъектов</v8:Type>
+					</Type>
+				</Column>
+				<Column name="НазваниеСтатуса" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Название статуса</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СвойствоЗаказа" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Свойство заказа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:ChartOfCharacteristicTypesRef.ДополнительныеРеквизитыИСведения</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресНастроекОбмена" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес настроек обмена</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Применить" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Применить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Применить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Применить</Action>
+		</Command>
+		<Command name="ЗагрузитьССайтаСтатусыЗаказов" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить с сайта</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Загрузить с сайта статусы заказов</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗагрузитьССайтаСтатусыЗаказов</Action>
+		</Command>
+	</Commands>
+</Form>

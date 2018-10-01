@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Места хранения номенклатуры</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаСохранитьИзменения" id="29">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.СохранитьИзменения</CommandName>
+				<ExtendedTooltip name="ФормаСохранитьИзмененияРасширеннаяПодсказка" id="30"/>
+			</Button>
+			<Button name="ФормаЗакрыть" id="31">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Close</CommandName>
+				<ExtendedTooltip name="ФормаЗакрытьРасширеннаяПодсказка" id="32"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<InputField name="Номенклатура" id="1">
+			<DataPath>Номенклатура</DataPath>
+			<ContextMenu name="НоменклатураКонтекстноеМеню" id="2"/>
+			<ExtendedTooltip name="НоменклатураРасширеннаяПодсказка" id="3"/>
+			<Events>
+				<Event name="OnChange">НоменклатураПриИзменении</Event>
+			</Events>
+		</InputField>
+		<Table name="МестаХранения" id="4">
+			<Representation>List</Representation>
+			<CommandBarLocation>None</CommandBarLocation>
+			<ChangeRowSet>false</ChangeRowSet>
+			<ChangeRowOrder>false</ChangeRowOrder>
+			<SelectionMode>SingleRow</SelectionMode>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>МестаХранения</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Места хранения на складах</v8:content>
+				</v8:item>
+			</Title>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="МестаХраненияКонтекстноеМеню" id="5"/>
+			<AutoCommandBar name="МестаХраненияКоманднаяПанель" id="6"/>
+			<ExtendedTooltip name="МестаХраненияРасширеннаяПодсказка" id="7"/>
+			<SearchStringAddition name="МестаХраненияСтрокаПоиска" id="8">
+				<AdditionSource>
+					<Item>МестаХранения</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="МестаХраненияСтрокаПоискаКонтекстноеМеню" id="9"/>
+				<ExtendedTooltip name="МестаХраненияСтрокаПоискаРасширеннаяПодсказка" id="10"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="МестаХраненияСостояниеПросмотра" id="11">
+				<AdditionSource>
+					<Item>МестаХранения</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="МестаХраненияСостояниеПросмотраКонтекстноеМеню" id="12"/>
+				<ExtendedTooltip name="МестаХраненияСостояниеПросмотраРасширеннаяПодсказка" id="13"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="МестаХраненияУправлениеПоиском" id="14">
+				<AdditionSource>
+					<Item>МестаХранения</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="МестаХраненияУправлениеПоискомКонтекстноеМеню" id="15"/>
+				<ExtendedTooltip name="МестаХраненияУправлениеПоискомРасширеннаяПодсказка" id="16"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="OnActivateRow">МестаХраненияПриАктивизацииСтроки</Event>
+			</Events>
+			<ChildItems>
+				<InputField name="МестаХраненияСклад" id="17">
+					<DataPath>МестаХранения.Склад</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="МестаХраненияСкладКонтекстноеМеню" id="18"/>
+					<ExtendedTooltip name="МестаХраненияСкладРасширеннаяПодсказка" id="19"/>
+				</InputField>
+				<InputField name="МестаХраненияМестоХранения" id="20">
+					<DataPath>МестаХранения.МестоХранения</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="МестаХраненияМестоХраненияКонтекстноеМеню" id="21"/>
+					<ExtendedTooltip name="МестаХраненияМестоХраненияРасширеннаяПодсказка" id="22"/>
+				</InputField>
+				<InputField name="МестаХраненияМестоХраненияДоИзменения" id="23">
+					<DataPath>МестаХранения.МестоХраненияДоИзменения</DataPath>
+					<UserVisible>
+						<xr:Common>false</xr:Common>
+					</UserVisible>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="МестаХраненияМестоХраненияДоИзмененияКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="МестаХраненияМестоХраненияДоИзмененияРасширеннаяПодсказка" id="25"/>
+				</InputField>
+				<InputField name="МестаХраненияНоменклатура" id="26">
+					<DataPath>МестаХранения.Номенклатура</DataPath>
+					<Visible>false</Visible>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="МестаХраненияНоменклатураКонтекстноеМеню" id="27"/>
+					<ExtendedTooltip name="МестаХраненияНоменклатураРасширеннаяПодсказка" id="28"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+		<UsualGroup name="ГруппаИстория" id="33">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>История изменений:</v8:content>
+				</v8:item>
+			</Title>
+			<TitleFont ref="style:NormalTextFont" height="12" kind="StyleItem"/>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа история</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="ГруппаИсторияРасширеннаяПодсказка" id="34"/>
+			<ChildItems>
+				<Table name="История" id="35">
+					<ReadOnly>true</ReadOnly>
+					<ChangeRowSet>false</ChangeRowSet>
+					<ChangeRowOrder>false</ChangeRowOrder>
+					<UseAlternationRowColor>true</UseAlternationRowColor>
+					<EnableStartDrag>true</EnableStartDrag>
+					<DataPath>История</DataPath>
+					<RowPictureDataPath>История.DefaultPicture</RowPictureDataPath>
+					<AutoRefresh>false</AutoRefresh>
+					<AutoRefreshPeriod>60</AutoRefreshPeriod>
+					<Period>
+						<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+						<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+						<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+					</Period>
+					<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+					<RestoreCurrentRow>false</RestoreCurrentRow>
+					<TopLevelParent xsi:nil="true"/>
+					<ShowRoot>true</ShowRoot>
+					<AllowRootChoice>false</AllowRootChoice>
+					<UpdateOnDataChange>Auto</UpdateOnDataChange>
+					<ContextMenu name="ИсторияКонтекстноеМеню" id="36"/>
+					<AutoCommandBar name="ИсторияКоманднаяПанель" id="37"/>
+					<ExtendedTooltip name="ИсторияРасширеннаяПодсказка" id="38"/>
+					<SearchStringAddition name="ИсторияСтрокаПоиска" id="39">
+						<AdditionSource>
+							<Item>История</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ИсторияСтрокаПоискаКонтекстноеМеню" id="40"/>
+						<ExtendedTooltip name="ИсторияСтрокаПоискаРасширеннаяПодсказка" id="41"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="ИсторияСостояниеПросмотра" id="42">
+						<AdditionSource>
+							<Item>История</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ИсторияСостояниеПросмотраКонтекстноеМеню" id="43"/>
+						<ExtendedTooltip name="ИсторияСостояниеПросмотраРасширеннаяПодсказка" id="44"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="ИсторияУправлениеПоиском" id="45">
+						<AdditionSource>
+							<Item>История</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="ИсторияУправлениеПоискомКонтекстноеМеню" id="46"/>
+						<ExtendedTooltip name="ИсторияУправлениеПоискомРасширеннаяПодсказка" id="47"/>
+					</SearchControlAddition>
+					<ChildItems>
+						<LabelField name="ИсторияМестоХранения" id="57">
+							<DataPath>История.МестоХранения</DataPath>
+							<ContextMenu name="ИсторияМестоХраненияКонтекстноеМеню" id="58"/>
+							<ExtendedTooltip name="ИсторияМестоХраненияРасширеннаяПодсказка" id="59"/>
+						</LabelField>
+						<LabelField name="ИсторияПериод" id="48">
+							<DataPath>История.Period</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<ContextMenu name="ИсторияПериодКонтекстноеМеню" id="49"/>
+							<ExtendedTooltip name="ИсторияПериодРасширеннаяПодсказка" id="50"/>
+						</LabelField>
+						<LabelField name="ИсторияОтвественный" id="60">
+							<DataPath>История.Ответственный</DataPath>
+							<ContextMenu name="ИсторияОтвественныйКонтекстноеМеню" id="61"/>
+							<ExtendedTooltip name="ИсторияОтвественныйРасширеннаяПодсказка" id="62"/>
+						</LabelField>
+						<LabelField name="ИсторияНоменклатура" id="51">
+							<DataPath>История.Номенклатура</DataPath>
+							<UserVisible>
+								<xr:Common>false</xr:Common>
+							</UserVisible>
+							<ContextMenu name="ИсторияНоменклатураКонтекстноеМеню" id="52"/>
+							<ExtendedTooltip name="ИсторияНоменклатураРасширеннаяПодсказка" id="53"/>
+						</LabelField>
+						<LabelField name="ИсторияСклад" id="54">
+							<DataPath>История.Склад</DataPath>
+							<UserVisible>
+								<xr:Common>false</xr:Common>
+							</UserVisible>
+							<ContextMenu name="ИсторияСкладКонтекстноеМеню" id="55"/>
+							<ExtendedTooltip name="ИсторияСкладРасширеннаяПодсказка" id="56"/>
+						</LabelField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="МестаХранения" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Места хранения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Склад" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Склад</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Склады</v8:Type>
+					</Type>
+				</Column>
+				<Column name="МестоХранения" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Место хранения</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>100</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="МестоХраненияДоИзменения" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Место хранения до изменений</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>100</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Номенклатура" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Номенклатура</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="Номенклатура" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номенклатура</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Номенклатура</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="История" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>История</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>false</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<MainTable>InformationRegister.СТ_МестаХраненияНоменклатурыНаСкладах</MainTable>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemField">
+							<dcsset:field>Период</dcsset:field>
+							<dcsset:orderType>Desc</dcsset:orderType>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<ConditionalAppearance>
+			<dcsset:item>
+				<dcsset:selection>
+					<dcsset:item>
+						<dcsset:field>МестаХраненияМестоХранения</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:left xsi:type="dcscor:Field">МестаХранения.МестоХранения</dcsset:left>
+						<dcsset:comparisonType>NotEqual</dcsset:comparisonType>
+						<dcsset:right xsi:type="dcscor:Field">МестаХранения.МестоХраненияДоИзменения</dcsset:right>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:appearance>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>ЦветТекста</dcscor:parameter>
+						<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаУспех</dcscor:value>
+					</dcscor:item>
+				</dcsset:appearance>
+			</dcsset:item>
+		</ConditionalAppearance>
+	</Attributes>
+	<Commands>
+		<Command name="СохранитьИзменения" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сохранить изменения</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сохранить изменения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СохранитьИзменения</Action>
+		</Command>
+	</Commands>
+</Form>

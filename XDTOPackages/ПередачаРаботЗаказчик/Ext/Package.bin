@@ -1,0 +1,204 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="RUZAK">
+	<property xmlns:d2p1="RUZAK" name="Файл" type="d2p1:Файл"/>
+	<valueType name="CCРФТип" base="xs:string" variety="Atomic" length="2">
+		<pattern>[0-9]{2}</pattern>
+	</valueType>
+	<valueType name="ВремяТип" base="xs:string" variety="Atomic" length="8">
+		<pattern>([0-1]{1}[0-9]{1}|2[0-3]{1})\.([0-5]{1}[0-9]{1})\.([0-5]{1}[0-9]{1})</pattern>
+	</valueType>
+	<valueType name="ДатаТип" base="xs:string" variety="Atomic" length="10">
+		<pattern>(((0[1-9]{1}|[1-2]{1}[0-9]{1})\.(0[1-9]{1}|1[0-2]{1}))|((30)\.(01|0[3-9]{1}|1[0-2]{1}))|((31)\.(01|03|05|07|08|10|12)))\.(18[0-9]{2}|19[0-9]{2}|20[0-9]{2})</pattern>
+	</valueType>
+	<valueType name="ИННФЛТип" base="xs:string" variety="Atomic" length="12">
+		<pattern>([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{10}</pattern>
+	</valueType>
+	<valueType name="ИННЮЛТип" base="xs:string" variety="Atomic" length="10">
+		<pattern>([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{8}</pattern>
+	</valueType>
+	<valueType name="КНДТип" base="xs:string" variety="Atomic" length="7">
+		<pattern>[0-9]{7}</pattern>
+	</valueType>
+	<valueType name="КППТип" base="xs:string" variety="Atomic" length="9">
+		<pattern>([0-9]{1}[1-9]{1}|[1-9]{1}[0-9]{1})([0-9]{2})([0-9A-Z]{2})([0-9]{3})</pattern>
+	</valueType>
+	<objectType name="СвИПТип">
+		<property xmlns:d3p1="RUZAK" name="ИННФЛ" type="d3p1:ИННФЛТип" lowerBound="1" form="Attribute"/>
+		<property name="СвГосРегИП" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="100"/>
+		</property>
+		<property name="ИныеСвед" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+		</property>
+		<property xmlns:d3p1="RUZAK" name="ФИО" type="d3p1:ФИОТип"/>
+	</objectType>
+	<objectType name="СвФлТип">
+		<property xmlns:d3p1="RUZAK" name="ИННФЛ" type="d3p1:ИННФЛТип" lowerBound="0" form="Attribute"/>
+		<property name="ИныеСвед" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+		</property>
+		<property xmlns:d3p1="RUZAK" name="ФИО" type="d3p1:ФИОТип"/>
+	</objectType>
+	<objectType name="ФИОТип">
+		<property name="Фамилия" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="60"/>
+		</property>
+		<property name="Имя" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="60"/>
+		</property>
+		<property name="Отчество" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="60"/>
+		</property>
+	</objectType>
+	<objectType name="Файл">
+		<property name="ИдФайл" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="200"/>
+		</property>
+		<property name="ВерсПрог" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="40"/>
+		</property>
+		<property name="ВерсФорм" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="5">
+				<enumeration>5.01</enumeration>
+			</typeDef>
+		</property>
+		<property name="СвУчДокОбор">
+			<typeDef xsi:type="ObjectType">
+				<property name="ИдОтпр" lowerBound="1" form="Attribute">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="4" maxLength="46"/>
+				</property>
+				<property name="ИдПол" lowerBound="1" form="Attribute">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="4" maxLength="46"/>
+				</property>
+				<property name="СвОЭДОтпр" lowerBound="0">
+					<typeDef xsi:type="ObjectType">
+						<property name="НаимОрг" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="1000"/>
+						</property>
+						<property xmlns:d7p1="RUZAK" name="ИННЮЛ" type="d7p1:ИННЮЛТип" lowerBound="1" form="Attribute"/>
+						<property name="ИдЭДО" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" length="3"/>
+						</property>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Документ">
+			<typeDef xsi:type="ObjectType">
+				<property name="КНД" lowerBound="1" form="Attribute">
+					<typeDef xmlns:d6p1="RUZAK" xsi:type="ValueType" base="d6p1:КНДТип" variety="Atomic">
+						<enumeration>1175013</enumeration>
+					</typeDef>
+				</property>
+				<property xmlns:d5p1="RUZAK" name="ДатаИнфЗак" type="d5p1:ДатаТип" lowerBound="1" form="Attribute"/>
+				<property xmlns:d5p1="RUZAK" name="ВремИнфЗак" type="d5p1:ВремяТип" lowerBound="1" form="Attribute"/>
+				<property name="НаимЭконСубСост" lowerBound="1" form="Attribute">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="1000"/>
+				</property>
+				<property name="ОснДоверОргСост" lowerBound="0" form="Attribute">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="120"/>
+				</property>
+				<property name="ИдДокПРУИсп">
+					<typeDef xsi:type="ObjectType">
+						<property name="ИдФайлИнфИсп" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="200"/>
+						</property>
+						<property xmlns:d7p1="RUZAK" name="ДатаФайлИнфИсп" type="d7p1:ДатаТип" lowerBound="1" form="Attribute"/>
+						<property xmlns:d7p1="RUZAK" name="ВремФайлИнфИсп" type="d7p1:ВремяТип" lowerBound="1" form="Attribute"/>
+						<property name="ЭП" upperBound="-1">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1"/>
+						</property>
+					</typeDef>
+				</property>
+				<property name="СодФХЖ3">
+					<typeDef xsi:type="ObjectType">
+						<property name="НаимДокОпрИсп" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+						</property>
+						<property name="НомДокПРУИсп" lowerBound="0" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+						</property>
+						<property xmlns:d7p1="RUZAK" name="ДатаДокПРУИсп" type="d7p1:ДатаТип" lowerBound="1" form="Attribute"/>
+						<property name="РезПринял">
+							<typeDef xsi:type="ObjectType">
+								<property name="СодОпер" lowerBound="1" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="1000"/>
+								</property>
+								<property xmlns:d9p1="RUZAK" name="ДатаПрием" type="d9p1:ДатаТип" lowerBound="0" form="Attribute"/>
+							</typeDef>
+						</property>
+						<property name="СвПолВещи" lowerBound="0">
+							<typeDef xsi:type="ObjectType">
+								<property xmlns:d9p1="RUZAK" name="ДатаПол" type="d9p1:ДатаТип" lowerBound="0" form="Attribute"/>
+								<property name="СвПол" lowerBound="0" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="1000"/>
+								</property>
+							</typeDef>
+						</property>
+						<property name="ВидОперации" lowerBound="0">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+						</property>
+						<property name="ИнфПолФХЖ3" lowerBound="0">
+							<typeDef xsi:type="ObjectType">
+								<property name="ИдФайлИнфПол" lowerBound="0" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" length="36"/>
+								</property>
+								<property name="ТекстИнф" lowerBound="0" upperBound="20">
+									<typeDef xsi:type="ObjectType">
+										<property name="Идентиф" lowerBound="1" form="Attribute">
+											<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="50"/>
+										</property>
+										<property name="Значен" lowerBound="1" form="Attribute">
+											<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="2000"/>
+										</property>
+									</typeDef>
+								</property>
+							</typeDef>
+						</property>
+					</typeDef>
+				</property>
+				<property name="Подписант" upperBound="-1">
+					<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+						<property name="ОблПолн" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" length="1">
+								<enumeration>1</enumeration>
+								<enumeration>2</enumeration>
+								<enumeration>3</enumeration>
+							</typeDef>
+						</property>
+						<property name="Статус" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" length="1">
+								<enumeration>1</enumeration>
+								<enumeration>2</enumeration>
+								<enumeration>3</enumeration>
+								<enumeration>4</enumeration>
+							</typeDef>
+						</property>
+						<property name="ОснПолн" lowerBound="1" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+						</property>
+						<property name="ОснПолнОрг" lowerBound="0" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+						</property>
+						<property xmlns:d7p1="RUZAK" name="ФЛ" type="d7p1:СвФлТип" lowerBound="0"/>
+						<property xmlns:d7p1="RUZAK" name="ИП" type="d7p1:СвИПТип" lowerBound="0"/>
+						<property name="ЮЛ" lowerBound="0">
+							<typeDef xsi:type="ObjectType">
+								<property xmlns:d9p1="RUZAK" name="ИННЮЛ" type="d9p1:ИННЮЛТип" lowerBound="1" form="Attribute"/>
+								<property name="НаимОрг" lowerBound="0" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="1000"/>
+								</property>
+								<property name="Должн" lowerBound="1" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="0" maxLength="128"/>
+								</property>
+								<property name="ИныеСвед" lowerBound="0" form="Attribute">
+									<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="255"/>
+								</property>
+								<property xmlns:d9p1="RUZAK" name="ФИО" type="d9p1:ФИОТип"/>
+							</typeDef>
+						</property>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

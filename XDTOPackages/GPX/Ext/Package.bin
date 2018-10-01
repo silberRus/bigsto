@@ -1,0 +1,118 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.topografix.com/GPX/1/1">
+	<property xmlns:d2p1="http://www.topografix.com/GPX/1/1" name="gpx" type="d2p1:gpxType"/>
+	<valueType name="degreesType" base="xs:decimal" variety="Atomic" minInclusive="0.0" maxExclusive="360.0"/>
+	<valueType name="dgpsStationType" base="xs:integer" variety="Atomic" minInclusive="0" maxInclusive="1023"/>
+	<valueType name="fixType" base="xs:string" variety="Atomic">
+		<enumeration>none</enumeration>
+		<enumeration>2d</enumeration>
+		<enumeration>3d</enumeration>
+		<enumeration>dgps</enumeration>
+		<enumeration>pps</enumeration>
+	</valueType>
+	<valueType name="latitudeType" base="xs:decimal" variety="Atomic" minInclusive="-90.0" maxInclusive="90.0"/>
+	<valueType name="longitudeType" base="xs:decimal" variety="Atomic" minInclusive="-180.0" maxExclusive="180.0"/>
+	<objectType name="boundsType">
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="minlat" type="d3p1:latitudeType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="minlon" type="d3p1:longitudeType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="maxlat" type="d3p1:latitudeType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="maxlon" type="d3p1:longitudeType" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="copyrightType">
+		<property name="author" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="year" type="xs:gYear" lowerBound="0"/>
+		<property name="license" type="xs:anyURI" lowerBound="0"/>
+	</objectType>
+	<objectType name="emailType">
+		<property name="id" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="domain" type="xs:string" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="extensionsType" open="true" sequenced="true"/>
+	<objectType name="gpxType">
+		<property name="version" type="xs:string" lowerBound="1" fixed="true" default="1.1" form="Attribute"/>
+		<property name="creator" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="metadata" type="d3p1:metadataType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="wpt" type="d3p1:wptType" lowerBound="0" upperBound="-1"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="rte" type="d3p1:rteType" lowerBound="0" upperBound="-1"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="trk" type="d3p1:trkType" lowerBound="0" upperBound="-1"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+	</objectType>
+	<objectType name="linkType">
+		<property name="href" type="xs:anyURI" lowerBound="1" form="Attribute"/>
+		<property name="text" type="xs:string" lowerBound="0"/>
+		<property name="type" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="metadataType">
+		<property name="name" type="xs:string" lowerBound="0"/>
+		<property name="desc" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="author" type="d3p1:personType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="copyright" type="d3p1:copyrightType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="link" type="d3p1:linkType" lowerBound="0" upperBound="-1"/>
+		<property name="time" type="xs:dateTime" lowerBound="0"/>
+		<property name="keywords" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="bounds" type="d3p1:boundsType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+	</objectType>
+	<objectType name="personType">
+		<property name="name" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="email" type="d3p1:emailType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="link" type="d3p1:linkType" lowerBound="0"/>
+	</objectType>
+	<objectType name="ptType">
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="lat" type="d3p1:latitudeType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="lon" type="d3p1:longitudeType" lowerBound="1" form="Attribute"/>
+		<property name="ele" type="xs:decimal" lowerBound="0"/>
+		<property name="time" type="xs:dateTime" lowerBound="0"/>
+	</objectType>
+	<objectType name="ptsegType">
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="pt" type="d3p1:ptType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="rteType">
+		<property name="name" type="xs:string" lowerBound="0"/>
+		<property name="cmt" type="xs:string" lowerBound="0"/>
+		<property name="desc" type="xs:string" lowerBound="0"/>
+		<property name="src" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="link" type="d3p1:linkType" lowerBound="0" upperBound="-1"/>
+		<property name="number" type="xs:nonNegativeInteger" lowerBound="0"/>
+		<property name="type" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="rtept" type="d3p1:wptType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="trkType">
+		<property name="name" type="xs:string" lowerBound="0"/>
+		<property name="cmt" type="xs:string" lowerBound="0"/>
+		<property name="desc" type="xs:string" lowerBound="0"/>
+		<property name="src" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="link" type="d3p1:linkType" lowerBound="0" upperBound="-1"/>
+		<property name="number" type="xs:nonNegativeInteger" lowerBound="0"/>
+		<property name="type" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="trkseg" type="d3p1:trksegType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="trksegType">
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="trkpt" type="d3p1:wptType" lowerBound="0" upperBound="-1"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+	</objectType>
+	<objectType name="wptType">
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="lat" type="d3p1:latitudeType" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="lon" type="d3p1:longitudeType" lowerBound="1" form="Attribute"/>
+		<property name="ele" type="xs:decimal" lowerBound="0"/>
+		<property name="time" type="xs:dateTime" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="magvar" type="d3p1:degreesType" lowerBound="0"/>
+		<property name="geoidheight" type="xs:decimal" lowerBound="0"/>
+		<property name="name" type="xs:string" lowerBound="0"/>
+		<property name="cmt" type="xs:string" lowerBound="0"/>
+		<property name="desc" type="xs:string" lowerBound="0"/>
+		<property name="src" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="link" type="d3p1:linkType" lowerBound="0" upperBound="-1"/>
+		<property name="sym" type="xs:string" lowerBound="0"/>
+		<property name="type" type="xs:string" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="fix" type="d3p1:fixType" lowerBound="0"/>
+		<property name="sat" type="xs:nonNegativeInteger" lowerBound="0"/>
+		<property name="hdop" type="xs:decimal" lowerBound="0"/>
+		<property name="vdop" type="xs:decimal" lowerBound="0"/>
+		<property name="pdop" type="xs:decimal" lowerBound="0"/>
+		<property name="ageofdgpsdata" type="xs:decimal" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="dgpsid" type="d3p1:dgpsStationType" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.topografix.com/GPX/1/1" name="extensions" type="d3p1:extensionsType" lowerBound="0"/>
+	</objectType>
+</package>

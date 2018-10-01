@@ -1,0 +1,37 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ActTTNSingle_v3" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/CommonV3"/>
+	<valueType name="AcceptType" base="xs:string" variety="Atomic">
+		<enumeration>Accepted</enumeration>
+		<enumeration>Rejected</enumeration>
+		<enumeration>Differences</enumeration>
+	</valueType>
+	<objectType name="PositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="InformF2RegId" type="d3p1:NoEmptyString50"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="RealQuantity" type="d3p1:NoNegativeDecimalType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercent" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercentMin" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercentMax" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/CommonV3" name="MarkInfo" type="d3p1:AMCforDocType" lowerBound="0" nillable="false"/>
+	</objectType>
+	<objectType name="WayBillActType_v3">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActTTNSingle_v3" name="IsAccept" type="d5p1:AcceptType"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ACTNUMBER" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ActDate" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="WBRegId" type="d5p1:NoEmptyString50"/>
+				<property name="Note" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="500"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Content" lowerBound="0">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActTTNSingle_v3" name="Position" type="d5p1:PositionType" lowerBound="0" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

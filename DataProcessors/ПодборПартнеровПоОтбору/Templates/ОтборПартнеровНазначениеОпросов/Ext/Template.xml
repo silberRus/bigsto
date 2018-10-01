@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ОсновнойНаборДанных</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Поставщик</dataPath>
+			<field>Поставщик</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДатаРождения</dataPath>
+			<field>ДатаРождения</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Пол</dataPath>
+			<field>Пол</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЮрФизЛицо</dataPath>
+			<field>ЮрФизЛицо</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПрочиеОтношения</dataPath>
+			<field>ПрочиеОтношения</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Конкурент</dataPath>
+			<field>Конкурент</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Клиент</dataPath>
+			<field>Клиент</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Перевозчик</dataPath>
+			<field>Перевозчик</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОбслуживаетсяТорговымиПредставителями</dataPath>
+			<field>ОбслуживаетсяТорговымиПредставителями</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>БизнесРегион</dataPath>
+			<field>БизнесРегион</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Партнер</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Ссылка</dataPath>
+			<field>Ссылка</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментКлиентов</dataPath>
+			<field>СегментКлиентов</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент клиентов</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НазначениеОпроса</dataPath>
+			<field>НазначениеОпроса</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Назначение опроса</v8:content>
+				</v8:item>
+			</title>
+			<attributeUseRestriction>
+				<condition>true</condition>
+			</attributeUseRestriction>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗЛИЧНЫЕ
+	СправочникПартнеры.Ссылка КАК Партнер,
+	НазначениеОпросов.Ссылка КАК Опрос,
+	НазначениеОпросов.СвободныйОпрос КАК СвободныйОпрос,
+	НазначениеОпросов.ТипРеспондентов КАК ТипРеспондентов
+ПОМЕСТИТЬ ПартнерыОпросы
+ИЗ
+	Справочник.Партнеры КАК СправочникПартнеры,
+	Документ.НазначениеОпросов КАК НазначениеОпросов
+{ГДЕ
+	НазначениеОпросов.Ссылка.* КАК НазначениеОпроса}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	Партнеры.Ссылка КАК Партнер,
+	Партнеры.БизнесРегион,
+	Партнеры.Клиент,
+	Партнеры.Поставщик,
+	Партнеры.Конкурент,
+	Партнеры.ПрочиеОтношения,
+	Партнеры.ОбслуживаетсяТорговымиПредставителями,
+	Партнеры.Перевозчик,
+	Партнеры.ЮрФизЛицо,
+	Партнеры.Пол,
+	Партнеры.ДатаРождения
+ИЗ
+	Справочник.Партнеры КАК Партнеры
+		{ЛЕВОЕ СОЕДИНЕНИЕ ПартнерыОпросы КАК ПартнерыОпросы
+		ПО (ПартнерыОпросы.Партнер = Партнеры.Ссылка)
+		ЛЕВОЕ СОЕДИНЕНИЕ Документ.НазначениеОпросов.Респонденты КАК НазначениеОпросовРеспонденты
+		ПО (ВЫБОР
+				КОГДА ПартнерыОпросы.ТипРеспондентов = ЗНАЧЕНИЕ(Справочник.КонтактныеЛицаПартнеров.ПустаяСсылка)
+					ТОГДА НазначениеОпросовРеспонденты.Респондент.Владелец
+				ИНАЧЕ НазначениеОпросовРеспонденты.Респондент
+			КОНЕЦ = ПартнерыОпросы.Партнер)
+			И (НазначениеОпросовРеспонденты.Ссылка = ПартнерыОпросы.Опрос)}
+		{ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ПартнерыСегмента КАК ПартнерыСегмента
+		ПО (ПартнерыСегмента.Партнер = Партнеры.Ссылка)}
+ГДЕ
+(НЕ ПартнерыОпросы.СвободныйОпрос
+				И НазначениеОпросовРеспонденты.Респондент ЕСТЬ НЕ NULL 
+			ИЛИ ПартнерыОпросы.СвободныйОпрос)
+{ГДЕ 
+	Партнеры.Ссылка.*,
+	Партнеры.БизнесРегион.*,
+	Партнеры.Клиент,
+	Партнеры.Поставщик,
+	Партнеры.Конкурент,
+	Партнеры.ПрочиеОтношения,
+	Партнеры.ОбслуживаетсяТорговымиПредставителями,
+	Партнеры.Перевозчик,
+	Партнеры.ЮрФизЛицо,
+	Партнеры.Пол,
+	Партнеры.ДатаРождения,
+	ПартнерыСегмента.Сегмент КАК СегментКлиентов}</query>
+	</dataSet>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Партнер</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">БизнесРегион</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Клиент</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="xs:boolean">false</dcsset:right>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СегментКлиентов</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ЮрФизЛицо</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">НазначениеОпроса</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Партнер</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Выберите единицу измерения</v8:content>
+		</v8:item>
+	</Title>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаВыбрать" id="282">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.Выбрать</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.ChooseValue</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ФормаВыбратьРасширеннаяПодсказка" id="283"/>
+			</Button>
+			<Button name="СоздатьУпаковку" id="292">
+				<Type>CommandBarButton</Type>
+				<Visible>false</Visible>
+				<Representation>PictureAndText</Representation>
+				<CommandName>Form.Command.СоздатьУпаковку</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.CreateListItem</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="СоздатьУпаковкуРасширеннаяПодсказка" id="293"/>
+			</Button>
+			<Popup name="ГруппаСоздать" id="284">
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Создать</v8:content>
+					</v8:item>
+				</Title>
+				<ToolTip>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Группа создать</v8:content>
+					</v8:item>
+				</ToolTip>
+				<Picture>
+					<xr:Ref>StdPicture.CreateListItem</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ГруппаСоздатьРасширеннаяПодсказка" id="285"/>
+				<ChildItems>
+					<Button name="ФормаСоздатьУпаковку" id="288">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.СоздатьУпаковку</CommandName>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Упаковка</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ФормаСоздатьУпаковкуРасширеннаяПодсказка" id="289"/>
+					</Button>
+					<Button name="ФормаСоздатьЕдиницуИзмеренияИзКлассификатора" id="290">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.СоздатьЕдиницуИзмеренияИзКлассификатора</CommandName>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Единица измерения по классификатору</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ФормаСоздатьЕдиницуИзмеренияИзКлассификатораРасширеннаяПодсказка" id="291"/>
+					</Button>
+					<Button name="ФормаСоздатьЕдиницуИзмерения" id="286">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.СоздатьЕдиницуИзмерения</CommandName>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Единица измерения</v8:content>
+							</v8:item>
+						</Title>
+						<ExtendedTooltip name="ФормаСоздатьЕдиницуИзмеренияРасширеннаяПодсказка" id="287"/>
+					</Button>
+				</ChildItems>
+			</Popup>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<Table name="УпаковкиЕдиницыИзмерения" id="258">
+			<Representation>Tree</Representation>
+			<TitleLocation>Auto</TitleLocation>
+			<ChangeRowSet>false</ChangeRowSet>
+			<ChangeRowOrder>false</ChangeRowOrder>
+			<ChoiceMode>true</ChoiceMode>
+			<SelectionMode>SingleRow</SelectionMode>
+			<RowSelectionMode>Row</RowSelectionMode>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<InitialTreeView>ExpandAllLevels</InitialTreeView>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>УпаковкиЕдиницыИзмерения</DataPath>
+			<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+			<CommandSet>
+				<ExcludedCommand>Add</ExcludedCommand>
+				<ExcludedCommand>Change</ExcludedCommand>
+				<ExcludedCommand>Choose</ExcludedCommand>
+				<ExcludedCommand>Copy</ExcludedCommand>
+				<ExcludedCommand>CopyToClipboard</ExcludedCommand>
+				<ExcludedCommand>Delete</ExcludedCommand>
+				<ExcludedCommand>EndEdit</ExcludedCommand>
+				<ExcludedCommand>HierarchicalList</ExcludedCommand>
+				<ExcludedCommand>List</ExcludedCommand>
+				<ExcludedCommand>MoveDown</ExcludedCommand>
+				<ExcludedCommand>MoveUp</ExcludedCommand>
+				<ExcludedCommand>OutputList</ExcludedCommand>
+				<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+				<ExcludedCommand>SortListAsc</ExcludedCommand>
+				<ExcludedCommand>SortListDesc</ExcludedCommand>
+				<ExcludedCommand>Tree</ExcludedCommand>
+			</CommandSet>
+			<ContextMenu name="УпаковкиЕдиницыИзмеренияКонтекстноеМеню" id="259"/>
+			<AutoCommandBar name="УпаковкиЕдиницыИзмеренияКоманднаяПанель" id="260">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="УпаковкиЕдиницыИзмеренияРасширеннаяПодсказка" id="261"/>
+			<SearchStringAddition name="УпаковкиЕдиницыИзмеренияСтрокаПоиска" id="262">
+				<AdditionSource>
+					<Item>УпаковкиЕдиницыИзмерения</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="УпаковкиЕдиницыИзмеренияСтрокаПоискаКонтекстноеМеню" id="263"/>
+				<ExtendedTooltip name="УпаковкиЕдиницыИзмеренияСтрокаПоискаРасширеннаяПодсказка" id="264"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="УпаковкиЕдиницыИзмеренияСостояниеПросмотра" id="265">
+				<AdditionSource>
+					<Item>УпаковкиЕдиницыИзмерения</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="УпаковкиЕдиницыИзмеренияСостояниеПросмотраКонтекстноеМеню" id="266"/>
+				<ExtendedTooltip name="УпаковкиЕдиницыИзмеренияСостояниеПросмотраРасширеннаяПодсказка" id="267"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="УпаковкиЕдиницыИзмеренияУправлениеПоиском" id="268">
+				<AdditionSource>
+					<Item>УпаковкиЕдиницыИзмерения</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="УпаковкиЕдиницыИзмеренияУправлениеПоискомКонтекстноеМеню" id="269"/>
+				<ExtendedTooltip name="УпаковкиЕдиницыИзмеренияУправлениеПоискомРасширеннаяПодсказка" id="270"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ЕдиницыИзмеренияВыбор</Event>
+			</Events>
+			<ChildItems>
+				<InputField name="ЕдиницыИзмеренияСсылка" id="274">
+					<DataPath>УпаковкиЕдиницыИзмерения.Ссылка</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Наименование</v8:content>
+						</v8:item>
+					</Title>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ЕдиницыИзмеренияСсылкаКонтекстноеМеню" id="275"/>
+					<ExtendedTooltip name="ЕдиницыИзмеренияСсылкаРасширеннаяПодсказка" id="276"/>
+				</InputField>
+				<CheckBoxField name="УпаковкиЕдиницыИзмеренияДопустимыйКоэффициент" id="294">
+					<DataPath>УпаковкиЕдиницыИзмерения.ДопустимыйКоэффициент</DataPath>
+					<Visible>false</Visible>
+					<EditMode>EnterOnInput</EditMode>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="УпаковкиЕдиницыИзмеренияДопустимыйКоэффициентКонтекстноеМеню" id="295"/>
+					<ExtendedTooltip name="УпаковкиЕдиницыИзмеренияДопустимыйКоэффициентРасширеннаяПодсказка" id="296"/>
+				</CheckBoxField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Номенклатура" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номенклатура</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Номенклатура</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="УпаковкиЕдиницыИзмерения" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Упаковки единицы измерения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTree</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Ссылка" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ссылка</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.УпаковкиЕдиницыИзмерения</v8:Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ТипИзмеряемойВеличины" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Тип измеряемой величины</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.ТипыИзмеряемыхВеличин</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ДопустимыйКоэффициент" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Допустимый коэффициент</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ЕдиницаХранения" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Единица хранения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.УпаковкиЕдиницыИзмерения</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПоказыватьМерныеЕдиницыИзмерения" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показывать мерные единицы измерения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ДобавлятьЕдиницуХранения" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавлять единицу хранения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПоказыватьТоварныеМеста" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показывать товарные места</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Выбрать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Выбрать</Action>
+		</Command>
+		<Command name="СоздатьУпаковку" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать упаковку</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать упаковку</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СоздатьУпаковку</Action>
+			<FunctionalOptions>
+				<Item>FunctionalOption.ИспользоватьУпаковкиНоменклатуры</Item>
+			</FunctionalOptions>
+		</Command>
+		<Command name="СоздатьЕдиницуИзмерения" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать единицу измерения</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать единицу измерения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СоздатьЕдиницуИзмерения</Action>
+		</Command>
+		<Command name="СоздатьЕдиницуИзмеренияИзКлассификатора" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать единицу измерения из классификатора</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать единицу измерения из классификатора</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СоздатьЕдиницуИзмеренияИзКлассификатора</Action>
+		</Command>
+	</Commands>
+</Form>

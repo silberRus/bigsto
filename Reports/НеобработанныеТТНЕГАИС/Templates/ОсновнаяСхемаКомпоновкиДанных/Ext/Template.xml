@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НеобработанныеТТН</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КодГрузоотправителя</dataPath>
+			<field>КодГрузоотправителя</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НомерТТН</dataPath>
+			<field>НомерТТН</field>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МаксимальнаяШирина</dcscor:parameter>
+					<dcscor:value xsi:type="xs:decimal">30</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТТН</dataPath>
+			<field>ТТН</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Документ</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ИдентификаторЕГАИС</dataPath>
+			<field>ИдентификаторЕГАИС</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Грузоотправитель</dataPath>
+			<field>Грузоотправитель</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Грузоотправитель</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДатаТТН</dataPath>
+			<field>ДатаТТН</field>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ДФ=dd.MM.yyyy</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ОрганизацияЕГАИС</dataPath>
+			<field>ОрганизацияЕГАИС</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Статус</dataPath>
+			<field>Статус</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	МАКСИМУМ(ОтчетЕГАИС.Дата) КАК Дата,
+	ОтчетЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС
+ПОМЕСТИТЬ ДатыОтчетовЕГАИС
+ИЗ
+	Документ.ОтчетЕГАИС КАК ОтчетЕГАИС
+ГДЕ
+	ОтчетЕГАИС.Ссылка В(&amp;ОтчетЕГАИС)
+
+СГРУППИРОВАТЬ ПО
+	ОтчетЕГАИС.ОрганизацияЕГАИС
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ОтчетЕГАИС.Ссылка КАК Ссылка,
+	ОтчетЕГАИС.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС
+ПОМЕСТИТЬ ОтчетыЕГАИС
+ИЗ
+	Документ.ОтчетЕГАИС КАК ОтчетЕГАИС
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ ДатыОтчетовЕГАИС КАК ДатыОтчетовЕГАИС
+		ПО ОтчетЕГАИС.Дата = ДатыОтчетовЕГАИС.Дата
+			И ОтчетЕГАИС.ОрганизацияЕГАИС = ДатыОтчетовЕГАИС.ОрганизацияЕГАИС
+ГДЕ
+	ОтчетЕГАИС.Ссылка В(&amp;ОтчетЕГАИС)
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ОтчетЕГАИСНеобработанныеТТН.ИдентификаторЕГАИС КАК ИдентификаторЕГАИС,
+	ОтчетЕГАИСНеобработанныеТТН.НомерТТН КАК НомерТТН,
+	ОтчетЕГАИСНеобработанныеТТН.ДатаТТН КАК ДатаТТН,
+	ОтчетЕГАИСНеобработанныеТТН.КодГрузоотправителя КАК КодГрузоотправителя,
+	ЕСТЬNULL(КлассификаторОрганизацийЕГАИС.Ссылка, ЗНАЧЕНИЕ(Справочник.КлассификаторОрганизацийЕГАИС.ПустаяСсылка)) КАК Грузоотправитель,
+	ОтчетЕГАИСНеобработанныеТТН.Ссылка КАК Ссылка
+ПОМЕСТИТЬ НеобработанныеТТН
+ИЗ
+	Документ.ОтчетЕГАИС.НеобработанныеТТН КАК ОтчетЕГАИСНеобработанныеТТН
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ ОтчетыЕГАИС КАК ОтчетыЕГАИС
+		ПО ОтчетЕГАИСНеобработанныеТТН.Ссылка = ОтчетыЕГАИС.Ссылка
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.КлассификаторОрганизацийЕГАИС КАК КлассификаторОрганизацийЕГАИС
+		ПО ОтчетЕГАИСНеобработанныеТТН.КодГрузоотправителя = КлассификаторОрганизацийЕГАИС.Код
+
+ИНДЕКСИРОВАТЬ ПО
+	ИдентификаторЕГАИС
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ТТНВходящаяЕГАИС.Ссылка КАК Ссылка,
+	ТТНВходящаяЕГАИС.ИдентификаторЕГАИС КАК ИдентификаторЕГАИС
+ПОМЕСТИТЬ ИдентификаторыТТН
+ИЗ
+	Документ.ТТНВходящаяЕГАИС КАК ТТНВходящаяЕГАИС
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ НеобработанныеТТН КАК НеобработанныеТТН
+		ПО ТТНВходящаяЕГАИС.ИдентификаторЕГАИС = НеобработанныеТТН.ИдентификаторЕГАИС
+ГДЕ
+	ТТНВходящаяЕГАИС.Проведен
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	НеобработанныеТТН.ИдентификаторЕГАИС КАК ИдентификаторЕГАИС,
+	НеобработанныеТТН.НомерТТН КАК НомерТТН,
+	НеобработанныеТТН.ДатаТТН КАК ДатаТТН,
+	НеобработанныеТТН.КодГрузоотправителя КАК КодГрузоотправителя,
+	НеобработанныеТТН.Грузоотправитель КАК Грузоотправитель,
+	ЕСТЬNULL(ИдентификаторыТТН.Ссылка, ЗНАЧЕНИЕ(Документ.ТТНВходящаяЕГАИС.ПустаяСсылка)) КАК ТТН,
+	НеобработанныеТТН.Ссылка.ОрганизацияЕГАИС КАК ОрганизацияЕГАИС,
+	СтатусыДокументовЕГАИС.Статус КАК Статус
+ИЗ
+	ИдентификаторыТТН КАК ИдентификаторыТТН
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрСведений.СтатусыДокументовЕГАИС КАК СтатусыДокументовЕГАИС
+		ПО ИдентификаторыТТН.Ссылка = СтатусыДокументовЕГАИС.Документ
+		ПРАВОЕ СОЕДИНЕНИЕ НеобработанныеТТН КАК НеобработанныеТТН
+		ПО ИдентификаторыТТН.ИдентификаторЕГАИС = НеобработанныеТТН.ИдентификаторЕГАИС
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	"",
+	"",
+	ДАТАВРЕМЯ(1, 1, 1),
+	ТТНВходящаяЕГАИС.Грузоотправитель.Код,
+	ТТНВходящаяЕГАИС.Грузоотправитель,
+	ТТНВходящаяЕГАИС.Ссылка,
+	ТТНВходящаяЕГАИС.Грузополучатель,
+	СтатусыДокументовЕГАИС.Статус
+ИЗ
+	Документ.ТТНВходящаяЕГАИС КАК ТТНВходящаяЕГАИС
+		ЛЕВОЕ СОЕДИНЕНИЕ НеобработанныеТТН КАК НеобработанныеТТН
+		ПО ТТНВходящаяЕГАИС.ИдентификаторЕГАИС = НеобработанныеТТН.ИдентификаторЕГАИС
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрСведений.СтатусыДокументовЕГАИС КАК СтатусыДокументовЕГАИС
+		ПО ТТНВходящаяЕГАИС.Ссылка = СтатусыДокументовЕГАИС.Документ
+ГДЕ
+	ТТНВходящаяЕГАИС.Проведен
+	И НеобработанныеТТН.Ссылка ЕСТЬ NULL
+	И ТТНВходящаяЕГАИС.Грузополучатель В
+			(ВЫБРАТЬ
+				ОтчетыЕГАИС.ОрганизацияЕГАИС
+			ИЗ
+				ОтчетыЕГАИС КАК ОтчетыЕГАИС)
+	И СтатусыДокументовЕГАИС.ДальнейшееДействие1 В(&amp;ВсеТребующиеДействия)</query>
+	</dataSet>
+	<calculatedField>
+		<dataPath>Порядок</dataPath>
+		<expression>ВЫБОР
+   КОГДА ЗначениеЗаполнено(ДатаТТН)
+   ТОГДА ДатаТТН
+   ИНАЧЕ ТТН.ДатаТТН
+КОНЕЦ</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Порядок</v8:content>
+			</v8:item>
+		</title>
+		<useRestriction>
+			<field>true</field>
+			<condition>true</condition>
+			<group>true</group>
+		</useRestriction>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+	</calculatedField>
+	<parameter>
+		<name>ОтчетЕГАИС</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отчет ЕГАИС</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:DocumentRef.ОтчетЕГАИС</v8:Type>
+		</valueType>
+		<useRestriction>false</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+		<inputParameters>
+			<dcscor:item>
+				<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+				<dcscor:value xsi:type="dcscor:ChoiceParameters">
+					<dcscor:item>
+						<dcscor:choiceParameter>Отбор.СтатусОбработки</dcscor:choiceParameter>
+						<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыОбработкиОтчетаЕГАИС.ПолученОтчет</dcscor:value>
+					</dcscor:item>
+					<dcscor:item>
+						<dcscor:choiceParameter>Отбор.ВидДокумента</dcscor:choiceParameter>
+						<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.ВидыДокументовЕГАИС.ЗапросОтчетаНеобработанныеТТН</dcscor:value>
+					</dcscor:item>
+				</dcscor:value>
+			</dcscor:item>
+		</inputParameters>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>ВсеТребующиеДействия</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Все требующие действия</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.ДальнейшиеДействияПоВзаимодействиюЕГАИС</v8:Type>
+		</valueType>
+		<useRestriction>true</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Необработанные ТТН</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Полученные данные</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ДатаТТН</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>НомерТТН</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ИдентификаторЕГАИС</dcsset:field>
+					</dcsset:item>
+					<dcsset:placement>Auto</dcsset:placement>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Грузоотправитель</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Грузоотправитель</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Наименование</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>КодГрузоотправителя</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Код</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:placement>Auto</dcsset:placement>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Данные информационной базы</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ТТН.ДатаТТН</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Дата ТТН</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ТТН.НомерТТН</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Номер ТТН</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>Статус</dcsset:field>
+					</dcsset:item>
+					<dcsset:item xsi:type="dcsset:SelectedItemField">
+						<dcsset:field>ТТН.ИдентификаторЕГАИС</dcsset:field>
+						<dcsset:lwsTitle>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Идентификатор ЕГАИС</v8:content>
+							</v8:item>
+						</dcsset:lwsTitle>
+					</dcsset:item>
+					<dcsset:placement>Auto</dcsset:placement>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ОтчетЕГАИС</dcscor:parameter>
+					<dcscor:value xsi:nil="true"/>
+					<dcsset:userSettingID>cb51e6a4-1ad1-4fca-b573-57fcfc752528</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>Порядок</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+			</dcsset:order>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Грузоотправитель</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Грузоотправитель</dcsset:left>
+							<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Текст</dcscor:parameter>
+							<dcscor:value xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>&lt;Не найден элемент классификатора&gt;</v8:content>
+								</v8:item>
+							</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Грузоотправитель</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>КодГрузоотправителя</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Грузоотправитель</dcsset:left>
+							<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаПроблемаЕГАИС</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ИдентификаторЕГАИС</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">ТТН</dcsset:left>
+							<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">style:ЦветТекстаПроблемаЕГАИС</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>РасположениеРеквизитов</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionAttributesPlacement">Separately</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Необработанные ТТН</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ОрганизацияЕГАИС</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

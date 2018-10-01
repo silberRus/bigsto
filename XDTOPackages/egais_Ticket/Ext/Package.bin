@@ -1,0 +1,29 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/Ticket" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<valueType name="ConclusionType" base="xs:string" variety="Atomic">
+		<enumeration>Accepted</enumeration>
+		<enumeration>Rejected</enumeration>
+	</valueType>
+	<objectType name="OperationResultType" ordered="false" sequenced="true">
+		<property name="OperationName" type="xs:string"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Ticket" name="OperationResult" type="d3p1:ConclusionType"/>
+		<property name="OperationComment" type="xs:string"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="OperationDate" type="d3p1:DateWTime" lowerBound="0" nillable="false"/>
+	</objectType>
+	<objectType name="TicketResultType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Ticket" name="Conclusion" type="d3p1:ConclusionType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ConclusionDate" type="d3p1:DateWTime"/>
+		<property name="Comments" type="xs:string"/>
+	</objectType>
+	<objectType name="TicketType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="TicketDate" type="d3p1:DateWTime" lowerBound="0" nillable="false"/>
+		<property name="Identity" type="xs:string" lowerBound="0" nillable="false"/>
+		<property name="DocId" type="xs:string" nillable="false"/>
+		<property name="TransportId" type="xs:string" nillable="false"/>
+		<property name="RegID" type="xs:string" lowerBound="0" nillable="false"/>
+		<property name="DocHash" type="xs:string" lowerBound="0" nillable="false"/>
+		<property name="DocType" type="xs:string" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Ticket" name="Result" type="d3p1:TicketResultType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Ticket" name="OperationResult" type="d3p1:OperationResultType" lowerBound="0" nillable="false"/>
+	</objectType>
+</package>

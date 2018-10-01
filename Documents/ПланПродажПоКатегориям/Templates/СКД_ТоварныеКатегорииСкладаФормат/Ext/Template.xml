@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ТоварныеКатегорииСкладаФормат</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаНоменклатуры</dataPath>
+			<field>АналитикаУчетаНоменклатуры</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидЗапасов</dataPath>
+			<field>ВидЗапасов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Договор</dataPath>
+			<field>Договор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗаказКлиента</dataPath>
+			<field>ЗаказКлиента</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Менеджер</dataPath>
+			<field>Менеджер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Подразделение</dataPath>
+			<field>Подразделение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментНоменклатуры</dataPath>
+			<field>СегментНоменклатуры</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент номенклатуры</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Склад</dataPath>
+			<field>Склад</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Соглашение</dataPath>
+			<field>Соглашение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТипЗапасов</dataPath>
+			<field>ТипЗапасов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТоварнаяКатегория</dataPath>
+			<field>ТоварнаяКатегория</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ХозяйственнаяОперация</dataPath>
+			<field>ХозяйственнаяОперация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТоварныеКатегорииСкладаФормат</dataPath>
+			<field>ТоварныеКатегорииСкладаФормат</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Товарные категории склада формат</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаПоПартнерам</dataPath>
+			<field>АналитикаУчетаПоПартнерам</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаНаборов</dataPath>
+			<field>АналитикаУчетаНаборов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РейтингПродаж</dataPath>
+			<field>РейтингПродаж</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Рейтинг продаж</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НаправлениеДеятельностиКонтрагента</dataPath>
+			<field>НаправлениеДеятельностиКонтрагента</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НаправлениеДеятельностиНоменклатуры</dataPath>
+			<field>НаправлениеДеятельностиНоменклатуры</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Назначение</dataPath>
+			<field>Назначение</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СправочникНоменклатура.Ссылка КАК Номенклатура,
+	ЕСТЬNULL(СправочникХарактеристики.Ссылка, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) КАК Характеристика
+ПОМЕСТИТЬ ОтборПоСегментуНоменклатуры
+ИЗ
+	Справочник.Номенклатура КАК СправочникНоменклатура
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.ХарактеристикиНоменклатуры КАК СправочникХарактеристики
+		ПО (СправочникХарактеристики.Владелец = ВЫБОР
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеДляВидаНоменклатуры)
+					ТОГДА СправочникНоменклатура.ВидНоменклатуры
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеСДругимВидомНоменклатуры)
+					ТОГДА СправочникНоменклатура.ВладелецХарактеристик
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ИндивидуальныеДляНоменклатуры)
+					ТОГДА СправочникНоменклатура.Ссылка
+				ИНАЧЕ ЛОЖЬ
+			КОНЕЦ)
+		{ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.НоменклатураСегмента КАК НоменклатураСегмента
+		ПО СправочникНоменклатура.Ссылка = НоменклатураСегмента.Номенклатура
+			И (ЕСТЬNULL(СправочникХарактеристики.Ссылка, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) = НоменклатураСегмента.Характеристика)}
+{ГДЕ
+	(ЕСТЬNULL(НоменклатураСегмента.Сегмент, ЗНАЧЕНИЕ(Справочник.СегментыНоменклатуры.ПустаяСсылка))) КАК СегментНоменклатуры}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	ВложенныйЗапрос.Склад КАК Склад
+ПОМЕСТИТЬ Склады
+ИЗ
+	(ВЫБРАТЬ
+		ИсторияИзмененияФорматовМагазиновСрезПоследних.Склад КАК Склад
+	ИЗ
+		РегистрСведений.ИсторияИзмененияФорматовМагазинов.СрезПоследних(, {(Склад = &amp;ОтборСклад)}) КАК ИсторияИзмененияФорматовМагазиновСрезПоследних
+	{ГДЕ
+		(ИсторияИзмененияФорматовМагазиновСрезПоследних.ФорматМагазина = &amp;ОтборФорматМагазина)}
+	
+	ОБЪЕДИНИТЬ ВСЕ
+	
+	ВЫБРАТЬ
+		Склады.Ссылка
+	ИЗ
+		Справочник.Склады КАК Склады
+	ГДЕ
+		НЕ Склады.ЭтоГруппа
+	{ГДЕ
+		(Склады.Ссылка = &amp;ОтборСклад),
+		(ЗНАЧЕНИЕ(Справочник.ФорматыМагазинов.ПустаяСсылка) = &amp;ОтборФорматМагазина)}) КАК ВложенныйЗапрос
+
+ИНДЕКСИРОВАТЬ ПО
+	Склад
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СпрНоменклатура.ТоварнаяКатегория КАК ТоварнаяКатегория,
+	ВыручкаИСебестоимостьПродажОбороты.КоличествоОборот КАК ТоварныеКатегорииСкладаФормат,
+	КлючиАналитикиУчетаНоменклатуры.Назначение КАК Назначение,
+	ЕСТЬNULL(Ассортимент.РейтингПродаж, СпрНоменклатура.РейтингПродаж) КАК РейтингПродаж
+ИЗ
+	РегистрНакопления.ВыручкаИСебестоимостьПродаж.Обороты(
+			,
+			,
+			Авто,
+			Склад В
+				(ВЫБРАТЬ
+					Склады.Склад
+				ИЗ
+					Склады КАК Склады) {((АналитикаУчетаНоменклатуры.Номенклатура, АналитикаУчетаНоменклатуры.Характеристика) В
+			    (ВЫБРАТЬ
+			        ОтборПоСегментуНоменклатуры.Номенклатура,
+			        ОтборПоСегментуНоменклатуры.Характеристика
+			    ИЗ
+			        ОтборПоСегментуНоменклатуры
+			    ГДЕ
+			        &amp;ИспользуетсяОтборПоСегментуНоменклатуры = ИСТИНА))}) КАК ВыручкаИСебестоимостьПродажОбороты
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаНоменклатуры КАК КлючиАналитикиУчетаНоменклатуры
+			ВНУТРЕННЕЕ СОЕДИНЕНИЕ Справочник.Номенклатура КАК СпрНоменклатура
+				{ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.Ассортимент.СрезПоследних(, {(ОбъектПланирования = &amp;ОтборСклад), (ОбъектПланирования = &amp;ОтборФорматМагазина)}) КАК Ассортимент
+				ПО СпрНоменклатура.Ссылка = Ассортимент.Номенклатура}
+			ПО КлючиАналитикиУчетаНоменклатуры.Номенклатура = СпрНоменклатура.Ссылка
+				И (СпрНоменклатура.ТоварнаяКатегория &lt;&gt; ЗНАЧЕНИЕ(Справочник.ТоварныеКатегории.ПустаяСсылка))
+		ПО ВыручкаИСебестоимостьПродажОбороты.АналитикаУчетаНоменклатуры = КлючиАналитикиУчетаНоменклатуры.КлючАналитики
+		{ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаПоПартнерам КАК КлючиАналитикиУчетаПоПартнерам
+		ПО ВыручкаИСебестоимостьПродажОбороты.АналитикаУчетаПоПартнерам = КлючиАналитикиУчетаПоПартнерам.КлючАналитики}
+ГДЕ
+	СпрНоменклатура.ТоварнаяКатегория &lt;&gt; ЗНАЧЕНИЕ(Справочник.ТоварныеКатегории.ПустаяСсылка)</query>
+	</dataSet>
+	<totalField>
+		<dataPath>ТоварныеКатегорииСкладаФормат</dataPath>
+		<expression>Сумма(ТоварныеКатегорииСкладаФормат)</expression>
+	</totalField>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>КонецПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуНоменклатуры</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту номенклатуры</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ОтборСклад</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отбор склад</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Склады</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ОтборФорматМагазина</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отбор формат магазина</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.ФорматыМагазинов</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

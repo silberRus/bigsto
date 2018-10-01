@@ -1,0 +1,32 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ActInventoryInformBReg" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef"/>
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<objectType name="ActInventoryInformBReg" ordered="false" sequenced="true">
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d5p1:IdentityType" lowerBound="0" nillable="false"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ActRegId" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Number" type="d5p1:NoEmptyString50"/>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActInventoryInformBReg" name="Position" type="d5p1:InformInvPositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="InformInvBRegItem" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="BRegId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="MarkInfo" type="d3p1:MarkInfoType" lowerBound="0" nillable="false"/>
+	</objectType>
+	<objectType name="InformInvPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="InformARegId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property name="InformB">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActInventoryInformBReg" name="InformBItem" type="d5p1:InformInvBRegItem" upperBound="-1" nillable="false"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

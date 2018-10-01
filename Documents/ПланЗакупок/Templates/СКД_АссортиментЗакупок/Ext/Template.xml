@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>АссортиментЗакупок</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Характеристика</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АссортиментЗакупок</dataPath>
+			<field>АссортиментЗакупок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Ассортимент закупок</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	ИсторияИзмененияФорматовМагазиновСрезПоследних.ФорматМагазина КАК ОбъектПланирования
+ПОМЕСТИТЬ ОбъектыПланирования
+ИЗ
+	РегистрСведений.ИсторияИзмененияФорматовМагазинов.СрезПоследних(&amp;НачалоПериодаСмещения, {(Склад = &amp;ОтборСклад)}) КАК ИсторияИзмененияФорматовМагазиновСрезПоследних
+ГДЕ
+	ИсторияИзмененияФорматовМагазиновСрезПоследних.ФорматМагазина &lt;&gt; ЗНАЧЕНИЕ(Справочник.ФорматыМагазинов.ПустаяСсылка)
+{ГДЕ
+	(ИсторияИзмененияФорматовМагазиновСрезПоследних.ФорматМагазина = &amp;ОтборФорматМагазина)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ФорматыМагазинов.Ссылка
+ИЗ
+	Справочник.ФорматыМагазинов КАК ФорматыМагазинов
+{ГДЕ
+	(ФорматыМагазинов.Ссылка = &amp;ОтборФорматМагазина),
+	(ЗНАЧЕНИЕ(Справочник.Склады.ПустаяСсылка) = &amp;ОтборСклад)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	Склады.Ссылка
+ИЗ
+	Справочник.Склады КАК Склады
+ГДЕ
+	НЕ Склады.ЭтоГруппа
+{ГДЕ
+	(Склады.Ссылка = &amp;ОтборСклад),
+	(ЗНАЧЕНИЕ(Справочник.ФорматыМагазинов.ПустаяСсылка) = &amp;ОтборФорматМагазина)}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	АссортиментСрезПоследних.Номенклатура,
+	ЕСТЬNULL(ХарактеристикиНоменклатуры.Ссылка, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) КАК Характеристика,
+	1 КАК АссортиментЗакупок
+ИЗ
+	РегистрСведений.Ассортимент.СрезПоследних(
+			&amp;НачалоПериодаСмещения,
+			ОбъектПланирования В
+				(ВЫБРАТЬ РАЗЛИЧНЫЕ
+					ОбъектыПланирования.ОбъектПланирования
+				ИЗ
+					ОбъектыПланирования КАК ОбъектыПланирования)) КАК АссортиментСрезПоследних
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.ХарактеристикиНоменклатуры КАК ХарактеристикиНоменклатуры
+		ПО (ВЫБОР
+				КОГДА АссортиментСрезПоследних.Номенклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ИндивидуальныеДляНоменклатуры)
+					ТОГДА АссортиментСрезПоследних.Номенклатура
+				КОГДА АссортиментСрезПоследних.Номенклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеДляВидаНоменклатуры)
+					ТОГДА АссортиментСрезПоследних.Номенклатура.ВидНоменклатуры
+				КОГДА АссортиментСрезПоследних.Номенклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеСДругимВидомНоменклатуры)
+					ТОГДА АссортиментСрезПоследних.Номенклатура.ВладелецХарактеристик
+				ИНАЧЕ НЕОПРЕДЕЛЕНО
+			КОНЕЦ = ХарактеристикиНоменклатуры.Владелец)
+ГДЕ
+	АссортиментСрезПоследних.РазрешеныЗакупки</query>
+	</dataSet>
+	<totalField>
+		<dataPath>АссортиментЗакупок</dataPath>
+		<expression>Сумма(ЕстьNull(АссортиментЗакупок, 0))</expression>
+	</totalField>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>НачалоПериодаСмещения</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода смещения</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ОтборСклад</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отбор склад</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Склады</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ОтборФорматМагазина</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отбор формат магазина</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.ФорматыМагазинов</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

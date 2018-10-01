@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>СделкиВРаботе</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Сделка</dataPath>
+			<field>Сделка</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтапПроцесса</dataPath>
+			<field>ЭтапПроцесса</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СделкаПотенциальнаяСуммаПродажи</dataPath>
+			<field>СделкаПотенциальнаяСуммаПродажи</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Потенциальная сумма продажи</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидСделки</dataPath>
+			<field>ВидСделки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вид сделки</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СтатистикаСделокСКлиентами.ЭтапПроцесса,
+	СтатистикаСделокСКлиентами.Сделка,
+	СтатистикаСделокСКлиентами.Сделка.ПотенциальнаяСуммаПродажи,
+	СтатистикаСделокСКлиентами.Сделка.ВидСделки КАК ВидСделки
+ИЗ
+	РегистрСведений.СтатистикаСделокСКлиентами КАК СтатистикаСделокСКлиентами
+ГДЕ
+	СтатистикаСделокСКлиентами.ДатаОкончания = ДАТАВРЕМЯ(1, 1, 1)
+	И СтатистикаСделокСКлиентами.Сделка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСделок.ВРаботе)</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Длительности</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтапПроцесса</dataPath>
+			<field>ЭтапПроцесса</field>
+			<useRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</useRestriction>
+			<attributeUseRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПрогнозДатыЗакрытия</dataPath>
+			<field>ПрогнозДатыЗакрытия</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Прогноз даты закрытия</v8:content>
+				</v8:item>
+			</title>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ДФ=dd.MM.yy</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидСделки</dataPath>
+			<field>ВидСделки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вид сделки</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СделкаВидСделки</dataPath>
+			<field>СделкаВидСделки</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Длительность</dataPath>
+			<field>Длительность</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Длительность</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	Длительности.СделкаВидСделки КАК ВидСделки,
+	Длительности.ЭтапПроцесса,
+	ДОБАВИТЬКДАТЕ(&amp;Сегодня, ДЕНЬ, Длительности.Длительность) КАК ПрогнозДатыЗакрытия
+ИЗ
+	(ВЫБРАТЬ
+		СтатистикаСделокСКлиентами.Сделка.ВидСделки КАК СделкаВидСделки,
+		СтатистикаСделокСКлиентами.ЭтапПроцесса КАК ЭтапПроцесса,
+		СРЕДНЕЕ(РАЗНОСТЬДАТ(СтатистикаСделокСКлиентами.ДатаНачала, СтатистикаСделокСКлиентами.Сделка.ДатаОкончания, ДЕНЬ)) КАК Длительность
+	ИЗ
+		РегистрСведений.СтатистикаСделокСКлиентами КАК СтатистикаСделокСКлиентами
+	ГДЕ
+		СтатистикаСделокСКлиентами.Сделка.ДатаОкончания &lt;&gt; ДАТАВРЕМЯ(1, 1, 1)
+	
+	СГРУППИРОВАТЬ ПО
+		СтатистикаСделокСКлиентами.Сделка.ВидСделки,
+		СтатистикаСделокСКлиентами.ЭтапПроцесса) КАК Длительности</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Выиграно</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтапПроцесса</dataPath>
+			<field>ЭтапПроцесса</field>
+			<useRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</useRestriction>
+			<attributeUseRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоВыигранныхСделок</dataPath>
+			<field>КоличествоВыигранныхСделок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество выигранных сделок</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидСделки</dataPath>
+			<field>ВидСделки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вид сделки</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	СтатистикаСделокСКлиентами.Сделка.ВидСделки КАК ВидСделки,
+	СтатистикаСделокСКлиентами.ЭтапПроцесса,
+	1 КАК КоличествоВыигранныхСделок
+ИЗ
+	РегистрСведений.СтатистикаСделокСКлиентами КАК СтатистикаСделокСКлиентами
+ГДЕ
+	СтатистикаСделокСКлиентами.Сделка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСделок.Выиграна)</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Проиграно</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтапПроцесса</dataPath>
+			<field>ЭтапПроцесса</field>
+			<useRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</useRestriction>
+			<attributeUseRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоПроигранныхСделок</dataPath>
+			<field>КоличествоПроигранныхСделок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество проигранных сделок</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<field>true</field>
+				<condition>true</condition>
+				<group>true</group>
+				<order>true</order>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидСделки</dataPath>
+			<field>ВидСделки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вид сделки</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	СтатистикаСделокСКлиентами.Сделка.ВидСделки КАК ВидСделки,
+	СтатистикаСделокСКлиентами.ЭтапПроцесса,
+	1 КАК КоличествоПроигранныхСделок
+ИЗ
+	РегистрСведений.СтатистикаСделокСКлиентами КАК СтатистикаСделокСКлиентами
+ГДЕ
+	СтатистикаСделокСКлиентами.Сделка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСделок.Проиграна)</query>
+	</dataSet>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Длительности</destinationDataSet>
+		<sourceExpression>ВидСделки</sourceExpression>
+		<destinationExpression>ВидСделки</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Длительности</destinationDataSet>
+		<sourceExpression>ЭтапПроцесса</sourceExpression>
+		<destinationExpression>ЭтапПроцесса</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Выиграно</destinationDataSet>
+		<sourceExpression>ВидСделки</sourceExpression>
+		<destinationExpression>ВидСделки</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Выиграно</destinationDataSet>
+		<sourceExpression>ЭтапПроцесса</sourceExpression>
+		<destinationExpression>ЭтапПроцесса</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Проиграно</destinationDataSet>
+		<sourceExpression>ВидСделки</sourceExpression>
+		<destinationExpression>ВидСделки</destinationExpression>
+	</dataSetLink>
+	<dataSetLink>
+		<sourceDataSet>СделкиВРаботе</sourceDataSet>
+		<destinationDataSet>Проиграно</destinationDataSet>
+		<sourceExpression>ЭтапПроцесса</sourceExpression>
+		<destinationExpression>ЭтапПроцесса</destinationExpression>
+	</dataSetLink>
+	<calculatedField>
+		<dataPath>Вероятность</dataPath>
+		<expression>100*КоличествоВыигранныхСделок/(КоличествоВыигранныхСделок+КоличествоПроигранныхСделок)</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вероятность</v8:content>
+			</v8:item>
+		</title>
+		<useRestriction>
+			<condition>true</condition>
+		</useRestriction>
+		<appearance>
+			<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+				<dcscor:parameter>Формат</dcscor:parameter>
+				<dcscor:value xsi:type="xs:string">ЧДЦ=0</dcscor:value>
+			</dcscor:item>
+		</appearance>
+	</calculatedField>
+	<totalField>
+		<dataPath>Вероятность</dataPath>
+		<expression>100*Количество(КоличествоВыигранныхСделок)/(Количество(КоличествоПроигранныхСделок) + Количество(КоличествоВыигранныхСделок))</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СделкаПотенциальнаяСуммаПродажи</dataPath>
+		<expression>Сумма(СделкаПотенциальнаяСуммаПродажи)</expression>
+		<group>ЭтапПроцесса</group>
+	</totalField>
+	<totalField>
+		<dataPath>ПрогнозДатыЗакрытия</dataPath>
+		<expression>Максимум(ПрогнозДатыЗакрытия)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоличествоВыигранныхСделок</dataPath>
+		<expression>Количество(КоличествоВыигранныхСделок)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоличествоПроигранныхСделок</dataPath>
+		<expression>Количество(КоличествоПроигранныхСделок)</expression>
+	</totalField>
+	<parameter>
+		<name>Сегодня</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Сегодня</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>Date</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вероятностный прогноз выигрыша этапов сделок</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СделкаПотенциальнаяСуммаПродажи</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Вероятность</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПрогнозДатыЗакрытия</dcsset:field>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>21974a7f-8355-4867-b14a-1f1c0068bef1</dcsset:userSettingID>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ВидСделки</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>d6e01b6e-f1c3-476d-8422-71a84ecfd230</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ЭтапПроцесса</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>3af30872-ce67-4e77-be3f-bd07c4348f7e</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">СделкаПотенциальнаяСуммаПродажи</dcsset:left>
+					<dcsset:comparisonType>Greater</dcsset:comparisonType>
+					<dcsset:right xsi:type="xs:decimal">0</dcsset:right>
+					<dcsset:presentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Потенциальная сумма продажи заполнена</v8:content>
+						</v8:item>
+					</dcsset:presentation>
+					<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+					<dcsset:userSettingID>b8108d2f-7180-45f8-9b71-74a46f20c527</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">Сделка.ПометкаУдаления</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="xs:boolean">false</dcsset:right>
+					<dcsset:presentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Непомеченные на удаление</v8:content>
+						</v8:item>
+					</dcsset:presentation>
+					<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+					<dcsset:userSettingID>cb5e008b-f6d2-4032-b179-7b06f6f434a1</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>e641346c-8c80-4298-b06e-9e8076acbecd</dcsset:userSettingID>
+			</dcsset:filter>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>ПрогнозДатыЗакрытия</dcsset:field>
+					<dcsset:orderType>Desc</dcsset:orderType>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>Вероятность</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>1687cab5-f4e5-4bf9-b875-044b8a6f6081</dcsset:userSettingID>
+			</dcsset:order>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Вероятность</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemGroup">
+							<dcsset:groupType>AndGroup</dcsset:groupType>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">КоличествоПроигранныхСделок</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="xs:decimal">0</dcsset:right>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:FilterItemComparison">
+								<dcsset:left xsi:type="dcscor:Field">КоличествоВыигранныхСделок</dcsset:left>
+								<dcsset:comparisonType>Equal</dcsset:comparisonType>
+								<dcsset:right xsi:type="xs:decimal">0</dcsset:right>
+							</dcsset:item>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>Текст</dcscor:parameter>
+							<dcscor:value xsi:type="xs:string"/>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">Output</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вероятностный прогноз выигрыша этапов сделок</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ВидСделки</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Сделка</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>ЭтапПроцесса</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+				</dcsset:item>
+				<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+			</dcsset:item>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

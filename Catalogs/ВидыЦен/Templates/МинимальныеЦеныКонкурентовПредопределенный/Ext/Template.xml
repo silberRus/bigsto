@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Запрос</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.Номенклатура</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Упаковка</dataPath>
+			<field>Упаковка</field>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.УпаковкиЕдиницыИзмерения</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.ХарактеристикиНоменклатуры</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Цена</dataPath>
+			<field>Цена</field>
+			<valueType>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>0</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Коэффициент</dataPath>
+			<field>Коэффициент</field>
+			<valueType>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>0</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Валюта</dataPath>
+			<field>Валюта</field>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.Валюты</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментНоменклатуры</dataPath>
+			<field>СегментНоменклатуры</field>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:ChoiceParameters">
+						<dcscor:item>
+							<dcscor:choiceParameter>Отбор.СпособФормирования</dcscor:choiceParameter>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ПериодическиОбновлять</dcscor:value>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ФормироватьВручную</dcscor:value>
+						</dcscor:item>
+					</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментПартнеров</dataPath>
+			<field>СегментПартнеров</field>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:ChoiceParameters">
+						<dcscor:item>
+							<dcscor:choiceParameter>Отбор.СпособФормирования</dcscor:choiceParameter>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ПериодическиОбновлять</dcscor:value>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ФормироватьВручную</dcscor:value>
+						</dcscor:item>
+					</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗЛИЧНЫЕ
+	Сегменты.Номенклатура,
+	Сегменты.Характеристика,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуНоменклатуры
+ПОМЕСТИТЬ ОтборПоСегментуНоменклатуры
+ИЗ
+	РегистрСведений.НоменклатураСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментНоменклатуры,
+	Сегменты.Номенклатура.* КАК Номенклатура,
+	Сегменты.Характеристика.* КАК Характеристика}
+
+ИНДЕКСИРОВАТЬ ПО
+	Сегменты.Номенклатура,
+	Сегменты.Характеристика,
+	ИспользуетсяОтборПоСегментуНоменклатуры
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	Сегменты.Партнер КАК Партнер,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуПартнеров
+ПОМЕСТИТЬ ОтборПоСегментуПартнеров
+{ВЫБРАТЬ
+	Партнер.*}
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментПартнеров,
+	Сегменты.Партнер.* КАК Партнер}
+
+ИНДЕКСИРОВАТЬ ПО
+	Сегменты.Партнер
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ЦеныНоменклатурыСрезПоследних.Номенклатура КАК Номенклатура,
+	ЦеныНоменклатурыСрезПоследних.Характеристика КАК Характеристика,
+	ЦеныНоменклатурыСрезПоследних.Упаковка КАК Упаковка,
+	&amp;Валюта КАК Валюта,
+	1 КАК Коэффициент,
+		ВЫРАЗИТЬ(ВЫБОР
+		КОГДА ВидыЦен.ЦенаВключаетНДС
+					И ЦеныНоменклатурыСрезПоследних.ВидЦеныПоставщика.ЦенаВключаетНДС
+				ИЛИ НЕ ВидыЦен.ЦенаВключаетНДС
+					И НЕ ЦеныНоменклатурыСрезПоследних.ВидЦеныПоставщика.ЦенаВключаетНДС
+			ТОГДА ЦеныНоменклатурыСрезПоследних.Цена
+		КОГДА ВидыЦен.ЦенаВключаетНДС
+				И НЕ ЦеныНоменклатурыСрезПоследних.ВидЦеныПоставщика.ЦенаВключаетНДС
+			ТОГДА ЦеныНоменклатурыСрезПоследних.Цена + ЦеныНоменклатурыСрезПоследних.Цена
+			* ВЫБОР
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС18)
+					ТОГДА 0.18
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС10)
+					ТОГДА 0.1
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС0)
+					ТОГДА 0
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.БезНДС)
+					ТОГДА 0
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС18_118)
+					ТОГДА 0.18
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС10_110)
+					ТОГДА 0.1
+				ИНАЧЕ 0
+			КОНЕЦ
+		КОГДА НЕ ВидыЦен.ЦенаВключаетНДС
+				И ЦеныНоменклатурыСрезПоследних.ВидЦеныПоставщика.ЦенаВключаетНДС
+			ТОГДА ЦеныНоменклатурыСрезПоследних.Цена - ЦеныНоменклатурыСрезПоследних.Цена
+			* ВЫБОР
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС18)
+					ТОГДА 0.18
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС10)
+					ТОГДА 0.1
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС0)
+					ТОГДА 0
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.БезНДС)
+					ТОГДА 0
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС18_118)
+					ТОГДА 0.18
+				КОГДА ЦеныНоменклатурыСрезПоследних.Номенклатура.СтавкаНДС = ЗНАЧЕНИЕ(Перечисление.СтавкиНДС.НДС10_110)
+					ТОГДА 0.1
+				ИНАЧЕ 0
+			КОНЕЦ
+	КОНЕЦ КАК ЧИСЛО(15, 2))
+	* ВЫБОР
+		КОГДА &amp;Валюта &lt;&gt; ЦеныНоменклатурыСрезПоследних.Валюта
+			ТОГДА ВЫБОР
+					КОГДА ЕСТЬNULL(КурсыВалютыЦены.Кратность, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалютыЦены.Курс, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалюты.Кратность, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалюты.Курс, 0) &gt; 0
+					ТОГДА 
+						(КурсыВалютыЦены.Курс * КурсыВалюты.Кратность)
+						/ (КурсыВалюты.Курс * КурсыВалютыЦены.Кратность)
+					ИНАЧЕ 0
+				КОНЕЦ
+		ИНАЧЕ 1
+	КОНЕЦ КАК Цена
+ПОМЕСТИТЬ ЦеныНоменклатурыПоставщиковСрезПоследних
+ИЗ
+	РегистрСведений.ЦеныНоменклатурыПоставщиков.СрезПоследних({(КОНЕЦПЕРИОДА(&amp;ДатаДокумента, ДЕНЬ))}, Партнер.Конкурент {((Номенклатура, Характеристика) В
+			    (ВЫБРАТЬ
+			        ОтборПоСегментуНоменклатуры.Номенклатура,
+			        ОтборПоСегментуНоменклатуры.Характеристика
+			    ИЗ
+			        ОтборПоСегментуНоменклатуры
+			    ГДЕ
+			        ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры)), (Партнер В
+			    (ВЫБРАТЬ
+			        ОтборПоСегментуПартнеров.Партнер
+			    ИЗ
+			        ОтборПоСегментуПартнеров
+			    ГДЕ
+			        ОтборПоСегментуПартнеров.ИспользуетсяОтборПоСегментуПартнеров = &amp;ИспользуетсяОтборПоСегментуПартнеров))}) КАК ЦеныНоменклатурыСрезПоследних
+
+	ЛЕВОЕ СОЕДИНЕНИЕ
+		РегистрСведений.КурсыВалют.СрезПоследних({(КОНЕЦПЕРИОДА(&amp;ДатаДокумента, ДЕНЬ))}, ) КАК КурсыВалютыЦены
+	ПО 
+		ЦеныНоменклатурыСрезПоследних.Валюта = КурсыВалютыЦены.Валюта
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.КурсыВалют.СрезПоследних({(КОНЕЦПЕРИОДА(&amp;ДатаДокумента, ДЕНЬ))}, Валюта = &amp;Валюта) КАК КурсыВалюты
+		По Истина
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ Справочник.ВидыЦен КАК ВидыЦен
+	ПО ВидыЦен.Ссылка = &amp;ВидЦены
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Номенклатура КАК Номенклатура,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Характеристика КАК Характеристика,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Упаковка КАК Упаковка,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Валюта КАК Валюта,
+	ЕСТЬNULL(&amp;ТекстЗапросаКоэффициентУпаковки1, 1) КАК Коэффициент,
+	МИНИМУМ(ЦеныНоменклатурыПоставщиковСрезПоследних.Цена) КАК Цена
+ИЗ
+	ЦеныНоменклатурыПоставщиковСрезПоследних
+
+СГРУППИРОВАТЬ ПО
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Номенклатура,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Характеристика,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Упаковка,
+	ЦеныНоменклатурыПоставщиковСрезПоследних.Валюта</query>
+	</dataSet>
+	<parameter>
+		<name>ДатаДокумента</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Дата документа</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуНоменклатуры</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту номенклатуры</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуПартнеров</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту партнеров</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>Валюта</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Валюта</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Валюты</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<expression>ДоходыИРасходыСервер.ПолучитьВалютуУправленческогоУчета()</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ТекстЗапросаКоэффициентУпаковки1</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текст запроса коэффициент упаковки1</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ВидЦены</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вид цены</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.ВидыЦен</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

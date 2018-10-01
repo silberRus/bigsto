@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<CommandSet>
+		<ExcludedCommand>PostAndClose</ExcludedCommand>
+		<ExcludedCommand>Write</ExcludedCommand>
+	</CommandSet>
+	<AutoTime>CurrentOrLast</AutoTime>
+	<UsePostingMode>Auto</UsePostingMode>
+	<RepostOnWrite>true</RepostOnWrite>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаПровестиИЗакрыть" id="90">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ПровестиИЗакрыть</CommandName>
+				<ExtendedTooltip name="ФормаПровестиИЗакрытьРасширеннаяПодсказка" id="91"/>
+			</Button>
+			<Button name="ФормаОтменаПроведенияКомандыФормы" id="216">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.UndoPosting</CommandName>
+				<ExtendedTooltip name="ФормаОтменаПроведенияКомандыФормыРасширеннаяПодсказка" id="217"/>
+			</Button>
+			<Button name="ФормаЗаписать" id="92">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.ЗаписатьДокумент</CommandName>
+				<ExtendedTooltip name="ФормаЗаписатьРасширеннаяПодсказка" id="93"/>
+			</Button>
+			<Button name="ФормаСправка" id="98">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="99"/>
+			</Button>
+			<Popup name="ПодменюОтчеты" id="204">
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Отчеты</v8:content>
+					</v8:item>
+				</Title>
+				<ToolTip>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Отчеты</v8:content>
+					</v8:item>
+				</ToolTip>
+				<Picture>
+					<xr:Ref>CommonPicture.Отчеты</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<Representation>PictureAndText</Representation>
+				<ExtendedTooltip name="ПодменюОтчетыРасширеннаяПодсказка" id="205"/>
+				<ChildItems>
+					<ButtonGroup name="ПодменюОтчетыВажное" id="206">
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Подменю отчеты важное</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="ПодменюОтчетыВажноеРасширеннаяПодсказка" id="207"/>
+					</ButtonGroup>
+					<ButtonGroup name="ПодменюОтчетыОбычное" id="208">
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Подменю отчеты важное</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="ПодменюОтчетыОбычноеРасширеннаяПодсказка" id="209"/>
+					</ButtonGroup>
+					<ButtonGroup name="ПодменюОтчетыСмТакже" id="210">
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Подменю отчеты важное</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="ПодменюОтчетыСмТакжеРасширеннаяПодсказка" id="211"/>
+					</ButtonGroup>
+				</ChildItems>
+			</Popup>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="AfterWrite">ПослеЗаписи</Event>
+		<Event name="OnReadAtServer">ПриЧтенииНаСервере</Event>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаДоговор" id="38">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа договор</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа договор</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаДоговорРасширеннаяПодсказка" id="39"/>
+			<ChildItems>
+				<InputField name="Договор" id="7">
+					<DataPath>Объект.Договор</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<EditMode>EnterOnInput</EditMode>
+					<Width>36</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="ДоговорКонтекстноеМеню" id="8"/>
+					<ExtendedTooltip name="ДоговорРасширеннаяПодсказка" id="9"/>
+				</InputField>
+				<InputField name="СуммаДоговора" id="40">
+					<DataPath>СуммаДоговора</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сумма договора</v8:content>
+						</v8:item>
+					</Title>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="СуммаДоговораКонтекстноеМеню" id="41"/>
+					<ExtendedTooltip name="СуммаДоговораРасширеннаяПодсказка" id="42"/>
+					<Events>
+						<Event name="OnChange">СуммаДоговораПриИзменении</Event>
+					</Events>
+				</InputField>
+				<LabelField name="ДоговорВалютаВзаиморасчетов" id="43">
+					<DataPath>Объект.Договор.ВалютаВзаиморасчетов</DataPath>
+					<TitleLocation>None</TitleLocation>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="ДоговорВалютаВзаиморасчетовКонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="ДоговорВалютаВзаиморасчетовРасширеннаяПодсказка" id="45"/>
+				</LabelField>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="ЭтапыГрафикаИсполненияДоговора" id="166">
+			<DefaultItem>true</DefaultItem>
+			<Footer>true</Footer>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<AutoAddIncomplete>false</AutoAddIncomplete>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ЭтапыГрафикаИсполненияДоговораКонтекстноеМеню" id="167"/>
+			<AutoCommandBar name="ЭтапыГрафикаИсполненияДоговораКоманднаяПанель" id="168">
+				<ChildItems>
+					<Button name="ФормаПеречитать" id="164">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.StandardCommand.Reread</CommandName>
+						<ExtendedTooltip name="ФормаПеречитатьРасширеннаяПодсказка" id="165"/>
+					</Button>
+					<Button name="ФормаОтменаПроведения" id="212">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.StandardCommand.UndoPosting</CommandName>
+						<ExtendedTooltip name="ФормаОтменаПроведенияРасширеннаяПодсказка" id="213"/>
+					</Button>
+					<Button name="ЭтапыГрафикаИсполненияДоговораУстановитьПометкуУдаления" id="214">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.StandardCommand.SetDeletionMark</CommandName>
+						<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораУстановитьПометкуУдаленияРасширеннаяПодсказка" id="215"/>
+					</Button>
+					<Button name="ФормаИзменитьФорму" id="162">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.StandardCommand.CustomizeForm</CommandName>
+						<ExtendedTooltip name="ФормаИзменитьФормуРасширеннаяПодсказка" id="163"/>
+					</Button>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораРасширеннаяПодсказка" id="169"/>
+			<SearchStringAddition name="ЭтапыГрафикаИсполненияДоговораСтрокаПоиска" id="170">
+				<AdditionSource>
+					<Item>ЭтапыГрафикаИсполненияДоговора</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ЭтапыГрафикаИсполненияДоговораСтрокаПоискаКонтекстноеМеню" id="171"/>
+				<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораСтрокаПоискаРасширеннаяПодсказка" id="172"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ЭтапыГрафикаИсполненияДоговораСостояниеПросмотра" id="173">
+				<AdditionSource>
+					<Item>ЭтапыГрафикаИсполненияДоговора</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ЭтапыГрафикаИсполненияДоговораСостояниеПросмотраКонтекстноеМеню" id="174"/>
+				<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораСостояниеПросмотраРасширеннаяПодсказка" id="175"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ЭтапыГрафикаИсполненияДоговораУправлениеПоиском" id="176">
+				<AdditionSource>
+					<Item>ЭтапыГрафикаИсполненияДоговора</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ЭтапыГрафикаИсполненияДоговораУправлениеПоискомКонтекстноеМеню" id="177"/>
+				<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораУправлениеПоискомРасширеннаяПодсказка" id="178"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="OnEditEnd">ЭтапыГрафикаИсполненияДоговораПриОкончанииРедактирования</Event>
+			</Events>
+			<ChildItems>
+				<LabelField name="ЭтапыГрафикаИсполненияДоговораНомерСтроки" id="179">
+					<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.LineNumber</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ЭтапыГрафикаИсполненияДоговораНомерСтрокиКонтекстноеМеню" id="180"/>
+					<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораНомерСтрокиРасширеннаяПодсказка" id="181"/>
+				</LabelField>
+				<InputField name="ЭтапыГрафикаИсполненияДоговораДатаПоГрафику" id="182">
+					<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.ДатаПоГрафику</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ЭтапыГрафикаИсполненияДоговораДатаПоГрафикуКонтекстноеМеню" id="183"/>
+					<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораДатаПоГрафикуРасширеннаяПодсказка" id="184"/>
+				</InputField>
+				<ColumnGroup name="ЭтапыГрафикаИсполненияДоговораГруппаОплата" id="200">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Оплата</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Этапы графика исполнения договора группа оплата</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораГруппаОплатаРасширеннаяПодсказка" id="201"/>
+					<ChildItems>
+						<InputField name="ЭтапыГрафикаИсполненияДоговораПроцентОплаты" id="185">
+							<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.ПроцентОплаты</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>%</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<FooterDataPath>Объект.ЭтапыГрафикаИсполненияДоговора.TotalПроцентОплаты</FooterDataPath>
+							<ContextMenu name="ЭтапыГрафикаИсполненияДоговораПроцентОплатыКонтекстноеМеню" id="186"/>
+							<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораПроцентОплатыРасширеннаяПодсказка" id="187"/>
+							<Events>
+								<Event name="OnChange">ЭтапыГрафикаИсполненияДоговораПроцентОплатыПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="ЭтапыГрафикаИсполненияДоговораСуммаОплаты" id="188">
+							<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.СуммаОплаты</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Сумма</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<FooterDataPath>Объект.ЭтапыГрафикаИсполненияДоговора.TotalСуммаОплаты</FooterDataPath>
+							<ContextMenu name="ЭтапыГрафикаИсполненияДоговораСуммаОплатыКонтекстноеМеню" id="189"/>
+							<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораСуммаОплатыРасширеннаяПодсказка" id="190"/>
+							<Events>
+								<Event name="OnChange">ЭтапыГрафикаИсполненияДоговораСуммаОплатыПриИзменении</Event>
+							</Events>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ЭтапыГрафикаИсполненияДоговораГруппаИсполнение" id="202">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Исполнение</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Этапы графика исполнения договора группа исполнение</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораГруппаИсполнениеРасширеннаяПодсказка" id="203"/>
+					<ChildItems>
+						<InputField name="ЭтапыГрафикаИсполненияДоговораПроцентИсполнения" id="191">
+							<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.ПроцентИсполнения</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>%</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<FooterDataPath>Объект.ЭтапыГрафикаИсполненияДоговора.TotalПроцентИсполнения</FooterDataPath>
+							<ContextMenu name="ЭтапыГрафикаИсполненияДоговораПроцентИсполненияКонтекстноеМеню" id="192"/>
+							<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораПроцентИсполненияРасширеннаяПодсказка" id="193"/>
+							<Events>
+								<Event name="OnChange">ЭтапыГрафикаИсполненияДоговораПроцентИсполненияПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="ЭтапыГрафикаИсполненияДоговораСуммаИсполнения" id="194">
+							<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.СуммаИсполнения</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Сумма</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<FooterDataPath>Объект.ЭтапыГрафикаИсполненияДоговора.TotalСуммаИсполнения</FooterDataPath>
+							<ContextMenu name="ЭтапыГрафикаИсполненияДоговораСуммаИсполненияКонтекстноеМеню" id="195"/>
+							<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораСуммаИсполненияРасширеннаяПодсказка" id="196"/>
+							<Events>
+								<Event name="OnChange">ЭтапыГрафикаИсполненияДоговораСуммаИсполненияПриИзменении</Event>
+							</Events>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<InputField name="ЭтапыГрафикаИсполненияДоговораКомментарий" id="197">
+					<DataPath>Объект.ЭтапыГрафикаИсполненияДоговора.Комментарий</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ЭтапыГрафикаИсполненияДоговораКомментарийКонтекстноеМеню" id="198"/>
+					<ExtendedTooltip name="ЭтапыГрафикаИсполненияДоговораКомментарийРасширеннаяПодсказка" id="199"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DocumentObject.ГрафикИсполненияДоговора</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+			<UseAlways>
+				<Field>Объект.RegisterRecords</Field>
+			</UseAlways>
+			<Columns>
+				<AdditionalColumns table="Объект.ЭтапыГрафикаИсполненияДоговора">
+					<Column name="ПроцентОплатыЗаполненНеверно" id="1">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Процент оплаты заполнен неверно</v8:content>
+							</v8:item>
+						</Title>
+						<Type>
+							<v8:Type>xs:boolean</v8:Type>
+						</Type>
+					</Column>
+					<Column name="ПроцентИсполненияЗаполненНеверно" id="2">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Процент исполнения заполнен неверно</v8:content>
+							</v8:item>
+						</Title>
+						<Type>
+							<v8:Type>xs:boolean</v8:Type>
+						</Type>
+					</Column>
+					<Column name="ДатаЗаполненаНеверно" id="3">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Дата заполнена неверно</v8:content>
+							</v8:item>
+						</Title>
+						<Type>
+							<v8:Type>xs:boolean</v8:Type>
+						</Type>
+					</Column>
+				</AdditionalColumns>
+			</Columns>
+		</Attribute>
+		<Attribute name="СуммаДоговора" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма договора</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>2</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроцентОплатОбщий" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Процент оплат общий</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>5</v8:Digits>
+					<v8:FractionDigits>2</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="НомерСтрокиПолнойОплаты" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер строки полной оплаты</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="НомерСтрокиПолногоИсполнения" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер строки полного исполнения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроцентИсполненияОбщий" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Процент исполнения общий</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>5</v8:Digits>
+					<v8:FractionDigits>2</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ТипДоговора" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Тип договора</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:EnumRef.ТипыДоговоров</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПараметрыПодключаемыхКоманд" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Параметры подключаемых команд</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ПровестиИЗакрыть" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Провести и закрыть</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Провести документ и закрыть форму</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Shortcut>Ctrl+Enter</Shortcut>
+			<Action>ПровестиИЗакрыть</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ЗаписатьДокумент" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать документ</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Shortcut>Ctrl+S</Shortcut>
+			<Picture>
+				<xr:Ref>StdPicture.Write</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ЗаписатьДокумент</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+	</Commands>
+</Form>

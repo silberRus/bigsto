@@ -1,0 +1,565 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаОК" id="1">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ОК</CommandName>
+				<ExtendedTooltip name="ФормаОКРасширеннаяПодсказка" id="2"/>
+			</Button>
+			<Button name="ФормаОтмена" id="107">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.Отмена</CommandName>
+				<ExtendedTooltip name="ФормаОтменаРасширеннаяПодсказка" id="108"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаПеревозчикВодитель" id="105">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа перевозчик водитель</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПеревозчикВодительРасширеннаяПодсказка" id="106"/>
+			<ChildItems>
+				<UsualGroup name="ГруппаПеревозчик" id="100">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Перевозчик:</v8:content>
+						</v8:item>
+					</Title>
+					<Width>37</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<Group>Vertical</Group>
+					<Representation>NormalSeparation</Representation>
+					<ExtendedTooltip name="ГруппаПеревозчикРасширеннаяПодсказка" id="101"/>
+					<ChildItems>
+						<InputField name="Перевозчик" id="102">
+							<DataPath>МакетДокумента.Перевозчик</DataPath>
+							<ChoiceParameterLinks>
+								<xr:Link>
+									<xr:Name>Отбор.Партнер</xr:Name>
+									<xr:DataPath xsi:type="xs:string">Партнер</xr:DataPath>
+									<xr:ValueChange>Clear</xr:ValueChange>
+								</xr:Link>
+							</ChoiceParameterLinks>
+							<ChoiceParameters>
+								<app:item name="Отбор.Партнер">
+									<app:value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation/>
+										<Value xsi:type="xs:boolean">true</Value>
+									</app:value>
+								</app:item>
+							</ChoiceParameters>
+							<ContextMenu name="ПеревозчикКонтекстноеМеню" id="103"/>
+							<ExtendedTooltip name="ПеревозчикРасширеннаяПодсказка" id="104"/>
+							<Events>
+								<Event name="OnChange">ПеревозчикПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="БанковскийСчетПеревозчика" id="97">
+							<DataPath>МакетДокумента.БанковскийСчетПеревозчика</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Банковский счет    
+перевозчика</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>Left</TitleLocation>
+							<TitleHeight>2</TitleHeight>
+							<ChoiceParameterLinks>
+								<xr:Link>
+									<xr:Name>Перевозчик</xr:Name>
+									<xr:DataPath xsi:type="xs:string">МакетДокумента.Перевозчик</xr:DataPath>
+									<xr:ValueChange>Clear</xr:ValueChange>
+								</xr:Link>
+							</ChoiceParameterLinks>
+							<ContextMenu name="БанковскийСчетПеревозчикаКонтекстноеМеню" id="98"/>
+							<ExtendedTooltip name="БанковскийСчетПеревозчикаРасширеннаяПодсказка" id="99"/>
+						</InputField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ГруппаВодитель" id="24">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Водитель:</v8:content>
+						</v8:item>
+					</Title>
+					<Width>38</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<Group>Vertical</Group>
+					<Representation>NormalSeparation</Representation>
+					<ExtendedTooltip name="ГруппаВодительРасширеннаяПодсказка" id="25"/>
+					<ChildItems>
+						<InputField name="Водитель" id="26">
+							<DataPath>МакетДокумента.Водитель</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ФИО</v8:content>
+								</v8:item>
+							</Title>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<ContextMenu name="ВодительКонтекстноеМеню" id="27"/>
+							<ExtendedTooltip name="ВодительРасширеннаяПодсказка" id="28"/>
+							<Events>
+								<Event name="TextEditEnd">ВодительОкончаниеВводаТекста</Event>
+								<Event name="ChoiceProcessing">ВодительОбработкаВыбора</Event>
+							</Events>
+						</InputField>
+						<UsualGroup name="ГруппаВодительскоеУдостоверение" id="29">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа водительское удостоверение</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаВодительскоеУдостоверениеРасширеннаяПодсказка" id="30"/>
+							<ChildItems>
+								<InputField name="УдостоверениеСерия" id="31">
+									<DataPath>МакетДокумента.УдостоверениеСерия</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Серия удостоверения</v8:content>
+										</v8:item>
+									</Title>
+									<TitleLocation>Left</TitleLocation>
+									<TitleHeight>2</TitleHeight>
+									<Width>7</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="УдостоверениеСерияКонтекстноеМеню" id="32"/>
+									<ExtendedTooltip name="УдостоверениеСерияРасширеннаяПодсказка" id="33"/>
+								</InputField>
+								<InputField name="УдостоверениеНомер" id="34">
+									<DataPath>МакетДокумента.УдостоверениеНомер</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>номер</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="УдостоверениеНомерКонтекстноеМеню" id="35"/>
+									<ExtendedTooltip name="УдостоверениеНомерРасширеннаяПодсказка" id="36"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаТранспортноеСредство" id="37">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Транспортное средство:</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Horizontal</Group>
+			<ExtendedTooltip name="ГруппаТранспортноеСредствоРасширеннаяПодсказка" id="38"/>
+			<ChildItems>
+				<UsualGroup name="ГруппаТранспортноеСредствоЛево" id="91">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа транспортное средство лево</v8:content>
+						</v8:item>
+					</Title>
+					<Width>38</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<Group>Vertical</Group>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаТранспортноеСредствоЛевоРасширеннаяПодсказка" id="92"/>
+					<ChildItems>
+						<UsualGroup name="ТранспортноеСредство" id="89">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Транспортное средство:</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ТранспортноеСредствоРасширеннаяПодсказка" id="90"/>
+							<ChildItems>
+								<InputField name="АвтомобильГосударственныйНомер" id="39">
+									<DataPath>МакетДокумента.АвтомобильГосударственныйНомер</DataPath>
+									<TitleLocation>Left</TitleLocation>
+									<Width>25</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="АвтомобильГосударственныйНомерКонтекстноеМеню" id="40"/>
+									<ExtendedTooltip name="АвтомобильГосударственныйНомерРасширеннаяПодсказка" id="41"/>
+									<Events>
+										<Event name="ChoiceProcessing">АвтомобильГосударственныйНомерОбработкаВыбора</Event>
+									</Events>
+								</InputField>
+								<InputField name="АвтомобильМарка" id="42">
+									<DataPath>МакетДокумента.АвтомобильМарка</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Марка</v8:content>
+										</v8:item>
+									</Title>
+									<TitleLocation>Left</TitleLocation>
+									<Width>25</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="АвтомобильМаркаКонтекстноеМеню" id="43"/>
+									<ExtendedTooltip name="АвтомобильМаркаРасширеннаяПодсказка" id="44"/>
+								</InputField>
+								<InputField name="ВидПеревозки" id="51">
+									<DataPath>МакетДокумента.ВидПеревозки</DataPath>
+									<Width>25</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ВидПеревозкиКонтекстноеМеню" id="52"/>
+									<ExtendedTooltip name="ВидПеревозкиРасширеннаяПодсказка" id="53"/>
+								</InputField>
+								<InputField name="АвтомобильТип" id="54">
+									<DataPath>МакетДокумента.АвтомобильТип</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Тип</v8:content>
+										</v8:item>
+									</Title>
+									<Width>25</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="АвтомобильТипКонтекстноеМеню" id="55"/>
+									<ExtendedTooltip name="АвтомобильТипРасширеннаяПодсказка" id="56"/>
+									<Events>
+										<Event name="TextEditEnd">АвтомобильТипОкончаниеВводаТекста</Event>
+										<Event name="ChoiceProcessing">АвтомобильТипОбработкаВыбора</Event>
+									</Events>
+								</InputField>
+								<UsualGroup name="ГруппаВместимость" id="57">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа вместимость</v8:content>
+										</v8:item>
+									</Title>
+									<Group>Horizontal</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаВместимостьРасширеннаяПодсказка" id="58"/>
+									<ChildItems>
+										<InputField name="АвтомобильВместимостьВКубическихМетрах" id="59">
+											<DataPath>МакетДокумента.АвтомобильВместимостьВКубическихМетрах</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Вместимость</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="АвтомобильВместимостьВКубическихМетрахКонтекстноеМеню" id="60"/>
+											<ExtendedTooltip name="АвтомобильВместимостьВКубическихМетрахРасширеннаяПодсказка" id="61"/>
+										</InputField>
+										<LabelDecoration name="ДекорацияМетрыКубические" id="62">
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>куб. м</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="ДекорацияМетрыКубическиеКонтекстноеМеню" id="63"/>
+											<ExtendedTooltip name="ДекорацияМетрыКубическиеРасширеннаяПодсказка" id="64"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
+								<UsualGroup name="ГруппаГрузоподъемность" id="65">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа грузоподъемность</v8:content>
+										</v8:item>
+									</Title>
+									<Group>Horizontal</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаГрузоподъемностьРасширеннаяПодсказка" id="66"/>
+									<ChildItems>
+										<InputField name="АвтомобильГрузоподъемностьВТоннах" id="67">
+											<DataPath>МакетДокумента.АвтомобильГрузоподъемностьВТоннах</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Грузоподъемность</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="АвтомобильГрузоподъемностьВТоннахКонтекстноеМеню" id="68"/>
+											<ExtendedTooltip name="АвтомобильГрузоподъемностьВТоннахРасширеннаяПодсказка" id="69"/>
+										</InputField>
+										<LabelDecoration name="ДекорацияТонны" id="70">
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>т</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="ДекорацияТонныКонтекстноеМеню" id="71"/>
+											<ExtendedTooltip name="ДекорацияТонныРасширеннаяПодсказка" id="72"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ГруппаТранспортноеСредствоПраво" id="93">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа транспортное средство право</v8:content>
+						</v8:item>
+					</Title>
+					<Width>38</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<Group>Vertical</Group>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаТранспортноеСредствоПравоРасширеннаяПодсказка" id="94"/>
+					<ChildItems>
+						<UsualGroup name="ЛицензионнаяКарточка" id="73">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Лицензионная карточка:</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Лицензионная карточка</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ЛицензионнаяКарточкаРасширеннаяПодсказка" id="74"/>
+							<ChildItems>
+								<UsualGroup name="ГруппаСерияНомерЛицензионнойКарточки" id="75">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа серия номер лицензионной карточки</v8:content>
+										</v8:item>
+									</Title>
+									<Group>Horizontal</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаСерияНомерЛицензионнойКарточкиРасширеннаяПодсказка" id="76"/>
+									<ChildItems>
+										<InputField name="ЛицензионнаяКарточкаСерия" id="77">
+											<DataPath>МакетДокумента.ЛицензионнаяКарточкаСерия</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Серия</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Left</TitleLocation>
+											<Width>7</Width>
+											<HorizontalStretch>false</HorizontalStretch>
+											<ContextMenu name="ЛицензионнаяКарточкаСерияКонтекстноеМеню" id="78"/>
+											<ExtendedTooltip name="ЛицензионнаяКарточкаСерияРасширеннаяПодсказка" id="79"/>
+										</InputField>
+										<InputField name="ЛицензионнаяКарточкаНомер" id="80">
+											<DataPath>МакетДокумента.ЛицензионнаяКарточкаНомер</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>номер</v8:content>
+												</v8:item>
+											</Title>
+											<HorizontalStretch>true</HorizontalStretch>
+											<ContextMenu name="ЛицензионнаяКарточкаНомерКонтекстноеМеню" id="81"/>
+											<ExtendedTooltip name="ЛицензионнаяКарточкаНомерРасширеннаяПодсказка" id="82"/>
+										</InputField>
+									</ChildItems>
+								</UsualGroup>
+								<InputField name="ЛицензионнаяКарточкаВид" id="83">
+									<DataPath>МакетДокумента.ЛицензионнаяКарточкаВид</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Вид</v8:content>
+										</v8:item>
+									</Title>
+									<TitleLocation>Left</TitleLocation>
+									<HorizontalStretch>true</HorizontalStretch>
+									<ListChoiceMode>true</ListChoiceMode>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Стандартная</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xs:string">Стандартная</Value>
+											</xr:Value>
+										</xr:Item>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Ограниченная</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xs:string">Ограниченная</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ЛицензионнаяКарточкаВидКонтекстноеМеню" id="84"/>
+									<ExtendedTooltip name="ЛицензионнаяКарточкаВидРасширеннаяПодсказка" id="85"/>
+								</InputField>
+								<InputField name="ЛицензионнаяКарточкаРегистрационныйНомер" id="86">
+									<DataPath>МакетДокумента.ЛицензионнаяКарточкаРегистрационныйНомер</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Рег. номер</v8:content>
+										</v8:item>
+									</Title>
+									<TitleLocation>Left</TitleLocation>
+									<ContextMenu name="ЛицензионнаяКарточкаРегистрационныйНомерКонтекстноеМеню" id="87"/>
+									<ExtendedTooltip name="ЛицензионнаяКарточкаРегистрационныйНомерРасширеннаяПодсказка" id="88"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаПрицеп" id="95">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Прицеп:</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаПрицепРасширеннаяПодсказка" id="96"/>
+							<ChildItems>
+								<InputField name="Прицеп" id="45">
+									<DataPath>МакетДокумента.Прицеп</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Наименование</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="ПрицепКонтекстноеМеню" id="46"/>
+									<ExtendedTooltip name="ПрицепРасширеннаяПодсказка" id="47"/>
+								</InputField>
+								<InputField name="ГосударственныйНомерПрицепа" id="48">
+									<DataPath>МакетДокумента.ГосударственныйНомерПрицепа</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Гос. номер  
+прицепа</v8:content>
+										</v8:item>
+									</Title>
+									<TitleLocation>Left</TitleLocation>
+									<ContextMenu name="ГосударственныйНомерПрицепаКонтекстноеМеню" id="49"/>
+									<ExtendedTooltip name="ГосударственныйНомерПрицепаРасширеннаяПодсказка" id="50"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="МакетДокумента" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Макет документа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DocumentObject.ТранспортнаяНакладная</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<UseAlways>
+				<Field>МакетДокумента.RegisterRecords</Field>
+			</UseAlways>
+		</Attribute>
+		<Attribute name="НужноЗадаватьВопросПередЗакрытием" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Нужно задавать вопрос перед закрытием</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Партнер" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Партнер</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Партнеры</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ОК" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ОК</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ОК</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОК</Action>
+		</Command>
+		<Command name="Отмена" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Отмена</Action>
+		</Command>
+	</Commands>
+</Form>

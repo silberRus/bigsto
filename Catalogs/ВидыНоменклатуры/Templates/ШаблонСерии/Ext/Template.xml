@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СерияНоменклатуры</dataPath>
+			<field>СерияНоменклатуры</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	ЗНАЧЕНИЕ(Справочник.СерииНоменклатуры.ПустаяСсылка) КАК СерияНоменклатуры
+ИЗ
+	Справочник.СерииНоменклатуры КАК СерииНоменклатуры
+{ХАРАКТЕРИСТИКИ
+	ТИП(Справочник.СерииНоменклатуры)
+	ВИДЫХАРАКТЕРИСТИК (ВЫБРАТЬ
+			ДополнительныеРеквизитыИСведения.Ссылка КАК Идентификатор,
+			ДополнительныеРеквизитыИСведения.Наименование КАК Имя,
+			ДополнительныеРеквизитыИСведения.ТипЗначения КАК ТипЗначения
+		ИЗ
+			ПланВидовХарактеристик.ДополнительныеРеквизитыИСведения КАК ДополнительныеРеквизитыИСведения
+		ГДЕ
+			НЕ ДополнительныеРеквизитыИСведения.ЭтоДополнительноеСведение
+			И ДополнительныеРеквизитыИСведения.Ссылка В
+					(ВЫБРАТЬ
+						НаборыСвойствСостав.Свойство КАК Свойство
+					ИЗ
+						Справочник.НаборыДополнительныхРеквизитовИСведений.ДополнительныеРеквизиты КАК НаборыСвойствСостав
+					ГДЕ
+						НаборыСвойствСостав.Ссылка = &amp;НаборСвойств
+				
+					ОБЪЕДИНИТЬ
+				
+					ВЫБРАТЬ
+						НаборыСвойствСостав.Свойство КАК Свойство
+					ИЗ
+						Справочник.НаборыДополнительныхРеквизитовИСведений.ДополнительныеРеквизиты КАК НаборыСвойствСостав
+					ГДЕ
+						НаборыСвойствСостав.Ссылка = ЗНАЧЕНИЕ(Справочник.НаборыДополнительныхРеквизитовИСведений.Справочник_СерииНоменклатуры_Общие)))
+	ПОЛЕКЛЮЧА Идентификатор
+	ПОЛЕИМЕНИ Имя
+	ПОЛЕТИПАЗНАЧЕНИЯ ТипЗначения
+	ЗНАЧЕНИЯХАРАКТЕРИСТИК (ВЫБРАТЬ
+			СерияДополнительныеРеквизиты.Ссылка,
+			СерияДополнительныеРеквизиты.Свойство,
+			СерияДополнительныеРеквизиты.Значение
+		ИЗ
+			Справочник.СерииНоменклатуры.ДополнительныеРеквизиты КАК СерияДополнительныеРеквизиты)
+	ПОЛЕОБЪЕКТА Ссылка
+	ПОЛЕВИДА Свойство
+	ПОЛЕЗНАЧЕНИЯ Значение }</query>
+	</dataSet>
+	<parameter>
+		<name>НаборСвойств</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Набор свойств</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.НаборыДополнительныхРеквизитовИСведений</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Справочник.НаборыДополнительныхРеквизитовИСведений.ПустаяСсылка</value>
+		<useRestriction>false</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

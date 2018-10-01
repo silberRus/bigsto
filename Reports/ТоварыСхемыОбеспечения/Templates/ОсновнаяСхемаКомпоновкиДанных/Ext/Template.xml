@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СхемаОбеспечения</dataPath>
+			<field>СхемаОбеспечения</field>
+			<useRestriction>
+				<group>true</group>
+			</useRestriction>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Склад</dataPath>
+			<field>Склад</field>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтоИндивидуальнаяНастройка</dataPath>
+			<field>ЭтоИндивидуальнаяНастройка</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Это индивидуальная настройка</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<group>true</group>
+			</useRestriction>
+			<valueType>
+				<v8:Type>xs:boolean</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СпособОбеспеченияПотребностей</dataPath>
+			<field>СпособОбеспеченияПотребностей</field>
+			<useRestriction>
+				<group>true</group>
+			</useRestriction>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидНоменклатуры</dataPath>
+			<field>ВидНоменклатуры</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Вид номенклатуры</v8:content>
+				</v8:item>
+			</title>
+			<attributeUseRestriction>
+				<group>true</group>
+			</attributeUseRestriction>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ТаблицаФорматы.Склад КАК Склад,
+	ТаблицаФорматы.ФорматМагазина КАК ФорматМагазина
+ПОМЕСТИТЬ ВтФорматыСкладов
+ИЗ
+	РегистрСведений.ИсторияИзмененияФорматовМагазинов.СрезПоследних(, {(Склад).* КАК Склад}) КАК ТаблицаФорматы
+ГДЕ
+	ТаблицаФорматы.ФорматМагазина &lt;&gt; ЗНАЧЕНИЕ(Справочник.ФорматыМагазинов.ПустаяСсылка)
+
+ИНДЕКСИРОВАТЬ ПО
+	ФорматМагазина
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СпрНоменклатура.Ссылка КАК Номенклатура,
+	СпрНоменклатура.СхемаОбеспечения КАК СхемаОбеспечения,
+	ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка) КАК Характеристика
+ПОМЕСТИТЬ ВтТовары
+ИЗ
+	Справочник.Номенклатура КАК СпрНоменклатура
+ГДЕ
+	НЕ СпрНоменклатура.ПометкаУдаления
+	И НЕ СпрНоменклатура.ЭтоГруппа
+	И СпрНоменклатура.ТипНоменклатуры В (ЗНАЧЕНИЕ(Перечисление.ТипыНоменклатуры.Товар), ЗНАЧЕНИЕ(Перечисление.ТипыНоменклатуры.МногоОборотнаяТара))
+{ГДЕ
+	СпрНоменклатура.СхемаОбеспечения.*}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВариантыОбеспеченияТоварами.Номенклатура,
+	ВариантыОбеспеченияТоварами.Номенклатура.СхемаОбеспечения,
+	ВариантыОбеспеченияТоварами.Характеристика
+ИЗ
+	РегистрСведений.ВариантыОбеспеченияТоварами КАК ВариантыОбеспеченияТоварами
+ГДЕ
+	ВариантыОбеспеченияТоварами.Характеристика &lt;&gt; ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)
+	И НЕ ВариантыОбеспеченияТоварами.Номенклатура.ПометкаУдаления
+	И ВариантыОбеспеченияТоварами.РеквизитДопУпорядочивания = 1
+{ГДЕ
+	ВариантыОбеспеченияТоварами.Номенклатура.СхемаОбеспечения.* КАК СхемаОбеспечения}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ТоварнаяМатрица.Номенклатура КАК Номенклатура,
+	ТоварнаяМатрица.Характеристика КАК Характеристика,
+	ТоварнаяМатрица.СхемаОбеспечения КАК СхемаОбеспечения,
+	ЗНАЧЕНИЕ(Справочник.Склады.ПустаяСсылка) КАК Склад,
+	ЗНАЧЕНИЕ(Справочник.СпособыОбеспеченияПотребностей.ПустаяСсылка) КАК СпособОбеспеченияПотребностей,
+	ЛОЖЬ КАК ЭтоИндивидуальнаяНастройка,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры КАК ВидНоменклатуры
+{ВЫБРАТЬ
+	Номенклатура.*,
+	Характеристика.*,
+	СхемаОбеспечения.*,
+	Склад.*,
+	СпособОбеспеченияПотребностей.*,
+	ЭтоИндивидуальнаяНастройка,
+	ВидНоменклатуры.*}
+ИЗ
+	ВтТовары КАК ТоварнаяМатрица
+{ГДЕ
+	ТоварнаяМатрица.Номенклатура.*,
+	ТоварнаяМатрица.Характеристика.*,
+	(ЗНАЧЕНИЕ(Справочник.Склады.ПустаяСсылка)).* КАК Склад,
+	(ЗНАЧЕНИЕ(Справочник.СпособыОбеспеченияПотребностей.ПустаяСсылка)).* КАК СпособОбеспеченияПотребностей,
+	(ЛОЖЬ) КАК ЭтоИндивидуальнаяНастройка,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры.* КАК ВидНоменклатуры}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ТоварнаяМатрица.Номенклатура,
+	ТоварнаяМатрица.Характеристика,
+	ТоварнаяМатрица.СхемаОбеспечения,
+	Настройка.Склад,
+	Настройка.СпособОбеспеченияПотребностей,
+	ИСТИНА,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры
+ИЗ
+	ВтТовары КАК ТоварнаяМатрица
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ВариантыОбеспеченияТоварами КАК Настройка
+		ПО (Настройка.Номенклатура = ТоварнаяМатрица.Номенклатура)
+			И (Настройка.Характеристика = ТоварнаяМатрица.Характеристика)
+			И (Настройка.РеквизитДопУпорядочивания = 1)
+ГДЕ
+	НЕ Настройка.Склад ЕСТЬ NULL
+{ГДЕ
+	ТоварнаяМатрица.Номенклатура.*,
+	ТоварнаяМатрица.Характеристика.*,
+	Настройка.Склад.*,
+	Настройка.СпособОбеспеченияПотребностей.*,
+	(ИСТИНА) КАК ЭтоИндивидуальнаяНастройка,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры.* КАК ВидНоменклатуры}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ТоварнаяМатрица.Номенклатура,
+	ТоварнаяМатрица.Характеристика,
+	ТоварнаяМатрица.СхемаОбеспечения,
+	Настройка.Склад,
+	Настройка.СпособОбеспеченияПотребностей,
+	ЛОЖЬ,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры
+ИЗ
+	ВтТовары КАК ТоварнаяМатрица
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.СхемыОбеспечения КАК Настройка
+		ПО (Настройка.СхемаОбеспечения = ТоварнаяМатрица.СхемаОбеспечения)
+			И (Настройка.Склад ССЫЛКА Справочник.Склады)
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ВариантыОбеспеченияТоварами КАК ВытесняющаяНастройка
+		ПО (ВытесняющаяНастройка.Номенклатура = ТоварнаяМатрица.Номенклатура)
+			И (ВытесняющаяНастройка.Характеристика = ТоварнаяМатрица.Характеристика)
+			И (ВытесняющаяНастройка.Склад = Настройка.Склад)
+			И (ВытесняющаяНастройка.РеквизитДопУпорядочивания = 1)
+ГДЕ
+	НЕ Настройка.Склад ЕСТЬ NULL
+	И ВытесняющаяНастройка.Склад ЕСТЬ NULL
+{ГДЕ
+	ТоварнаяМатрица.Номенклатура.*,
+	ТоварнаяМатрица.Характеристика.*,
+	Настройка.Склад.*,
+	Настройка.СпособОбеспеченияПотребностей.*,
+	(ЛОЖЬ) КАК ЭтоИндивидуальнаяНастройка,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры.* КАК ВидНоменклатуры}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ТоварнаяМатрица.Номенклатура,
+	ТоварнаяМатрица.Характеристика,
+	ТоварнаяМатрица.СхемаОбеспечения,
+	СкладыФормата.Склад,
+	Настройка.СпособОбеспеченияПотребностей,
+	ЛОЖЬ,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры
+ИЗ
+	ВтТовары КАК ТоварнаяМатрица
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.СхемыОбеспечения КАК Настройка
+		ПО (Настройка.СхемаОбеспечения = ТоварнаяМатрица.СхемаОбеспечения)
+			И (Настройка.Склад ССЫЛКА Справочник.ФорматыМагазинов)
+		ЛЕВОЕ СОЕДИНЕНИЕ ВтФорматыСкладов КАК СкладыФормата
+		ПО (СкладыФормата.ФорматМагазина = Настройка.Склад)
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.СхемыОбеспечения КАК ВытесняющаяНастройкаСхемы
+		ПО (ВытесняющаяНастройкаСхемы.СхемаОбеспечения = ТоварнаяМатрица.СхемаОбеспечения)
+			И (ВытесняющаяНастройкаСхемы.Склад ССЫЛКА Справочник.Склады)
+			И (ВытесняющаяНастройкаСхемы.Склад = СкладыФормата.Склад)
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.ВариантыОбеспеченияТоварами КАК ВытесняющаяНастройка
+		ПО (ВытесняющаяНастройка.Номенклатура = ТоварнаяМатрица.Номенклатура)
+			И (ВытесняющаяНастройка.Характеристика = ТоварнаяМатрица.Характеристика)
+			И (ВытесняющаяНастройка.Склад = СкладыФормата.Склад)
+			И (ВытесняющаяНастройка.РеквизитДопУпорядочивания = 1)
+ГДЕ
+	НЕ Настройка.Склад ЕСТЬ NULL
+	И НЕ СкладыФормата.Склад ЕСТЬ NULL
+	И ВытесняющаяНастройкаСхемы.Склад ЕСТЬ NULL
+	И ВытесняющаяНастройка.Склад ЕСТЬ NULL
+{ГДЕ
+	ТоварнаяМатрица.Номенклатура.*,
+	ТоварнаяМатрица.Характеристика.*,
+	СкладыФормата.Склад.*,
+	Настройка.СпособОбеспеченияПотребностей.*,
+	(ЛОЖЬ) КАК ЭтоИндивидуальнаяНастройка,
+	ТоварнаяМатрица.Номенклатура.ВидНоменклатуры.* КАК ВидНоменклатуры}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<totalField>
+		<dataPath>ЭтоИндивидуальнаяНастройка</dataPath>
+		<expression>Максимум(ЭтоИндивидуальнаяНастройка)</expression>
+		<group>Номенклатура</group>
+		<group>Склад</group>
+		<group>Характеристика</group>
+	</totalField>
+	<totalField>
+		<dataPath>СпособОбеспеченияПотребностей</dataPath>
+		<expression>Максимум(СпособОбеспеченияПотребностей)</expression>
+		<group>Номенклатура</group>
+		<group>Склад</group>
+		<group>Характеристика</group>
+	</totalField>
+	<settingsVariant>
+		<dcsset:name>ТоварыСхемыОбеспеченияКонтекст</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Товары, включенные в схему обеспечения</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">СхемаОбеспечения</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>fbc4a1a6-2a9d-4120-bb7a-22c1bc856e52</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Товары, включенные в схему обеспечения</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemTable">
+				<dcsset:column>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Склад</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Склад</dcsset:left>
+							<dcsset:comparisonType>Filled</dcsset:comparisonType>
+							<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:column>
+				<dcsset:row>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>ВидНоменклатуры</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Номенклатура</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Характеристика</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>Номенклатура.Артикул</dcsset:field>
+								<dcsset:lwsTitle>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Артикул</v8:content>
+									</v8:item>
+								</dcsset:lwsTitle>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Номенклатура</dcsset:field>
+								</dcsset:item>
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Характеристика</dcsset:field>
+								</dcsset:item>
+								<dcsset:placement>Together</dcsset:placement>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>СпособОбеспеченияПотребностей</dcsset:field>
+							</dcsset:item>
+						</dcsset:selection>
+						<dcsset:conditionalAppearance>
+							<dcsset:item>
+								<dcsset:selection>
+									<dcsset:item>
+										<dcsset:field>СпособОбеспеченияПотребностей</dcsset:field>
+									</dcsset:item>
+								</dcsset:selection>
+								<dcsset:filter>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">ЭтоИндивидуальнаяНастройка</dcsset:left>
+										<dcsset:comparisonType>Equal</dcsset:comparisonType>
+										<dcsset:right xsi:type="xs:boolean">true</dcsset:right>
+									</dcsset:item>
+								</dcsset:filter>
+								<dcsset:appearance>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:parameter>ЦветТекста</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Color">style:ИзмененноеЗначениеРеквизитаЦвет</dcscor:value>
+									</dcscor:item>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:use>false</dcscor:use>
+										<dcscor:parameter>Шрифт</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Font" kind="AutoFont"/>
+									</dcscor:item>
+								</dcsset:appearance>
+							</dcsset:item>
+							<dcsset:item>
+								<dcsset:selection>
+									<dcsset:item>
+										<dcsset:field>Характеристика</dcsset:field>
+									</dcsset:item>
+								</dcsset:selection>
+								<dcsset:filter>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">Номенклатура.ИспользованиеХарактеристик</dcsset:left>
+										<dcsset:comparisonType>NotEqual</dcsset:comparisonType>
+										<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.НеИспользовать</dcsset:right>
+									</dcsset:item>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">Характеристика</dcsset:left>
+										<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+									</dcsset:item>
+								</dcsset:filter>
+								<dcsset:appearance>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:use>false</dcscor:use>
+										<dcscor:parameter>ЦветТекста</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Color">style:НезаполненноеПолеТаблицы</dcscor:value>
+									</dcscor:item>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:parameter>Текст</dcscor:parameter>
+										<dcscor:value xsi:type="v8:LocalStringType">
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>&lt;для всех характеристик&gt;</v8:content>
+											</v8:item>
+										</dcscor:value>
+									</dcscor:item>
+								</dcsset:appearance>
+								<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+							</dcsset:item>
+						</dcsset:conditionalAppearance>
+					</dcsset:item>
+				</dcsset:row>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>ТоварыБезСхемыОбеспеченияКонтекст</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Товары без схемы обеспечения</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">СхемаОбеспечения</dcsset:left>
+					<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Товары без схемы обеспечения</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemTable">
+				<dcsset:column>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Склад</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Склад</dcsset:left>
+							<dcsset:comparisonType>Filled</dcsset:comparisonType>
+							<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+				</dcsset:column>
+				<dcsset:row>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>ВидНоменклатуры</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Номенклатура</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Характеристика</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>Номенклатура.Артикул</dcsset:field>
+								<dcsset:lwsTitle>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Артикул</v8:content>
+									</v8:item>
+								</dcsset:lwsTitle>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Номенклатура</dcsset:field>
+								</dcsset:item>
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Характеристика</dcsset:field>
+								</dcsset:item>
+								<dcsset:placement>Together</dcsset:placement>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>СпособОбеспеченияПотребностей</dcsset:field>
+							</dcsset:item>
+						</dcsset:selection>
+						<dcsset:conditionalAppearance>
+							<dcsset:item>
+								<dcsset:selection>
+									<dcsset:item>
+										<dcsset:field>СпособОбеспеченияПотребностей</dcsset:field>
+									</dcsset:item>
+								</dcsset:selection>
+								<dcsset:filter>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">ЭтоИндивидуальнаяНастройка</dcsset:left>
+										<dcsset:comparisonType>Equal</dcsset:comparisonType>
+										<dcsset:right xsi:type="xs:boolean">true</dcsset:right>
+									</dcsset:item>
+								</dcsset:filter>
+								<dcsset:appearance>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:parameter>ЦветТекста</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Color">style:ИзмененноеЗначениеРеквизитаЦвет</dcscor:value>
+									</dcscor:item>
+								</dcsset:appearance>
+							</dcsset:item>
+							<dcsset:item>
+								<dcsset:selection>
+									<dcsset:item>
+										<dcsset:field>Характеристика</dcsset:field>
+									</dcsset:item>
+								</dcsset:selection>
+								<dcsset:filter>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">Номенклатура.ИспользованиеХарактеристик</dcsset:left>
+										<dcsset:comparisonType>NotEqual</dcsset:comparisonType>
+										<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.НеИспользовать</dcsset:right>
+									</dcsset:item>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">Характеристика</dcsset:left>
+										<dcsset:comparisonType>NotFilled</dcsset:comparisonType>
+									</dcsset:item>
+								</dcsset:filter>
+								<dcsset:appearance>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:use>false</dcscor:use>
+										<dcscor:parameter>ЦветТекста</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Color">style:НезаполненноеПолеТаблицы</dcscor:value>
+									</dcscor:item>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:parameter>Текст</dcscor:parameter>
+										<dcscor:value xsi:type="v8:LocalStringType">
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>&lt;для всех характеристик&gt;</v8:content>
+											</v8:item>
+										</dcscor:value>
+									</dcscor:item>
+								</dcsset:appearance>
+								<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+							</dcsset:item>
+						</dcsset:conditionalAppearance>
+					</dcsset:item>
+				</dcsset:row>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

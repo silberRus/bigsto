@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Заявления о ввозе товаров из ЕАЭС к оформлению</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<InputField name="ОрганизацияОтбор" id="138">
+			<DataPath>Организация</DataPath>
+			<TitleLocation>None</TitleLocation>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отбор по организации</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Width>28</Width>
+			<HorizontalStretch>false</HorizontalStretch>
+			<ClearButton>true</ClearButton>
+			<InputHint>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация</v8:content>
+				</v8:item>
+			</InputHint>
+			<ContextMenu name="ОрганизацияОтборКонтекстноеМеню" id="139"/>
+			<ExtendedTooltip name="ОрганизацияОтборРасширеннаяПодсказка" id="140"/>
+			<Events>
+				<Event name="OnChange">ОрганизацияОтборПриИзменении</Event>
+			</Events>
+		</InputField>
+		<Table name="СписокПриобретенияТоваровУслуг" id="5">
+			<Representation>List</Representation>
+			<ChangeRowSet>false</ChangeRowSet>
+			<UseAlternationRowColor>true</UseAlternationRowColor>
+			<EnableStartDrag>true</EnableStartDrag>
+			<DataPath>СписокПриобретенияТоваровУслуг</DataPath>
+			<RowPictureDataPath>СписокПриобретенияТоваровУслуг.DefaultPicture</RowPictureDataPath>
+			<AutoRefresh>false</AutoRefresh>
+			<AutoRefreshPeriod>60</AutoRefreshPeriod>
+			<Period>
+				<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+				<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+				<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+			</Period>
+			<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+			<RestoreCurrentRow>false</RestoreCurrentRow>
+			<TopLevelParent xsi:nil="true"/>
+			<ShowRoot>true</ShowRoot>
+			<AllowRootChoice>false</AllowRootChoice>
+			<UpdateOnDataChange>Auto</UpdateOnDataChange>
+			<ContextMenu name="СписокПриобретенияТоваровУслугКонтекстноеМеню" id="6"/>
+			<AutoCommandBar name="СписокПриобретенияТоваровУслугКоманднаяПанель" id="7">
+				<Autofill>false</Autofill>
+				<ChildItems>
+					<Button name="СформироватьЗаявлениеОВвозеТоваров" id="68">
+						<Type>CommandBarButton</Type>
+						<Representation>PictureAndText</Representation>
+						<CommandName>Form.Command.СформироватьЗаявлениеОВвозеТоваров</CommandName>
+						<Picture>
+							<xr:Ref>CommonPicture.ОформитьПоРаспоряжению</xr:Ref>
+							<xr:LoadTransparent>true</xr:LoadTransparent>
+						</Picture>
+						<ExtendedTooltip name="СформироватьЗаявлениеОВвозеТоваровРасширеннаяПодсказка" id="69"/>
+					</Button>
+					<SearchStringAddition name="ДополнениеСтрокаПоиска" id="179">
+						<AdditionSource>
+							<Item>СписокПриобретенияТоваровУслуг</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Дополнение строка поиска</v8:content>
+							</v8:item>
+						</Title>
+						<ContextMenu name="ДополнениеСтрокаПоискаКонтекстноеМеню" id="180"/>
+						<ExtendedTooltip name="ДополнениеСтрокаПоискаРасширеннаяПодсказка" id="181"/>
+					</SearchStringAddition>
+					<SearchControlAddition name="ДополнениеУправлениеПоиском" id="176">
+						<AdditionSource>
+							<Item>СписокПриобретенияТоваровУслуг</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Дополнение управление поиском</v8:content>
+							</v8:item>
+						</Title>
+						<ContextMenu name="ДополнениеУправлениеПоискомКонтекстноеМеню" id="177"/>
+						<ExtendedTooltip name="ДополнениеУправлениеПоискомРасширеннаяПодсказка" id="178"/>
+					</SearchControlAddition>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="СписокПриобретенияТоваровУслугРасширеннаяПодсказка" id="8"/>
+			<SearchStringAddition name="СписокПриобретенияТоваровУслугСтрокаПоиска" id="9">
+				<AdditionSource>
+					<Item>СписокПриобретенияТоваровУслуг</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокПриобретенияТоваровУслугСтрокаПоискаКонтекстноеМеню" id="12"/>
+				<ExtendedTooltip name="СписокПриобретенияТоваровУслугСтрокаПоискаРасширеннаяПодсказка" id="13"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="СписокПриобретенияТоваровУслугСостояниеПросмотра" id="14">
+				<AdditionSource>
+					<Item>СписокПриобретенияТоваровУслуг</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокПриобретенияТоваровУслугСостояниеПросмотраКонтекстноеМеню" id="17"/>
+				<ExtendedTooltip name="СписокПриобретенияТоваровУслугСостояниеПросмотраРасширеннаяПодсказка" id="18"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="СписокПриобретенияТоваровУслугУправлениеПоиском" id="19">
+				<AdditionSource>
+					<Item>СписокПриобретенияТоваровУслуг</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокПриобретенияТоваровУслугУправлениеПоискомКонтекстноеМеню" id="22"/>
+				<ExtendedTooltip name="СписокПриобретенияТоваровУслугУправлениеПоискомРасширеннаяПодсказка" id="23"/>
+			</SearchControlAddition>
+			<ChildItems>
+				<LabelField name="СписокПриобретенияТоваровУслугНомер" id="27">
+					<DataPath>СписокПриобретенияТоваровУслуг.Номер</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="СписокПриобретенияТоваровУслугНомерКонтекстноеМеню" id="28"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугНомерРасширеннаяПодсказка" id="29"/>
+				</LabelField>
+				<LabelField name="СписокПриобретенияТоваровУслугДата" id="24">
+					<DataPath>СписокПриобретенияТоваровУслуг.Дата</DataPath>
+					<Width>9</Width>
+					<ContextMenu name="СписокПриобретенияТоваровУслугДатаКонтекстноеМеню" id="25"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугДатаРасширеннаяПодсказка" id="26"/>
+				</LabelField>
+				<LabelField name="СписокПриобретенияТоваровУслугКонтрагент" id="45">
+					<DataPath>СписокПриобретенияТоваровУслуг.Контрагент</DataPath>
+					<ContextMenu name="СписокПриобретенияТоваровУслугКонтрагентКонтекстноеМеню" id="46"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугКонтрагентРасширеннаяПодсказка" id="47"/>
+				</LabelField>
+				<LabelField name="СписокПриобретенияТоваровУслугСуммаДокумента" id="57">
+					<DataPath>СписокПриобретенияТоваровУслуг.СуммаДокумента</DataPath>
+					<Format>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ЧДЦ=2</v8:content>
+						</v8:item>
+					</Format>
+					<ContextMenu name="СписокПриобретенияТоваровУслугСуммаДокументаКонтекстноеМеню" id="58"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугСуммаДокументаРасширеннаяПодсказка" id="59"/>
+				</LabelField>
+				<LabelField name="СписокПриобретенияТоваровУслугВалюта" id="36">
+					<DataPath>СписокПриобретенияТоваровУслуг.Валюта</DataPath>
+					<ContextMenu name="СписокПриобретенияТоваровУслугВалютаКонтекстноеМеню" id="37"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугВалютаРасширеннаяПодсказка" id="38"/>
+				</LabelField>
+				<LabelField name="СписокПриобретенияТоваровУслугОрганизация" id="112">
+					<DataPath>СписокПриобретенияТоваровУслуг.Организация</DataPath>
+					<ContextMenu name="СписокПриобретенияТоваровУслугОрганизацияКонтекстноеМеню" id="113"/>
+					<ExtendedTooltip name="СписокПриобретенияТоваровУслугОрганизацияРасширеннаяПодсказка" id="114"/>
+				</LabelField>
+			</ChildItems>
+		</Table>
+		<LabelDecoration name="ГиперссылкаЖурналЗакупки" id="173">
+			<Title formatted="true">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>См. также: &lt;link ДокументыЗакупки&gt;Документы закупки (оформленные накладные)&lt;/&gt;</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="ГиперссылкаЖурналЗакупкиКонтекстноеМеню" id="174"/>
+			<ExtendedTooltip name="ГиперссылкаЖурналЗакупкиРасширеннаяПодсказка" id="175"/>
+			<Events>
+				<Event name="URLProcessing">ГиперссылкаЖурналЗакупкиОбработкаНавигационнойСсылки</Event>
+			</Events>
+		</LabelDecoration>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="СписокПриобретенияТоваровУслуг" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Приобретения товаров услуг</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	ДокументПриобретениеТоваровУслугПереопределяемый.Ссылка КАК Ссылка,
+	ВЫРАЗИТЬ(ДокументПриобретениеТоваровУслугПереопределяемый.Номер КАК СТРОКА(12)) КАК Номер,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Дата КАК Дата,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Валюта КАК Валюта,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Контрагент КАК Контрагент,
+	ДокументПриобретениеТоваровУслугПереопределяемый.СуммаДокумента КАК СуммаДокумента,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Организация КАК Организация
+ИЗ
+	Документ.ПриобретениеТоваровУслуг КАК ДокументПриобретениеТоваровУслугПереопределяемый
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрНакопления.ТоварыКОформлениюЗаявленийОВвозе.Остатки КАК ТоварыКОформлениюЗаявленийОВвозеОстатки
+		ПО ДокументПриобретениеТоваровУслугПереопределяемый.Ссылка = ТоварыКОформлениюЗаявленийОВвозеОстатки.ДокументПоступления
+
+СГРУППИРОВАТЬ ПО
+	ДокументПриобретениеТоваровУслугПереопределяемый.Ссылка,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Дата,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Валюта,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Контрагент,
+	ДокументПриобретениеТоваровУслугПереопределяемый.СуммаДокумента,
+	ДокументПриобретениеТоваровУслугПереопределяемый.Организация,
+	ВЫРАЗИТЬ(ДокументПриобретениеТоваровУслугПереопределяемый.Номер КАК СТРОКА(12))</QueryText>
+				<MainTable>Document.ПриобретениеТоваровУслуг</MainTable>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemField">
+							<dcsset:field>Дата</dcsset:field>
+							<dcsset:orderType>Asc</dcsset:orderType>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="Организация" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+			<FunctionalOptions>
+				<Item>FunctionalOption.ИспользоватьНесколькоОрганизаций</Item>
+			</FunctionalOptions>
+		</Attribute>
+		<Attribute name="ОрганизацияСохраненноеЗначение" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация сохраненное значение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="СформироватьЗаявлениеОВвозеТоваров" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сформировать заявление о ввозе товаров</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сформировать заявление о ввозе товаров</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СформироватьЗаявлениеОВвозеТоваров</Action>
+		</Command>
+	</Commands>
+</Form>

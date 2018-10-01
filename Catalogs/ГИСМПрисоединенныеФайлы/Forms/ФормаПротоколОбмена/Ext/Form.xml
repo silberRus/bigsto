@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Протокол обмена с ГИСМ</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ДеревоФайловОбновить" id="28">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<CommandName>Form.Command.Обновить</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.Refresh</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ДеревоФайловОбновитьРасширеннаяПодсказка" id="29"/>
+			</Button>
+			<Button name="ФормаСправка" id="26">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="27"/>
+			</Button>
+			<Button name="ВыполнитьОбмен" id="47">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.Command.ВыполнитьОбмен</CommandName>
+				<ExtendedTooltip name="ВыполнитьОбменРасширеннаяПодсказка" id="48"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<LabelField name="ДокументУчета" id="1">
+			<DataPath>Документ</DataPath>
+			<ReadOnly>true</ReadOnly>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Для документа</v8:content>
+				</v8:item>
+			</Title>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<Hiperlink>true</Hiperlink>
+			<ContextMenu name="ДокументУчетаКонтекстноеМеню" id="2"/>
+			<ExtendedTooltip name="ДокументУчетаРасширеннаяПодсказка" id="3"/>
+		</LabelField>
+		<Table name="ДеревоФайлов" id="4">
+			<Representation>Tree</Representation>
+			<ReadOnly>true</ReadOnly>
+			<Width>80</Width>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<InitialTreeView>ExpandTopLevel</InitialTreeView>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>ДеревоФайлов</DataPath>
+			<CommandSet>
+				<ExcludedCommand>Add</ExcludedCommand>
+				<ExcludedCommand>Change</ExcludedCommand>
+				<ExcludedCommand>Copy</ExcludedCommand>
+				<ExcludedCommand>CopyToClipboard</ExcludedCommand>
+				<ExcludedCommand>Delete</ExcludedCommand>
+				<ExcludedCommand>EndEdit</ExcludedCommand>
+				<ExcludedCommand>HierarchicalList</ExcludedCommand>
+				<ExcludedCommand>List</ExcludedCommand>
+				<ExcludedCommand>MoveDown</ExcludedCommand>
+				<ExcludedCommand>MoveUp</ExcludedCommand>
+				<ExcludedCommand>OutputList</ExcludedCommand>
+				<ExcludedCommand>SelectAll</ExcludedCommand>
+				<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+				<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+				<ExcludedCommand>SortListAsc</ExcludedCommand>
+				<ExcludedCommand>SortListDesc</ExcludedCommand>
+				<ExcludedCommand>Tree</ExcludedCommand>
+			</CommandSet>
+			<ContextMenu name="ДеревоФайловКонтекстноеМеню" id="5">
+				<ChildItems>
+					<Popup name="ДеревоФайловКонтекстноеМенюГруппаДействия" id="61">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Действия</v8:content>
+							</v8:item>
+						</Title>
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Действия</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюГруппаДействияРасширеннаяПодсказка" id="62"/>
+						<ChildItems>
+							<Button name="ДеревоФайловКонтекстноеМенюПередатьДанные" id="63">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ПередатьДанные</CommandName>
+								<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюПередатьДанныеРасширеннаяПодсказка" id="64"/>
+							</Button>
+							<Button name="ДеревоФайловКонтекстноеМенюПодтвердитьПолучение" id="65">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ПодтвердитьПолучение</CommandName>
+								<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюПодтвердитьПолучениеРасширеннаяПодсказка" id="66"/>
+							</Button>
+							<Button name="ДеревоФайловКонтекстноеМенюАннулировать" id="67">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.Аннулировать</CommandName>
+								<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюАннулироватьРасширеннаяПодсказка" id="68"/>
+							</Button>
+							<Button name="ДеревоФайловКонтекстноеМенюЗакрытьЗаявку" id="69">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ЗакрытьЗаявку</CommandName>
+								<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюЗакрытьЗаявкуРасширеннаяПодсказка" id="70"/>
+							</Button>
+						</ChildItems>
+					</Popup>
+					<Button name="ДеревоФайловКонтекстноеМенюПоказатьСообщенияXML" id="71">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.ПоказатьСообщенияXML</CommandName>
+						<ExtendedTooltip name="ДеревоФайловКонтекстноеМенюПоказатьСообщенияXMLРасширеннаяПодсказка" id="72"/>
+					</Button>
+				</ChildItems>
+			</ContextMenu>
+			<AutoCommandBar name="ДеревоФайловКоманднаяПанель" id="6">
+				<ChildItems>
+					<Popup name="СписокГруппаВыполнить" id="51">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Действия</v8:content>
+							</v8:item>
+						</Title>
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Список группа выполнить</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="СписокГруппаВыполнитьРасширеннаяПодсказка" id="52"/>
+						<ChildItems>
+							<Button name="СписокПередатьДанные" id="53">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ПередатьДанные</CommandName>
+								<ExtendedTooltip name="СписокПередатьДанныеРасширеннаяПодсказка" id="54"/>
+							</Button>
+							<Button name="СписокПодтвердитьПолучение" id="55">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ПодтвердитьПолучение</CommandName>
+								<ExtendedTooltip name="СписокПодтвердитьПолучениеРасширеннаяПодсказка" id="56"/>
+							</Button>
+							<Button name="СписокАннулировать" id="57">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.Аннулировать</CommandName>
+								<ExtendedTooltip name="СписокАннулироватьРасширеннаяПодсказка" id="58"/>
+							</Button>
+							<Button name="СписокЗакрытьЗаявку" id="59">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ЗакрытьЗаявку</CommandName>
+								<ExtendedTooltip name="СписокЗакрытьЗаявкуРасширеннаяПодсказка" id="60"/>
+							</Button>
+						</ChildItems>
+					</Popup>
+					<Button name="ДеревоФайловПоказатьСообщенияXML" id="49">
+						<Type>CommandBarButton</Type>
+						<CommandName>Form.Command.ПоказатьСообщенияXML</CommandName>
+						<ExtendedTooltip name="ДеревоФайловПоказатьСообщенияXMLРасширеннаяПодсказка" id="50"/>
+					</Button>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ДеревоФайловРасширеннаяПодсказка" id="7"/>
+			<SearchStringAddition name="ДеревоФайловСтрокаПоиска" id="8">
+				<AdditionSource>
+					<Item>ДеревоФайлов</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ДеревоФайловСтрокаПоискаКонтекстноеМеню" id="9"/>
+				<ExtendedTooltip name="ДеревоФайловСтрокаПоискаРасширеннаяПодсказка" id="10"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ДеревоФайловСостояниеПросмотра" id="11">
+				<AdditionSource>
+					<Item>ДеревоФайлов</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ДеревоФайловСостояниеПросмотраКонтекстноеМеню" id="12"/>
+				<ExtendedTooltip name="ДеревоФайловСостояниеПросмотраРасширеннаяПодсказка" id="13"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ДеревоФайловУправлениеПоиском" id="14">
+				<AdditionSource>
+					<Item>ДеревоФайлов</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ДеревоФайловУправлениеПоискомКонтекстноеМеню" id="15"/>
+				<ExtendedTooltip name="ДеревоФайловУправлениеПоискомРасширеннаяПодсказка" id="16"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ДеревоФайловВыбор</Event>
+			</Events>
+			<ChildItems>
+				<ColumnGroup name="ДеревоФайловГруппаПредставление" id="43">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дерево файлов группа представление</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дерево файлов группа представление</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>InCell</Group>
+					<ExtendedTooltip name="ДеревоФайловГруппаПредставлениеРасширеннаяПодсказка" id="44"/>
+					<ChildItems>
+						<PictureField name="ДеревоФайловИндексКартинки" id="40">
+							<DataPath>ДеревоФайлов.ИндексКартинки</DataPath>
+							<TitleLocation>None</TitleLocation>
+							<EditMode>EnterOnInput</EditMode>
+							<ValuesPicture>
+								<xr:Ref>CommonPicture.ПротоколОбменаГИСМ</xr:Ref>
+								<xr:LoadTransparent>true</xr:LoadTransparent>
+							</ValuesPicture>
+							<ContextMenu name="ДеревоФайловИндексКартинкиКонтекстноеМеню" id="41"/>
+							<ExtendedTooltip name="ДеревоФайловИндексКартинкиРасширеннаяПодсказка" id="42"/>
+						</PictureField>
+						<InputField name="ДеревоФайловПредставление" id="30">
+							<DataPath>ДеревоФайлов.Представление</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Заявка / этап</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="ДеревоФайловПредставлениеКонтекстноеМеню" id="31"/>
+							<ExtendedTooltip name="ДеревоФайловПредставлениеРасширеннаяПодсказка" id="32"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<InputField name="ДеревоФайловСостояние" id="37">
+					<DataPath>ДеревоФайлов.Состояние</DataPath>
+					<Visible>false</Visible>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ДеревоФайловСостояниеКонтекстноеМеню" id="38"/>
+					<ExtendedTooltip name="ДеревоФайловСостояниеРасширеннаяПодсказка" id="39"/>
+				</InputField>
+				<InputField name="ДеревоФайловДата" id="23">
+					<DataPath>ДеревоФайлов.Дата</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<Width>14</Width>
+					<ContextMenu name="ДеревоФайловДатаКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="ДеревоФайловДатаРасширеннаяПодсказка" id="25"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Документ" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Документ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:TypeSet>cfg:DocumentRef</v8:TypeSet>
+			</Type>
+		</Attribute>
+		<Attribute name="ДеревоФайлов" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дерево файлов</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTree</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Документ" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Документ</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.ВладелецПрисоединенныхФайловГИСМ</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="НомерГИСМ" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер ГИСМ</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.НомерДокументаГИСМ</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Дата" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дата</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:dateTime</v8:Type>
+						<v8:DateQualifiers>
+							<v8:DateFractions>DateTime</v8:DateFractions>
+						</v8:DateQualifiers>
+					</Type>
+				</Column>
+				<Column name="Представление" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>200</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="УсловноеОформление" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Условное оформление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Файл" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Файл</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.ГИСМПрисоединенныеФайлы</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Состояние" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Состояние</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ИндексКартинки" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Индекс картинки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="Операция" id="9">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Операция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.ОперацииОбменаГИСМ</v8:Type>
+					</Type>
+				</Column>
+				<Column name="СтатусОбработкиЭмитентом" id="10">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Состояние обработки эмитентом</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.СтатусыОбработкиЭмитентомКиЗГИСМ</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Обновить" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Обновить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Обновить</Action>
+		</Command>
+		<Command name="ВыполнитьОбмен" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить обмен</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполнить обмен</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ВыполнитьОбменГИСМ</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ВыполнитьОбмен</Action>
+		</Command>
+		<Command name="ПоказатьСообщенияXML" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показать сообщения XML</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показать сообщения XML</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПоказатьСообщенияXML</Action>
+		</Command>
+		<Command name="ПодтвердитьПолучение" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подтвердить получение</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подтвердить получение</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ПодтвердитьПолучениеГИСМ</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ПодтвердитьПолучение</Action>
+			<Representation>Picture</Representation>
+		</Command>
+		<Command name="ПередатьДанные" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Передать данные</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Передать данные</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ИсходящийЗапросГИСМ</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ПередатьДанные</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="Аннулировать" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Аннулировать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Аннулировать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.АннулироватьЗаявкуГИСМ</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Аннулировать</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="ЗакрытьЗаявку" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Закрыть заявку</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Закрыть заявку</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ЗакрытьЗаявкуГИСМ</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ЗакрытьЗаявку</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="Документ">
+			<Type>
+				<v8:TypeSet>cfg:DocumentRef</v8:TypeSet>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

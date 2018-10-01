@@ -1,0 +1,93 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ClientRef" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<valueType name="INN10Type" base="xs:string" variety="Atomic" length="10">
+		<pattern>[0-9]{10}</pattern>
+	</valueType>
+	<valueType name="INN12Type" variety="Atomic" length="12">
+		<typeDef base="xs:string" variety="Atomic"/>
+		<pattern>[0-9]{12}</pattern>
+	</valueType>
+	<valueType name="INNType" base="xs:string" variety="Atomic">
+		<pattern>(\d{10}|\d{12})</pattern>
+	</valueType>
+	<valueType name="KPPType" base="xs:string" variety="Atomic" length="9">
+		<pattern>[0-9]{9}</pattern>
+	</valueType>
+	<objectType name="OrgAddressType">
+		<property name="Country">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<pattern>[0-9][0-9][0-9]</pattern>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Index" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property name="RegionCode" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<pattern>[0-9][0-9]</pattern>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="area" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="city" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="place" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="street" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="house" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="building" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="liter" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property name="description" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2000"/>
+		</property>
+	</objectType>
+	<objectType name="OrgInfo" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ClientRegId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property name="FullName" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="ShortName" lowerBound="0" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="64"/>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="INN" type="d3p1:INNType" lowerBound="0" nillable="true"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="KPP" type="d3p1:KPPType" lowerBound="0"/>
+		<property name="UNP" type="xs:string" lowerBound="0" nillable="true"/>
+		<property name="RNN" type="xs:string" lowerBound="0" nillable="true"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="address" type="d3p1:OrgAddressType"/>
+	</objectType>
+	<objectType name="OrgInfoEx" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ClientRegId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property name="FullName" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="ShortName" lowerBound="0" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="64"/>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="INN" type="d3p1:INNType" lowerBound="0" nillable="true"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="KPP" type="d3p1:KPPType" lowerBound="0"/>
+		<property name="UNP" type="xs:string" lowerBound="0" nillable="true"/>
+		<property name="RNN" type="xs:string" lowerBound="0" nillable="true"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="address" type="d3p1:OrgAddressType"/>
+		<property name="addresslist" lowerBound="0">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef" name="address" type="d5p1:OrgAddressType" upperBound="-1"/>
+			</typeDef>
+		</property>
+		<property name="State" type="xs:string" lowerBound="0" nillable="true"/>
+	</objectType>
+	<objectType name="OrgItemType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ID" type="d3p1:NoEmptyString50"/>
+	</objectType>
+	<objectType name="OrgLicenseType">
+		<property name="number" type="xs:string"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="datefrom" type="d3p1:DateNoTime"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="dateto" type="d3p1:DateNoTime"/>
+		<property name="orgdistribute" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="OrganizationsType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="Organization" type="d3p1:OrgInfo" upperBound="-1"/>
+	</objectType>
+	<objectType name="ProductContractType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="number" type="d3p1:NoEmptyString50"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="date" type="d3p1:DateNoTime"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="Supplier" type="d3p1:OrgInfo"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="Contragent" type="d3p1:OrgInfo"/>
+	</objectType>
+</package>

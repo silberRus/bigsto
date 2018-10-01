@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ОсновнойНаборДанных</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Организации</dataPath>
+			<field>Организации</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Объект</dataPath>
+			<field>Объект</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Объект</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+			<attributeUseRestriction>
+				<condition>true</condition>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТипОбъекта</dataPath>
+			<field>ТипОбъекта</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Тип объекта</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Оплаты</dataPath>
+			<field>Оплаты</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Оплаты</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Подразделения</dataPath>
+			<field>Подразделения</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подразделения</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Заказ</dataPath>
+			<field>Заказ</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка КАК Объект,
+	ВЫБОР
+		КОГДА &amp;ВыгружатьВсеДокументы
+			ТОГДА ПриходныйКассовыйОрдерРасшифровкаПлатежа.Заказ
+		ИНАЧЕ ВЫБОР
+				КОГДА ПриходныйКассовыйОрдерРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; """"
+					ТОГДА ПриходныйКассовыйОрдерРасшифровкаПлатежа.Заказ
+				ИНАЧЕ NULL
+			КОНЕЦ
+	КОНЕЦ КАК Заказ,
+	"Оплата" КАК ТипОбъекта
+ИЗ
+	Документ.ПриходныйКассовыйОрдер.РасшифровкаПлатежа КАК ПриходныйКассовыйОрдерРасшифровкаПлатежа
+ГДЕ
+	ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка.Дата &gt;= &amp;ТочкаАктуальностиДокументов
+	И ВЫБОР
+			КОГДА &amp;ПолнаяВыгрузка
+				ТОГДА ИСТИНА
+			ИНАЧЕ ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка В
+					(ВЫБРАТЬ
+						ПКОИзменения.Ссылка
+					ИЗ
+						Документ.ПриходныйКассовыйОрдер.Изменения КАК ПКОИзменения
+					ГДЕ
+						ПКОИзменения.Узел = &amp;Узел)
+		КОНЕЦ
+	И ВЫБОР
+			КОГДА &amp;ВыгружатьВсеДокументы
+				ТОГДА ИСТИНА
+			ИНАЧЕ ВЫБОР
+					КОГДА ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка.Б_Идентификатор &lt;&gt; ""
+							ИЛИ ПриходныйКассовыйОрдерРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; ""
+						ТОГДА ИСТИНА
+					ИНАЧЕ ЛОЖЬ
+				КОНЕЦ
+		КОНЕЦ
+	И ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка.Контрагент &lt;&gt; ЗНАЧЕНИЕ(Справочник.Контрагенты.ПустаясСылка)
+{ГДЕ
+	ПриходныйКассовыйОрдерРасшифровкаПлатежа.Организация.* КАК Организации,
+	ПриходныйКассовыйОрдерРасшифровкаПлатежа.Ссылка.* КАК Оплаты,
+	ПриходныйКассовыйОрдерРасшифровкаПлатежа.Подразделение.* КАК Подразделения}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка,
+	ВЫБОР
+		КОГДА &amp;ВыгружатьВсеДокументы
+			ТОГДА ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Заказ
+		ИНАЧЕ ВЫБОР
+				КОГДА ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; """"
+					ТОГДА ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Заказ
+				ИНАЧЕ NULL
+			КОНЕЦ
+	КОНЕЦ,
+	"Оплата"
+ИЗ
+	Документ.ОперацияПоПлатежнойКарте.РасшифровкаПлатежа КАК ОперацияПоПлатежнойКартеРасшифровкаПлатежа
+ГДЕ
+	ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка.Дата &gt;= &amp;ТочкаАктуальностиДокументов
+	И ВЫБОР
+			КОГДА &amp;ПолнаяВыгрузка
+				ТОГДА ИСТИНА
+			ИНАЧЕ ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка В
+					(ВЫБРАТЬ
+						ОперацияПоПлатежнойКартеИзменения.Ссылка
+					ИЗ
+						Документ.ОперацияПоПлатежнойКарте.Изменения КАК ОперацияПоПлатежнойКартеИзменения
+					ГДЕ
+						ОперацияПоПлатежнойКартеИзменения.Узел = &amp;Узел)
+		КОНЕЦ
+	И ВЫБОР
+			КОГДА &amp;ВыгружатьВсеДокументы
+				ТОГДА ИСТИНА
+			ИНАЧЕ ВЫБОР
+					КОГДА ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка.Б_Идентификатор &lt;&gt; ""
+							ИЛИ ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; ""
+						ТОГДА ИСТИНА
+					ИНАЧЕ ЛОЖЬ
+				КОНЕЦ
+		КОНЕЦ
+	И ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка.Контрагент &lt;&gt; ЗНАЧЕНИЕ(Справочник.Контрагенты.ПустаясСылка)
+{ГДЕ
+	ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка.Организация.* КАК Организации,
+	ОперацияПоПлатежнойКартеРасшифровкаПлатежа.Ссылка.* КАК Оплаты}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка,
+	ВЫБОР
+		КОГДА &amp;ВыгружатьВсеДокументы
+			ТОГДА ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Заказ
+		ИНАЧЕ ВЫБОР
+				КОГДА ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; """"
+					ТОГДА ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Заказ
+				ИНАЧЕ NULL
+			КОНЕЦ
+	КОНЕЦ,
+	"Оплата"
+ИЗ
+	Документ.ПоступлениеБезналичныхДенежныхСредств.РасшифровкаПлатежа КАК ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа
+ГДЕ
+	ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка.Дата &gt;= &amp;ТочкаАктуальностиДокументов
+	И ВЫБОР
+			КОГДА &amp;ПолнаяВыгрузка
+				ТОГДА ИСТИНА
+			ИНАЧЕ ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка В
+					(ВЫБРАТЬ
+						ПоступлениеБезналичныхДенежныхСредствИзменения.Ссылка
+					ИЗ
+						Документ.ПоступлениеБезналичныхДенежныхСредств.Изменения КАК ПоступлениеБезналичныхДенежныхСредствИзменения
+					ГДЕ
+						ПоступлениеБезналичныхДенежныхСредствИзменения.Узел = &amp;Узел)
+		КОНЕЦ
+	И ВЫБОР
+			КОГДА &amp;ВыгружатьВсеДокументы
+				ТОГДА ИСТИНА
+			ИНАЧЕ ВЫБОР
+					КОГДА ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка.Б_Идентификатор &lt;&gt; ""
+							ИЛИ ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Заказ.Б_Идентификатор &lt;&gt; ""
+						ТОГДА ИСТИНА
+					ИНАЧЕ ЛОЖЬ
+				КОНЕЦ
+		КОНЕЦ
+	И ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка.Контрагент &lt;&gt; ЗНАЧЕНИЕ(Справочник.Контрагенты.ПустаясСылка)
+{ГДЕ
+	ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Организация.* КАК Организации,
+	ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Ссылка.* КАК Оплаты,
+	ПоступлениеБезналичныхДенежныхСредствРасшифровкаПлатежа.Подразделение.* КАК Подразделения}</query>
+	</dataSet>
+	<parameter>
+		<name>ПолнаяВыгрузка</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Полная выгрузка</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>Узел</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Узел</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ВыгружатьВсеДокументы</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Выгружать все документы</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ТочкаАктуальностиДокументов</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Точка актуальности документов</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Объект</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТипОбъекта</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Заказ</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Организации</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.Организации.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>85583352-242e-4eb1-ada0-e46596ae91aa</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Подразделения</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.СтруктураПредприятия.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>1535d3c3-70b2-479c-9c35-6a82afc7db5e</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Оплаты</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Документ.ОперацияПоПлатежнойКарте.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>88797f01-fd8b-4bc7-87e7-63f0a0aa7cf1</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:userSettingID>94139e73-e2c2-4a86-bc35-bdd3ae333bc4</dcsset:userSettingID>
+				<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Отбор</v8:content>
+					</v8:item>
+				</dcsset:userSettingPresentation>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ТочкаАктуальностиДокументов</dcscor:parameter>
+					<dcscor:value xsi:type="xs:dateTime">2000-01-01T00:00:00</dcscor:value>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

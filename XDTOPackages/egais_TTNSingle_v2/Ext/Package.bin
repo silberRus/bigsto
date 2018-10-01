@@ -1,0 +1,94 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/TTNSingle_v2" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ClientRef_v2"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef_v2"/>
+	<valueType name="WbType" base="xs:string" variety="Atomic">
+		<enumeration>WBReturnToMe</enumeration>
+		<enumeration>WBInvoiceToMe</enumeration>
+		<enumeration>WBReturnFromMe</enumeration>
+		<enumeration>WBInvoiceFromMe</enumeration>
+	</valueType>
+	<valueType name="WbUnitType" base="xs:string" variety="Atomic">
+		<enumeration>Packed</enumeration>
+		<enumeration>Unpacked</enumeration>
+	</valueType>
+	<objectType name="PositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="Product" type="d3p1:ProductInfo_v2"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Pack_ID" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Quantity" type="d3p1:PositiveDecimalType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercent" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercentMin" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="alcPercentMax" type="d3p1:AlcPercentType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Price" type="d3p1:NoNegativeDecimalType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Party" type="d3p1:NoEmptyString50" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="InformF1" type="d3p1:InformF1Type" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="InformF2" type="d3p1:InformF2Type" nillable="false"/>
+	</objectType>
+	<objectType name="TransportType" ordered="false" sequenced="true">
+		<property name="TRAN_TYPE" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="50"/>
+		</property>
+		<property name="TRAN_COMPANY" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="TRAN_CAR" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="TRAN_TRAILER" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="TRAN_CUSTOMER" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="TRAN_DRIVER" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="TRAN_LOADPOINT" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2000"/>
+		</property>
+		<property name="TRAN_UNLOADPOINT" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2000"/>
+		</property>
+		<property name="TRAN_REDIRECT" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2000"/>
+		</property>
+		<property name="TRAN_FORWARDER" lowerBound="0">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+	</objectType>
+	<objectType name="WayBillType_v2">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/TTNSingle_v2" name="Type" type="d5p1:WbType" fixed="false" default="WBInvoiceFromMe"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="NUMBER" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Date" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ShippingDate" type="d5p1:DateNoTime" nillable="false"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/TTNSingle_v2" name="Transport" type="d5p1:TransportType" lowerBound="0"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef_v2" name="Shipper" type="d5p1:OrgInfoRus_v2"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ClientRef_v2" name="Consignee" type="d5p1:OrgInfo_v2"/>
+				<property name="Base" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="200"/>
+				</property>
+				<property name="Note" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="200"/>
+				</property>
+				<property name="VarField1" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="100"/>
+				</property>
+				<property name="VarField2" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="100"/>
+				</property>
+				<property name="VarField3" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="100"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/TTNSingle_v2" name="Position" type="d5p1:PositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

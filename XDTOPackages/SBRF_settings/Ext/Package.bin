@@ -1,0 +1,67 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://1c-sbrf.ru/XMLSchema">
+	<property xmlns:d2p1="http://1c-sbrf.ru/XMLSchema" name="Settings" type="d2p1:Settings"/>
+	<objectType name="Settings">
+		<property name="id" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="formatVersion" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="10"/>
+		</property>
+		<property name="creationDate" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="userAgent" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="Customer">
+			<typeDef xsi:type="ObjectType">
+				<property name="CustomerID">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="50"/>
+				</property>
+				<property name="Name" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="160"/>
+				</property>
+				<property name="INN">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="10" maxLength="12"/>
+				</property>
+				<property name="KPP" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="9"/>
+				</property>
+				<property name="Account" lowerBound="0" upperBound="-1">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="20"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Bank">
+			<typeDef xsi:type="ObjectType">
+				<property name="BIC">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" length="9"/>
+				</property>
+				<property name="Name" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="160"/>
+				</property>
+				<property name="Branch" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="160"/>
+				</property>
+				<property name="City" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="30"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="VersionDataFormat">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="10"/>
+		</property>
+		<property name="SignatureParameters">
+			<typeDef xsi:type="ObjectType">
+				<property name="BankCertificate" type="xs:base64Binary" lowerBound="0"/>
+				<property name="Certificate" type="xs:base64Binary" upperBound="-1"/>
+				<property name="DigestVersion" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="10"/>
+				</property>
+				<property name="AddIn" lowerBound="0">
+					<typeDef xsi:type="ObjectType">
+						<property name="formatVersion" lowerBound="0" form="Attribute">
+							<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="10"/>
+						</property>
+						<property name="__content" type="xs:string" form="Text"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Label" type="xs:string" lowerBound="0"/>
+	</objectType>
+</package>

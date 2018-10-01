@@ -1,0 +1,635 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="UniversalPaymentGate" targetNamespace="http://upg.sbns.bssys.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://upg.sbns.bssys.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://upg.sbns.bssys.com/" version="1.0" xmlns:tns="http://upg.sbns.bssys.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="changePassword" type="tns:changePassword"/>
+<xs:element name="changePasswordResponse" type="tns:changePasswordResponse"/>
+<xs:element name="getRequestStatus" type="tns:getRequestStatus"/>
+<xs:element name="getRequestStatusResponse" type="tns:getRequestStatusResponse"/>
+<xs:element name="getRequestStatusSRP" type="tns:getRequestStatusSRP"/>
+<xs:element name="getRequestStatusSRPResponse" type="tns:getRequestStatusSRPResponse"/>
+<xs:element name="getResponsePart" type="tns:getResponsePart"/>
+<xs:element name="getResponsePartResponse" type="tns:getResponsePartResponse"/>
+<xs:element name="getResponsePartSRP" type="tns:getResponsePartSRP"/>
+<xs:element name="getResponsePartSRPResponse" type="tns:getResponsePartSRPResponse"/>
+<xs:element name="login" type="tns:login"/>
+<xs:element name="loginResponse" type="tns:loginResponse"/>
+<xs:element name="loginSign" type="tns:loginSign"/>
+<xs:element name="loginSignResponse" type="tns:loginSignResponse"/>
+<xs:element name="logout" type="tns:logout"/>
+<xs:element name="logoutResponse" type="tns:logoutResponse"/>
+<xs:element name="preChangePassword" type="tns:preChangePassword"/>
+<xs:element name="preChangePasswordResponse" type="tns:preChangePasswordResponse"/>
+<xs:element name="preLogin" type="tns:preLogin"/>
+<xs:element name="preLoginResponse" type="tns:preLoginResponse"/>
+<xs:element name="preLoginSign" type="tns:preLoginSign"/>
+<xs:element name="preLoginSignResponse" type="tns:preLoginSignResponse"/>
+<xs:element name="sendDocumentReceipts" type="tns:sendDocumentReceipts"/>
+<xs:element name="sendDocumentReceiptsResponse" type="tns:sendDocumentReceiptsResponse"/>
+<xs:element name="sendPcHash" type="tns:sendPcHash"/>
+<xs:element name="sendPcHashResponse" type="tns:sendPcHashResponse"/>
+<xs:element name="sendRequestZip" type="tns:sendRequestZip"/>
+<xs:element name="sendRequestZipResponse" type="tns:sendRequestZipResponse"/>
+<xs:element name="sendRequests" type="tns:sendRequests"/>
+<xs:element name="sendRequestsResponse" type="tns:sendRequestsResponse"/>
+<xs:element name="sendRequestsSRP" type="tns:sendRequestsSRP"/>
+<xs:element name="sendRequestsSRPResponse" type="tns:sendRequestsSRPResponse"/>
+<xs:element name="verifySMSSession" type="tns:verifySMSSession"/>
+<xs:element name="verifySMSSessionResponse" type="tns:verifySMSSessionResponse"/>
+<xs:complexType name="sendRequests">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="requests" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendRequestsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendRequestsSRP">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="requests" type="xs:string"/>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendRequestsSRPResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendDocumentReceipts">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="receipt" type="xs:string"/>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendDocumentReceiptsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="logout">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="logoutResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preLogin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="userLogin" type="xs:string"/>
+      <xs:element minOccurs="0" name="changePassword" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preLoginResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preLoginSign">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="serial" type="xs:string"/>
+      <xs:element minOccurs="0" name="issue" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preLoginSignResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendPcHash">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element minOccurs="0" name="pcHash" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendPcHashResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preChangePassword">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="preChangePasswordResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getResponsePart">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="xs:string"/>
+      <xs:element minOccurs="0" name="part" type="xs:string"/>
+      <xs:element minOccurs="0" name="orgId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getResponsePartResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRequestStatus">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="requests" type="xs:string"/>
+      <xs:element minOccurs="0" name="orgId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRequestStatusResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="loginSign">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element minOccurs="0" name="clientAuthData" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="fraudParams" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="loginSignResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRequestStatusSRP">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="requests" type="xs:string"/>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element minOccurs="0" name="orgId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getRequestStatusSRPResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="login">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="clientAuthData" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="fraudParams" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="loginResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendRequestZip">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="zipRequest" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="orgId" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="customsCardId" type="xs:string"/>
+      <xs:element minOccurs="0" name="customsOperatorId" type="xs:string"/>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="sendRequestZipResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="changePassword">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="newPasswordData" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="changePasswordResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getResponsePartSRP">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="xs:string"/>
+      <xs:element minOccurs="0" name="part" type="xs:string"/>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element minOccurs="0" name="orgId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getResponsePartSRPResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="verifySMSSession">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sessionId" type="xs:string"/>
+      <xs:element minOccurs="0" name="smsCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="verifySMSSessionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sendPcHashResponse">
+    <wsdl:part element="tns:sendPcHashResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequests">
+    <wsdl:part element="tns:sendRequests" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preLoginSign">
+    <wsdl:part element="tns:preLoginSign" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginResponse">
+    <wsdl:part element="tns:loginResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendPcHash">
+    <wsdl:part element="tns:sendPcHash" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendDocumentReceiptsResponse">
+    <wsdl:part element="tns:sendDocumentReceiptsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preChangePassword">
+    <wsdl:part element="tns:preChangePassword" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRequestStatusSRPResponse">
+    <wsdl:part element="tns:getRequestStatusSRPResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logout">
+    <wsdl:part element="tns:logout" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginSign">
+    <wsdl:part element="tns:loginSign" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResponsePart">
+    <wsdl:part element="tns:getResponsePart" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequestsSRP">
+    <wsdl:part element="tns:sendRequestsSRP" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="verifySMSSession">
+    <wsdl:part element="tns:verifySMSSession" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changePasswordResponse">
+    <wsdl:part element="tns:changePasswordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preLogin">
+    <wsdl:part element="tns:preLogin" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preChangePasswordResponse">
+    <wsdl:part element="tns:preChangePasswordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResponsePartSRPResponse">
+    <wsdl:part element="tns:getResponsePartSRPResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="changePassword">
+    <wsdl:part element="tns:changePassword" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preLoginResponse">
+    <wsdl:part element="tns:preLoginResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRequestStatusSRP">
+    <wsdl:part element="tns:getRequestStatusSRP" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendDocumentReceipts">
+    <wsdl:part element="tns:sendDocumentReceipts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequestsSRPResponse">
+    <wsdl:part element="tns:sendRequestsSRPResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="preLoginSignResponse">
+    <wsdl:part element="tns:preLoginSignResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRequestStatusResponse">
+    <wsdl:part element="tns:getRequestStatusResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="verifySMSSessionResponse">
+    <wsdl:part element="tns:verifySMSSessionResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResponsePartResponse">
+    <wsdl:part element="tns:getResponsePartResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequestZipResponse">
+    <wsdl:part element="tns:sendRequestZipResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getResponsePartSRP">
+    <wsdl:part element="tns:getResponsePartSRP" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequestsResponse">
+    <wsdl:part element="tns:sendRequestsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginSignResponse">
+    <wsdl:part element="tns:loginSignResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getRequestStatus">
+    <wsdl:part element="tns:getRequestStatus" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="login">
+    <wsdl:part element="tns:login" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendRequestZip">
+    <wsdl:part element="tns:sendRequestZip" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logoutResponse">
+    <wsdl:part element="tns:logoutResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UniversalPaymentGateSbrf">
+    <wsdl:operation name="sendRequests">
+      <wsdl:input message="tns:sendRequests" name="sendRequests">
+    </wsdl:input>
+      <wsdl:output message="tns:sendRequestsResponse" name="sendRequestsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendRequestsSRP">
+      <wsdl:input message="tns:sendRequestsSRP" name="sendRequestsSRP">
+    </wsdl:input>
+      <wsdl:output message="tns:sendRequestsSRPResponse" name="sendRequestsSRPResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendDocumentReceipts">
+      <wsdl:input message="tns:sendDocumentReceipts" name="sendDocumentReceipts">
+    </wsdl:input>
+      <wsdl:output message="tns:sendDocumentReceiptsResponse" name="sendDocumentReceiptsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <wsdl:input message="tns:logout" name="logout">
+    </wsdl:input>
+      <wsdl:output message="tns:logoutResponse" name="logoutResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preLogin">
+      <wsdl:input message="tns:preLogin" name="preLogin">
+    </wsdl:input>
+      <wsdl:output message="tns:preLoginResponse" name="preLoginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preLoginSign">
+      <wsdl:input message="tns:preLoginSign" name="preLoginSign">
+    </wsdl:input>
+      <wsdl:output message="tns:preLoginSignResponse" name="preLoginSignResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendPcHash">
+      <wsdl:input message="tns:sendPcHash" name="sendPcHash">
+    </wsdl:input>
+      <wsdl:output message="tns:sendPcHashResponse" name="sendPcHashResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preChangePassword">
+      <wsdl:input message="tns:preChangePassword" name="preChangePassword">
+    </wsdl:input>
+      <wsdl:output message="tns:preChangePasswordResponse" name="preChangePasswordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResponsePart">
+      <wsdl:input message="tns:getResponsePart" name="getResponsePart">
+    </wsdl:input>
+      <wsdl:output message="tns:getResponsePartResponse" name="getResponsePartResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestStatus">
+      <wsdl:input message="tns:getRequestStatus" name="getRequestStatus">
+    </wsdl:input>
+      <wsdl:output message="tns:getRequestStatusResponse" name="getRequestStatusResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loginSign">
+      <wsdl:input message="tns:loginSign" name="loginSign">
+    </wsdl:input>
+      <wsdl:output message="tns:loginSignResponse" name="loginSignResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestStatusSRP">
+      <wsdl:input message="tns:getRequestStatusSRP" name="getRequestStatusSRP">
+    </wsdl:input>
+      <wsdl:output message="tns:getRequestStatusSRPResponse" name="getRequestStatusSRPResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="login">
+      <wsdl:input message="tns:login" name="login">
+    </wsdl:input>
+      <wsdl:output message="tns:loginResponse" name="loginResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendRequestZip">
+      <wsdl:input message="tns:sendRequestZip" name="sendRequestZip">
+    </wsdl:input>
+      <wsdl:output message="tns:sendRequestZipResponse" name="sendRequestZipResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changePassword">
+      <wsdl:input message="tns:changePassword" name="changePassword">
+    </wsdl:input>
+      <wsdl:output message="tns:changePasswordResponse" name="changePasswordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResponsePartSRP">
+      <wsdl:input message="tns:getResponsePartSRP" name="getResponsePartSRP">
+    </wsdl:input>
+      <wsdl:output message="tns:getResponsePartSRPResponse" name="getResponsePartSRPResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifySMSSession">
+      <wsdl:input message="tns:verifySMSSession" name="verifySMSSession">
+    </wsdl:input>
+      <wsdl:output message="tns:verifySMSSessionResponse" name="verifySMSSessionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UniversalPaymentGateSoapBinding" type="tns:UniversalPaymentGateSbrf">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sendRequests">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendRequests">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendRequestsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendRequestsSRP">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendRequestsSRP">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendRequestsSRPResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendDocumentReceipts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendDocumentReceipts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendDocumentReceiptsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="logout">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="logoutResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preLogin">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="preLogin">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="preLoginResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preLoginSign">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="preLoginSign">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="preLoginSignResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendPcHash">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendPcHash">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendPcHashResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="preChangePassword">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="preChangePassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="preChangePasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResponsePart">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getResponsePart">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResponsePartResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestStatus">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getRequestStatus">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRequestStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loginSign">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="loginSign">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loginSignResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRequestStatusSRP">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getRequestStatusSRP">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getRequestStatusSRPResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="login">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="login">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loginResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendRequestZip">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sendRequestZip">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sendRequestZipResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changePassword">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="changePassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="changePasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResponsePartSRP">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getResponsePartSRP">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getResponsePartSRPResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifySMSSession">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="verifySMSSession">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="verifySMSSessionResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UniversalPaymentGate">
+    <wsdl:port binding="tns:UniversalPaymentGateSoapBinding" name="UniversalPaymentGateSbrfImplPort">
+      <soap:address location="https://upgsbi.sberbank.ru:9443/sbns-upg/upg"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

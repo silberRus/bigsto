@@ -1,0 +1,2847 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Проверка поступившей алкогольной продукции</v8:content>
+		</v8:item>
+	</Title>
+	<AutoSaveDataInSettings>Use</AutoSaveDataInSettings>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаПеренестиВДокумент" id="75">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ПроверкаЗавершена</CommandName>
+				<ExtendedTooltip name="ФормаПеренестиВДокументРасширеннаяПодсказка" id="76"/>
+			</Button>
+			<Button name="ФормаЗакрыть" id="240">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Close</CommandName>
+				<ExtendedTooltip name="ФормаЗакрытьРасширеннаяПодсказка" id="241"/>
+			</Button>
+			<Button name="ФормаСохранитьПромежуточныеРезультатыПроверки" id="152">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.СохранитьПромежуточныеРезультатыПроверки</CommandName>
+				<ExtendedTooltip name="ФормаСохранитьПромежуточныеРезультатыПроверкиРасширеннаяПодсказка" id="153"/>
+			</Button>
+			<Button name="ДеревоМаркированнойПродукцииНачатьПроверкуЗаново" id="154">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>false</OnlyInAllActions>
+				<CommandName>Form.Command.НачатьПроверкуЗаново</CommandName>
+				<ExtendedTooltip name="ДеревоМаркированнойПродукцииНачатьПроверкуЗановоРасширеннаяПодсказка" id="155"/>
+			</Button>
+			<Button name="ФормаСправка" id="62">
+				<Type>CommandBarButton</Type>
+				<OnlyInAllActions>true</OnlyInAllActions>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="63"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="ExternalEvent">ВнешнееСобытие</Event>
+		<Event name="OnLoadDataFromSettingsAtServer">ПриЗагрузкеДанныхИзНастроекНаСервере</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="OnClose">ПриЗакрытии</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаПроверяемыйДокументРежимПроверки" id="130">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа проверяемый документ режим проверки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа проверяемый документ режим проверки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПроверяемыйДокументРежимПроверкиРасширеннаяПодсказка" id="131"/>
+			<ChildItems>
+				<LabelField name="ПроверяемыйДокумент" id="23">
+					<DataPath>ПроверяемыйДокумент</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В документе</v8:content>
+						</v8:item>
+					</Title>
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Hiperlink>true</Hiperlink>
+					<ContextMenu name="ПроверяемыйДокументКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="ПроверяемыйДокументРасширеннаяПодсказка" id="25"/>
+				</LabelField>
+			</ChildItems>
+		</UsualGroup>
+		<Pages name="СтраницыПродукция" id="26">
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы продукция</v8:content>
+				</v8:item>
+			</ToolTip>
+			<ExtendedTooltip name="СтраницыПродукцияРасширеннаяПодсказка" id="27"/>
+			<ChildItems>
+				<Page name="СтраницаМаркируемая" id="28">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Маркируемая</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница маркируемая</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаМаркируемаяРасширеннаяПодсказка" id="29"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаМаркируемаяКоманднаяПанельТребуетсяПеремаркировать" id="178">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа маркируемая командная панель требуется перемаркировать</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа маркируемая командная панель требуется перемаркировать</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаМаркируемаяКоманднаяПанельТребуетсяПеремаркироватьРасширеннаяПодсказка" id="179"/>
+							<ChildItems>
+								<CommandBar name="ГруппаМаркированнаяКоманднаяПанель" id="180">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа маркированная командная панель</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа маркированная командная панель</v8:content>
+										</v8:item>
+									</ToolTip>
+									<ExtendedTooltip name="ГруппаМаркированнаяКоманднаяПанельРасширеннаяПодсказка" id="181"/>
+									<ChildItems>
+										<Button name="ДеревоМаркированнойПродукцииУказатьШтрихкод" id="60">
+											<Type>CommandBarButton</Type>
+											<CommandName>Form.Command.ПоискПоШтрихкоду</CommandName>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииУказатьШтрихкодРасширеннаяПодсказка" id="61"/>
+										</Button>
+										<Button name="ДеревоМаркированнойПродукцииДобавитьПустуюКоробку" id="99">
+											<Type>CommandBarButton</Type>
+											<CommandName>Form.Command.ДобавитьМаркированнуюУпаковку</CommandName>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииДобавитьПустуюКоробкуРасширеннаяПодсказка" id="100"/>
+										</Button>
+										<Button name="ДеревоМаркированнойПродукцииМаркироватьУпаковку" id="110">
+											<Type>CommandBarButton</Type>
+											<CommandName>Form.Command.МаркироватьУпаковку</CommandName>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииМаркироватьУпаковкуРасширеннаяПодсказка" id="111"/>
+										</Button>
+										<Button name="ПоискНечитаемойАкцизнойМарки" id="244">
+											<Type>CommandBarButton</Type>
+											<CommandName>Form.Command.ПоискНечитаемойАкцизнойМарки</CommandName>
+											<Picture>
+												<xr:Ref>CommonPicture.НечитаемаяАкцизнаяМарка</xr:Ref>
+												<xr:LoadTransparent>true</xr:LoadTransparent>
+											</Picture>
+											<ExtendedTooltip name="ПоискНечитаемойАкцизнойМаркиРасширеннаяПодсказка" id="245"/>
+										</Button>
+										<Popup name="ПодменюСтатусПроверки" id="64">
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Статус проверки</v8:content>
+												</v8:item>
+											</Title>
+											<ToolTip>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Подменю статус проверки</v8:content>
+												</v8:item>
+											</ToolTip>
+											<ExtendedTooltip name="ПодменюСтатусПроверкиРасширеннаяПодсказка" id="65"/>
+											<ChildItems>
+												<Button name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиВНаличии" id="66">
+													<Type>CommandBarButton</Type>
+													<CommandName>Form.Command.УстановитьСтатусПроверкиВНаличии</CommandName>
+													<ExtendedTooltip name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиВНаличииРасширеннаяПодсказка" id="67"/>
+												</Button>
+												<Button name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиОтсутствует" id="68">
+													<Type>CommandBarButton</Type>
+													<CommandName>Form.Command.УстановитьСтатусПроверкиОтсутствует</CommandName>
+													<ExtendedTooltip name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиОтсутствуетРасширеннаяПодсказка" id="69"/>
+												</Button>
+												<Button name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиОтложена" id="94">
+													<Type>CommandBarButton</Type>
+													<CommandName>Form.Command.УстановитьСтатусПроверкиОтложена</CommandName>
+													<ExtendedTooltip name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиОтложенаРасширеннаяПодсказка" id="95"/>
+												</Button>
+												<Button name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиНеПроверялась" id="70">
+													<Type>CommandBarButton</Type>
+													<CommandName>Form.Command.УстановитьСтатусПроверкиНеПроверялась</CommandName>
+													<ExtendedTooltip name="ДеревоМаркированнойПродукцииУстановитьСтатусПроверкиНеПроверяласьРасширеннаяПодсказка" id="71"/>
+												</Button>
+											</ChildItems>
+										</Popup>
+										<Button name="ДеревоМаркированнойПродукцииСкрытьПроверенные" id="132">
+											<Type>CommandBarButton</Type>
+											<CommandName>Form.Command.СкрытьПроверенные</CommandName>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииСкрытьПроверенныеРасширеннаяПодсказка" id="133"/>
+										</Button>
+									</ChildItems>
+								</CommandBar>
+								<Pages name="СтраницыПеремаркировка" id="182">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Страницы перемаркировка</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Страницы перемаркировка</v8:content>
+										</v8:item>
+									</ToolTip>
+									<PagesRepresentation>None</PagesRepresentation>
+									<ExtendedTooltip name="СтраницыПеремаркировкаРасширеннаяПодсказка" id="183"/>
+									<ChildItems>
+										<Page name="СтраницаТребуетсяПеремаркировка" id="184">
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страница требуется перемаркировка</v8:content>
+												</v8:item>
+											</Title>
+											<ToolTip>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страница требуется перемаркировка</v8:content>
+												</v8:item>
+											</ToolTip>
+											<Group>Horizontal</Group>
+											<ExtendedTooltip name="СтраницаТребуетсяПеремаркировкаРасширеннаяПодсказка" id="185"/>
+											<ChildItems>
+												<PictureDecoration name="КартинкаИнформацияТребуетсяПеремаркировка" id="191">
+													<AutoMaxWidth>false</AutoMaxWidth>
+													<Height>1</Height>
+													<HorizontalStretch>false</HorizontalStretch>
+													<Picture>
+														<xr:Ref>CommonPicture.ВниманиеКрасный</xr:Ref>
+														<xr:LoadTransparent>true</xr:LoadTransparent>
+													</Picture>
+													<ContextMenu name="КартинкаИнформацияТребуетсяПеремаркировкаКонтекстноеМеню" id="192"/>
+													<ExtendedTooltip name="КартинкаИнформацияТребуетсяПеремаркировкаРасширеннаяПодсказка" id="193"/>
+												</PictureDecoration>
+												<LabelDecoration name="ДекорацияИнформацияТребуетсяПеремаркировка" id="194">
+													<ContextMenu name="ДекорацияИнформацияТребуетсяПеремаркировкаКонтекстноеМеню" id="195"/>
+													<ExtendedTooltip name="ДекорацияИнформацияТребуетсяПеремаркировкаРасширеннаяПодсказка" id="196"/>
+													<Events>
+														<Event name="URLProcessing">ДекорацияИнформацияТребуетсяПеремаркировкаОбработкаНавигационнойСсылки</Event>
+													</Events>
+												</LabelDecoration>
+											</ChildItems>
+										</Page>
+										<Page name="СтраницаНеТребуетсяПеремаркировка" id="186">
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страница не требуется перемаркировка</v8:content>
+												</v8:item>
+											</Title>
+											<ToolTip>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страница не требуется перемаркировка</v8:content>
+												</v8:item>
+											</ToolTip>
+											<ExtendedTooltip name="СтраницаНеТребуетсяПеремаркировкаРасширеннаяПодсказка" id="187"/>
+											<ChildItems>
+												<LabelDecoration name="ДекорацияПустаяНеТребуетсяПеремаркировка" id="188">
+													<ContextMenu name="ДекорацияПустаяНеТребуетсяПеремаркировкаКонтекстноеМеню" id="189"/>
+													<ExtendedTooltip name="ДекорацияПустаяНеТребуетсяПеремаркировкаРасширеннаяПодсказка" id="190"/>
+												</LabelDecoration>
+											</ChildItems>
+										</Page>
+									</ChildItems>
+								</Pages>
+							</ChildItems>
+						</UsualGroup>
+						<Table name="ДеревоМаркированнойПродукции" id="1">
+							<Representation>Tree</Representation>
+							<DataPath>ДеревоМаркированнойПродукции</DataPath>
+							<CommandSet>
+								<ExcludedCommand>Add</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+							</CommandSet>
+							<ContextMenu name="ДеревоМаркированнойПродукцииКонтекстноеМеню" id="2"/>
+							<AutoCommandBar name="ДеревоМаркированнойПродукцииКоманднаяПанель" id="3">
+								<Autofill>false</Autofill>
+							</AutoCommandBar>
+							<ExtendedTooltip name="ДеревоМаркированнойПродукцииРасширеннаяПодсказка" id="4"/>
+							<SearchStringAddition name="ДеревоМаркированнойПродукцииСтрокаПоиска" id="5">
+								<AdditionSource>
+									<Item>ДеревоМаркированнойПродукции</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ДеревоМаркированнойПродукцииСтрокаПоискаКонтекстноеМеню" id="6"/>
+								<ExtendedTooltip name="ДеревоМаркированнойПродукцииСтрокаПоискаРасширеннаяПодсказка" id="7"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ДеревоМаркированнойПродукцииСостояниеПросмотра" id="8">
+								<AdditionSource>
+									<Item>ДеревоМаркированнойПродукции</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ДеревоМаркированнойПродукцииСостояниеПросмотраКонтекстноеМеню" id="9"/>
+								<ExtendedTooltip name="ДеревоМаркированнойПродукцииСостояниеПросмотраРасширеннаяПодсказка" id="10"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ДеревоМаркированнойПродукцииУправлениеПоиском" id="11">
+								<AdditionSource>
+									<Item>ДеревоМаркированнойПродукции</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ДеревоМаркированнойПродукцииУправлениеПоискомКонтекстноеМеню" id="12"/>
+								<ExtendedTooltip name="ДеревоМаркированнойПродукцииУправлениеПоискомРасширеннаяПодсказка" id="13"/>
+							</SearchControlAddition>
+							<Events>
+								<Event name="BeforeAddRow">ДеревоМаркированнойПродукцииПередНачаломДобавления</Event>
+								<Event name="BeforeDeleteRow">ДеревоМаркированнойПродукцииПередУдалением</Event>
+								<Event name="OnActivateRow">ДеревоМаркированнойПродукцииПриАктивизацииСтроки</Event>
+								<Event name="AfterDeleteRow">ДеревоМаркированнойПродукцииПослеУдаления</Event>
+							</Events>
+							<ChildItems>
+								<ColumnGroup name="ДеревоМаркированнойПродукцииГруппаШтрихкод" id="84">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дерево маркированной продукции группа Штрихкод</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дерево маркированной продукции группа Штрихкод</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>InCell</Group>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииГруппаШтрихкодРасширеннаяПодсказка" id="85"/>
+									<ChildItems>
+										<PictureField name="ДеревоМаркированнойПродукцииИндексКартинкиШтрихкод" id="86">
+											<DataPath>ДеревоМаркированнойПродукции.ИндексКартинкиШтрихкод</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<EditMode>EnterOnInput</EditMode>
+											<MaxWidth>16</MaxWidth>
+											<ValuesPicture>
+												<xr:Ref>CommonPicture.ПроверкаНаличияАлкогольнойПродукцииЕГАИС</xr:Ref>
+												<xr:LoadTransparent>true</xr:LoadTransparent>
+											</ValuesPicture>
+											<ContextMenu name="ДеревоМаркированнойПродукцииИндексКартинкиШтрихкодКонтекстноеМеню" id="87"/>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииИндексКартинкиШтрихкодРасширеннаяПодсказка" id="88"/>
+										</PictureField>
+										<InputField name="ДеревоМаркированнойПродукцииПредставлениеСодержимоеУпаковки" id="96">
+											<DataPath>ДеревоМаркированнойПродукции.ПредставлениеСодержимоеУпаковки</DataPath>
+											<ReadOnly>true</ReadOnly>
+											<EditMode>EnterOnInput</EditMode>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<MaxWidth>25</MaxWidth>
+											<ContextMenu name="ДеревоМаркированнойПродукцииПредставлениеСодержимоеУпаковкиКонтекстноеМеню" id="97"/>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииПредставлениеСодержимоеУпаковкиРасширеннаяПодсказка" id="98"/>
+										</InputField>
+									</ChildItems>
+								</ColumnGroup>
+								<ColumnGroup name="ДеревоМаркированнойПродукцииГруппаСтатусПроверки" id="89">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дерево маркированной продукции группа статус проверки</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дерево маркированной продукции группа статус проверки</v8:content>
+										</v8:item>
+									</ToolTip>
+									<HorizontalStretch>true</HorizontalStretch>
+									<Group>InCell</Group>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииГруппаСтатусПроверкиРасширеннаяПодсказка" id="90"/>
+									<ChildItems>
+										<PictureField name="ДеревоМаркированнойПродукцииИндексКартинкиСтатусПроверки" id="91">
+											<DataPath>ДеревоМаркированнойПродукции.ИндексКартинкиСтатусПроверки</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<EditMode>EnterOnInput</EditMode>
+											<ValuesPicture>
+												<xr:Ref>CommonPicture.СтатусыПроверкиНаличияЕГАИС</xr:Ref>
+												<xr:LoadTransparent>true</xr:LoadTransparent>
+											</ValuesPicture>
+											<ContextMenu name="ДеревоМаркированнойПродукцииИндексКартинкиСтатусПроверкиКонтекстноеМеню" id="92"/>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииИндексКартинкиСтатусПроверкиРасширеннаяПодсказка" id="93"/>
+										</PictureField>
+										<InputField name="ДеревоМаркированнойПродукцииСтатусПроверки" id="17">
+											<DataPath>ДеревоМаркированнойПродукции.СтатусПроверки</DataPath>
+											<EditMode>EnterOnInput</EditMode>
+											<ListChoiceMode>true</ListChoiceMode>
+											<ChooseType>false</ChooseType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation/>
+														<Value xsi:type="xr:DesignTimeRef">Enum.СтатусыПроверкиНаличияАлкогольнойПродукции.EnumValue.НеПроверялась</Value>
+													</xr:Value>
+												</xr:Item>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation/>
+														<Value xsi:type="xr:DesignTimeRef">Enum.СтатусыПроверкиНаличияАлкогольнойПродукции.EnumValue.ВНаличии</Value>
+													</xr:Value>
+												</xr:Item>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation/>
+														<Value xsi:type="xr:DesignTimeRef">Enum.СтатусыПроверкиНаличияАлкогольнойПродукции.EnumValue.Отсутствует</Value>
+													</xr:Value>
+												</xr:Item>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation/>
+														<Value xsi:type="xr:DesignTimeRef">Enum.СтатусыПроверкиНаличияАлкогольнойПродукции.EnumValue.Отложена</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ДеревоМаркированнойПродукцииСтатусПроверкиКонтекстноеМеню" id="18"/>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииСтатусПроверкиРасширеннаяПодсказка" id="19"/>
+											<Events>
+												<Event name="OnChange">ДеревоМаркированнойПродукцииСтатусПроверкиПриИзменении</Event>
+												<Event name="ChoiceProcessing">ДеревоМаркированнойПродукцииСтатусПроверкиОбработкаВыбора</Event>
+											</Events>
+										</InputField>
+										<InputField name="ДеревоМаркированнойПродукцииНомерСтикераОтложено" id="107">
+											<DataPath>ДеревоМаркированнойПродукции.НомерСтикераОтложено</DataPath>
+											<EditMode>EnterOnInput</EditMode>
+											<ShowInHeader>false</ShowInHeader>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<MaxWidth>15</MaxWidth>
+											<ContextMenu name="ДеревоМаркированнойПродукцииНомерСтикераОтложеноКонтекстноеМеню" id="108"/>
+											<ExtendedTooltip name="ДеревоМаркированнойПродукцииНомерСтикераОтложеноРасширеннаяПодсказка" id="109"/>
+										</InputField>
+									</ChildItems>
+								</ColumnGroup>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеПроверялось" id="143">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхНеПроверялось</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.ПроверкаНаличияНеВыполняласьЕГАИС</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеПроверялосьКонтекстноеМеню" id="144"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеПроверялосьРасширеннаяПодсказка" id="145"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВНаличии" id="137">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхВНаличии</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.УспешнаяПроверкаНаличияЕГАИС</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВНаличииКонтекстноеМеню" id="138"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВНаличииРасширеннаяПодсказка" id="139"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтсутствует" id="140">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхОтсутствует</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.НеудачнаяПровекаНаличияЕГАИС</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<TextColor>style:ЦветТекстаПроблемаЕГАИС</TextColor>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтсутствуетКонтекстноеМеню" id="141"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтсутствуетРасширеннаяПодсказка" id="142"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтложено" id="175">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхОтложено</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.ОтложенаПриПроверкеНаличияЕГАИС</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<TextColor>style:ЦветТекстаОтложенаПриПроверке</TextColor>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтложеноКонтекстноеМеню" id="176"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхОтложеноРасширеннаяПодсказка" id="177"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеЧислилось" id="146">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхНеЧислилось</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<ShowInHeader>false</ShowInHeader>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.НеЧислиласьОбнаруженаПриПроверкеЕГАИС</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеЧислилосьКонтекстноеМеню" id="147"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхНеЧислилосьРасширеннаяПодсказка" id="148"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВсего" id="149">
+									<DataPath>ДеревоМаркированнойПродукции.КоличествоПодчиненныхВсего</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<TitleLocation>None</TitleLocation>
+									<EditMode>EnterOnInput</EditMode>
+									<HeaderPicture>
+										<xr:Ref>CommonPicture.Сумма</xr:Ref>
+										<xr:LoadTransparent>true</xr:LoadTransparent>
+									</HeaderPicture>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>4</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВсегоКонтекстноеМеню" id="150"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииКоличествоПодчиненныхВсегоРасширеннаяПодсказка" id="151"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииПредставлениеПроверкиПодчиненных" id="20">
+									<DataPath>ДеревоМаркированнойПродукции.ПредставлениеПроверкиПодчиненных</DataPath>
+									<UserVisible>
+										<xr:Common>false</xr:Common>
+									</UserVisible>
+									<ReadOnly>true</ReadOnly>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Проверка содержимого</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<ContextMenu name="ДеревоМаркированнойПродукцииПредставлениеПроверкиПодчиненныхКонтекстноеМеню" id="21"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииПредставлениеПроверкиПодчиненныхРасширеннаяПодсказка" id="22"/>
+								</InputField>
+								<InputField name="ДеревоМаркированнойПродукцииПредставление" id="14">
+									<DataPath>ДеревоМаркированнойПродукции.Представление</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Штрихкод</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="ДеревоМаркированнойПродукцииПредставлениеКонтекстноеМеню" id="15"/>
+									<ExtendedTooltip name="ДеревоМаркированнойПродукцииПредставлениеРасширеннаяПодсказка" id="16"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+						<UsualGroup name="ГруппаПодвалМаркируемая" id="125">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа подвал маркируемая</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа подвал маркируемая</v8:content>
+								</v8:item>
+							</ToolTip>
+							<HorizontalStretch>true</HorizontalStretch>
+							<Group>Vertical</Group>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаПодвалМаркируемаяРасширеннаяПодсказка" id="126"/>
+							<ChildItems>
+								<UsualGroup name="ГруппаПредставлениеПроверкиПодчиненных" id="170">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа представление проверки подчиненных</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа представление проверки подчиненных</v8:content>
+										</v8:item>
+									</ToolTip>
+									<HorizontalStretch>true</HorizontalStretch>
+									<Group>Horizontal</Group>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаПредставлениеПроверкиПодчиненныхРасширеннаяПодсказка" id="171"/>
+									<ChildItems>
+										<LabelField name="ПредставлениеРежимаПроверки" id="127">
+											<DataPath>ПредставлениеРежимаПроверки</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<GroupHorizontalAlign>Left</GroupHorizontalAlign>
+											<Width>60</Width>
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<MaxWidth>70</MaxWidth>
+											<HorizontalStretch>true</HorizontalStretch>
+											<ContextMenu name="ПредставлениеРежимаПроверкиКонтекстноеМеню" id="128"/>
+											<ExtendedTooltip name="ПредставлениеРежимаПроверкиРасширеннаяПодсказка" id="129"/>
+											<Events>
+												<Event name="URLProcessing">ПредставлениеРежимаПроверкиОбработкаНавигационнойСсылки</Event>
+											</Events>
+										</LabelField>
+										<Pages name="СтраницыПредставлениеПроверкиПодчиненных" id="159">
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страницы представление проверки подчиненных</v8:content>
+												</v8:item>
+											</Title>
+											<ToolTip>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>Страницы представление проверки подчиненных</v8:content>
+												</v8:item>
+											</ToolTip>
+											<HorizontalStretch>false</HorizontalStretch>
+											<GroupHorizontalAlign>Right</GroupHorizontalAlign>
+											<PagesRepresentation>None</PagesRepresentation>
+											<ExtendedTooltip name="СтраницыПредставлениеПроверкиПодчиненныхРасширеннаяПодсказка" id="160"/>
+											<ChildItems>
+												<Page name="СтраницаПредставлениеПроверкиПодчиненныхКрасный" id="161">
+													<Title>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных красный</v8:content>
+														</v8:item>
+													</Title>
+													<ToolTip>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных красный</v8:content>
+														</v8:item>
+													</ToolTip>
+													<HorizontalStretch>true</HorizontalStretch>
+													<ExtendedTooltip name="СтраницаПредставлениеПроверкиПодчиненныхКрасныйРасширеннаяПодсказка" id="162"/>
+													<ChildItems>
+														<LabelField name="ВыводимоеПредставлениеПроверкиСодержимогоКрасный" id="167">
+															<DataPath>ВыводимоеПредставлениеПроверкиСодержимого</DataPath>
+															<TitleLocation>None</TitleLocation>
+															<HorizontalAlign>Right</HorizontalAlign>
+															<GroupHorizontalAlign>Right</GroupHorizontalAlign>
+															<AutoMaxWidth>false</AutoMaxWidth>
+															<TextColor>style:ЦветТекстаТребуетВниманияГИСМ</TextColor>
+															<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+															<ContextMenu name="ВыводимоеПредставлениеПроверкиСодержимогоКрасныйКонтекстноеМеню" id="168"/>
+															<ExtendedTooltip name="ВыводимоеПредставлениеПроверкиСодержимогоКрасныйРасширеннаяПодсказка" id="169"/>
+														</LabelField>
+													</ChildItems>
+												</Page>
+												<Page name="СтраницаПредставлениеПроверкиПодчиненныхЖелтый" id="163">
+													<Title>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных желтый</v8:content>
+														</v8:item>
+													</Title>
+													<ToolTip>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных желтый</v8:content>
+														</v8:item>
+													</ToolTip>
+													<HorizontalStretch>true</HorizontalStretch>
+													<HorizontalAlign>Right</HorizontalAlign>
+													<ExtendedTooltip name="СтраницаПредставлениеПроверкиПодчиненныхЖелтыйРасширеннаяПодсказка" id="164"/>
+													<ChildItems>
+														<LabelField name="ВыводимоеПредставлениеПроверкиСодержимогоЖелтый" id="156">
+															<DataPath>ВыводимоеПредставлениеПроверкиСодержимого</DataPath>
+															<TitleLocation>None</TitleLocation>
+															<HorizontalAlign>Right</HorizontalAlign>
+															<AutoMaxWidth>false</AutoMaxWidth>
+															<TextColor>style:ЦветТекстаОтложенаПриПроверке</TextColor>
+															<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+															<ContextMenu name="ВыводимоеПредставлениеПроверкиСодержимогоЖелтыйКонтекстноеМеню" id="157"/>
+															<ExtendedTooltip name="ВыводимоеПредставлениеПроверкиСодержимогоЖелтыйРасширеннаяПодсказка" id="158"/>
+														</LabelField>
+													</ChildItems>
+												</Page>
+												<Page name="СтраницаПредставлениеПроверкиПодчиненныхАвто" id="165">
+													<Title>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных красный</v8:content>
+														</v8:item>
+													</Title>
+													<ToolTip>
+														<v8:item>
+															<v8:lang>ru</v8:lang>
+															<v8:content>Страница представление проверки подчиненных красный</v8:content>
+														</v8:item>
+													</ToolTip>
+													<ExtendedTooltip name="СтраницаПредставлениеПроверкиПодчиненныхАвтоРасширеннаяПодсказка" id="166"/>
+													<ChildItems>
+														<LabelField name="ВыводимоеПредставлениеПроверкиСодержимогоАвто" id="172">
+															<DataPath>ВыводимоеПредставлениеПроверкиСодержимого</DataPath>
+															<TitleLocation>None</TitleLocation>
+															<HorizontalAlign>Right</HorizontalAlign>
+															<AutoMaxWidth>false</AutoMaxWidth>
+															<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+															<ContextMenu name="ВыводимоеПредставлениеПроверкиСодержимогоАвтоКонтекстноеМеню" id="173"/>
+															<ExtendedTooltip name="ВыводимоеПредставлениеПроверкиСодержимогоАвтоРасширеннаяПодсказка" id="174"/>
+														</LabelField>
+													</ChildItems>
+												</Page>
+											</ChildItems>
+										</Pages>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+						<LabelDecoration name="ДекорацияИтогоПоМаркированнойПродукции" id="72">
+							<Visible>false</Visible>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<HorizontalStretch>true</HorizontalStretch>
+							<GroupHorizontalAlign>Right</GroupHorizontalAlign>
+							<ContextMenu name="ДекорацияИтогоПоМаркированнойПродукцииКонтекстноеМеню" id="73"/>
+							<ExtendedTooltip name="ДекорацияИтогоПоМаркированнойПродукцииРасширеннаяПодсказка" id="74"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаНеМаркируемая" id="30">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Партионная</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница не маркируемая</v8:content>
+						</v8:item>
+					</ToolTip>
+					<TitleDataPath>КоличествоСтрокНеМаркируемойПродукции</TitleDataPath>
+					<ExtendedTooltip name="СтраницаНеМаркируемаяРасширеннаяПодсказка" id="31"/>
+					<ChildItems>
+						<Button name="ПоискПоШтрихкодуНеМаркируемая" id="238">
+							<Type>UsualButton</Type>
+							<Representation>Picture</Representation>
+							<CommandName>Form.Command.ПоискПоШтрихкоду</CommandName>
+							<ExtendedTooltip name="ПоискПоШтрихкодуНеМаркируемаяРасширеннаяПодсказка" id="239"/>
+						</Button>
+						<Table name="ТаблицаНеМаркируемойПродукции" id="32">
+							<Representation>List</Representation>
+							<Width>200</Width>
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<EnableStartDrag>true</EnableStartDrag>
+							<EnableDrag>true</EnableDrag>
+							<DataPath>ТаблицаНеМаркируемойПродукции</DataPath>
+							<CommandSet>
+								<ExcludedCommand>Add</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>Delete</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+							</CommandSet>
+							<RowFilter xsi:nil="true"/>
+							<ContextMenu name="ТаблицаНеМаркируемойПродукцииКонтекстноеМеню" id="33"/>
+							<AutoCommandBar name="ТаблицаНеМаркируемойПродукцииКоманднаяПанель" id="34">
+								<Autofill>false</Autofill>
+							</AutoCommandBar>
+							<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииРасширеннаяПодсказка" id="35"/>
+							<SearchStringAddition name="ТаблицаНеМаркируемойПродукцииСтрокаПоиска" id="36">
+								<AdditionSource>
+									<Item>ТаблицаНеМаркируемойПродукции</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ТаблицаНеМаркируемойПродукцииСтрокаПоискаКонтекстноеМеню" id="37"/>
+								<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииСтрокаПоискаРасширеннаяПодсказка" id="38"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ТаблицаНеМаркируемойПродукцииСостояниеПросмотра" id="39">
+								<AdditionSource>
+									<Item>ТаблицаНеМаркируемойПродукции</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ТаблицаНеМаркируемойПродукцииСостояниеПросмотраКонтекстноеМеню" id="40"/>
+								<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииСостояниеПросмотраРасширеннаяПодсказка" id="41"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ТаблицаНеМаркируемойПродукцииУправлениеПоиском" id="42">
+								<AdditionSource>
+									<Item>ТаблицаНеМаркируемойПродукции</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ТаблицаНеМаркируемойПродукцииУправлениеПоискомКонтекстноеМеню" id="43"/>
+								<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииУправлениеПоискомРасширеннаяПодсказка" id="44"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<InputField name="ТаблицаНеМаркируемойПродукцииАлкогольнаяПродукция" id="45">
+									<DataPath>ТаблицаНеМаркируемойПродукции.АлкогольнаяПродукция</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>35</MaxWidth>
+									<ContextMenu name="ТаблицаНеМаркируемойПродукцииАлкогольнаяПродукцияКонтекстноеМеню" id="46"/>
+									<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииАлкогольнаяПродукцияРасширеннаяПодсказка" id="47"/>
+								</InputField>
+								<InputField name="ТаблицаНеМаркируемойПродукцииСправка2" id="57">
+									<DataPath>ТаблицаНеМаркируемойПродукции.Справка2</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>30</MaxWidth>
+									<ContextMenu name="ТаблицаНеМаркируемойПродукцииСправка2КонтекстноеМеню" id="58"/>
+									<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииСправка2РасширеннаяПодсказка" id="59"/>
+								</InputField>
+								<InputField name="ТаблицаНеМаркируемойПродукцииКоличествоПоДокументу" id="51">
+									<DataPath>ТаблицаНеМаркируемойПродукции.КоличествоПоДокументу</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>12</MaxWidth>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ТаблицаНеМаркируемойПродукцииКоличествоПоДокументуКонтекстноеМеню" id="52"/>
+									<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииКоличествоПоДокументуРасширеннаяПодсказка" id="53"/>
+								</InputField>
+								<InputField name="ТаблицаНеМаркируемойПродукцииКоличествоФактическое" id="54">
+									<DataPath>ТаблицаНеМаркируемойПродукции.КоличествоФактическое</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>12</MaxWidth>
+									<ContextMenu name="ТаблицаНеМаркируемойПродукцииКоличествоФактическоеКонтекстноеМеню" id="55"/>
+									<ExtendedTooltip name="ТаблицаНеМаркируемойПродукцииКоличествоФактическоеРасширеннаяПодсказка" id="56"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаПодобраннаяПродукция" id="231">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вся подобранная</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница подобранная продукция</v8:content>
+						</v8:item>
+					</ToolTip>
+					<TitleDataPath>КоличествоСтрокПодобраннойАлкогольнойПродукции</TitleDataPath>
+					<ExtendedTooltip name="СтраницаПодобраннаяПродукцияРасширеннаяПодсказка" id="232"/>
+					<ChildItems>
+						<Table name="АлкогольнаяПродукцияКОпределениюСправок2" id="197">
+							<Representation>Tree</Representation>
+							<AutoInsertNewRow>true</AutoInsertNewRow>
+							<InitialTreeView>ExpandTopLevel</InitialTreeView>
+							<DataPath>АлкогольнаяПродукцияКОпределениюСправок2</DataPath>
+							<CommandSet>
+								<ExcludedCommand>Add</ExcludedCommand>
+								<ExcludedCommand>Change</ExcludedCommand>
+								<ExcludedCommand>Copy</ExcludedCommand>
+								<ExcludedCommand>EndEdit</ExcludedCommand>
+								<ExcludedCommand>HierarchicalList</ExcludedCommand>
+								<ExcludedCommand>List</ExcludedCommand>
+								<ExcludedCommand>MoveDown</ExcludedCommand>
+								<ExcludedCommand>MoveUp</ExcludedCommand>
+								<ExcludedCommand>OutputList</ExcludedCommand>
+								<ExcludedCommand>SelectAll</ExcludedCommand>
+								<ExcludedCommand>ShowMultipleSelection</ExcludedCommand>
+								<ExcludedCommand>ShowRowRearrangement</ExcludedCommand>
+								<ExcludedCommand>SortListAsc</ExcludedCommand>
+								<ExcludedCommand>SortListDesc</ExcludedCommand>
+								<ExcludedCommand>Tree</ExcludedCommand>
+							</CommandSet>
+							<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2КонтекстноеМеню" id="198"/>
+							<AutoCommandBar name="АлкогольнаяПродукцияКОпределениюСправок2КоманднаяПанель" id="199">
+								<ChildItems>
+									<Button name="ПоискПоШтрихкодуПодобранная" id="242">
+										<Type>CommandBarButton</Type>
+										<Representation>Picture</Representation>
+										<CommandName>Form.Command.ПоискПоШтрихкоду</CommandName>
+										<ExtendedTooltip name="ПоискПоШтрихкодуПодобраннаяРасширеннаяПодсказка" id="243"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2РасширеннаяПодсказка" id="200"/>
+							<SearchStringAddition name="АлкогольнаяПродукцияКОпределениюСправок2СтрокаПоиска" id="201">
+								<AdditionSource>
+									<Item>АлкогольнаяПродукцияКОпределениюСправок2</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2СтрокаПоискаКонтекстноеМеню" id="202"/>
+								<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2СтрокаПоискаРасширеннаяПодсказка" id="203"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="АлкогольнаяПродукцияКОпределениюСправок2СостояниеПросмотра" id="204">
+								<AdditionSource>
+									<Item>АлкогольнаяПродукцияКОпределениюСправок2</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2СостояниеПросмотраКонтекстноеМеню" id="205"/>
+								<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2СостояниеПросмотраРасширеннаяПодсказка" id="206"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="АлкогольнаяПродукцияКОпределениюСправок2УправлениеПоиском" id="207">
+								<AdditionSource>
+									<Item>АлкогольнаяПродукцияКОпределениюСправок2</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2УправлениеПоискомКонтекстноеМеню" id="208"/>
+								<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2УправлениеПоискомРасширеннаяПодсказка" id="209"/>
+							</SearchControlAddition>
+							<Events>
+								<Event name="BeforeAddRow">АлкогольнаяПродукцияКОпределениюСправок2ПередНачаломДобавления</Event>
+								<Event name="BeforeDeleteRow">АлкогольнаяПродукцияКОпределениюСправок2ПередУдалением</Event>
+								<Event name="AfterDeleteRow">АлкогольнаяПродукцияКОпределениюСправок2ПослеУдаления</Event>
+							</Events>
+							<ChildItems>
+								<ColumnGroup name="АлкогольнаяПродукцияКОпределениюСправок2ГруппаИндексМаркиНоменклатура" id="236">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Алкогольная продукция к определению справок2 группа индекс марки номенклатура</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Алкогольная продукция к определению справок2 группа индекс марки номенклатура</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>InCell</Group>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2ГруппаИндексМаркиНоменклатураРасширеннаяПодсказка" id="237"/>
+									<ChildItems>
+										<PictureField name="АлкогольнаяПродукцияКОпределениюСправок2ИндексАкцизнойМарки" id="233">
+											<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.ИндексАкцизнойМарки</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<EditMode>EnterOnInput</EditMode>
+											<ValuesPicture>
+												<xr:Ref>CommonPicture.МаркируемаяАлкогольнаяПродукцияТЧ</xr:Ref>
+												<xr:LoadTransparent>true</xr:LoadTransparent>
+											</ValuesPicture>
+											<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2ИндексАкцизнойМаркиКонтекстноеМеню" id="234"/>
+											<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2ИндексАкцизнойМаркиРасширеннаяПодсказка" id="235"/>
+										</PictureField>
+										<InputField name="АлкогольнаяПродукцияКОпределениюСправок2Номенклатура" id="210">
+											<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.Номенклатура</DataPath>
+											<ReadOnly>true</ReadOnly>
+											<EditMode>EnterOnInput</EditMode>
+											<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2НоменклатураКонтекстноеМеню" id="211"/>
+											<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2НоменклатураРасширеннаяПодсказка" id="212"/>
+										</InputField>
+									</ChildItems>
+								</ColumnGroup>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2Характеристика" id="213">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.Характеристика</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2ХарактеристикаКонтекстноеМеню" id="214"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2ХарактеристикаРасширеннаяПодсказка" id="215"/>
+								</InputField>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2АлкогольнаяПродукция" id="219">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.АлкогольнаяПродукция</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2АлкогольнаяПродукцияКонтекстноеМеню" id="220"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2АлкогольнаяПродукцияРасширеннаяПодсказка" id="221"/>
+								</InputField>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2Серия" id="216">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.Серия</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2СерияКонтекстноеМеню" id="217"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2СерияРасширеннаяПодсказка" id="218"/>
+								</InputField>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2Справка2" id="222">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.Справка2</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2Справка2КонтекстноеМеню" id="223"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2Справка2РасширеннаяПодсказка" id="224"/>
+								</InputField>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2Количество" id="225">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.Количество</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>В документе</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2КоличествоКонтекстноеМеню" id="226"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2КоличествоРасширеннаяПодсказка" id="227"/>
+								</InputField>
+								<InputField name="АлкогольнаяПродукцияКОпределениюСправок2КоличествоРаспределено" id="228">
+									<DataPath>АлкогольнаяПродукцияКОпределениюСправок2.КоличествоРаспределено</DataPath>
+									<ReadOnly>true</ReadOnly>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Подобрано</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<ContextMenu name="АлкогольнаяПродукцияКОпределениюСправок2КоличествоРаспределеноКонтекстноеМеню" id="229"/>
+									<ExtendedTooltip name="АлкогольнаяПродукцияКОпределениюСправок2КоличествоРаспределеноРасширеннаяПодсказка" id="230"/>
+								</InputField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.ПроверкаИПодборАлкогольнойПродукцииЕГАИС</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+		<Attribute name="ДеревоМаркированнойПродукции" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дерево маркированной продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTree</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="СтатусПроверки" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.СтатусыПроверкиНаличияАлкогольнойПродукции</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ПредставлениеПроверкиПодчиненных" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Содержимое упаковки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>250</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ТипУпаковки" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Тип упаковки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.ПрочиеЗоныПересчетаАлкогольнойПродукции</v8:Type>
+						<v8:Type>cfg:EnumRef.ТипыУпаковок</v8:Type>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхУпаковок" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных упаковок</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхВНаличии" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных в наличии</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхОтсутствует" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных отсутствует</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ЗначениеШтрихкода" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Значение штрихкода</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>200</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ВсяУпаковкаПроверена" id="9">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вся упаковка проверена</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ИндексКартинкиШтрихкод" id="11">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Индекс картинки Штрихкод</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ИндексКартинкиСтатусПроверки" id="12">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Индекс картинки статус проверки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ТребуетсяПеремаркировка" id="13">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Требуется перемаркировка</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="АлкогольнаяПродукция" id="14">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Справка2" id="15">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Представление" id="16">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Представление</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>250</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ПредставлениеСодержимоеУпаковки" id="17">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Содержимое</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>60</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхОтложено" id="18">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных отложено</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхБутылок" id="19">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных бутылок</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="НомерСтикераОтложено" id="20">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер стикера отложено</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>30</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="НеСодержитсяВДанныхДокумента" id="21">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Не содержится в данных документа</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="НеСоответствуетОтбору" id="10">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Не соответствует отбору</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ШтрихкодУпаковкиПоДаннымДокумента" id="22">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Штрихкод упаковки по данным документа</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>200</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ИдетПроверкаДаннойУпаковки" id="23">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Идет проверка данной упаковки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхНеЧислилось" id="24">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных не числилось</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхНеПроверялось" id="25">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных не проверялось</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоПодчиненныхВсего" id="26">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество подчиненных всего</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ХешСумма" id="27">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Хеш сумма</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>50</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Номенклатура" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.Номенклатура</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Характеристика" id="28">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристика</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.ХарактеристикаНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Серия" id="29">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Серия</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.СерияНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="ИдентификаторСтроки" id="30">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Идентификатор строки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>36</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ВУпаковкеРазныеСерии" id="31">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В упаковке разные серии</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ВУпаковкеРазнаяНоменклатура" id="32">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В упаковке разная номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ВУпаковкеРазныеХарактеристики" id="33">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В упаковке разные характеристики</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ВУпаковкеРазнаяАлкогольнаяПродукция" id="34">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В упаковке разная алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ВУпаковкеРазныеСправки2" id="35">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>В упаковке разные справки2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ВсеСправки2Указаны" id="36">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Все справки2 указаны</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ПроверяемыйДокумент" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверяемый документ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DocumentRef.ТТНВходящаяЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЧекЕГАИСВозврат</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЧекЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.ТТНИсходящаяЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.АктПостановкиНаБалансЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.АктСписанияЕГАИС</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ТаблицаНеМаркируемойПродукции" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица не маркируемой продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+			<Columns>
+				<Column name="АлкогольнаяПродукция" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="КоличествоПоДокументу" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>По документу</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>3</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоФактическое" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Факт</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>3</v8:FractionDigits>
+							<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="Справка2" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка 2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="КоличествоУпаковокВНаличии" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество упаковок в наличии</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоУпаковокОтсутствует" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество упаковок отсутствует</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоАкцизныхМарокВНаличии" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество акцизных марок в наличии</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоАкцизныхМарокОтсутствует" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество акцизных марок отсутствует</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ЕстьМаркируемая" id="13">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Есть маркируемая</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ЕстьНеМаркируемая" id="14">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Есть не маркируемая</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="СледующийСтикерОтложено" id="17">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Следующий стикер отложено</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПулНеизвестныхАкцизныхМарок" id="18">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пул неизвестных акцизных марок</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="АлкогольнаяПродукция" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Справка2" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Количество" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>3</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СкрытьПроверенные" id="19">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Скрыть проверенные</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РежимПроверки" id="20">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим проверки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:EnumRef.ВариантыПроверкиПоступившейАлкогольнойПродукции</v8:Type>
+			</Type>
+			<Save>
+				<Field>РежимПроверки</Field>
+			</Save>
+		</Attribute>
+		<Attribute name="ПредставлениеРежимаПроверки" id="21">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При выявлении некорректного содержимого</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8ui:FormattedString</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="УпаковкиДокумента" id="22">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Упаковки документа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ДоступныеДляПроверкиУпаковки" id="23">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Доступные для проверки упаковки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИдентификаторТекущейПроверяемойУпаковки" id="24">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор текущей проверяемой упаковки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ДобавленныеУпаковки" id="25">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавленные упаковки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИдентификаторРодителяУдаляемойСтроки" id="26">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор родителя удаляемой строки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ВыполняетсяЗакрытие" id="27">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполняется закрытие</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ВыводимоеПредставлениеПроверкиСодержимого" id="28">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выводимое представление проверки содержимого</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>250</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="АлкогольнаяПродукцияУдаляемойСтроки" id="29">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Алкогольная продукция удаляемой строки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Справка2УдаляемойСтроки" id="30">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Справка2 удаляемой строки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИспользоватьПодключаемоеОборудование" id="31">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать подключаемое оборудование</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПоддерживаемыеТипыПодключаемогоОборудования" id="32">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Поддерживаемые типы подключаемого оборудования</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ТаблицаШтрихкодовНеМаркируемойПродукции" id="33">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица штрихкодов не маркируемой продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Штрихкод" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Штрихкод</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>200</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="АлкогольнаяПродукция" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="АдресПредыдущихШтрихкодов" id="34">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес предыдущих штрихкодов</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>200</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоУпаковокКоторыеНеобходимоПеремаркировать" id="36">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество упаковок которые необходимо перемаркировать</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>0</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="УстановленОтборТребуетсяПеремаркировать" id="37">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установлен отбор требуется перемаркировать</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="УстановленОтбор" id="38">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установлен отбор</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Справки2СопоставленнаяНоменклатура" id="39">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Справки2 сопоставленная номенклатура</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Справка2" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Номенклатура" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.Номенклатура</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Характеристика" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристика</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.ХарактеристикаНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="ТребуетсяОбновитьИнформациюОНеобходимостиПеремаркировки" id="40">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Требуется обновить информацию о необходимости перемаркировки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АдресСоответствиеШтрихкодыИдентификаторыСтрок" id="41">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Адрес соответствие штрихкоды идентификаторы строк</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>200</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="Добавление" id="42">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавление</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РежимПодбораСуществующихУпаковок" id="43">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим подбора существующих упаковок</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ОрганизацияЕГАИС" id="44">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация ЕГАИС</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.КлассификаторОрганизацийЕГАИС</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="АлкогольнаяПродукцияКОпределениюСправок2" id="45">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Алкогольная продукция к определению справок2</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTree</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Номенклатура" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.Номенклатура</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Характеристика" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристика</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.ХарактеристикаНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Серия" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Серия</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.СерияНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="АлкогольнаяПродукция" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Справка2" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка 2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Количество" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="КоличествоРаспределено" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Количество распределено</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="Маркируемая" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Маркируемая</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="ИндексАкцизнойМарки" id="9">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Индекс акцизной марки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="КонтролироватьСканируемуюПродукциюПоДокументуОснованию" id="46">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Контролировать сканируемую продукцию по документу основанию</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроверятьНеобходимостьПеремаркировки" id="47">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверять необходимость перемаркировки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроверитьНеобходимостьПеремаркировкиПриИзмененииСтатусаПроверки" id="48">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверить необходимость перемаркировки при изменении статуса проверки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПроверкаНеПоДокументу" id="49">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверка не по документу</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ТаблицаИзмененийАлкогольнойПродукции" id="51">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица изменений алкогольной продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Номенклатура" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.Номенклатура</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Характеристика" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристика</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.ХарактеристикаНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="Серия" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Серия</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:TypeSet>cfg:DefinedType.СерияНоменклатуры</v8:TypeSet>
+					</Type>
+				</Column>
+				<Column name="АлкогольнаяПродукция" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Алкогольная продукция</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.КлассификаторАлкогольнойПродукцииЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Справка2" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Справка2</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Справки2ЕГАИС</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Изменение" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Изменение</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>10</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ТипУпаковки" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Тип упаковки</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:EnumRef.ТипыУпаковок</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СтатусыДоступныхАкцизныхМарок" id="52">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Статусы доступных акцизных марок</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИдентификаторСтрокиБутылкиБезУпаковки" id="53">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор строки бутылки без упаковки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РежимПросмотра" id="54">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Режим просмотра</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="НачальныйСтатусПроверки" id="56">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Начальный статус проверки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:EnumRef.СтатусыПроверкиНаличияАлкогольнойПродукции</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоСтрокПодобраннойАлкогольнойПродукции" id="57">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество строк подобранной алкогольной продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПриЗавершенииСохранятьРезультатыПроверки" id="58">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При завершении сохранять результаты проверки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоСтрокНеМаркируемойПродукции" id="59">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество строк не маркируемой продукции</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РедактированиеФормыНедоступно" id="60">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Редактирование формы недоступно</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<ConditionalAppearance>
+			<dcsset:item>
+				<dcsset:selection>
+					<dcsset:item>
+						<dcsset:field>ДеревоМаркированнойПродукции</dcsset:field>
+					</dcsset:item>
+				</dcsset:selection>
+				<dcsset:filter>
+					<dcsset:item xsi:type="dcsset:FilterItemComparison">
+						<dcsset:left xsi:type="dcscor:Field">ДеревоМаркированнойПродукции.СтатусПроверки</dcsset:left>
+						<dcsset:comparisonType>Equal</dcsset:comparisonType>
+						<dcsset:right xsi:type="dcscor:DesignTimeValue">Перечисление.СтатусыПроверкиНаличияАлкогольнойПродукции.Отложена</dcsset:right>
+					</dcsset:item>
+				</dcsset:filter>
+				<dcsset:appearance>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>ЦветФона</dcscor:parameter>
+						<dcscor:value xsi:type="v8ui:Color">style:ВыборСтандартногоПериодаФонКнопки</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>Видимость</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+					<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+						<dcscor:parameter>Отображать</dcscor:parameter>
+						<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+					</dcscor:item>
+				</dcsset:appearance>
+			</dcsset:item>
+		</ConditionalAppearance>
+	</Attributes>
+	<Commands>
+		<Command name="ПоискПоШтрихкоду" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Найти по штрих коду</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Поиск по штрих коду</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Shortcut>F7</Shortcut>
+			<Picture>
+				<xr:Ref>CommonPicture.НовыйПоШтрихкоду</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ПоискПоШтрихкодуВыполнить</Action>
+		</Command>
+		<Command name="УстановитьСтатусПроверкиВНаличии" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>В наличии</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить статус проверки в наличии</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.УспешнаяПроверкаНаличияЕГАИС</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УстановитьСтатусПроверкиВНаличии</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="УстановитьСтатусПроверкиОтсутствует" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отсутствует</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить статус проверки отсутствует</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.НеудачнаяПровекаНаличияЕГАИС</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УстановитьСтатусПроверкиОтсутствует</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="УстановитьСтатусПроверкиНеПроверялась" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Не проверялась</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить статус проверки не проверялась</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ПроверкаНаличияНеВыполняласьЕГАИС</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УстановитьСтатусПроверкиНеПроверялась</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ПроверкаЗавершена" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверка завершена</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Проверка завершена</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПроверкаЗавершена</Action>
+		</Command>
+		<Command name="УстановитьСтатусПроверкиОтложена" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отложена</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить статус проверки в наличии</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ОтложенаПриПроверкеНаличияЕГАИС</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УстановитьСтатусПроверкиОтложена</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ДобавитьМаркированнуюУпаковку" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить маркированную упаковку</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить маркированную упаковку</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.ДобавитьМаркированнуюУпаковку</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ДобавитьМаркированнуюУпаковку</Action>
+			<Representation>Picture</Representation>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="СохранитьПромежуточныеРезультатыПроверки" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сохранить промежуточные результаты проверки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сохранить промежуточные результаты проверки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Write</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>СохранитьПромежуточныеРезультатыПроверки</Action>
+			<Representation>Picture</Representation>
+		</Command>
+		<Command name="МаркироватьУпаковку" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Маркировать упаковку</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Маркировать упаковку</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>CommonPicture.МаркироватьУпаковку</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>МаркироватьУпаковку</Action>
+			<Representation>Picture</Representation>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="СкрытьПроверенные" id="10">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Скрыть проверенные</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Скрыть проверенные</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СкрытьПроверенные</Action>
+		</Command>
+		<Command name="НачатьПроверкуЗаново" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Начать проверку заново</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Начать проверку заново</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>НачатьПроверкуЗаново</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ПоискНечитаемойАкцизнойМарки" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Поиск нечитаемой акцизной марки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Поиск нечитаемой акцизной марки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПоискНечитаемойАкцизнойМарки</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="ПроверяемыйДокумент">
+			<Type>
+				<v8:Type>cfg:DocumentRef.ТТНВходящаяЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЧекЕГАИСВозврат</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЧекЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.ТТНИсходящаяЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.АктПостановкиНаБалансЕГАИС</v8:Type>
+				<v8:Type>cfg:DocumentRef.АктСписанияЕГАИС</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="РежимПодбораСуществующихУпаковок">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ОрганизацияЕГАИС">
+			<Type>
+				<v8:Type>cfg:CatalogRef.КлассификаторОрганизацийЕГАИС</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="КонтролироватьСканируемуюПродукциюПоДокументуОснованию">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ПроверятьНеобходимостьПеремаркировки">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="АдресДанныхПроверяемойАлкогольнойПродукции">
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>200</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Parameter>
+		<Parameter name="ПроверкаНеПоДокументу">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="АдресПредварительноСохраненныхРезультатовПроверки">
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>200</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Parameter>
+		<Parameter name="РежимПросмотра">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="НачальныйСтатусПроверки">
+			<Type>
+				<v8:Type>cfg:EnumRef.СтатусыПроверкиНаличияАлкогольнойПродукции</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ПриЗавершенииСохранятьРезультатыПроверки">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="РедактированиеФормыНедоступно">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

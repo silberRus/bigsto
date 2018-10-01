@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DatabaseBackupConfiguration>
+
+	<!-- DB_ID рассчитывается в коде 1С и добавляется к имени архива -->
+	<Database>
+		<DB_ID>dbid</DB_ID>
+		<DBName>dbname</DBName>
+		<DBFolder>c:\db</DBFolder>
+	</Database>
+
+	<Schedule>
+
+		<!-- Настройки расписания - взаимоисключающие, должна быть только одна -->
+
+		<Time>18:01:01</Time>
+		<BackupNow delay="30"/> <!-- в секундах -->
+		<BackupDaily time="18:02:02"/>
+		<BackupDaily time="08:00:01" endTime="23:59:59" repeatHours="3"/> <!-- начинает в указанное время и повторяет каждые 3 часа, остановившись в endTime -->
+		<BackupWeekly time="18:03:03" weekDay="Monday,Wednesday"/> <!-- Список: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday -->
+		<BackupMonthly time="18:04:04" monthDay="1,2,3,4,5,last"/>
+		<BackupMonthly time="18:05:05" every="first" weekDay="Monday"/> <!-- first, second, third, fourth, last --><!-- one week day: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday -->
+
+	</Schedule>
+
+	<!-- Rule for keeping backups -->
+	<RetentionRule>
+		<Daily>5</Daily>
+		<Weekly>3</Weekly>
+		<Monthly>2</Monthly>
+	</RetentionRule>
+
+</DatabaseBackupConfiguration>

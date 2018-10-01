@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ФактыСборкиКомплектующие</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Регистратор</dataPath>
+			<field>Регистратор</field>
+			<role>
+				<dcscom:periodNumber>1</dcscom:periodNumber>
+				<dcscom:periodType>Main</dcscom:periodType>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Период</dataPath>
+			<field>Период</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Период</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Помещение</dataPath>
+			<field>Помещение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Серия</dataPath>
+			<field>Серия</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ФактыСборкиКомплектующие</dataPath>
+			<field>ФактыСборкиКомплектующие</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Факты сборки комплектующие</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Характеристика</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Склад</dataPath>
+			<field>Склад</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Назначение</dataPath>
+			<field>Назначение</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментНоменклатуры</dataPath>
+			<field>СегментНоменклатуры</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент номенклатуры</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	Сегменты.Номенклатура КАК Номенклатура,
+	Сегменты.Характеристика КАК Характеристика,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуНоменклатуры
+ПОМЕСТИТЬ ОтборПоСегментуНоменклатуры
+ИЗ
+	РегистрСведений.НоменклатураСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментНоменклатуры,
+	Сегменты.Номенклатура.* КАК Номенклатура,
+	Сегменты.Характеристика.* КАК Характеристика}
+
+ИНДЕКСИРОВАТЬ ПО
+	Номенклатура,
+	Характеристика
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ВЫБОР &amp;Периодичность
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодНеделя, НЕДЕЛЯ, -&amp;СмещениеПериода)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодДекада, ДЕКАДА, -&amp;СмещениеПериода)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодМесяц, МЕСЯЦ, -&amp;СмещениеПериода)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодКвартал, КВАРТАЛ, -&amp;СмещениеПериода)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодПолугодие, ПОЛУГОДИЕ, -&amp;СмещениеПериода)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+			ТОГДА ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодГод, ГОД, -&amp;СмещениеПериода)
+		ИНАЧЕ ДОБАВИТЬКДАТЕ(ТоварыНаСкладахОбороты.ПериодДень, ДЕНЬ, -&amp;СмещениеПериода)
+	КОНЕЦ КАК Период,
+	ТоварыНаСкладахОбороты.Регистратор,
+	ТоварыНаСкладахОбороты.Номенклатура,
+	ЕСТЬNULL(ТоварыНаСкладахОбороты.Характеристика, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) КАК Характеристика,
+	ВЫБОР СборкаТоваров.Количество
+		КОГДА 0
+			ТОГДА 0
+		ИНАЧЕ ТоварыНаСкладахОбороты.ВНаличииПриход / СборкаТоваров.Количество
+	КОНЕЦ КАК ФактыСборкиКомплектующие,
+	ТоварыНаСкладахОбороты.Назначение КАК Назначение
+ИЗ
+	РегистрНакопления.ТоварыНаСкладах.Обороты(, , Авто, {(Склад = &amp;ОтборСклад), ((Номенклатура, Характеристика) В
+			    (ВЫБРАТЬ
+			        ОтборПоСегментуНоменклатуры.Номенклатура,
+			        ОтборПоСегментуНоменклатуры.Характеристика
+			    ИЗ
+			        ОтборПоСегментуНоменклатуры
+			    ГДЕ
+			        ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры))}) КАК ТоварыНаСкладахОбороты
+		ЛЕВОЕ СОЕДИНЕНИЕ Документ.СборкаТоваров КАК СборкаТоваров
+		ПО ТоварыНаСкладахОбороты.Регистратор = СборкаТоваров.Ссылка
+ГДЕ
+	ВЫБОР
+			КОГДА ТоварыНаСкладахОбороты.Регистратор.ХозяйственнаяОперация = ЗНАЧЕНИЕ(Перечисление.ХозяйственныеОперации.РазборкаТоваров)
+				ТОГДА ТоварыНаСкладахОбороты.ВНаличииПриход &gt; 0
+		КОНЕЦ
+	И ТоварыНаСкладахОбороты.Регистратор ССЫЛКА Документ.СборкаТоваров</query>
+	</dataSet>
+	<totalField>
+		<dataPath>ФактыСборкиКомплектующие</dataPath>
+		<expression>Сумма(ЕстьNull(ФактыСборкиКомплектующие, 0))</expression>
+	</totalField>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+		<expression>ВЫБОР &amp;Периодичность КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "НЕДЕЛЯ", &amp;СмещениеПериода) КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "ДЕКАДА", &amp;СмещениеПериода) КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "МЕСЯЦ", &amp;СмещениеПериода) КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "КВАРТАЛ", &amp;СмещениеПериода) КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "ПОЛУГОДИЕ", &amp;СмещениеПериода) КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Год) ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "ГОД", &amp;СмещениеПериода) ИНАЧЕ ДОБАВИТЬКДАТЕ(&amp;НачалоПериодаСмещения, "ДЕНЬ", &amp;СмещениеПериода) КОНЕЦ</expression>
+	</parameter>
+	<parameter>
+		<name>КонецПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+		<expression>ВЫБОР &amp;Периодичность КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "НЕДЕЛЯ", &amp;СмещениеПериода), "НЕДЕЛЯ") КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Декада) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "ДЕКАДА", &amp;СмещениеПериода), "ДЕКАДА") КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "МЕСЯЦ", &amp;СмещениеПериода), "МЕСЯЦ") КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "КВАРТАЛ", &amp;СмещениеПериода), "КВАРТАЛ") КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Полугодие) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "ПОЛУГОДИЕ", &amp;СмещениеПериода), "ПОЛУГОДИЕ") КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Год) ТОГДА КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "ГОД", &amp;СмещениеПериода), "ГОД") ИНАЧЕ КонецПериода(ДОБАВИТЬКДАТЕ(&amp;КонецПериодаСмещения, "ДЕНЬ", &amp;СмещениеПериода), "ДЕНЬ") КОНЕЦ</expression>
+	</parameter>
+	<parameter>
+		<name>Периодичность</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Периодичность</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.Периодичность</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>СмещениеПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Смещение периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>НачалоПериодаСмещения</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода смещения</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>КонецПериодаСмещения</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец периода смещения</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ОтборСклад</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Отбор склад</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Склады</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуНоменклатуры</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту номенклатуры</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

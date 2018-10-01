@@ -1,0 +1,491 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://v8.1c.ru/news1c/wsTypes">
+	<property xmlns:d2p1="http://v8.1c.ru/news1c/wsTypes" name="version" type="d2p1:version" fixed="true" default="01.00.000.0002" form="Attribute"/>
+	<valueType name="channelPermissions" base="xs:string" variety="Atomic">
+		<enumeration>Чтение</enumeration>
+		<enumeration>Изменение</enumeration>
+		<enumeration>Публикация</enumeration>
+		<enumeration>ОтменаПубликации</enumeration>
+	</valueType>
+	<valueType name="channelRePublishRule" base="xs:string" variety="Atomic">
+		<enumeration>ПовторнаяПубликацияРазрешена</enumeration>
+		<enumeration>ПовторнаяПубликацияЗапрещена</enumeration>
+	</valueType>
+	<valueType name="condition" base="xs:string" variety="Atomic" length="2">
+		<enumeration>eq</enumeration>
+		<enumeration>ne</enumeration>
+		<enumeration>gt</enumeration>
+		<enumeration>ge</enumeration>
+		<enumeration>lt</enumeration>
+		<enumeration>le</enumeration>
+	</valueType>
+	<valueType name="guid" base="xs:string" variety="Atomic" length="36" whiteSpace="collapse">
+		<pattern>[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}</pattern>
+	</valueType>
+	<valueType name="priority" base="xs:byte" variety="Atomic" minInclusive="0" maxInclusive="9" totalDigits="1"/>
+	<valueType name="string_0_100" base="xs:string" variety="Atomic" minLength="0" maxLength="100" whiteSpace="collapse"/>
+	<valueType name="string_0_255" base="xs:string" variety="Atomic" minLength="0" maxLength="255" whiteSpace="collapse"/>
+	<valueType name="string_0_50" base="xs:string" variety="Atomic" minLength="0" maxLength="50" whiteSpace="collapse"/>
+	<valueType name="string_1_100" base="xs:string" variety="Atomic" minLength="1" maxLength="100" whiteSpace="collapse"/>
+	<valueType name="string_1_20" base="xs:string" variety="Atomic" minLength="1" maxLength="20" whiteSpace="collapse"/>
+	<valueType name="string_1_40" base="xs:string" variety="Atomic" minLength="1" maxLength="40" whiteSpace="collapse"/>
+	<valueType name="string_1_50" base="xs:string" variety="Atomic" minLength="1" maxLength="50" whiteSpace="collapse"/>
+	<valueType name="string_1_80" base="xs:string" variety="Atomic" minLength="1" maxLength="80" whiteSpace="collapse"/>
+	<valueType name="version" base="xs:string" variety="Atomic" length="14">
+		<pattern>[0-9]{2}\.[0-9]{2}\.[0-9]{3}\.[0-9]{4}</pattern>
+	</valueType>
+	<objectType name="categoriesListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="category" type="d3p1:categoryType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="categoriesRefListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryRef" type="d3p1:categoryRefType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="categoryType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="updated" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Description" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property name="Comment" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="ValueType" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<enumeration>Строка</enumeration>
+				<enumeration>Число</enumeration>
+				<enumeration>Дата</enumeration>
+				<enumeration>Булево</enumeration>
+				<enumeration>СправочникСсылка.ЗначенияКатегорийНовостей</enumeration>
+				<enumeration>СправочникСсылка.ИнтервалыВерсийПродукта</enumeration>
+			</typeDef>
+		</property>
+		<property name="AutoFill" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="FilterOnServer" type="xs:boolean" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="categoryRefType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Description" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property name="required" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+	</objectType>
+	<objectType name="categoryValueListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryValue" type="d3p1:categoryValueType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="categoryValueType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="updated" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property name="Description" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="100" whiteSpace="collapse"/>
+		</property>
+		<property name="Comment" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="parentGuid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryGuid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="channelListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="channel" type="d3p1:channelType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="channelRefListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="channelRef" type="d3p1:channelRefType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="channelRefType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="rePublishRule" type="d3p1:channelRePublishRule" lowerBound="0" form="Attribute"/>
+	</objectType>
+	<objectType name="channelType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property name="updated" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property name="Description" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Comment" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="alwaysEnabled" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="0" form="Attribute"/>
+		<property name="protocol" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<enumeration>http</enumeration>
+				<enumeration>https</enumeration>
+				<enumeration>ftp</enumeration>
+				<enumeration>file</enumeration>
+			</typeDef>
+		</property>
+		<property name="site" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="file" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="updateRate" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:byte" variety="Atomic" minInclusive="0" maxInclusive="4" totalDigits="1" fractionDigits="0"/>
+		</property>
+		<property name="onlyPlainTextNews" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="newsEnhancedFor1C" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="rePublishRule" type="d3p1:channelRePublishRule" lowerBound="1" form="Attribute"/>
+		<property name="accessInherited" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="languageCode" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="loginRequired" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="isCacheable" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoriesRefList" type="d3p1:categoriesRefListType"/>
+	</objectType>
+	<objectType name="errListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="error" type="d3p1:errType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="errType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" form="Attribute"/>
+		<property name="errCode" type="xs:nonNegativeInteger" form="Attribute"/>
+		<property name="errDescription" type="xs:string" form="Attribute"/>
+	</objectType>
+	<objectType name="eventTemplateType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="name" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="description" type="xs:string"/>
+	</objectType>
+	<objectType name="eventTemplatesListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="eventTemplate" type="d3p1:eventTemplateType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="eventType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="newsActionType">
+		<property name="actionID" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" minLength="1" maxLength="100" whiteSpace="collapse"/>
+		</property>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="action" type="d3p1:string_1_100" lowerBound="1" form="Attribute"/>
+		<property name="parametersList" lowerBound="0">
+			<typeDef xsi:type="ObjectType">
+				<property name="parameter" lowerBound="0" upperBound="-1">
+					<typeDef xsi:type="ObjectType">
+						<property name="name" type="xs:string" lowerBound="1" form="Attribute"/>
+						<property name="value" type="xs:string" lowerBound="1" form="Attribute"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="newsActionsListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="action1C" type="d3p1:newsActionType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsBinaryDataListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="binaryData1C" type="d3p1:newsBinaryDataType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsBinaryDataType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="id" type="d3p1:string_1_100" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="title" type="d3p1:string_0_100" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="1" form="Attribute"/>
+		<property name="order" type="xs:unsignedInt" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="binaryData" type="xs:string"/>
+	</objectType>
+	<objectType name="newsBriefElementType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="publishDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="createDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="expireDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="title" type="d3p1:string_1_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subtitle" type="d3p1:string_0_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="0" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="0" form="Attribute"/>
+		<property name="isDraft" type="xs:boolean" lowerBound="0" form="Attribute"/>
+		<property name="hideInList" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="priority" type="d3p1:priority" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="priorityExpired" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="autoMarkAsRead" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="autoOpenLink" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="content" type="xs:string" lowerBound="0"/>
+		<property name="content1C" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="newsBriefElementsListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="newsBriefElement" type="d3p1:newsBriefElementType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsCategoriesListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="category1C" type="d3p1:newsCategoryType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsCategoriesVersionsListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryVersions1C" type="d3p1:newsCategoryVersionsType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsCategoryType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryGuid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryCode" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property name="categoryValue" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://v8.1c.ru/news1c/wsTypes" xsi:type="ValueType" variety="Union" memberTypes="xs:boolean xs:dateTime d4p1:string_1_100 d4p1:guid xs:decimal"/>
+		</property>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="condition" type="d3p1:condition" lowerBound="0" fixed="false" default="eq" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="description" type="d3p1:string_0_255" form="Attribute"/>
+	</objectType>
+	<objectType name="newsCategoryVersionsType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="productGuid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="productCode" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryGuid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryCode" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="versionFrom" type="d3p1:version" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="versionTo" type="d3p1:version" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="description" type="d3p1:string_0_255" form="Attribute"/>
+	</objectType>
+	<objectType name="newsFieldsListType">
+		<property name="newsField" lowerBound="0" upperBound="-1">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<enumeration>guid</enumeration>
+				<enumeration>createDate</enumeration>
+				<enumeration>publishDate</enumeration>
+				<enumeration>expireDate</enumeration>
+				<enumeration>channel</enumeration>
+				<enumeration>title</enumeration>
+				<enumeration>subtitle</enumeration>
+				<enumeration>content</enumeration>
+				<enumeration>content1C</enumeration>
+				<enumeration>link</enumeration>
+				<enumeration>DeletionMark</enumeration>
+				<enumeration>isDraft</enumeration>
+				<enumeration>hideInList</enumeration>
+				<enumeration>priority</enumeration>
+				<enumeration>priorityExpired</enumeration>
+				<enumeration>autoMarkAsRead</enumeration>
+				<enumeration>autoOpenLink</enumeration>
+				<enumeration>status</enumeration>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="newsFiltersListType">
+		<property name="newsFilter" lowerBound="0" upperBound="-1">
+			<typeDef xsi:type="ObjectType">
+				<property name="fieldName" lowerBound="1" form="Attribute">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="30">
+						<enumeration>createDateFrom</enumeration>
+						<enumeration>createDateTo</enumeration>
+						<enumeration>statusDateFrom</enumeration>
+						<enumeration>statusDateTo</enumeration>
+						<enumeration>channel</enumeration>
+						<enumeration>guid</enumeration>
+						<enumeration>title</enumeration>
+						<enumeration>subtitle</enumeration>
+						<enumeration>DeletionMark</enumeration>
+						<enumeration>isDraft</enumeration>
+					</typeDef>
+				</property>
+				<property name="fieldValue" upperBound="-1">
+					<typeDef xmlns:d6p1="http://v8.1c.ru/news1c/wsTypes" xsi:type="ValueType" variety="Union" memberTypes="xs:dateTime d6p1:guid d6p1:string_1_20 d6p1:string_1_100"/>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="newsMetadataLinkType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="metadataName" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="formName" type="d3p1:string_0_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="eventName" type="d3p1:string_0_50" lowerBound="1" form="Attribute"/>
+		<property name="openWithinOwnerForm" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="priority" type="d3p1:priority" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="priorityExpired" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="isPinned" type="xs:boolean" lowerBound="0" default="false" form="Attribute"/>
+	</objectType>
+	<objectType name="newsMetadataLinksListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="metadataLink1C" type="d3p1:newsMetadataLinkType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsStatusListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="newsStatus" type="d3p1:newsStatusType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsStatusType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="publishDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="createDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="expireDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="title" type="d3p1:string_1_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subtitle" type="d3p1:string_0_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="0" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="0" form="Attribute"/>
+		<property name="isDraft" type="xs:boolean" lowerBound="0" form="Attribute"/>
+		<property name="hideInList" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="priority" type="d3p1:priority" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="priorityExpired" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="autoMarkAsRead" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="autoOpenLink" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="status" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<enumeration>УстановкаКаналаПубликации</enumeration>
+				<enumeration>УспешноеПомещениеВОчередьДляПубликации</enumeration>
+				<enumeration>НеуспешнаяПопыткаПубликации</enumeration>
+				<enumeration>УспешнаяПубликация</enumeration>
+				<enumeration>ТребуетсяПовторнаяПубликация</enumeration>
+				<enumeration>ОтменаПубликации</enumeration>
+				<enumeration>УспешноеПомещениеВОчередьДляОтменыПубликации</enumeration>
+				<enumeration>ОтменаПодготовки</enumeration>
+				<enumeration>УдалениеИзСписка</enumeration>
+				<enumeration>Черновик</enumeration>
+				<enumeration>ПомеченаНаУдаление</enumeration>
+				<enumeration>НеНайдена</enumeration>
+				<enumeration>ПустаяСсылка</enumeration>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="channel" type="d3p1:channelRefType" lowerBound="0"/>
+		<property name="content" type="xs:string" lowerBound="0"/>
+		<property name="content1C" type="xs:string" lowerBound="0"/>
+	</objectType>
+	<objectType name="newsListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="news" type="d3p1:newsType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guidEvent" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property name="publishDate" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="modificationDate" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="expireDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="title" type="d3p1:string_1_100" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subtitle" type="d3p1:string_0_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="0" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="hideInList" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="priority" type="d3p1:priority" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="priorityExpired" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="autoMarkAsRead" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="autoOpenLink" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="content" type="xs:string"/>
+		<property name="content1C" type="xs:string"/>
+		<property name="comment" type="xs:string" lowerBound="0" upperBound="1"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="actions1C" type="d3p1:newsActionsListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="metadataLinks1C" type="d3p1:newsMetadataLinksListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="binaryDataList1C" type="d3p1:newsBinaryDataListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categories1C" type="d3p1:newsCategoriesListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoriesVersions1C" type="d3p1:newsCategoriesVersionsListType" lowerBound="0"/>
+		<property name="channels" lowerBound="0">
+			<typeDef xsi:type="ObjectType">
+				<property name="channel" lowerBound="0" upperBound="-1">
+					<typeDef xsi:type="ObjectType">
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d7p1:guid" lowerBound="1" form="Attribute"/>
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d7p1:string_1_20" lowerBound="1" form="Attribute"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="newsListType_ModelBaseExchange">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="news" type="d3p1:newsType_ModelBaseExchange" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="newsType_ModelBaseExchange">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guidEvent" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property name="publishDate" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="expireDate" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="title" type="d3p1:string_1_100" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subtitle" type="d3p1:string_0_100" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="link" type="d3p1:string_0_255" lowerBound="0" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="isDraft" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="hideInList" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="priority" type="d3p1:priority" lowerBound="0" fixed="false" default="0" form="Attribute"/>
+		<property name="priorityExpired" type="xs:dateTime" lowerBound="0" form="Attribute"/>
+		<property name="autoMarkAsRead" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="autoOpenLink" type="xs:boolean" lowerBound="0" fixed="false" default="false" form="Attribute"/>
+		<property name="content" type="xs:string"/>
+		<property name="content1C" type="xs:string" nillable="true"/>
+		<property name="comment" type="xs:string" lowerBound="0" upperBound="1"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="actions1C" type="d3p1:newsActionsListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="metadataLinks1C" type="d3p1:newsMetadataLinksListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="binaryDataList1C" type="d3p1:newsBinaryDataListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categories1C" type="d3p1:newsCategoriesListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoriesVersions1C" type="d3p1:newsCategoriesVersionsListType" lowerBound="0"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="relatedChannelsSetRef" type="d3p1:relatedChannelsSetRefType"/>
+	</objectType>
+	<objectType name="productRefListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guidProduct" type="d3p1:guid" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="productType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property name="updated" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Description" type="d3p1:string_1_80" lowerBound="1" form="Attribute"/>
+		<property name="Comment" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="parentProducts" type="d3p1:productRefListType"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subordinationsProductChannel" type="d3p1:subordinationProductChannelListType" lowerBound="0"/>
+	</objectType>
+	<objectType name="relatedChannelsSetListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="relatedChannelsSet" type="d3p1:relatedChannelsSetType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="relatedChannelsSetRefListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="relatedChannelsSetRef" type="d3p1:relatedChannelsSetRefType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="relatedChannelsSetRefType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="relatedChannelsSetType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_20" lowerBound="1" form="Attribute"/>
+		<property name="Description" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="Comment" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="DeletionMark" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="onlyPlainTextNews" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="newsEnhancedFor1C" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property name="accessInherited" type="xs:boolean" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="channelRefList" type="d3p1:channelRefListType"/>
+	</objectType>
+	<objectType name="sessionDescriptionType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid"/>
+		<property name="guidExpireDate" type="xs:dateTime"/>
+		<property name="errCode" type="xs:long"/>
+		<property name="errDescription" type="xs:string"/>
+	</objectType>
+	<objectType name="subordinationProductChannelListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="subordinationProductChannel" type="d3p1:subordinationProductChannelType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="subordinationProductChannelType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guidChannel" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guidProduct" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="versionBegin" type="d3p1:version" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="versionEnd" type="d3p1:version" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="updatesItemType">
+		<property name="listName" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic">
+				<enumeration>Список категорий новостей</enumeration>
+				<enumeration>Список лент новостей</enumeration>
+				<enumeration>Значения категории новостей</enumeration>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryCode" type="d3p1:string_1_20" lowerBound="0" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="categoryGuid" type="d3p1:guid" lowerBound="0" form="Attribute"/>
+		<property name="updated" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+	</objectType>
+	<objectType name="updatesListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="updatesItem" type="d3p1:updatesItemType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="userInfoType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Name" type="d3p1:string_1_100" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="canActAsUsersList" type="d3p1:userRefListType"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="canActAsMeList" type="d3p1:userRefListType"/>
+		<property name="availableChannelsList">
+			<typeDef xsi:type="ObjectType">
+				<property name="channelRef" lowerBound="0" upperBound="-1">
+					<typeDef xsi:type="ObjectType">
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d7p1:guid" lowerBound="0" form="Attribute"/>
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d7p1:string_1_20" lowerBound="1" form="Attribute"/>
+						<property name="Description" type="xs:string" lowerBound="1" form="Attribute"/>
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="rePublishRule" type="d7p1:channelRePublishRule" lowerBound="0" form="Attribute"/>
+						<property name="accessRead" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessWrite" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessPublish" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessCancelPublish" type="xs:boolean" lowerBound="1" form="Attribute"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+		<property name="availableRelatedChannelSetsList">
+			<typeDef xsi:type="ObjectType">
+				<property name="relatedChannelsSetRef" lowerBound="0" upperBound="-1">
+					<typeDef xsi:type="ObjectType">
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d7p1:guid" lowerBound="0" form="Attribute"/>
+						<property xmlns:d7p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d7p1:string_1_20" lowerBound="1" form="Attribute"/>
+						<property name="Description" type="xs:string" lowerBound="1" form="Attribute"/>
+						<property name="accessRead" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessWrite" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessPublish" type="xs:boolean" lowerBound="1" form="Attribute"/>
+						<property name="accessCancelPublish" type="xs:boolean" lowerBound="1" form="Attribute"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="userRefListType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="userRef" type="d3p1:userRefType" lowerBound="0" upperBound="-1"/>
+	</objectType>
+	<objectType name="userRefType">
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="guid" type="d3p1:guid" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Code" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+		<property xmlns:d3p1="http://v8.1c.ru/news1c/wsTypes" name="Name" type="d3p1:string_1_50" lowerBound="1" form="Attribute"/>
+	</objectType>
+</package>

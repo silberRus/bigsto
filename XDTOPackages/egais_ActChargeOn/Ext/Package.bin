@@ -1,0 +1,45 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ActChargeOn" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ClientRef"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ActInventoryABInfo"/>
+	<objectType name="ActChargeOnPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="Product" type="d3p1:ProductInfo"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Quantity" type="d3p1:PositiveDecimalType"/>
+		<property name="InformAB" nillable="false">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActChargeOn" name="InformABKey" type="d5p1:InformABKeyType" lowerBound="0" nillable="false"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActChargeOn" name="InformABReg" type="d5p1:InformABRegType" lowerBound="0" nillable="false"/>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ActChargeOn" name="MarkCodeInfo" type="d3p1:MarkCodeInfoType" lowerBound="0"/>
+	</objectType>
+	<objectType name="ActChargeOnType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Number" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ActDate" type="d5p1:DateNoTime"/>
+				<property name="Note" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="500"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActChargeOn" name="Position" type="d5p1:ActChargeOnPositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="InformABKeyType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="FormA" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="LastFormB" type="d3p1:NoEmptyString50" nillable="false"/>
+	</objectType>
+	<objectType name="InformABRegType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ActInventoryABInfo" name="InformA" type="d3p1:InformARegType" nillable="false"/>
+	</objectType>
+	<objectType name="MarkCodeInfoType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="MarkCode" type="d3p1:PDF417String" upperBound="-1" nillable="false"/>
+	</objectType>
+</package>

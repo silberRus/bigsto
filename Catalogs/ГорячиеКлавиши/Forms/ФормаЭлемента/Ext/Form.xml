@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<UseForFoldersAndItems>Items</UseForFoldersAndItems>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Popup name="ПодменюПечать" id="110">
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Печать</v8:content>
+					</v8:item>
+				</Title>
+				<ToolTip>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Команды печати</v8:content>
+					</v8:item>
+				</ToolTip>
+				<Picture>
+					<xr:Ref>StdPicture.Print</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ПодменюПечатьРасширеннаяПодсказка" id="111"/>
+			</Popup>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="AfterWrite">ПослеЗаписи</Event>
+		<Event name="AfterWriteAtServer">ПослеЗаписиНаСервере</Event>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnReadAtServer">ПриЧтенииНаСервере</Event>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="BeforeWriteAtServer">ПередЗаписьюНаСервере</Event>
+		<Event name="FillCheckProcessingAtServer">ОбработкаПроверкиЗаполненияНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<InputField name="Наименование" id="3">
+			<DataPath>Объект.Description</DataPath>
+			<EditMode>EnterOnInput</EditMode>
+			<ContextMenu name="НаименованиеКонтекстноеМеню" id="4"/>
+			<ExtendedTooltip name="НаименованиеExtendedTooltip" id="74"/>
+		</InputField>
+		<UsualGroup name="ГруппаБыстрыеТовары" id="65">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Быстрые товары</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа быстрые товары</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<TitleDataPath>КоличествоБыстрыхТоваров</TitleDataPath>
+			<ExtendedTooltip name="ГруппаБыстрыеТоварыExtendedTooltip" id="75"/>
+			<ChildItems>
+				<Table name="БыстрыеТовары" id="5">
+					<Representation>List</Representation>
+					<AutoInsertNewRow>true</AutoInsertNewRow>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>БыстрыеТовары</DataPath>
+					<RowFilter xsi:nil="true"/>
+					<ContextMenu name="БыстрыеТоварыКонтекстноеМеню" id="6"/>
+					<AutoCommandBar name="БыстрыеТоварыКоманднаяПанель" id="7"/>
+					<ExtendedTooltip name="БыстрыеТоварыExtendedTooltip" id="76"/>
+					<SearchStringAddition name="БыстрыеТоварыСтрокаПоиска" id="92">
+						<AdditionSource>
+							<Item>БыстрыеТовары</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="БыстрыеТоварыСтрокаПоискаКонтекстноеМеню" id="93"/>
+						<ExtendedTooltip name="БыстрыеТоварыСтрокаПоискаРасширеннаяПодсказка" id="94"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="БыстрыеТоварыСостояниеПросмотра" id="95">
+						<AdditionSource>
+							<Item>БыстрыеТовары</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="БыстрыеТоварыСостояниеПросмотраКонтекстноеМеню" id="96"/>
+						<ExtendedTooltip name="БыстрыеТоварыСостояниеПросмотраРасширеннаяПодсказка" id="97"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="БыстрыеТоварыУправлениеПоиском" id="98">
+						<AdditionSource>
+							<Item>БыстрыеТовары</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="БыстрыеТоварыУправлениеПоискомКонтекстноеМеню" id="99"/>
+						<ExtendedTooltip name="БыстрыеТоварыУправлениеПоискомРасширеннаяПодсказка" id="100"/>
+					</SearchControlAddition>
+					<Events>
+						<Event name="Selection">БыстрыеТоварыВыбор</Event>
+						<Event name="AfterDeleteRow">БыстрыеТоварыПослеУдаления</Event>
+						<Event name="OnChange">БыстрыеТоварыПриИзменении</Event>
+					</Events>
+					<ChildItems>
+						<InputField name="БыстрыеТоварыНоменклатура" id="29">
+							<DataPath>БыстрыеТовары.Номенклатура</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<AutoMarkIncomplete>true</AutoMarkIncomplete>
+							<ContextMenu name="БыстрыеТоварыНоменклатураКонтекстноеМеню" id="30"/>
+							<ExtendedTooltip name="БыстрыеТоварыНоменклатураExtendedTooltip" id="77"/>
+							<Events>
+								<Event name="OnChange">БыстрыеТоварыНоменклатураПриИзменении</Event>
+							</Events>
+						</InputField>
+						<InputField name="БыстрыеТоварыХарактеристика" id="31">
+							<DataPath>БыстрыеТовары.Характеристика</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<AutoMarkIncomplete>true</AutoMarkIncomplete>
+							<ChoiceParameterLinks>
+								<xr:Link>
+									<xr:Name>Номенклатура</xr:Name>
+									<xr:DataPath xsi:type="xs:string">Items.БыстрыеТовары.CurrentData.Номенклатура</xr:DataPath>
+									<xr:ValueChange>Clear</xr:ValueChange>
+								</xr:Link>
+							</ChoiceParameterLinks>
+							<ContextMenu name="БыстрыеТоварыХарактеристикаКонтекстноеМеню" id="32"/>
+							<ExtendedTooltip name="БыстрыеТоварыХарактеристикаExtendedTooltip" id="78"/>
+							<Events>
+								<Event name="OnChange">БыстрыеТоварыХарактеристикаПриИзменении</Event>
+							</Events>
+						</InputField>
+						<ColumnGroup name="БыстрыеТоварыГруппаУпаковка" id="73">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Упаковка</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Быстрые товары группа упаковка</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>InCell</Group>
+							<ExtendedTooltip name="БыстрыеТоварыГруппаУпаковкаExtendedTooltip" id="79"/>
+							<ChildItems>
+								<InputField name="БыстрыеТоварыУпаковка" id="33">
+									<DataPath>БыстрыеТовары.Упаковка</DataPath>
+									<EditMode>EnterOnInput</EditMode>
+									<ShowInHeader>false</ShowInHeader>
+									<ChoiceParameterLinks>
+										<xr:Link>
+											<xr:Name>Номенклатура</xr:Name>
+											<xr:DataPath xsi:type="xs:string">Items.БыстрыеТовары.CurrentData.Номенклатура</xr:DataPath>
+											<xr:ValueChange>Clear</xr:ValueChange>
+										</xr:Link>
+									</ChoiceParameterLinks>
+									<ContextMenu name="БыстрыеТоварыУпаковкаКонтекстноеМеню" id="34"/>
+									<ExtendedTooltip name="БыстрыеТоварыУпаковкаExtendedTooltip" id="80"/>
+									<Events>
+										<Event name="OnChange">БыстрыеТоварыУпаковкаПриИзменении</Event>
+									</Events>
+								</InputField>
+								<InputField name="БыстрыеТоварыНоменклатураЕдиницаИзмерения" id="71">
+									<DataPath>БыстрыеТовары.Номенклатура.ЕдиницаИзмерения</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Ед. изм.</v8:content>
+										</v8:item>
+									</Title>
+									<EditMode>EnterOnInput</EditMode>
+									<Width>9</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="БыстрыеТоварыНоменклатураЕдиницаИзмеренияКонтекстноеМеню" id="72"/>
+									<ExtendedTooltip name="БыстрыеТоварыНоменклатураЕдиницаИзмеренияExtendedTooltip" id="81"/>
+								</InputField>
+							</ChildItems>
+						</ColumnGroup>
+						<InputField name="БыстрыеТоварыНаименование" id="35">
+							<DataPath>БыстрыеТовары.Заголовок</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="БыстрыеТоварыНаименованиеКонтекстноеМеню" id="36"/>
+							<ExtendedTooltip name="БыстрыеТоварыНаименованиеExtendedTooltip" id="82"/>
+						</InputField>
+						<InputField name="БыстрыеТоварыСочетаниеКлавиш" id="45">
+							<DataPath>БыстрыеТовары.СочетаниеКлавиш</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="БыстрыеТоварыСочетаниеКлавишКонтекстноеМеню" id="46"/>
+							<ExtendedTooltip name="БыстрыеТоварыСочетаниеКлавишExtendedTooltip" id="83"/>
+						</InputField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаКоманды" id="66">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Команды</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа команды</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<TitleDataPath>КоличествоКомандФормы</TitleDataPath>
+			<ExtendedTooltip name="ГруппаКомандыExtendedTooltip" id="84"/>
+			<ChildItems>
+				<Table name="КомандыФормы" id="47">
+					<Representation>List</Representation>
+					<ChangeRowSet>false</ChangeRowSet>
+					<AutoInsertNewRow>true</AutoInsertNewRow>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>КомандыФормы</DataPath>
+					<RowFilter xsi:nil="true"/>
+					<ContextMenu name="КомандыФормыКонтекстноеМеню" id="48"/>
+					<AutoCommandBar name="КомандыФормыКоманднаяПанель" id="49">
+						<ChildItems>
+							<Button name="КомандыФормыУстановитьФлажки" id="70">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ПоказатьВсеКоманды</CommandName>
+								<ExtendedTooltip name="КомандыФормыУстановитьФлажкиExtendedTooltip" id="85"/>
+							</Button>
+							<Button name="КомандыФормыСнятьФлажки" id="69">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.СкрытьВсеКоманды</CommandName>
+								<ExtendedTooltip name="КомандыФормыСнятьФлажкиExtendedTooltip" id="86"/>
+							</Button>
+							<Button name="ГорячиеКлавишиЗаполнитьПоУмолчанию" id="62">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Command.ЗаполнитьПоУмолчанию</CommandName>
+								<ExtendedTooltip name="ГорячиеКлавишиЗаполнитьПоУмолчаниюExtendedTooltip" id="87"/>
+							</Button>
+						</ChildItems>
+					</AutoCommandBar>
+					<ExtendedTooltip name="КомандыФормыExtendedTooltip" id="88"/>
+					<SearchStringAddition name="КомандыФормыСтрокаПоиска" id="101">
+						<AdditionSource>
+							<Item>КомандыФормы</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="КомандыФормыСтрокаПоискаКонтекстноеМеню" id="102"/>
+						<ExtendedTooltip name="КомандыФормыСтрокаПоискаРасширеннаяПодсказка" id="103"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="КомандыФормыСостояниеПросмотра" id="104">
+						<AdditionSource>
+							<Item>КомандыФормы</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="КомандыФормыСостояниеПросмотраКонтекстноеМеню" id="105"/>
+						<ExtendedTooltip name="КомандыФормыСостояниеПросмотраРасширеннаяПодсказка" id="106"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="КомандыФормыУправлениеПоиском" id="107">
+						<AdditionSource>
+							<Item>КомандыФормы</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="КомандыФормыУправлениеПоискомКонтекстноеМеню" id="108"/>
+						<ExtendedTooltip name="КомандыФормыУправлениеПоискомРасширеннаяПодсказка" id="109"/>
+					</SearchControlAddition>
+					<Events>
+						<Event name="Selection">КомандыФормыВыбор</Event>
+					</Events>
+					<ChildItems>
+						<InputField name="КомандыФормыЗаголовок" id="63">
+							<DataPath>КомандыФормы.Заголовок</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Команда</v8:content>
+								</v8:item>
+							</Title>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="КомандыФормыЗаголовокКонтекстноеМеню" id="64"/>
+							<ExtendedTooltip name="КомандыФормыЗаголовокExtendedTooltip" id="89"/>
+						</InputField>
+						<InputField name="КомандыФормыСочетаниеКлавиш" id="60">
+							<DataPath>КомандыФормы.СочетаниеКлавиш</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<ContextMenu name="КомандыФормыСочетаниеКлавишКонтекстноеМеню" id="61"/>
+							<ExtendedTooltip name="КомандыФормыСочетаниеКлавишExtendedTooltip" id="90"/>
+						</InputField>
+						<CheckBoxField name="КомандыФормыСкрывать" id="67">
+							<DataPath>КомандыФормы.Скрывать</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="КомандыФормыСкрыватьКонтекстноеМеню" id="68"/>
+							<ExtendedTooltip name="КомандыФормыСкрыватьExtendedTooltip" id="91"/>
+						</CheckBoxField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:CatalogObject.ГорячиеКлавиши</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<SavedData>true</SavedData>
+		</Attribute>
+		<Attribute name="БыстрыеТовары" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Быстрые товары</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Номенклатура" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номенклатура</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.Номенклатура</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Характеристика" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристика</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.ХарактеристикиНоменклатуры</v8:Type>
+					</Type>
+					<FunctionalOptions>
+						<Item>FunctionalOption.ИспользоватьХарактеристикиНоменклатуры</Item>
+					</FunctionalOptions>
+				</Column>
+				<Column name="Упаковка" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Упаковка</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>cfg:CatalogRef.УпаковкиЕдиницыИзмерения</v8:Type>
+					</Type>
+					<FunctionalOptions>
+						<Item>FunctionalOption.ИспользоватьУпаковкиНоменклатуры</Item>
+					</FunctionalOptions>
+				</Column>
+				<Column name="Заголовок" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Заголовок</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Клавиша" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Клавиша</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Shift" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Alt" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Alt</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="СочетаниеКлавиш" id="9">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сочетание клавиш</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ХарактеристикиИспользуются" id="10">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Характеристики используются</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="КомандыФормы" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Команды формы</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Команда" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Команда</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Клавиша" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Клавиша</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Shift" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="Alt" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Alt</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+				<Column name="СочетаниеКлавиш" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сочетание клавиш</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Заголовок" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Заголовок</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Скрывать" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Скрывать</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:boolean</v8:Type>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="КоличествоБыстрыхТоваров" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество быстрых товаров</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоКомандФормы" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество команд формы</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПараметрыПодключаемыхКоманд" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Параметры подключаемых команд</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ЗаполнитьПоУмолчанию" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить по умолчанию</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить по умолчанию</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ЗаполнитьПоУмолчанию</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="СкрытьВсеКоманды" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Скрыть все команды</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Скрыть все команды</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.UncheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>СкрытьВсеКоманды</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+		<Command name="ПоказатьВсеКоманды" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показать все команды</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Показать все команды</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.CheckAll</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ПоказатьВсеКоманды</Action>
+			<ModifiesSavedData>true</ModifiesSavedData>
+		</Command>
+	</Commands>
+</Form>

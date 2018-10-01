@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Как отработать расхождения</v8:content>
+		</v8:item>
+	</Title>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<CommandBarLocation>Bottom</CommandBarLocation>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<HorizontalAlign>Right</HorizontalAlign>
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаОК" id="13">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.ОК</CommandName>
+				<ExtendedTooltip name="ФормаОКРасширеннаяПодсказка" id="14"/>
+			</Button>
+			<Button name="ФормаОтмена" id="60">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.Отмена</CommandName>
+				<ExtendedTooltip name="ФормаОтменаРасширеннаяПодсказка" id="61"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="BeforeClose">ПередЗакрытием</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<Pages name="Страницы" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы</v8:content>
+				</v8:item>
+			</ToolTip>
+			<ExtendedTooltip name="СтраницыРасширеннаяПодсказка" id="2"/>
+			<ChildItems>
+				<Page name="Недостачи" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Недостачи</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Недостачи</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="НедостачиРасширеннаяПодсказка" id="4"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаНедостачиСогласованы" id="78">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Недостачи согласованы:</v8:content>
+								</v8:item>
+							</Title>
+							<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаНедостачиСогласованыРасширеннаяПодсказка" id="79"/>
+							<ChildItems>
+								<RadioButtonField name="ОформитьНедостачу" id="15">
+									<DataPath>ДействиеНедостачи</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Оформить</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОформитьНедостачу</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОформитьНедостачуКонтекстноеМеню" id="16"/>
+									<ExtendedTooltip name="ОформитьНедостачуРасширеннаяПодсказка" id="17"/>
+									<Events>
+										<Event name="OnChange">ОформитьНедостачуПриИзменении</Event>
+									</Events>
+								</RadioButtonField>
+								<LabelDecoration name="ОформитьНедостачуДекорация" id="36">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОформитьНедостачуДекорацияКонтекстноеМеню" id="37"/>
+									<ExtendedTooltip name="ОформитьНедостачуДекорацияРасширеннаяПодсказка" id="38"/>
+								</LabelDecoration>
+								<RadioButtonField name="ОформитьНедостачуИОжидатьДопоставку" id="18">
+									<DataPath>ДействиеНедостачи</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Оформить и ожидать допоставку</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОформитьНедостачуИОжидатьДопоставку</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОформитьНедостачуИОжидатьДопоставкуКонтекстноеМеню" id="19"/>
+									<ExtendedTooltip name="ОформитьНедостачуИОжидатьДопоставкуРасширеннаяПодсказка" id="20"/>
+									<Events>
+										<Event name="OnChange">ОформитьНедостачуИОжидатьДопоставкуПриИзменении</Event>
+									</Events>
+								</RadioButtonField>
+								<LabelDecoration name="ОформитьНедостачуИОжидатьДопоставкуДекорация" id="39">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОформитьНедостачуИОжидатьДопоставкуДекорацияКонтекстноеМеню" id="40"/>
+									<ExtendedTooltip name="ОформитьНедостачуИОжидатьДопоставкуДекорацияРасширеннаяПодсказка" id="41"/>
+								</LabelDecoration>
+								<RadioButtonField name="ОжидатьДопоставкуБезОформления" id="24">
+									<DataPath>ДействиеНедостачи</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Ожидать допоставку без оформления</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОжидатьДопоставкуБезОформления</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОжидатьДопоставкуБезОформленияКонтекстноеМеню" id="25"/>
+									<ExtendedTooltip name="ОжидатьДопоставкуБезОформленияРасширеннаяПодсказка" id="26"/>
+									<Events>
+										<Event name="OnChange">ОжидатьДопоставкуБезОформленияПриИзменении</Event>
+									</Events>
+								</RadioButtonField>
+								<LabelDecoration name="ОжидатьДопоставкуБезОформленияДекорация" id="45">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОжидатьДопоставкуБезОформленияДекорацияКонтекстноеМеню" id="46"/>
+									<ExtendedTooltip name="ОжидатьДопоставкуБезОформленияДекорацияРасширеннаяПодсказка" id="47"/>
+								</LabelDecoration>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаНедостачиНеСогласованы" id="83">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Недостачи не согласованы:</v8:content>
+								</v8:item>
+							</Title>
+							<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаНедостачиНеСогласованыРасширеннаяПодсказка" id="84"/>
+							<ChildItems>
+								<UsualGroup name="ГруппаВариантыСписанияНаПрочиеРасходы" id="91">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа варианты списания на прочие расходы</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>[todo Горизонтальная, если возможно] Группа варианты списания на прочие расходы</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаВариантыСписанияНаПрочиеРасходыРасширеннаяПодсказка" id="92"/>
+									<ChildItems>
+										<RadioButtonField name="ЗаНашСчет" id="72">
+											<DataPath>ЗаЧейСчет</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<RadioButtonType>Auto</RadioButtonType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation>
+															<v8:item>
+																<v8:lang>ru</v8:lang>
+																<v8:content>Списать за наш счет</v8:content>
+															</v8:item>
+														</Presentation>
+														<Value xsi:type="xs:string">ЗаНашСчет</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ЗаНашСчетКонтекстноеМеню" id="73"/>
+											<ExtendedTooltip name="ЗаНашСчетРасширеннаяПодсказка" id="74"/>
+											<Events>
+												<Event name="OnChange">ЗаНашСчетПриИзменении</Event>
+											</Events>
+										</RadioButtonField>
+										<LabelDecoration name="ЗаНашСчетДекорация" id="93">
+											<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+											<ContextMenu name="ЗаНашСчетДекорацияКонтекстноеМеню" id="94"/>
+											<ExtendedTooltip name="ЗаНашСчетДекорацияРасширеннаяПодсказка" id="95"/>
+										</LabelDecoration>
+										<RadioButtonField name="ПоВинеСтороннейКомпании" id="88">
+											<DataPath>ЗаЧейСчет</DataPath>
+											<TitleLocation>None</TitleLocation>
+											<RadioButtonType>Auto</RadioButtonType>
+											<ChoiceList>
+												<xr:Item>
+													<xr:Presentation/>
+													<xr:CheckState>0</xr:CheckState>
+													<xr:Value xsi:type="FormChoiceListDesTimeValue">
+														<Presentation>
+															<v8:item>
+																<v8:lang>ru</v8:lang>
+																<v8:content>Списать за счет сторонней компании</v8:content>
+															</v8:item>
+														</Presentation>
+														<Value xsi:type="xs:string">ПоВинеСтороннейКомпании</Value>
+													</xr:Value>
+												</xr:Item>
+											</ChoiceList>
+											<ContextMenu name="ПоВинеСтороннейКомпанииКонтекстноеМеню" id="89"/>
+											<ExtendedTooltip name="ПоВинеСтороннейКомпанииРасширеннаяПодсказка" id="90"/>
+											<Events>
+												<Event name="OnChange">ПоВинеСтороннейКомпанииПриИзменении</Event>
+											</Events>
+										</RadioButtonField>
+										<LabelDecoration name="ПоВинеСтороннейКомпанииДекорация" id="96">
+											<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+											<ContextMenu name="ПоВинеСтороннейКомпанииДекорацияКонтекстноеМеню" id="97"/>
+											<ExtendedTooltip name="ПоВинеСтороннейКомпанииДекорацияРасширеннаяПодсказка" id="98"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</Page>
+				<Page name="Излишки" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Излишки</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Излишки</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ИзлишкиРасширеннаяПодсказка" id="6"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаИзлишкиСогласованы" id="99">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Излишки согласованы:</v8:content>
+								</v8:item>
+							</Title>
+							<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<Group>Vertical</Group>
+							<ExtendedTooltip name="ГруппаИзлишкиСогласованыРасширеннаяПодсказка" id="100"/>
+							<ChildItems>
+								<RadioButtonField name="ОформитьПерепоставленное" id="33">
+									<DataPath>ДействиеИзлишки</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Оформить</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОформитьПерепоставленное</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОформитьПерепоставленноеКонтекстноеМеню" id="34"/>
+									<ExtendedTooltip name="ОформитьПерепоставленноеРасширеннаяПодсказка" id="35"/>
+								</RadioButtonField>
+								<LabelDecoration name="ОформитьПерепоставленноеДекорация" id="54">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОформитьПерепоставленноеДекорацияКонтекстноеМеню" id="55"/>
+									<ExtendedTooltip name="ОформитьПерепоставленноеДекорацияРасширеннаяПодсказка" id="56"/>
+								</LabelDecoration>
+								<RadioButtonField name="ОформитьПерепоставленноеИВернуть" id="30">
+									<DataPath>ДействиеИзлишки</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Оформить и вернуть</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОформитьПерепоставленноеИВернуть</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОформитьПерепоставленноеИВернутьКонтекстноеМеню" id="31"/>
+									<ExtendedTooltip name="ОформитьПерепоставленноеИВернутьРасширеннаяПодсказка" id="32"/>
+								</RadioButtonField>
+								<LabelDecoration name="ОформитьПерепоставленноеИВернутьДекорация" id="51">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОформитьПерепоставленноеИВернутьДекорацияКонтекстноеМеню" id="52"/>
+									<ExtendedTooltip name="ОформитьПерепоставленноеИВернутьДекорацияРасширеннаяПодсказка" id="53"/>
+								</LabelDecoration>
+								<RadioButtonField name="ВернутьПерепоставленноеБезОформления" id="10">
+									<DataPath>ДействиеИзлишки</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>Вернуть без оформления</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ВернутьПерепоставленноеБезОформления</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ВернутьПерепоставленноеБезОформленияКонтекстноеМеню" id="11"/>
+									<ExtendedTooltip name="ВернутьПерепоставленноеБезОформленияРасширеннаяПодсказка" id="12"/>
+								</RadioButtonField>
+								<LabelDecoration name="ВернутьПерепоставленноеБезОформленияДекорация" id="57">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ВернутьПерепоставленноеБезОформленияДекорацияКонтекстноеМеню" id="58"/>
+									<ExtendedTooltip name="ВернутьПерепоставленноеБезОформленияДекорацияРасширеннаяПодсказка" id="59"/>
+								</LabelDecoration>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="ГруппаИзлишкиНеСогласованы" id="104">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Излишки не согласованы:</v8:content>
+								</v8:item>
+							</Title>
+							<TitleFont ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ExtendedTooltip name="ГруппаИзлишкиНеСогласованыРасширеннаяПодсказка" id="105"/>
+							<ChildItems>
+								<RadioButtonField name="ОтнестиПерепоставленноеНаПрочиеДоходы" id="27">
+									<DataPath>ДействиеИзлишки</DataPath>
+									<TitleLocation>None</TitleLocation>
+									<RadioButtonType>Auto</RadioButtonType>
+									<ChoiceList>
+										<xr:Item>
+											<xr:Presentation/>
+											<xr:CheckState>0</xr:CheckState>
+											<xr:Value xsi:type="FormChoiceListDesTimeValue">
+												<Presentation>
+													<v8:item>
+														<v8:lang>ru</v8:lang>
+														<v8:content>На прочие доходы</v8:content>
+													</v8:item>
+												</Presentation>
+												<Value xsi:type="xr:DesignTimeRef">Enum.ВариантыДействийПоРасхождениямВАктеПослеПриемки.EnumValue.ОтнестиПерепоставленноеНаПрочиеДоходы</Value>
+											</xr:Value>
+										</xr:Item>
+									</ChoiceList>
+									<ContextMenu name="ОтнестиПерепоставленноеНаПрочиеДоходыКонтекстноеМеню" id="28"/>
+									<ExtendedTooltip name="ОтнестиПерепоставленноеНаПрочиеДоходыРасширеннаяПодсказка" id="29"/>
+								</RadioButtonField>
+								<LabelDecoration name="ОтнестиПерепоставленноеНаПрочиеДоходыДекорация" id="48">
+									<TextColor>style:ТекстИнформационнойНадписи</TextColor>
+									<ContextMenu name="ОтнестиПерепоставленноеНаПрочиеДоходыДекорацияКонтекстноеМеню" id="49"/>
+									<ExtendedTooltip name="ОтнестиПерепоставленноеНаПрочиеДоходыДекорацияРасширеннаяПодсказка" id="50"/>
+								</LabelDecoration>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+		<UsualGroup name="ГруппаПояснение" id="65">
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа пояснение</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ExtendedTooltip name="ГруппаПояснениеРасширеннаяПодсказка" id="66"/>
+			<ChildItems>
+				<PictureDecoration name="КартинкаПояснения" id="67">
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Картинка пояснения</v8:content>
+						</v8:item>
+					</Title>
+					<Picture>
+						<xr:Ref>CommonPicture.Информация32</xr:Ref>
+						<xr:LoadTransparent>true</xr:LoadTransparent>
+					</Picture>
+					<ContextMenu name="КартинкаПоясненияКонтекстноеМеню" id="68"/>
+					<ExtendedTooltip name="КартинкаПоясненияРасширеннаяПодсказка" id="69"/>
+				</PictureDecoration>
+				<LabelDecoration name="Пояснение" id="62">
+					<Width>26</Width>
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Height>3</Height>
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Порядок оформления документов для отработки расхождений настраивается для всех строк акта на закладке "Основное".</v8:content>
+						</v8:item>
+					</Title>
+					<VerticalAlign>Top</VerticalAlign>
+					<ContextMenu name="ПояснениеКонтекстноеМеню" id="63"/>
+					<ExtendedTooltip name="ПояснениеРасширеннаяПодсказка" id="64"/>
+				</LabelDecoration>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="ДействиеИзлишки" id="1">
+			<Type>
+				<v8:Type>cfg:EnumRef.ВариантыДействийПоРасхождениямВАктеПослеПриемки</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+		</Attribute>
+		<Attribute name="ДействиеНедостачи" id="2">
+			<Type>
+				<v8:Type>cfg:EnumRef.ВариантыДействийПоРасхождениямВАктеПослеПриемки</v8:Type>
+			</Type>
+			<SavedData>true</SavedData>
+		</Attribute>
+		<Attribute name="ИспользоватьЗаявкиНаВозврат" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать заявки на возврат</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоУпаковокРасхождения" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Количество упаковок расхождения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>3</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИспользоватьЗаказыПоставщикам" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать заказы поставщикам</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ГрупповоеИзменение" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Групповое изменение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИспользоватьЗаказыНаПеремещение" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать заказы на перемещение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ВыполняетсяЗакрытие" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выполняется закрытие</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ЗаЧейСчет" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>За чей счет</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ОК" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ОК</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ОК</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОК</Action>
+		</Command>
+		<Command name="Отмена" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Отмена</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="КоличествоУпаковокРасхождения">
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>3</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Parameter>
+		<Parameter name="ГрупповоеИзменение">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ТипАкта">
+			<Type>
+				<v8:Type>cfg:EnumRef.ТипыОснованияАктаОРасхождении</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="СпособОтраженияРасхождений">
+			<Type>
+				<v8:Type>cfg:EnumRef.СпособыОтраженияАктовОРасхожденияПослеПоступления</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="СтрокаПоЗаказу">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ВыбранноеДействие">
+			<Type>
+				<v8:Type>cfg:EnumRef.ВариантыДействийПоРасхождениямВАктеПослеПриемки</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ЕстьИзлишки">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ЕстьНедостачи">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ПоказыватьПояснение">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+		<Parameter name="ПоВинеСтороннейКомпании">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

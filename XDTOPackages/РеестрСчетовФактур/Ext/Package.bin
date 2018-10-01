@@ -1,0 +1,37 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://www.v8.1c.ru/NDS/ReestrSF">
+	<valueType name="НомерСчетаФактурыТип" base="xs:string" variety="Atomic" maxLength="50"/>
+	<valueType name="НомерИсправленияСчетаФактурыТип" base="xs:string" variety="Atomic" maxLength="10"/>
+	<valueType name="СуммаТип" base="xs:decimal" variety="Atomic" totalDigits="15" fractionDigits="2"/>
+	<valueType name="ИННТип" base="xs:string" variety="Atomic" minLength="10" maxLength="12"/>
+	<valueType name="КППТип" base="xs:string" variety="Atomic" maxLength="9"/>
+	<valueType name="КодВалютыТип" base="xs:string" variety="Atomic" length="3"/>
+	<valueType name="ИдентификаторЗапросаТип" base="xs:string" variety="Atomic" length="36"/>
+	<objectType name="Реестр">
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="ИННПоставщика" type="d3p1:ИННТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="КПППоставщика" type="d3p1:КППТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="ИННПокупателя" type="d3p1:ИННТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="КПППокупателя" type="d3p1:КППТип"/>
+		<property name="НалоговыйПериод" type="xs:date"/>
+		<property name="ДатаФормирования" type="xs:dateTime"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СчетФактура" type="d3p1:СтрокаСчетаФактуры" lowerBound="0" upperBound="-1" nillable="true"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="ИдентификаторЗапроса" type="d3p1:ИдентификаторЗапросаТип" lowerBound="0" nillable="true"/>
+	</objectType>
+	<objectType name="СтрокаСчетаФактуры">
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="НомерСчетаФактуры" type="d3p1:НомерСчетаФактурыТип"/>
+		<property name="ДатаСчетаФактуры" type="xs:date"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="НомерИсправления" type="d3p1:НомерИсправленияСчетаФактурыТип" lowerBound="0"/>
+		<property name="ДатаИсправления" type="xs:date" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="НомерКорректировочногоСчетаФактуры" type="d3p1:НомерСчетаФактурыТип" lowerBound="0"/>
+		<property name="ДатаКорректировочногоСчетаФактуры" type="xs:date" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="НомерИсправленияКорректировочногоСчетаФактуры" type="d3p1:НомерИсправленияСчетаФактурыТип" lowerBound="0"/>
+		<property name="ДатаИсправленияКорректировочногоСчетаФактуры" type="xs:date" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="КодВалюты" type="d3p1:КодВалютыТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаДокумента" type="d3p1:СуммаТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаНДС" type="d3p1:СуммаТип"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаДокументаРазницаУменьшение" type="d3p1:СуммаТип" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаДокументаРазницаУвеличение" type="d3p1:СуммаТип" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаНДСРазницаУменьшение" type="d3p1:СуммаТип" lowerBound="0"/>
+		<property xmlns:d3p1="http://www.v8.1c.ru/NDS/ReestrSF" name="СуммаНДСРазницаУвеличение" type="d3p1:СуммаТип" lowerBound="0"/>
+		<property name="НаАванс" type="xs:boolean"/>
+	</objectType>
+</package>

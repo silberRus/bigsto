@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ФормированиеСегмента</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДолгПартнера</dataPath>
+			<field>ДолгПартнера</field>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ЧДЦ=2</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НашДолг</dataPath>
+			<field>НашДолг</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.Партнеры</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДолгКлиентаПросроченоВВалютеРегл</dataPath>
+			<field>ДолгКлиентаПросроченоВВалютеРегл</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Плановые просроченнные оплаты в валюте регл. учета</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДолгКлиентаПросроченоВВалютеУпр</dataPath>
+			<field>ДолгКлиентаПросроченоВВалютеУпр</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Плановые просроченнные оплаты в валюте упр. учета</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	КурсыВалютыУпр.Валюта,
+	КурсыВалютыУпр.Курс,
+	КурсыВалютыУпр.Кратность
+ПОМЕСТИТЬ КурсыВалютыУпр
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних(
+		,
+		Валюта В (
+			ВЫБРАТЬ
+				Константы.ВалютаУправленческогоУчета
+			ИЗ
+				Константы КАК Константы)
+	) КАК КурсыВалютыУпр
+;
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	КурсыВалютыРегл.Валюта,
+	КурсыВалютыРегл.Курс,
+	КурсыВалютыРегл.Кратность
+ПОМЕСТИТЬ КурсыВалютыРегл
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних(
+		,
+		Валюта В (
+			ВЫБРАТЬ
+				Константы.ВалютаРегламентированногоУчета
+			ИЗ
+				Константы КАК Константы)
+	) КАК КурсыВалютыРегл
+;
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	КурсыВалютыРасчетов.Валюта,
+	КурсыВалютыРасчетов.Курс,
+	КурсыВалютыРасчетов.Кратность
+ПОМЕСТИТЬ КурсыВалютыРасчетов
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних КАК КурсыВалютыРасчетов
+;
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ // сводные данные по задолженностям
+	АналитикаУчета.Партнер КАК Партнер,
+	Расчеты.Валюта КАК Валюта,
+	СУММА (ВЫБОР КОГДА Расчеты.КОплатеОстаток &gt; 0
+			ТОГДА Расчеты.КОплатеОстаток * ЕСТЬNULL(КурсыВалютыУпр.Курс, 1)
+			ИНАЧЕ 0
+		КОНЕЦ
+	) КАК ДолгКлиентаПросроченоВВалютеУпр,
+	СУММА (ВЫБОР КОГДА Расчеты.КОплатеОстаток &gt; 0
+			ТОГДА Расчеты.КОплатеОстаток * ЕСТЬNULL(КурсыВалютыРегл.Курс, 1)
+			ИНАЧЕ 0
+		КОНЕЦ
+	) КАК ДолгКлиентаПросроченоВВалютеРегл
+ПОМЕСТИТЬ ЗадолженностьПоПартнерам
+ИЗ
+	РегистрНакопления.РасчетыСКлиентами.Остатки({(&amp;ТекущаяДата)}, ) КАК Расчеты
+	
+	ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрНакопления.РасчетыСКлиентами.Остатки({(&amp;КонтрольнаяДата)}, ) КАК ПросроченнаяЗадолженность
+	ПО ПросроченнаяЗадолженность.АналитикаУчетаПоПартнерам = Расчеты.АналитикаУчетаПоПартнерам
+	
+	ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаПоПартнерам КАК АналитикаУчета
+	ПО Расчеты.АналитикаУчетаПоПартнерам = АналитикаУчета.КлючАналитики
+	
+	ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыУпр КАК КурсыВалютыУпр
+	ПО Расчеты.Валюта = КурсыВалютыУпр.Валюта
+	
+	ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыРегл КАК КурсыВалютыРегл
+	ПО Расчеты.Валюта = КурсыВалютыРегл.Валюта
+ГДЕ
+	АналитикаУчета.Партнер &lt;&gt; ЗНАЧЕНИЕ(Справочник.Партнеры.НашеПредприятие)
+СГРУППИРОВАТЬ ПО
+	АналитикаУчета.Партнер,
+	Расчеты.Валюта
+;
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	АналитикиПартнера.Партнер КАК Партнер,
+	СУММА(ВЫБОР
+			КОГДА ВложенныйЗапрос.СуммаОстаток &lt; 0
+				ТОГДА -ВложенныйЗапрос.СуммаОстаток * ЕСТЬNULL(КурсыВалютыРасчетов.Курс, 1) * ЕСТЬNULL(КурсыВалютыУпр.Кратность, 1) / (ЕСТЬNULL(КурсыВалютыУпр.Курс, 1) * ЕСТЬNULL(КурсыВалютыРасчетов.Кратность, 1))
+			ИНАЧЕ 0
+		КОНЕЦ) КАК НашДолг,
+	СУММА(ВЫБОР
+			КОГДА ВложенныйЗапрос.СуммаОстаток &gt; 0
+				ТОГДА ВложенныйЗапрос.СуммаОстаток * ЕСТЬNULL(КурсыВалютыРасчетов.Курс, 1) * ЕСТЬNULL(КурсыВалютыУпр.Кратность, 1) / (ЕСТЬNULL(КурсыВалютыУпр.Курс, 1) * ЕСТЬNULL(КурсыВалютыРасчетов.Кратность, 1))
+			ИНАЧЕ 0
+		КОНЕЦ) КАК ДолгПартнера,
+	МАКСИМУМ(ЕСТЬNULL(ЗадолженностьПоПартнерам.ДолгКлиентаПросроченоВВалютеУпр, 0)) КАК ДолгКлиентаПросроченоВВалютеУпр,
+	МАКСИМУМ(ЕСТЬNULL(ЗадолженностьПоПартнерам.ДолгКлиентаПросроченоВВалютеРегл, 0)) КАК ДолгКлиентаПросроченоВВалютеРегл
+ПОМЕСТИТЬ ВТРасчетыВыводСегментов
+ИЗ
+	КурсыВалютыУпр КАК КурсыВалютыУпр,
+	(ВЫБРАТЬ
+		РасчетыСКлиентамиОстатки.АналитикаУчетаПоПартнерам КАК АналитикаУчетаПоПартнерам,
+		РасчетыСКлиентамиОстатки.СуммаОстаток КАК СуммаОстаток,
+		РасчетыСКлиентамиОстатки.ЗаказКлиента КАК ЗаказКлиента,
+		РасчетыСКлиентамиОстатки.Валюта КАК Валюта
+	ИЗ
+		РегистрНакопления.РасчетыСКлиентами.Остатки(, {(АналитикаУчетаПоПартнерам.Партнер).* КАК Партнер}) КАК РасчетыСКлиентамиОстатки
+	) КАК ВложенныйЗапрос
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыРасчетов КАК КурсыВалютыРасчетов
+	ПО ВложенныйЗапрос.Валюта = КурсыВалютыРасчетов.Валюта
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаПоПартнерам КАК АналитикиПартнера
+	ПО (АналитикиПартнера.КлючАналитики = ВложенныйЗапрос.АналитикаУчетаПоПартнерам)
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ ЗадолженностьПоПартнерам КАК ЗадолженностьПоПартнерам
+	ПО АналитикиПартнера.Партнер = ЗадолженностьПоПартнерам.Партнер
+		
+ГДЕ
+	КурсыВалютыУпр.Валюта ЕСТЬ НЕ NULL 
+СГРУППИРОВАТЬ ПО
+	АналитикиПартнера.Партнер
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ВТРасчеты.Партнер КАК Партнер,
+	ВТРасчеты.НашДолг,
+	ВТРасчеты.ДолгПартнера,
+	ВТРасчеты.ДолгКлиентаПросроченоВВалютеУпр,
+	ВТРасчеты.ДолгКлиентаПросроченоВВалютеРегл
+{ВЫБРАТЬ
+	Партнер КАК Партнер}
+ИЗ
+	ВТРасчетыВыводСегментов КАК ВТРасчеты
+{ГДЕ
+	ВТРасчеты.НашДолг,
+	Партнер.* КАК Партнер,
+	ВТРасчеты.ДолгПартнера,
+	ВТРасчеты.ДолгКлиентаПросроченоВВалютеУпр,
+	ВТРасчеты.ДолгКлиентаПросроченоВВалютеРегл}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ВыводСегмента</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Сегмент</dataPath>
+			<field>Сегмент</field>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДолгКлиентаПросроченоВВалютеУпр</dataPath>
+			<field>ДолгКлиентаПросроченоВВалютеУпр</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Плановые просроченнные оплаты в валюте упр</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДолгКлиентаПросроченоВВалютеРегл</dataPath>
+			<field>ДолгКлиентаПросроченоВВалютеРегл</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Плановые просроченнные оплаты в валюте регл</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПартнерСегмента</dataPath>
+			<field>ПартнерСегмента</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Партнер сегмента</v8:content>
+				</v8:item>
+			</title>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущийДолгПартнера</dataPath>
+			<field>ТекущийДолгПартнера</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий долг партнера</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущийНашДолг</dataPath>
+			<field>ТекущийНашДолг</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий наш долг</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПартнерыСегмента.Партнер
+ПОМЕСТИТЬ СоставСегмента
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК ПартнерыСегмента
+{ГДЕ
+	ПартнерыСегмента.Сегмент}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	КурсыВалютыУпр.Валюта,
+	КурсыВалютыУпр.Курс,
+	КурсыВалютыУпр.Кратность
+ПОМЕСТИТЬ КурсыВалютыУпрВывод
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних(
+			,
+			Валюта В
+				(ВЫБРАТЬ
+					Константы.ВалютаУправленческогоУчета
+				ИЗ
+					Константы КАК Константы)) КАК КурсыВалютыУпр
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	КурсыВалютыУпр.Валюта,
+	КурсыВалютыУпр.Курс,
+	КурсыВалютыУпр.Кратность
+ПОМЕСТИТЬ КурсыВалютыРеглВывод
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних(
+			,
+			Валюта В
+				(ВЫБРАТЬ
+					Константы.ВалютаРегламентированногоУчета
+				ИЗ
+					Константы КАК Константы)) КАК КурсыВалютыУпр
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	КурсыВалютыРасчетов.Валюта,
+	КурсыВалютыРасчетов.Курс,
+	КурсыВалютыРасчетов.Кратность
+ПОМЕСТИТЬ КурсыВалютыРасчетовВывод
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних КАК КурсыВалютыРасчетов
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	АналитикаУчета.Партнер КАК Партнер,
+	Расчеты.Валюта КАК Валюта,
+	СУММА(ВЫБОР
+			КОГДА Расчеты.КОплатеОстаток &gt; 0
+				ТОГДА Расчеты.КОплатеОстаток * ЕСТЬNULL(КурсыВалютыУпр.Курс, 1)
+			ИНАЧЕ 0
+		КОНЕЦ) КАК ДолгКлиентаПросроченоВВалютеУпр,
+	СУММА(ВЫБОР
+			КОГДА Расчеты.КОплатеОстаток &gt; 0
+				ТОГДА Расчеты.КОплатеОстаток * ЕСТЬNULL(КурсыВалютыРегл.Курс, 1)
+			ИНАЧЕ 0
+		КОНЕЦ) КАК ДолгКлиентаПросроченоВВалютеРегл
+ПОМЕСТИТЬ ЗадолженностьПоПартнерамВывод
+ИЗ
+	РегистрНакопления.РасчетыСКлиентами.Остатки({(&amp;ТекущаяДата)}, ) КАК Расчеты
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрНакопления.РасчетыСКлиентами.Остатки({(&amp;КонтрольнаяДата)}, ) КАК ПросроченнаяЗадолженность
+		ПО (ПросроченнаяЗадолженность.АналитикаУчетаПоПартнерам = Расчеты.АналитикаУчетаПоПартнерам)
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаПоПартнерам КАК АналитикаУчета
+		ПО Расчеты.АналитикаУчетаПоПартнерам = АналитикаУчета.КлючАналитики
+		ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыУпрВывод КАК КурсыВалютыУпр
+		ПО Расчеты.Валюта = КурсыВалютыУпр.Валюта
+		ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыРеглВывод КАК КурсыВалютыРегл
+		ПО Расчеты.Валюта = КурсыВалютыРегл.Валюта
+ГДЕ
+	АналитикаУчета.Партнер &lt;&gt; ЗНАЧЕНИЕ(Справочник.Партнеры.НашеПредприятие)
+
+СГРУППИРОВАТЬ ПО
+	АналитикаУчета.Партнер,
+	Расчеты.Валюта
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоставСегмента.Партнер КАК Партнер,
+	СУММА(ВЫБОР
+			КОГДА ЕСТЬNULL(ВложенныйЗапрос.СуммаОстаток, 0) &lt; 0
+				ТОГДА -ЕСТЬNULL(ВложенныйЗапрос.СуммаОстаток, 0) * ЕСТЬNULL(КурсыВалютыРасчетовВывод.Курс, 1) * ЕСТЬNULL(КурсыВалютыУпрВывод.Кратность, 1) / (ЕСТЬNULL(КурсыВалютыУпрВывод.Курс, 1) * ЕСТЬNULL(КурсыВалютыРасчетовВывод.Кратность, 1))
+			ИНАЧЕ 0
+		КОНЕЦ) КАК НашДолг,
+	СУММА(ВЫБОР
+			КОГДА ЕСТЬNULL(ВложенныйЗапрос.СуммаОстаток, 0) &gt; 0
+				ТОГДА ЕСТЬNULL(ВложенныйЗапрос.СуммаОстаток, 0) * ЕСТЬNULL(КурсыВалютыРасчетовВывод.Курс, 1) * ЕСТЬNULL(КурсыВалютыУпрВывод.Кратность, 1) / (ЕСТЬNULL(КурсыВалютыУпрВывод.Курс, 1) * ЕСТЬNULL(КурсыВалютыРасчетовВывод.Кратность, 1))
+			ИНАЧЕ 0
+		КОНЕЦ) КАК ДолгПартнера,
+	МАКСИМУМ(ЕСТЬNULL(ЗадолженностьПоПартнерамВывод.ДолгКлиентаПросроченоВВалютеУпр, 0)) КАК ДолгКлиентаПросроченоВВалютеУпр,
+	МАКСИМУМ(ЕСТЬNULL(ЗадолженностьПоПартнерамВывод.ДолгКлиентаПросроченоВВалютеРегл, 0)) КАК ДолгКлиентаПросроченоВВалютеРегл
+ПОМЕСТИТЬ ВтРасчеты
+ИЗ
+	КурсыВалютыУпрВывод КАК КурсыВалютыУпрВывод,
+	СоставСегмента КАК СоставСегмента
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			РасчетыСКлиентамиОстатки.АналитикаУчетаПоПартнерам.Партнер КАК Партнер,
+			РасчетыСКлиентамиОстатки.СуммаОстаток КАК СуммаОстаток,
+			РасчетыСКлиентамиОстатки.ЗаказКлиента КАК ЗаказКлиента,
+			РасчетыСКлиентамиОстатки.Валюта КАК Валюта
+		ИЗ
+			РегистрНакопления.РасчетыСКлиентами.Остатки(
+					,
+					АналитикаУчетаПоПартнерам.Партнер В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)) КАК РасчетыСКлиентамиОстатки) КАК ВложенныйЗапрос
+			ЛЕВОЕ СОЕДИНЕНИЕ КурсыВалютыРасчетовВывод КАК КурсыВалютыРасчетовВывод
+			ПО ВложенныйЗапрос.Валюта = КурсыВалютыРасчетовВывод.Валюта
+			ЛЕВОЕ СОЕДИНЕНИЕ ЗадолженностьПоПартнерамВывод КАК ЗадолженностьПоПартнерамВывод
+			ПО ВложенныйЗапрос.Партнер = ЗадолженностьПоПартнерамВывод.Партнер
+		ПО СоставСегмента.Партнер = ВложенныйЗапрос.Партнер
+
+СГРУППИРОВАТЬ ПО
+	СоставСегмента.Партнер
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ВтРасчеты.Партнер КАК Партнер,
+	ВтРасчеты.НашДолг КАК НашДолг,
+	ВтРасчеты.ДолгПартнера КАК ДолгПартнера,
+	ВтРасчеты.ДолгКлиентаПросроченоВВалютеУпр КАК ДолгКлиентаПросроченоВВалютеУпр,
+	ВтРасчеты.ДолгКлиентаПросроченоВВалютеРегл КАК ДолгКлиентаПросроченоВВалютеРегл
+{ВЫБРАТЬ
+	Партнер.* КАК ПартнерСегмента,
+	НашДолг КАК ТекущийНашДолг,
+	ДолгПартнера КАК ТекущийДолгПартнера,
+	ДолгКлиентаПросроченоВВалютеУпр,
+	ДолгКлиентаПросроченоВВалютеРегл}
+ИЗ
+	ВтРасчеты КАК ВтРасчеты</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<parameter>
+		<name>Календарь</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Календарь</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Календари</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<expression>Константы.ОсновнойКалендарьПредприятия.Получить()</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ТекущаяДата</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущая дата</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>ТекущаяДата()</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>КонтрольнаяДата</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Контрольная дата</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>ДобавитьКДате(ТекущаяДата(), "День", -&amp;КоличествоДнейПросрочки)</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>ФормированиеСегмента</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Формирование сегмента</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Партнер</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Партнер</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>ВыводСегмента</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вывод сегмента</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПартнерСегмента</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТекущийДолгПартнера</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТекущийНашДолг</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПартнерСегмента.ОсновнойМенеджер</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Основной менеджер</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПартнерСегмента.БизнесРегион</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Бизнес регион</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДолгКлиентаПросроченоВВалютеРегл</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДолгКлиентаПросроченоВВалютеУпр</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">Партнер.ПометкаУдаления</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="xs:boolean">false</dcsset:right>
+					<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>РасположениеРеквизитов</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionAttributesPlacement">Separately</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemField">
+						<dcsset:field>Партнер</dcsset:field>
+						<dcsset:orderType>Asc</dcsset:orderType>
+					</dcsset:item>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

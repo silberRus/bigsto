@@ -1,0 +1,2400 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML 2014 Designer Edition 12.2.8.5459 (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:tns="urn:1C.ru:commerceml_3"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="urn:1C.ru:commerceml_3"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Каталог"
+                type="tns:Каталог" />
+    <xs:element name="Классификатор">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:Классификатор" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ПакетПредложений"
+                type="tns:ПакетПредложений" />
+    <xs:element name="Документ"
+                type="tns:Документ" />
+    <xs:element name="КоммерческаяИнформация">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:КоммерческаяИнформация" />
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Контейнер"
+                type="tns:Контейнер" />
+    <xs:complexType name="Адрес">
+        <xs:sequence>
+            <xs:element name="Представление">
+                <xs:simpleType>
+                    <xs:restriction base="tns:НаименованиеТип" />
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Комментарий"
+                        minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="tns:КомментарийТип" />
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="АдресноеПоле"
+                        minOccurs="0"
+                        maxOccurs="10">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Тип"
+                                    type="tns:АдресТип" />
+                        <xs:element name="Значение"
+                                    type="tns:СтрокаТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="АдресТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Почтовый индекс" />
+            <xs:enumeration value="Страна" />
+            <xs:enumeration value="Регион" />
+            <xs:enumeration value="Район" />
+            <xs:enumeration value="Населенный пункт" />
+            <xs:enumeration value="Город" />
+            <xs:enumeration value="Улица" />
+            <xs:enumeration value="Дом" />
+            <xs:enumeration value="Корпус" />
+            <xs:enumeration value="Квартира" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="АртикулТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="БИКТип">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0" />
+            <xs:maxLength value="11" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Банк">
+        <xs:choice>
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="СчетКорреспондентский"
+                        type="tns:СчетНомерТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Адрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Контакты"
+                        type="tns:КонтактнаяИнформация"
+                        minOccurs="0" />
+            <xs:element name="БИК"
+                        type="tns:БИКТип"
+                        minOccurs="0" />
+            <xs:element name="SWIFT"
+                        type="xs:string"
+                        minOccurs="0" />
+        </xs:choice>
+    </xs:complexType>
+    <xs:simpleType name="ВалютаТип">
+        <xs:restriction base="xs:string">
+            <xs:length value="3" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ВидДеятельностиТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ВидДисконтнойКарты">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ВремяТип">
+        <xs:restriction base="xs:time" />
+    </xs:simpleType>
+    <xs:complexType name="График">
+        <xs:sequence>
+            <xs:element name="НомерДня"
+                        type="xs:integer"
+                        minOccurs="0" />
+            <xs:element name="ВремяНачала"
+                        type="tns:ДатаВремяТип"
+                        minOccurs="0" />
+            <xs:element name="ВремяЗавершения"
+                        type="tns:ДатаВремяТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Группа">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:КомментарийТип" />
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Свойства"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Свойство"
+                                    type="tns:Свойство"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Группы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Группа"
+                                    type="tns:Группа"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ДатаВремяТип">
+        <xs:restriction base="xs:dateTime" />
+    </xs:simpleType>
+    <xs:simpleType name="ДатаТип">
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+    <xs:complexType name="ДисконтнаяКарта">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:Идентификатор80"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Статус" />
+            <xs:element name="Контрагент"
+                        type="tns:Контрагент" />
+            <xs:element name="Штрихкод"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="ВидДисконтнойКарты"
+                        type="tns:ИдентификаторГлобальныйТип" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Документ">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Номер"
+                        type="tns:НомерТип" />
+            <xs:element name="Номер1С"
+                        type="tns:НомерТип" />
+            <xs:element name="Дата"
+                        type="tns:ДатаТип" />
+            <xs:element name="Дата1С"
+                        type="tns:ДатаТип" />
+            <xs:element name="Время"
+                        type="tns:ВремяТип"
+                        minOccurs="0" />
+            <xs:element name="ХозОперация"
+                        type="tns:ХозОперацияТип" />
+            <xs:element name="Контрагенты">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Контрагент"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Контрагент">
+                                        <xs:choice>
+                                            <xs:element name="РасчетныйСчет"
+                                                        type="tns:РасчетныйСчет"
+                                                        minOccurs="0" />
+                                            <xs:element name="Склад"
+                                                        type="tns:Склад"
+                                                        minOccurs="0" />
+                                        </xs:choice>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Склады"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Склад"
+                                    type="tns:Склад"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Валюта"
+                        type="tns:ВалютаТип" />
+            <xs:element name="Курс"
+                        type="tns:КоэффициентТип" />
+            <xs:element name="Сумма"
+                        type="tns:СуммаТип" />
+            <xs:element name="Основание"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="Роль"
+                        type="tns:РольТип" />
+            <xs:element name="СрокПлатежа"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Налоги"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Налог"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Налог">
+                                        <xs:sequence>
+                                            <xs:element name="Сумма"
+                                                        type="tns:СуммаТип" />
+                                            <xs:element name="Ставка"
+                                                        type="tns:КоэффициентТип"
+                                                        minOccurs="0" />
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Скидки"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Скидка"
+                                    type="tns:Скидка"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ДопРасходы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ДопРасход"
+                                    type="tns:ДопРасход"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Подписанты"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Подписант"
+                                    type="tns:Подписант"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Товары"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Товар"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Товар">
+                                        <xs:sequence>
+                                            <xs:element name="Единица"
+                                                        type="tns:ЕдиницаИзмерения"
+                                                        minOccurs="0" />
+                                            <xs:element name="Коэффициент"
+                                                        type="tns:КоэффициентТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Количество"
+                                                        type="tns:КоличествоТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Цена"
+                                                        type="tns:СуммаТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Сумма"
+                                                        type="tns:СуммаТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Налоги"
+                                                        minOccurs="0">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="Налог"
+                                                                    maxOccurs="unbounded">
+                                                            <xs:complexType>
+                                                                <xs:complexContent>
+                                                                    <xs:extension base="tns:Налог">
+                                                                        <xs:sequence>
+                                                                            <xs:element name="Сумма"
+                                                                                        type="tns:СуммаТип" />
+                                                                            <xs:element name="Ставка"
+                                                                                        type="tns:КоэффициентТип"
+                                                                                        minOccurs="0" />
+                                                                        </xs:sequence>
+                                                                    </xs:extension>
+                                                                </xs:complexContent>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="Скидки"
+                                                        minOccurs="0">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="Скидка"
+                                                                    maxOccurs="unbounded">
+                                                            <xs:complexType>
+                                                                <xs:complexContent>
+                                                                    <xs:extension base="tns:Скидка" />
+                                                                </xs:complexContent>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="ДополнительныеЗначенияРеквизитов"
+                                                        minOccurs="0">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="ЗначениеРеквизита"
+                                                                    type="tns:ЗначениеРеквизита"
+                                                                    maxOccurs="unbounded" />
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="ДополнительныеДанные"
+                                                        minOccurs="0">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="ЗначениеРеквизита"
+                                                                    type="tns:ЗначениеРеквизита"
+                                                                    maxOccurs="unbounded" />
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ИнформацияОЧеках"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ИнформацияОЧеке"
+                                    type="tns:ИнформацияОЧеке"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ДопРасход">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Сумма"
+                        type="tns:СуммаТип" />
+            <xs:element name="Процент"
+                        type="tns:КоэффициентТип"
+                        minOccurs="0" />
+            <xs:element name="УчтеноВСумме"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ЕГРПОТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:complexType name="ЕдиницаИзмерения">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="НаименованиеКраткое"
+                        type="tns:Строка4" />
+            <xs:element name="Код"
+                        type="tns:Строка4"
+                        minOccurs="0" />
+            <xs:element name="НаименованиеПолное"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="МеждународноеСокращение"
+                        type="tns:Строка3"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ЕдиницаТовара">
+        <xs:sequence>
+            <xs:element name="ЕдиницаИзмерения"
+                        type="tns:ЕдиницаИзмерения"
+                        minOccurs="0" />
+            <xs:element name="Коэффициент"
+                        type="tns:КоэффициентТип"
+                        minOccurs="0" />
+            <xs:element name="ВесБрутто"
+                        type="tns:КоличествоТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ЗначениеРеквизита">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Значение"
+                        type="tns:ЗначениеТип"
+                        maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ЗначениеТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10000" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ЗначенияСвойства">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Значение"
+                        type="tns:ЗначениеТип"
+                        maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ИННТип">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0" />
+            <xs:maxLength value="12" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ИнформацияОЧеке">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ЗначенияСвойств"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначенияСвойства"
+                                    type="tns:ЗначенияСвойства"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="Идентификатор80">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="80" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ИдентификаторГлобальныйТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ИдентфикаторТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ИмяФайлаТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ИнформацияОСкидке">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="1" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="Приоритет"
+                        type="xs:integer"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="Активность"
+                        type="tns:ПереключательТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ДатаУстановкиСкидки"
+                        type="tns:ДатаВремяТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ДатаНачала"
+                        type="tns:ДатаВремяТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ДатаЗавершения"
+                        type="tns:ДатаВремяТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ГруппаСовместногоПрименения"
+                        type="tns:СовместноеПрименениеСкидокТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+            <xs:element name="Значение"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+            <xs:element name="ТипСкидки"
+                        type="tns:ТипыСкидокТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+            <xs:element name="Условия"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Условие"
+                                    type="tns:ОписаниеУсловияСкидки"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="УточненияЗначенийСкидок"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="УточнениеЗначенияСкидки"
+                                    type="tns:УточнениеЗначенияСкидки"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ДополнительныеПараметры"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ПараметрУсловия"
+                                    type="tns:ПараметрУсловия"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="КППТип">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0" />
+            <xs:maxLength value="12" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Каталог">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="ИдКлассификатора"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Владелец"
+                        type="tns:Контрагент" />
+            <xs:element name="Товары">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Товар"
+                                    type="tns:Товар"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Подписанты"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Подписант"
+                                    type="tns:Подписант"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="СодержитТолькоИзменения"
+                      type="tns:ПереключательТип" />
+    </xs:complexType>
+    <xs:complexType name="Классификатор">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Владелец"
+                        type="tns:Контрагент" />
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Группы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Группа"
+                                    type="tns:Группа"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Свойства"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Свойство"
+                                    type="tns:Свойство"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ТипыЦен"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ТипЦены"
+                                    type="tns:ТипЦены"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Подписанты"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Подписант"
+                                    type="tns:Подписант"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Склады"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Склад"
+                                    type="tns:Склад"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ЕдиницыИзмерения"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЕдиницаИзмерения"
+                                    type="tns:ЕдиницаИзмерения"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="СодержитТолькоИзменения"
+                      type="tns:ПереключательТип" />
+    </xs:complexType>
+    <xs:simpleType name="КоличествоТип">
+        <xs:restriction base="xs:decimal" />
+    </xs:simpleType>
+    <xs:simpleType name="КомментарийТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="3000" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="КоммерческаяИнформация">
+        <xs:choice>
+            <xs:element name="Классификатор"
+                        type="tns:Классификатор"
+                        minOccurs="0" />
+            <xs:element name="ПользовательскиеСправочники"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Справочник"
+                                    type="tns:Справочник"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="СодержитТолькоИзменения"
+                                  type="tns:ПереключательТип" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Каталог"
+                        type="tns:Каталог"
+                        minOccurs="0" />
+            <xs:element name="ПакетПредложений"
+                        type="tns:ПакетПредложений"
+                        minOccurs="0" />
+            <xs:element name="Контрагенты"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Контрагент"
+                                    type="tns:Контрагент"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="СодержитТолькоИзменения"
+                                  type="tns:ПереключательТип" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Скидки"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Скидка"
+                                    type="tns:ИнформацияОСкидке"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ВидыДисконтныхКарт"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДисконтнойКарты"
+                                    type="tns:ВидДисконтнойКарты"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ДисконтныеКарты"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ДисконтнаяКарта"
+                                    type="tns:ДисконтнаяКарта"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Контейнер"
+                        minOccurs="0"
+                        maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Документ"
+                                    type="tns:Документ"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+        <xs:attribute name="ВерсияСхемы"
+                      use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ДатаФормирования"
+                      type="tns:ДатаВремяТип"
+                      use="required" />
+        <xs:attribute name="Ид"
+                      type="tns:ИдентификаторГлобальныйТип" />
+    </xs:complexType>
+    <xs:simpleType name="КонтактТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+            <xs:enumeration value="Телефон внутренний" />
+            <xs:enumeration value="Телефон рабочий" />
+            <xs:enumeration value="Телефон мобильный" />
+            <xs:enumeration value="Телефон домашний" />
+            <xs:enumeration value="Пейджер" />
+            <xs:enumeration value="Факс" />
+            <xs:enumeration value="Почта" />
+            <xs:enumeration value="ICQ" />
+            <xs:enumeration value="ВебСайт" />
+            <xs:enumeration value="Электронная почта" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="КонтактнаяИнформация">
+        <xs:sequence>
+            <xs:element name="Контакт"
+                        maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Тип"
+                                    type="tns:КонтактТип" />
+                        <xs:element name="Значение"
+                                    type="tns:СтрокаТип" />
+                        <xs:element name="Комментарий"
+                                    type="tns:КомментарийТип"
+                                    minOccurs="0" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Контрагент">
+        <xs:choice>
+            <xs:element name="Ид"
+                        type="tns:Идентификатор80"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ОфициальноеНаименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ЮридическийАдрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="ИНН"
+                        type="tns:ИННТип"
+                        minOccurs="0" />
+            <xs:element name="КПП"
+                        type="tns:КППТип"
+                        minOccurs="0" />
+            <xs:element name="ОсновнойВидДеятельности"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ЕГРПО"
+                        type="tns:ЕГРПОТип"
+                        minOccurs="0" />
+            <xs:element name="ОКВЭД"
+                        type="tns:ОКВЭДТип"
+                        minOccurs="0" />
+            <xs:element name="ОКДП"
+                        type="tns:ОКДПТип"
+                        minOccurs="0" />
+            <xs:element name="ОКОПФ"
+                        type="tns:ОКОПФТип"
+                        minOccurs="0" />
+            <xs:element name="ОКФС"
+                        type="tns:ОКФСТип"
+                        minOccurs="0" />
+            <xs:element name="ОКПО"
+                        type="tns:ОКПОТип"
+                        minOccurs="0" />
+            <xs:element name="КодПоОКПО"
+                        type="tns:ОКПОТип"
+                        minOccurs="0" />
+            <xs:element name="ДатаРегистрации"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="Руководитель"
+                        type="tns:Руководитель"
+                        minOccurs="0" />
+            <xs:element name="РасчетныеСчета"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="РасчетныйСчет"
+                                    type="tns:РасчетныйСчет"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ПолноеНаименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Обращение"
+                        type="tns:ОбращениеТип"
+                        minOccurs="0" />
+            <xs:element name="Фамилия"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Имя"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Отчество"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="ДатаРождения"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="МестоРождения"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Пол"
+                        type="tns:ПолТип"
+                        minOccurs="0" />
+            <xs:element name="УдостоверениеЛичности"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДокумента"
+                                    type="tns:СтрокаТип" />
+                        <xs:element name="Серия"
+                                    type="tns:СтрокаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Номер"
+                                    type="tns:НомерТип" />
+                        <xs:element name="ДатаВыдачи"
+                                    type="tns:ДатаТип" />
+                        <xs:element name="КемВыдан"
+                                    type="tns:НаименованиеТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="АдресРегистрации"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Организация"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ОфициальноеНаименование"
+                                    type="tns:НаименованиеТип" />
+                        <xs:element name="ЮридическийАдрес"
+                                    type="tns:Адрес"
+                                    minOccurs="0" />
+                        <xs:element name="ИНН"
+                                    type="tns:ИННТип"
+                                    minOccurs="0" />
+                        <xs:element name="КПП"
+                                    type="tns:КППТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОсновнойВидДеятельности"
+                                    type="tns:НаименованиеТип"
+                                    minOccurs="0" />
+                        <xs:element name="ЕГРПО"
+                                    type="tns:ЕГРПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКВЭД"
+                                    type="tns:ОКВЭДТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКДП"
+                                    type="tns:ОКДПТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКОПФ"
+                                    type="tns:ОКОПФТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКФС"
+                                    type="tns:ОКФСТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКПО"
+                                    type="tns:ОКПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ДатаРегистрации"
+                                    type="tns:ДатаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Руководитель"
+                                    type="tns:Руководитель"
+                                    minOccurs="0" />
+                        <xs:element name="РасчетныеСчета"
+                                    minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="РасчетныйСчет"
+                                                type="tns:РасчетныйСчет"
+                                                maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Должность"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Адрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Контакты"
+                        type="tns:КонтактнаяИнформация"
+                        minOccurs="0" />
+            <xs:element name="Представители"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Представитель"
+                                    type="tns:Представитель"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Роль"
+                        type="tns:РольТип"
+                        minOccurs="0" />
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="Контейнер">
+        <xs:sequence>
+            <xs:element name="Документ"
+                        type="tns:Документ"
+                        minOccurs="0"
+                        maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="КоэффициентТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="НаименованиеТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="250" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Налог">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="УчтеноВСумме"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Акциз"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="НомерВерсииТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="НомерТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ОКВЭДТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="ОКДПТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="ОКОПФТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="ОКПОТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="ОКФСТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="ОбращениеТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ОбязательностьСвойствТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Для каталога" />
+            <xs:enumeration value="Для документа" />
+            <xs:enumeration value="Для предложений" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ОписаниеУсловияСкидки">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ТипУсловия"
+                        type="tns:СписокУсловийСкидокТип" />
+            <xs:element name="ДополнительныеПараметры"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ПараметрУсловия"
+                                    type="tns:ПараметрУсловия"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Остаток">
+        <xs:sequence>
+            <xs:element name="Склад"
+                        type="tns:Склад"
+                        minOccurs="0" />
+            <xs:element name="Количество"
+                        type="tns:КоличествоТип" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ПакетПредложений">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="ИдКаталога"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="ИдКлассификатора"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="ДействительноС"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="ДействительноДо"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Владелец"
+                        type="tns:Контрагент" />
+            <xs:element name="ЗначенияСвойств"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначенияСвойства"
+                                    type="tns:ЗначенияСвойства"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Предложения">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Предложение"
+                                    type="tns:Предложение"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Подписанты"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Подписант"
+                                    type="tns:Подписант"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="СодержитТолькоИзменения"
+                      type="tns:ПереключательТип" />
+    </xs:complexType>
+    <xs:complexType name="ПараметрУсловия">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+            <xs:element name="Значение"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+            <xs:element name="Предложения"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Предложение"
+                                    type="tns:Идентификатор80"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ГрафикВыполнения"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="График"
+                                    type="tns:График"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Контрагенты"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Контрагент"
+                                    type="tns:Идентификатор80"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ВидыДисконтныхКарт"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДисконтнойКарты"
+                                    type="tns:ИдентификаторГлобальныйТип"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ТипыЦен"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ТипЦены"
+                                    type="tns:ИдентификаторГлобальныйТип"
+                                    minOccurs="1"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ПереключательТип">
+        <xs:restriction base="xs:boolean" />
+    </xs:simpleType>
+    <xs:complexType name="Подписант">
+        <xs:sequence>
+            <xs:element name="Фамилия"
+                        type="tns:СтрокаТип" />
+            <xs:element name="Имя"
+                        type="tns:СтрокаТип" />
+            <xs:element name="Отчество"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Обращение"
+                        type="tns:ОбращениеТип"
+                        minOccurs="0" />
+            <xs:element name="УдостоверениеЛичности"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДокумента"
+                                    type="tns:СтрокаТип" />
+                        <xs:element name="Серия"
+                                    type="tns:СтрокаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Номер"
+                                    type="tns:НомерТип" />
+                        <xs:element name="ДатаВыдачи"
+                                    type="tns:ДатаТип" />
+                        <xs:element name="КемВыдан"
+                                    type="tns:НаименованиеТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="АдресРегистрации"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="МестоРаботы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ОфициальноеНаименование"
+                                    type="tns:НаименованиеТип" />
+                        <xs:element name="ЮридическийАдрес"
+                                    type="tns:Адрес"
+                                    minOccurs="0" />
+                        <xs:element name="ИНН"
+                                    type="tns:ИННТип"
+                                    minOccurs="0" />
+                        <xs:element name="КПП"
+                                    type="tns:КППТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОсновнойВидДеятельности"
+                                    type="tns:НаименованиеТип"
+                                    minOccurs="0" />
+                        <xs:element name="ЕГРПО"
+                                    type="tns:ЕГРПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКВЭД"
+                                    type="tns:ОКВЭДТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКДП"
+                                    type="tns:ОКДПТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКОПФ"
+                                    type="tns:ОКОПФТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКФС"
+                                    type="tns:ОКФСТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКПО"
+                                    type="tns:ОКПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ДатаРегистрации"
+                                    type="tns:ДатаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Руководитель"
+                                    type="tns:Руководитель"
+                                    minOccurs="0" />
+                        <xs:element name="РасчетныеСчета"
+                                    minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="РасчетныйСчет"
+                                                type="tns:РасчетныйСчет"
+                                                maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Должность"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ПолТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+            <xs:enumeration value="М" />
+            <xs:enumeration value="Ж" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Предложение">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:Идентификатор80" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Штрихкод"
+                        type="tns:ШтрихкодТип"
+                        minOccurs="0" />
+            <xs:element name="ХарактеристикиТовара"
+                        type="tns:ХарактеристикиТовара"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияСвойств"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначенияСвойства"
+                                    type="tns:ЗначенияСвойства"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Цены"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Цена"
+                                    type="tns:Цена"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Остатки"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Остаток"
+                                    type="tns:Остаток"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Комплектующие"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Комплектующее"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Товар">
+                                        <xs:sequence>
+                                            <xs:element name="ИдКаталога"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="ИдКлассификатора"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Количество"
+                                                        type="tns:КоличествоТип" />
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Картинка"
+                        type="tns:ИмяФайлаТип"
+                        minOccurs="0"
+                        maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Представитель">
+        <xs:choice>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ОфициальноеНаименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ЮридическийАдрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="ИНН"
+                        type="tns:ИННТип"
+                        minOccurs="0" />
+            <xs:element name="КПП"
+                        type="tns:КППТип"
+                        minOccurs="0" />
+            <xs:element name="ОсновнойВидДеятельности"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ЕГРПО"
+                        type="tns:ЕГРПОТип"
+                        minOccurs="0" />
+            <xs:element name="ОКВЭД"
+                        type="tns:ОКВЭДТип"
+                        minOccurs="0" />
+            <xs:element name="ОКДП"
+                        type="tns:ОКДПТип"
+                        minOccurs="0" />
+            <xs:element name="ОКОПФ"
+                        type="tns:ОКОПФТип"
+                        minOccurs="0" />
+            <xs:element name="ОКФС"
+                        type="tns:ОКФСТип"
+                        minOccurs="0" />
+            <xs:element name="ОКПО"
+                        type="tns:ОКПОТип"
+                        minOccurs="0" />
+            <xs:element name="ДатаРегистрации"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="Руководитель"
+                        type="tns:Руководитель"
+                        minOccurs="0" />
+            <xs:element name="РасчетныеСчета"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="РасчетныйСчет"
+                                    type="tns:РасчетныйСчет"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ПолноеНаименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Обращение"
+                        type="tns:ОбращениеТип"
+                        minOccurs="0" />
+            <xs:element name="Фамилия"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Имя"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Отчество"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="ДатаРождения"
+                        type="tns:ДатаТип"
+                        minOccurs="0" />
+            <xs:element name="МестоРождения"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Пол"
+                        type="tns:ПолТип"
+                        minOccurs="0" />
+            <xs:element name="УдостоверениеЛичности"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДокумента"
+                                    type="tns:СтрокаТип" />
+                        <xs:element name="Серия"
+                                    type="tns:СтрокаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Номер"
+                                    type="tns:НомерТип" />
+                        <xs:element name="ДатаВыдачи"
+                                    type="tns:ДатаТип" />
+                        <xs:element name="КемВыдан"
+                                    type="tns:НаименованиеТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="АдресРегистрации"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Организация"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ОфициальноеНаименование"
+                                    type="tns:НаименованиеТип" />
+                        <xs:element name="ЮридическийАдрес"
+                                    type="tns:Адрес"
+                                    minOccurs="0" />
+                        <xs:element name="ИНН"
+                                    type="tns:ИННТип"
+                                    minOccurs="0" />
+                        <xs:element name="КПП"
+                                    type="tns:КППТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОсновнойВидДеятельности"
+                                    type="tns:НаименованиеТип"
+                                    minOccurs="0" />
+                        <xs:element name="ЕГРПО"
+                                    type="tns:ЕГРПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКВЭД"
+                                    type="tns:ОКВЭДТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКДП"
+                                    type="tns:ОКДПТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКОПФ"
+                                    type="tns:ОКОПФТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКФС"
+                                    type="tns:ОКФСТип"
+                                    minOccurs="0" />
+                        <xs:element name="ОКПО"
+                                    type="tns:ОКПОТип"
+                                    minOccurs="0" />
+                        <xs:element name="ДатаРегистрации"
+                                    type="tns:ДатаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Руководитель"
+                                    type="tns:Руководитель"
+                                    minOccurs="0" />
+                        <xs:element name="РасчетныеСчета"
+                                    minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="РасчетныйСчет"
+                                                type="tns:РасчетныйСчет"
+                                                maxOccurs="unbounded" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Должность"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Адрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Контакты"
+                        type="tns:КонтактнаяИнформация"
+                        minOccurs="0" />
+            <xs:element name="Отношение"
+                        type="xs:string"
+                        minOccurs="0" />
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="РасчетныйСчет">
+        <xs:sequence>
+            <xs:element name="НомерСчета"
+                        type="tns:СчетНомерТип" />
+            <xs:element name="Банк"
+                        type="tns:Банк" />
+            <xs:element name="БанкКорреспондент"
+                        type="tns:Банк"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="РольТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Продавец" />
+            <xs:enumeration value="Покупатель" />
+            <xs:enumeration value="Плательщик" />
+            <xs:enumeration value="Получатель" />
+            <xs:enumeration value="Комитент" />
+            <xs:enumeration value="Комиссионер" />
+            <xs:enumeration value="Лицензиар" />
+            <xs:enumeration value="Лицензиат" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Руководитель">
+        <xs:sequence>
+            <xs:element name="Фамилия"
+                        type="tns:СтрокаТип" />
+            <xs:element name="Имя"
+                        type="tns:СтрокаТип" />
+            <xs:element name="Отчество"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="УдостоверениеЛичности"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ВидДокумента"
+                                    type="tns:СтрокаТип" />
+                        <xs:element name="Серия"
+                                    type="tns:СтрокаТип"
+                                    minOccurs="0" />
+                        <xs:element name="Номер"
+                                    type="tns:НомерТип" />
+                        <xs:element name="ДатаВыдачи"
+                                    type="tns:ДатаТип" />
+                        <xs:element name="КемВыдан"
+                                    type="tns:НаименованиеТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="АресРегистрации"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Должность"
+                        type="tns:СтрокаТип" />
+            <xs:element name="Контакты"
+                        type="tns:КонтактнаяИнформация"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="СВИФТТип">
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:complexType name="Свойство">
+        <xs:choice>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Обязательное"
+                        type="tns:ОбязательностьСвойствТип"
+                        minOccurs="0" />
+            <xs:element name="Множественное"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="ТипЗначений"
+                        type="tns:ТипЗначенийТип"
+                        minOccurs="0" />
+            <xs:element name="ТипСправочника"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ВариантыЗначений"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Значение"
+                                    type="tns:ЗначениеТип"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded" />
+                        <xs:element name="Справочник"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="ИдЗначения"
+                                                type="tns:ИдентификаторГлобальныйТип"
+                                                minOccurs="0" />
+                                    <xs:element name="Значение"
+                                                type="tns:ЗначениеТип" />
+                                    <xs:element name="Картинка"
+                                                type="tns:ИмяФайлаТип" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ДляТоваров"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="ДляПредложений"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="ДляДокументов"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Внешний"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Информационное"
+                        type="tns:ПереключательТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Группы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Ид"
+                                    type="tns:ИдентификаторГлобальныйТип"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="Скидка">
+        <xs:sequence>
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Сумма"
+                        type="tns:СуммаТип" />
+            <xs:element name="Процент"
+                        type="tns:КоэффициентТип"
+                        minOccurs="0" />
+            <xs:element name="УчтеноВСумме"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Склад">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Комментарий"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Адрес"
+                        type="tns:Адрес"
+                        minOccurs="0" />
+            <xs:element name="Контакты"
+                        type="tns:КонтактнаяИнформация"
+                        minOccurs="0" />
+            <xs:element name="Количество"
+                        type="tns:КоличествоТип"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="СовместноеПрименениеСкидокТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Минимум" />
+            <xs:enumeration value="Максимум" />
+            <xs:enumeration value="Сложение" />
+            <xs:enumeration value="Умножение" />
+            <xs:enumeration value="Вытеснение" />
+            <xs:enumeration value="По дате" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="СписокУсловийСкидокТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="За разовый объем продаж" />
+            <xs:enumeration value="За накопленный объем продаж" />
+            <xs:enumeration value="За пробную продажу" />
+            <xs:enumeration value="За первую продажу клиенту" />
+            <xs:enumeration value="За время продажи" />
+            <xs:enumeration value="За форму оплаты" />
+            <xs:enumeration value="За наличие вида дисконтной карты" />
+            <xs:enumeration value="За не наличие вида дисконтной карты" />
+            <xs:enumeration value="За наличие дисконтной карты" />
+            <xs:enumeration value="За не наличие дисконтной карты" />
+            <xs:enumeration value="Для определенных клиентов" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Справочник">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="Реквизиты"
+                        minOccurs="0"
+                        maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Реквизит"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Ид"
+                                                type="tns:НаименованиеТип" />
+                                    <xs:element name="Наименование"
+                                                type="tns:НаименованиеТип" />
+                                    <xs:element name="ТипЗначений"
+                                                type="tns:ТипЗначенийТип" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ЭлементыСправочника"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЭлементСправочника"
+                                    type="tns:ЭлементСправочника"
+                                    minOccurs="0"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="СтатусТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Новый" />
+            <xs:enumeration value="Изменен" />
+            <xs:enumeration value="Удален" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Строка3">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="3" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Строка4">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="4" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="СтрокаТип">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10000" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="СуммаТип">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="18" />
+            <xs:fractionDigits value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="СчетНомерТип">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0" />
+            <xs:maxLength value="40" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ТипЗначенийТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Строка" />
+            <xs:enumeration value="Число" />
+            <xs:enumeration value="Время" />
+            <xs:enumeration value="Справочник" />
+            <xs:enumeration value="Булево" />
+            <xs:enumeration value="Дата" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ТипЦены">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="Валюта"
+                        type="tns:ВалютаТип"
+                        minOccurs="0" />
+            <xs:element name="Описание"
+                        type="tns:КомментарийТип"
+                        minOccurs="0" />
+            <xs:element name="Налог"
+                        minOccurs="0"
+                        maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="tns:Налог" />
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ТипыСкидокТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Скидка (наценка) суммой на документ" />
+            <xs:enumeration value="Скидка (наценка) суммой для каждой строки" />
+            <xs:enumeration value="Скидка количеством" />
+            <xs:enumeration value="Скидка (наценка) процентом" />
+            <xs:enumeration value="Специальная цена" />
+            <xs:enumeration value="Выдача сообщения" />
+            <xs:enumeration value="Подарок" />
+            <xs:enumeration value="Округление суммы документа" />
+            <xs:enumeration value="Выдача дисконтной карты" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Товар">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:Идентификатор80"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ПометкаУдаления"
+                        type="tns:ПереключательТип"
+                        minOccurs="0" />
+            <xs:element name="Штрихкод"
+                        type="tns:ШтрихкодТип"
+                        minOccurs="0" />
+            <xs:element name="Артикул"
+                        type="tns:АртикулТип"
+                        minOccurs="0" />
+            <xs:element name="Наименование"
+                        type="tns:НаименованиеТип" />
+            <xs:element name="БазоваяЕдиница"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="ИдТовараУКонтрагента"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="Группы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Ид"
+                                    type="tns:ИдентификаторГлобальныйТип"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Описание"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="Картинка"
+                        type="tns:ИмяФайлаТип"
+                        minOccurs="0"
+                        maxOccurs="unbounded" />
+            <xs:element name="Страна"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="ТорговаяМарка"
+                        type="tns:СтрокаТип"
+                        minOccurs="0" />
+            <xs:element name="ВладелецТорговойМарки"
+                        type="tns:Контрагент"
+                        minOccurs="0" />
+            <xs:element name="Изготовитель"
+                        type="tns:Контрагент"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияСвойств"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначенияСвойства"
+                                    type="tns:ЗначенияСвойства"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="СтавкиНалогов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="СтавкаНалога"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Наименование"
+                                                type="tns:СтрокаТип" />
+                                    <xs:element name="Ставка"
+                                                type="tns:КоэффициентТип" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Акцизы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Акциз"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="Наименование"
+                                                type="tns:НаименованиеТип" />
+                                    <xs:element name="СуммаЗаЕдиницу"
+                                                type="tns:СуммаТип" />
+                                    <xs:element name="Валюта"
+                                                type="tns:ВалютаТип" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Комплектующие"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Комплектующее"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Товар">
+                                        <xs:sequence>
+                                            <xs:element name="ИдКаталога"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="ИдКлассификатора"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="Количество"
+                                                        type="tns:КоличествоТип" />
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Аналоги"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Аналог"
+                                    maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:complexContent>
+                                    <xs:extension base="tns:Товар">
+                                        <xs:sequence>
+                                            <xs:element name="ИдКаталога"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                            <xs:element name="ИдКлассификатора"
+                                                        type="tns:ИдентификаторГлобальныйТип"
+                                                        minOccurs="0" />
+                                        </xs:sequence>
+                                    </xs:extension>
+                                </xs:complexContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ХарактеристикиТовара"
+                        type="tns:ХарактеристикиТовара"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Единицы"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Единица"
+                                    type="tns:ЕдиницаТовара"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ВесНетто"
+                        type="tns:КоличествоТип"
+                        minOccurs="0" />
+            <xs:element name="Вес"
+                        type="tns:КоличествоТип"
+                        minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="Статус"
+                      type="tns:СтатусТип" />
+    </xs:complexType>
+    <xs:simpleType name="УсловияСкидокТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ПоВидуОплаты" />
+            <xs:enumeration value="ПоДисконтнойКарте" />
+            <xs:enumeration value="ПоКоличествуТовара" />
+            <xs:enumeration value="ПоСуммеДокумента" />
+            <xs:enumeration value="БезУсловий" />
+            <xs:enumeration value="СпецПредложение" />
+            <xs:enumeration value="ПоВидуДисконтныхКарт" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="УточнениеЗначенияСкидки">
+        <xs:sequence>
+            <xs:element name="Товар"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="Предложение"
+                        type="tns:Идентификатор80"
+                        minOccurs="0"
+                        maxOccurs="1" />
+            <xs:element name="Значение"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="1"
+                        maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ХарактеристикиТовара">
+        <xs:sequence>
+            <xs:element name="ХарактеристикаТовара"
+                        maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Ид"
+                                    type="tns:ИдентификаторГлобальныйТип"
+                                    minOccurs="0" />
+                        <xs:element name="Наименование"
+                                    type="tns:НаименованиеТип" />
+                        <xs:element name="Значение"
+                                    type="tns:ЗначениеТип" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ХозОперацияТип">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Заказ товара" />
+            <xs:enumeration value="Счет на оплату" />
+            <xs:enumeration value="Отпуск товара" />
+            <xs:enumeration value="Счет-фактура" />
+            <xs:enumeration value="Возврат товара" />
+            <xs:enumeration value="Передача товара на комиссию" />
+            <xs:enumeration value="Возврат комиссионного товара" />
+            <xs:enumeration value="Отчет о продажах комиссионного товара" />
+            <xs:enumeration value="Выплата наличных денег" />
+            <xs:enumeration value="Эквайринговая операция" />
+            <xs:enumeration value="Возврат наличных денег" />
+            <xs:enumeration value="Выплата безналичных денег" />
+            <xs:enumeration value="Возврат безналичных денег" />
+            <xs:enumeration value="Переоценка товаров" />
+            <xs:enumeration value="Передача прав" />
+            <xs:enumeration value="Прочие" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="Цена">
+        <xs:sequence>
+            <xs:element name="Представление"
+                        type="tns:НаименованиеТип"
+                        minOccurs="0" />
+            <xs:element name="ИдТипаЦены"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="ИдЕдиницыИзмерения"
+                        type="tns:ИдентификаторГлобальныйТип" />
+            <xs:element name="ЦенаЗаЕдиницу"
+                        type="tns:СуммаТип" />
+            <xs:element name="Валюта"
+                        type="tns:ВалютаТип"
+                        minOccurs="0" />
+            <xs:element name="ДополнительныеДанные"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="МинКоличество"
+                        type="tns:КоличествоТип"
+                        minOccurs="0" />
+            <xs:element name="Налог"
+                        minOccurs="0"
+                        maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="tns:Налог" />
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="ШтрихкодТип">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="0" />
+            <xs:maxLength value="40" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="ЭлементСправочника">
+        <xs:sequence>
+            <xs:element name="Ид"
+                        type="tns:ИдентификаторГлобальныйТип"
+                        minOccurs="0" />
+            <xs:element name="НомерВерсии"
+                        type="tns:НомерВерсииТип"
+                        minOccurs="0" />
+            <xs:element name="ЗначенияРеквизитов"
+                        minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ЗначениеРеквизита"
+                                    type="tns:ЗначениеРеквизита"
+                                    maxOccurs="unbounded" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

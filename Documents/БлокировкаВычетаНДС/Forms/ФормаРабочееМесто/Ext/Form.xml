@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Блокировка принятия НДС к вычету</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаШапка" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа шапка</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа шапка</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаШапкаExtendedTooltip" id="2"/>
+			<ChildItems>
+				<UsualGroup name="ГруппаПериод" id="3">
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Период</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаПериодExtendedTooltip" id="4"/>
+					<ChildItems>
+						<InputField name="НачалоПериода" id="5">
+							<DataPath>НачалоПериода</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Период</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="НачалоПериодаКонтекстноеМеню" id="6"/>
+							<ExtendedTooltip name="НачалоПериодаExtendedTooltip" id="7"/>
+							<Events>
+								<Event name="OnChange">НачалоПериодаПриИзменении</Event>
+								<Event name="Clearing">НачалоПериодаОчистка</Event>
+							</Events>
+						</InputField>
+						<LabelDecoration name="ДекорацияТире" id="8">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>—</v8:content>
+								</v8:item>
+							</Title>
+							<HorizontalAlign>Center</HorizontalAlign>
+							<VerticalAlign>Center</VerticalAlign>
+							<ContextMenu name="ДекорацияТиреКонтекстноеМеню" id="9"/>
+							<ExtendedTooltip name="ДекорацияТиреExtendedTooltip" id="10"/>
+						</LabelDecoration>
+						<InputField name="КонецПериода" id="11">
+							<DataPath>КонецПериода</DataPath>
+							<TitleLocation>None</TitleLocation>
+							<ContextMenu name="КонецПериодаКонтекстноеМеню" id="12"/>
+							<ExtendedTooltip name="КонецПериодаExtendedTooltip" id="13"/>
+							<Events>
+								<Event name="OnChange">КонецПериодаПриИзменении</Event>
+								<Event name="Clearing">КонецПериодаОчистка</Event>
+							</Events>
+						</InputField>
+						<Button name="ВыбратьПериод" id="14">
+							<Type>UsualButton</Type>
+							<CommandName>Form.Command.ВыбратьПериод</CommandName>
+							<ExtendedTooltip name="ВыбратьПериодРасширеннаяПодсказка" id="15"/>
+						</Button>
+					</ChildItems>
+				</UsualGroup>
+				<InputField name="ОрганизацияОтбор" id="16">
+					<DataPath>Организация</DataPath>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ChoiceParameters>
+						<app:item name="ВыборУправленческойОрганизации">
+							<app:value xsi:type="FormChoiceListDesTimeValue">
+								<Presentation/>
+								<Value xsi:type="xs:boolean">false</Value>
+							</app:value>
+						</app:item>
+					</ChoiceParameters>
+					<InputHint>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>По всем организациям</v8:content>
+						</v8:item>
+					</InputHint>
+					<ContextMenu name="ОрганизацияОтборКонтекстноеМеню" id="17"/>
+					<ExtendedTooltip name="ОрганизацияОтборРасширеннаяПодсказка" id="18"/>
+					<Events>
+						<Event name="OnChange">ОрганизацияПриИзменении</Event>
+					</Events>
+				</InputField>
+				<CommandBar name="ФормаГруппаКоманднаяПанельФормы" id="19">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Форма группа командная панель формы</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Форма группа командная панель формы</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ФормаГруппаКоманднаяПанельФормыРасширеннаяПодсказка" id="20"/>
+				</CommandBar>
+			</ChildItems>
+		</UsualGroup>
+		<Pages name="ГруппаСтраницы" id="21">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа страницы</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа страницы</v8:content>
+				</v8:item>
+			</ToolTip>
+			<ExtendedTooltip name="ГруппаСтраницыРасширеннаяПодсказка" id="22"/>
+			<Events>
+				<Event name="OnCurrentPageChange">ГруппаСтраницыПриСменеСтраницы</Event>
+			</Events>
+			<ChildItems>
+				<Page name="СтраницаЗаблокированныйНДС" id="51">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Входящий НДС, заблокированный для принятия к вычету</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница заблокированный НДС</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаЗаблокированныйНДСРасширеннаяПодсказка" id="52"/>
+					<ChildItems>
+						<Table name="ЗаблокированныйНДС" id="23">
+							<ReadOnly>true</ReadOnly>
+							<ChangeRowSet>false</ChangeRowSet>
+							<ChangeRowOrder>false</ChangeRowOrder>
+							<UseAlternationRowColor>true</UseAlternationRowColor>
+							<EnableStartDrag>true</EnableStartDrag>
+							<DataPath>ЗаблокированныйНДС</DataPath>
+							<RowPictureDataPath>ЗаблокированныйНДС.DefaultPicture</RowPictureDataPath>
+							<SearchStringLocation>CommandBar</SearchStringLocation>
+							<ViewStatusLocation>None</ViewStatusLocation>
+							<SearchControlLocation>None</SearchControlLocation>
+							<AutoRefresh>false</AutoRefresh>
+							<AutoRefreshPeriod>60</AutoRefreshPeriod>
+							<Period>
+								<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+								<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+								<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+							</Period>
+							<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+							<RestoreCurrentRow>false</RestoreCurrentRow>
+							<TopLevelParent xsi:nil="true"/>
+							<ShowRoot>true</ShowRoot>
+							<AllowRootChoice>false</AllowRootChoice>
+							<UpdateOnDataChange>Auto</UpdateOnDataChange>
+							<ContextMenu name="ЗаблокированныйНДСКонтекстноеМеню" id="24"/>
+							<AutoCommandBar name="ЗаблокированныйНДСКоманднаяПанель" id="25">
+								<ChildItems>
+									<Button name="ЗаблокированныйНДСДобавить" id="88">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.Добавить</CommandName>
+										<ExtendedTooltip name="ЗаблокированныйНДСДобавитьРасширеннаяПодсказка" id="89"/>
+									</Button>
+									<Button name="ЗаблокированныйНДСРазблокировать" id="53">
+										<Type>CommandBarButton</Type>
+										<CommandName>Form.Command.Разблокировать</CommandName>
+										<ExtendedTooltip name="ЗаблокированныйНДСРазблокироватьРасширеннаяПодсказка" id="54"/>
+									</Button>
+								</ChildItems>
+							</AutoCommandBar>
+							<ExtendedTooltip name="ЗаблокированныйНДСРасширеннаяПодсказка" id="26"/>
+							<SearchStringAddition name="ЗаблокированныйНДССтрокаПоиска" id="27">
+								<AdditionSource>
+									<Item>ЗаблокированныйНДС</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗаблокированныйНДССтрокаПоискаКонтекстноеМеню" id="28"/>
+								<ExtendedTooltip name="ЗаблокированныйНДССтрокаПоискаРасширеннаяПодсказка" id="29"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="ЗаблокированныйНДССостояниеПросмотра" id="30">
+								<AdditionSource>
+									<Item>ЗаблокированныйНДС</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗаблокированныйНДССостояниеПросмотраКонтекстноеМеню" id="31"/>
+								<ExtendedTooltip name="ЗаблокированныйНДССостояниеПросмотраРасширеннаяПодсказка" id="32"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="ЗаблокированныйНДСУправлениеПоиском" id="33">
+								<AdditionSource>
+									<Item>ЗаблокированныйНДС</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="ЗаблокированныйНДСУправлениеПоискомКонтекстноеМеню" id="34"/>
+								<ExtendedTooltip name="ЗаблокированныйНДСУправлениеПоискомРасширеннаяПодсказка" id="35"/>
+							</SearchControlAddition>
+							<Events>
+								<Event name="Selection">ЗаблокированныйНДСВыбор</Event>
+							</Events>
+							<ChildItems>
+								<LabelField name="ЗаблокированныйНДСОрганизация" id="42">
+									<DataPath>ЗаблокированныйНДС.Организация</DataPath>
+									<Width>15</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<ContextMenu name="ЗаблокированныйНДСОрганизацияКонтекстноеМеню" id="43"/>
+									<ExtendedTooltip name="ЗаблокированныйНДСОрганизацияРасширеннаяПодсказка" id="44"/>
+								</LabelField>
+								<LabelField name="ЗаблокированныйНДССчетФактура" id="48">
+									<DataPath>ЗаблокированныйНДС.СчетФактура</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Документ-основание</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="ЗаблокированныйНДССчетФактураКонтекстноеМеню" id="49"/>
+									<ExtendedTooltip name="ЗаблокированныйНДССчетФактураРасширеннаяПодсказка" id="50"/>
+								</LabelField>
+								<LabelField name="ЗаблокированныйНДСДатаПолученияСчетаФактуры" id="90">
+									<DataPath>ЗаблокированныйНДС.ДатаПолученияСчетаФактуры</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>СФ получен</v8:content>
+										</v8:item>
+									</Title>
+									<Width>10</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<Format>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>ДЛФ=D</v8:content>
+										</v8:item>
+									</Format>
+									<ContextMenu name="ЗаблокированныйНДСДатаПолученияСчетаФактурыКонтекстноеМеню" id="91"/>
+									<ExtendedTooltip name="ЗаблокированныйНДСДатаПолученияСчетаФактурыРасширеннаяПодсказка" id="92"/>
+								</LabelField>
+								<LabelField name="ЗаблокированныйНДСНДС" id="39">
+									<DataPath>ЗаблокированныйНДС.НДС</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>НДС (RUB)</v8:content>
+										</v8:item>
+									</Title>
+									<Width>10</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<Format>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>ЧДЦ=2</v8:content>
+										</v8:item>
+									</Format>
+									<ContextMenu name="ЗаблокированныйНДСНДСКонтекстноеМеню" id="40"/>
+									<ExtendedTooltip name="ЗаблокированныйНДСНДСРасширеннаяПодсказка" id="41"/>
+								</LabelField>
+								<LabelField name="ЗаблокированныйНДСПериодБлокировки" id="36">
+									<DataPath>ЗаблокированныйНДС.ПериодБлокировки</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Период блокировки</v8:content>
+										</v8:item>
+									</Title>
+									<Width>14</Width>
+									<HorizontalStretch>false</HorizontalStretch>
+									<Format>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>ДЛФ=D</v8:content>
+										</v8:item>
+									</Format>
+									<ContextMenu name="ЗаблокированныйНДСПериодБлокировкиКонтекстноеМеню" id="37"/>
+									<ExtendedTooltip name="ЗаблокированныйНДСПериодБлокировкиРасширеннаяПодсказка" id="38"/>
+								</LabelField>
+								<LabelField name="ЗаблокированныйНДСПравоНаВычетДо" id="45">
+									<DataPath>ЗаблокированныйНДС.ПравоНаВычетДо</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Право на вычет до</v8:content>
+										</v8:item>
+									</Title>
+									<Width>14</Width>
+									<Format>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>ДЛФ=D</v8:content>
+										</v8:item>
+									</Format>
+									<ContextMenu name="ЗаблокированныйНДСПравоНаВычетДоКонтекстноеМеню" id="46"/>
+									<ExtendedTooltip name="ЗаблокированныйНДСПравоНаВычетДоРасширеннаяПодсказка" id="47"/>
+								</LabelField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+				<Page name="СтраницаСписокДокументов" id="80">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Список документов </v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Страница список документов</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="СтраницаСписокДокументовРасширеннаяПодсказка" id="81"/>
+					<ChildItems>
+						<Table name="СписокДокументов" id="55">
+							<UseAlternationRowColor>true</UseAlternationRowColor>
+							<EnableStartDrag>true</EnableStartDrag>
+							<DataPath>СписокДокументов</DataPath>
+							<RowPictureDataPath>СписокДокументов.DefaultPicture</RowPictureDataPath>
+							<ViewStatusLocation>None</ViewStatusLocation>
+							<SearchControlLocation>None</SearchControlLocation>
+							<AutoRefresh>false</AutoRefresh>
+							<AutoRefreshPeriod>60</AutoRefreshPeriod>
+							<Period>
+								<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+								<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+								<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+							</Period>
+							<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+							<RestoreCurrentRow>false</RestoreCurrentRow>
+							<TopLevelParent xsi:nil="true"/>
+							<ShowRoot>true</ShowRoot>
+							<AllowRootChoice>false</AllowRootChoice>
+							<UpdateOnDataChange>Auto</UpdateOnDataChange>
+							<ContextMenu name="СписокДокументовКонтекстноеМеню" id="56"/>
+							<AutoCommandBar name="СписокДокументовКоманднаяПанель" id="57"/>
+							<ExtendedTooltip name="СписокДокументовРасширеннаяПодсказка" id="58"/>
+							<SearchStringAddition name="СписокДокументовСтрокаПоиска" id="59">
+								<AdditionSource>
+									<Item>СписокДокументов</Item>
+									<Type>SearchStringRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СписокДокументовСтрокаПоискаКонтекстноеМеню" id="60"/>
+								<ExtendedTooltip name="СписокДокументовСтрокаПоискаРасширеннаяПодсказка" id="61"/>
+							</SearchStringAddition>
+							<ViewStatusAddition name="СписокДокументовСостояниеПросмотра" id="62">
+								<AdditionSource>
+									<Item>СписокДокументов</Item>
+									<Type>ViewStatusRepresentation</Type>
+								</AdditionSource>
+								<ContextMenu name="СписокДокументовСостояниеПросмотраКонтекстноеМеню" id="63"/>
+								<ExtendedTooltip name="СписокДокументовСостояниеПросмотраРасширеннаяПодсказка" id="64"/>
+							</ViewStatusAddition>
+							<SearchControlAddition name="СписокДокументовУправлениеПоиском" id="65">
+								<AdditionSource>
+									<Item>СписокДокументов</Item>
+									<Type>SearchControl</Type>
+								</AdditionSource>
+								<ContextMenu name="СписокДокументовУправлениеПоискомКонтекстноеМеню" id="66"/>
+								<ExtendedTooltip name="СписокДокументовУправлениеПоискомРасширеннаяПодсказка" id="67"/>
+							</SearchControlAddition>
+							<ChildItems>
+								<LabelField name="СписокДокументовДата" id="68">
+									<DataPath>СписокДокументов.Date</DataPath>
+									<ContextMenu name="СписокДокументовДатаКонтекстноеМеню" id="69"/>
+									<ExtendedTooltip name="СписокДокументовДатаРасширеннаяПодсказка" id="70"/>
+								</LabelField>
+								<LabelField name="СписокДокументовНомер" id="71">
+									<DataPath>СписокДокументов.Number</DataPath>
+									<ContextMenu name="СписокДокументовНомерКонтекстноеМеню" id="72"/>
+									<ExtendedTooltip name="СписокДокументовНомерРасширеннаяПодсказка" id="73"/>
+								</LabelField>
+								<LabelField name="СписокДокументовОрганизация" id="74">
+									<DataPath>СписокДокументов.Организация</DataPath>
+									<ContextMenu name="СписокДокументовОрганизацияКонтекстноеМеню" id="75"/>
+									<ExtendedTooltip name="СписокДокументовОрганизацияРасширеннаяПодсказка" id="76"/>
+								</LabelField>
+								<LabelField name="СписокДокументовСостояние" id="93">
+									<DataPath>СписокДокументов.Состояние</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Блокировка НДС</v8:content>
+										</v8:item>
+									</Title>
+									<ContextMenu name="СписокДокументовСостояниеКонтекстноеМеню" id="94"/>
+									<ExtendedTooltip name="СписокДокументовСостояниеРасширеннаяПодсказка" id="95"/>
+								</LabelField>
+								<LabelField name="СписокДокументовКомментарий" id="82">
+									<DataPath>СписокДокументов.Комментарий</DataPath>
+									<Height>1</Height>
+									<ContextMenu name="СписокДокументовКомментарийКонтекстноеМеню" id="83"/>
+									<ExtendedTooltip name="СписокДокументовКомментарийРасширеннаяПодсказка" id="84"/>
+								</LabelField>
+								<LabelField name="СписокДокументовОтветственный" id="85">
+									<DataPath>СписокДокументов.Ответственный</DataPath>
+									<ContextMenu name="СписокДокументовОтветственныйКонтекстноеМеню" id="86"/>
+									<ExtendedTooltip name="СписокДокументовОтветственныйРасширеннаяПодсказка" id="87"/>
+								</LabelField>
+							</ChildItems>
+						</Table>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="КонецПериода" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Конец периода</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+			<FillCheck>ShowError</FillCheck>
+		</Attribute>
+		<Attribute name="НачалоПериода" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Начало периода</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+			<FillCheck>ShowError</FillCheck>
+		</Attribute>
+		<Attribute name="Организация" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+			<Save>
+				<Field>Организация</Field>
+			</Save>
+			<FunctionalOptions>
+				<Item>FunctionalOption.ИспользоватьНесколькоОрганизаций</Item>
+			</FunctionalOptions>
+		</Attribute>
+		<Attribute name="СписокДокументов" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список документов</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>false</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<MainTable>Document.БлокировкаВычетаНДС</MainTable>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ЗаблокированныйНДС" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заблокированный НДС</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<UseAlways>
+				<Field>ЗаблокированныйНДС.СчетФактура</Field>
+			</UseAlways>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>false</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	Заблокировано.Организация                                  КАК Организация,
+	Заблокировано.СчетФактура                                  КАК СчетФактура,
+	Заблокировано.Период                                       КАК ПериодБлокировки,
+	ЕСТЬNULL(СФПолученный.Ссылка.Дата, СФВыданный.Ссылка.Дата) КАК ДатаПолученияСчетаФактуры,
+	ЕСТЬNULL(СФПолученный.Ссылка, СФВыданный.Ссылка)           КАК СчетФактураСсылка,
+	ДОБАВИТЬКДАТЕ(КОНЕЦПЕРИОДА(ДанныеПервичныхДокументов.ДатаРегистратора, КВАРТАЛ), КВАРТАЛ, 12) КАК ПравоНаВычетДо,
+	НДСПредъявленный.НДСОстаток	                               КАК НДС
+ИЗ
+	РегистрСведений.СостоянияБлокировкиВычетаНДСПоСчетамФактурам.СрезПоследних(
+			&amp;КонецПериода,
+			{(Организация = &amp;Организация)}) КАК Заблокировано
+	
+	ЛЕВОЕ СОЕДИНЕНИЕ 
+		РегистрНакопления.НДСПредъявленный.Остатки(&amp;КонецПериода, {(Организация = &amp;Организация)}) КАК НДСПредъявленный
+	ПО 
+		Заблокировано.Организация = НДСПредъявленный.Организация
+		И Заблокировано.СчетФактура = НДСПредъявленный.СчетФактура
+	
+	ЛЕВОЕ СОЕДИНЕНИЕ
+		РегистрСведений.ДанныеПервичныхДокументов КАК ДанныеПервичныхДокументов
+	ПО
+		Заблокировано.Организация = ДанныеПервичныхДокументов.Организация
+		И Заблокировано.СчетФактура = ДанныеПервичныхДокументов.Документ 
+		
+	ЛЕВОЕ СОЕДИНЕНИЕ
+		Документ.СчетФактураПолученный.ДокументыОснования КАК СФПолученный
+	ПО
+		Заблокировано.СчетФактура = СФПолученный.ДокументОснование
+		И СФПолученный.Ссылка.Проведен
+		И НЕ СФПолученный.Ссылка.Исправление
+	
+	ЛЕВОЕ СОЕДИНЕНИЕ
+		Документ.СчетФактураВыданный.ДокументыОснования КАК СФВыданный
+	ПО
+		Заблокировано.СчетФактура = СФВыданный.ДокументОснование
+		И СФВыданный.Ссылка.Проведен
+		И НЕ СФВыданный.Ссылка.Исправление
+ГДЕ
+	Заблокировано.Состояние = ЗНАЧЕНИЕ(Перечисление.СостоянияБлокировкиВычетаНДС.Установлена)</QueryText>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ОрганизацияСохраненноеЗначение" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Организация сохраненное значение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Организации</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Разблокировать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Разблокировать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Разрешить вычет НДС по выделенным счетам-фактурам</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Разблокировать</Action>
+		</Command>
+		<Command name="ВыбратьПериод" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать период</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать период</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Select</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ВыбратьПериод</Action>
+			<Representation>Picture</Representation>
+		</Command>
+		<Command name="Добавить" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Добавить</Action>
+		</Command>
+	</Commands>
+</Form>

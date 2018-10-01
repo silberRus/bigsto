@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаНоменклатуры</dataPath>
+			<field>АналитикаУчетаНоменклатуры</field>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+			<attributeUseRestriction>
+				<condition>true</condition>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаПоПартнерам</dataPath>
+			<field>АналитикаУчетаПоПартнерам</field>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+			<attributeUseRestriction>
+				<condition>true</condition>
+			</attributeUseRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидЗапасов</dataPath>
+			<field>ВидЗапасов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Договор</dataPath>
+			<field>Договор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗаказКлиента</dataPath>
+			<field>ЗаказКлиента</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Менеджер</dataPath>
+			<field>Менеджер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Период</dataPath>
+			<field>Период</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Период</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Подразделение</dataPath>
+			<field>Подразделение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СезоннаяГруппа</dataPath>
+			<field>СезоннаяГруппа</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Склад</dataPath>
+			<field>Склад</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Соглашение</dataPath>
+			<field>Соглашение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТипЗапасов</dataPath>
+			<field>ТипЗапасов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ХозяйственнаяОперация</dataPath>
+			<field>ХозяйственнаяОперация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номенклатура</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>АналитикаУчетаНаборов</dataPath>
+			<field>АналитикаУчетаНаборов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Коэффициент</dataPath>
+			<field>Коэффициент</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Коэффициент</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СезоннаяГруппаБизнесРегиона</dataPath>
+			<field>СезоннаяГруппаБизнесРегиона</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сезонная группа бизнес региона</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	СпрНоменклатура.СезоннаяГруппа КАК СезоннаяГруппа,
+	ВЫБОР
+		КОГДА ВыручкаИСебестоимостьПродажОбороты.Склад ССЫЛКА Справочник.Склады
+				И НЕ ВыручкаИСебестоимостьПродажОбороты.Склад.БизнесРегион.СезоннаяГруппа = ЗНАЧЕНИЕ(Справочник.СезонныеГруппыБизнесРегионов.ПустаяСсылка)
+			ТОГДА ВыручкаИСебестоимостьПродажОбороты.Склад.БизнесРегион.СезоннаяГруппа
+		ИНАЧЕ ЗНАЧЕНИЕ(Справочник.СезонныеГруппыБизнесРегионов.Прочие)
+	КОНЕЦ КАК СезоннаяГруппаБизнесРегиона,
+	ВЫБОР
+		КОГДА &amp;ВариантРассчета = 1
+			ТОГДА СУММА(ВыручкаИСебестоимостьПродажОбороты.СуммаВыручкиОборот)
+		ИНАЧЕ СУММА(ВыручкаИСебестоимостьПродажОбороты.КоличествоОборот)
+	КОНЕЦ КАК Продажи,
+	ВЫБОР &amp;Периодичность
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, НЕДЕЛЯ, НЕДЕЛЯ(ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ДЕНЬ, ДЕНЬГОДА(ВыручкаИСебестоимостьПродажОбороты.ПериодДень) - 1)) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, МЕСЯЦ, МЕСЯЦ(ВыручкаИСебестоимостьПродажОбороты.ПериодМесяц) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, КВАРТАЛ, КВАРТАЛ(ВыручкаИСебестоимостьПродажОбороты.ПериодКвартал) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ГОД, ГОД(ВыручкаИСебестоимостьПродажОбороты.ПериодГод) - 1)
+		ИНАЧЕ ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ДЕНЬ, ДЕНЬГОДА(ВыручкаИСебестоимостьПродажОбороты.ПериодДень) - 1)
+	КОНЕЦ КАК Период,
+	ВыручкаИСебестоимостьПродажОбороты.ПериодГод КАК ПериодГод
+ПОМЕСТИТЬ ИсходныеПродажи
+ИЗ
+	РегистрНакопления.ВыручкаИСебестоимостьПродаж.Обороты(, , Авто, ) КАК ВыручкаИСебестоимостьПродажОбороты
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ РегистрСведений.АналитикаУчетаНоменклатуры КАК АналитикиУчетаНоменклатуры
+			ВНУТРЕННЕЕ СОЕДИНЕНИЕ Справочник.Номенклатура КАК СпрНоменклатура
+			ПО АналитикиУчетаНоменклатуры.Номенклатура = СпрНоменклатура.Ссылка
+				И (СпрНоменклатура.СезоннаяГруппа &lt;&gt; ЗНАЧЕНИЕ(Справочник.СезонныеГруппы.ПустаяСсылка))
+		ПО ВыручкаИСебестоимостьПродажОбороты.АналитикаУчетаНоменклатуры = АналитикиУчетаНоменклатуры.КлючАналитики
+{ГДЕ
+	СпрНоменклатура.СезоннаяГруппа.*,
+	СпрНоменклатура.Ссылка.* КАК Номенклатура}
+
+СГРУППИРОВАТЬ ПО
+	СпрНоменклатура.СезоннаяГруппа,
+	ВЫБОР
+		КОГДА ВыручкаИСебестоимостьПродажОбороты.Склад ССЫЛКА Справочник.Склады
+				И НЕ ВыручкаИСебестоимостьПродажОбороты.Склад.БизнесРегион.СезоннаяГруппа = ЗНАЧЕНИЕ(Справочник.СезонныеГруппыБизнесРегионов.ПустаяСсылка)
+			ТОГДА ВыручкаИСебестоимостьПродажОбороты.Склад.БизнесРегион.СезоннаяГруппа
+		ИНАЧЕ ЗНАЧЕНИЕ(Справочник.СезонныеГруппыБизнесРегионов.Прочие)
+	КОНЕЦ,
+	ВыручкаИСебестоимостьПродажОбороты.ПериодГод,
+	ВЫБОР &amp;Периодичность
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Неделя)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, НЕДЕЛЯ, НЕДЕЛЯ(ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ДЕНЬ, ДЕНЬГОДА(ВыручкаИСебестоимостьПродажОбороты.ПериодДень) - 1)) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Месяц)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, МЕСЯЦ, МЕСЯЦ(ВыручкаИСебестоимостьПродажОбороты.ПериодМесяц) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Квартал)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, КВАРТАЛ, КВАРТАЛ(ВыручкаИСебестоимостьПродажОбороты.ПериодКвартал) - 1)
+		КОГДА ЗНАЧЕНИЕ(Перечисление.Периодичность.Год)
+			ТОГДА ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ГОД, ГОД(ВыручкаИСебестоимостьПродажОбороты.ПериодГод) - 1)
+		ИНАЧЕ ДОБАВИТЬКДАТЕ(&amp;НачалоГода, ДЕНЬ, ДЕНЬГОДА(ВыручкаИСебестоимостьПродажОбороты.ПериодДень) - 1)
+	КОНЕЦ
+
+ИНДЕКСИРОВАТЬ ПО
+	СезоннаяГруппа,
+	СезоннаяГруппаБизнесРегиона,
+	ПериодГод
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ИсходныеПродажи.СезоннаяГруппа КАК СезоннаяГруппа,
+	ИсходныеПродажи.СезоннаяГруппаБизнесРегиона КАК СезоннаяГруппаБизнесРегиона,
+	ИсходныеПродажи.ПериодГод КАК ПериодГод,
+	СУММА(ИсходныеПродажи.Продажи) / &amp;КоличествоПериодов КАК Продажи
+ПОМЕСТИТЬ СредниеПродажи
+ИЗ
+	ИсходныеПродажи КАК ИсходныеПродажи
+
+СГРУППИРОВАТЬ ПО
+	ИсходныеПродажи.СезоннаяГруппа,
+	ИсходныеПродажи.СезоннаяГруппаБизнесРегиона,
+	ИсходныеПродажи.ПериодГод
+
+ИНДЕКСИРОВАТЬ ПО
+	СезоннаяГруппа,
+	СезоннаяГруппаБизнесРегиона,
+	ПериодГод
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ИсходныеПродажи.СезоннаяГруппа КАК СезоннаяГруппа,
+	ИсходныеПродажи.СезоннаяГруппаБизнесРегиона КАК СезоннаяГруппаБизнесРегиона,
+	СУММА(ВЫБОР
+			КОГДА ЕСТЬNULL(СредниеПродажи.Продажи, 0) = 0
+				ТОГДА 0
+			ИНАЧЕ ИсходныеПродажи.Продажи / СредниеПродажи.Продажи
+		КОНЕЦ) / &amp;КоличествоЛет КАК Коэффициент,
+	ИсходныеПродажи.Период КАК Период
+ИЗ
+	ИсходныеПродажи КАК ИсходныеПродажи
+		ВНУТРЕННЕЕ СОЕДИНЕНИЕ СредниеПродажи КАК СредниеПродажи
+		ПО ИсходныеПродажи.СезоннаяГруппа = СредниеПродажи.СезоннаяГруппа
+			И ИсходныеПродажи.ПериодГод = СредниеПродажи.ПериодГод
+
+СГРУППИРОВАТЬ ПО
+	ИсходныеПродажи.СезоннаяГруппа,
+	ИсходныеПродажи.СезоннаяГруппаБизнесРегиона,
+	ИсходныеПродажи.Период
+
+УПОРЯДОЧИТЬ ПО
+	СезоннаяГруппа,
+	СезоннаяГруппаБизнесРегиона,
+	Период</query>
+	</dataSet>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>КонецПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Конец периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>КоличествоЛет</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Количество лет</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>КоличествоПериодов</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Количество периодов</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>НачалоГода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало года</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>Периодичность</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Периодичность</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.Периодичность</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>ВариантРассчета</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Рассчитывать по</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:decimal</v8:Type>
+			<v8:NumberQualifiers>
+				<v8:Digits>0</v8:Digits>
+				<v8:FractionDigits>0</v8:FractionDigits>
+				<v8:AllowedSign>Any</v8:AllowedSign>
+			</v8:NumberQualifiers>
+		</valueType>
+		<value xsi:type="xs:decimal">0</value>
+		<useRestriction>false</useRestriction>
+		<availableValue>
+			<value xsi:type="xs:decimal">0</value>
+			<presentation xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>количеству продаж</v8:content>
+				</v8:item>
+			</presentation>
+		</availableValue>
+		<availableValue>
+			<value xsi:type="xs:decimal">1</value>
+			<presentation xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>сумме выручки</v8:content>
+				</v8:item>
+			</presentation>
+		</availableValue>
+		<use>Always</use>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СезоннаяГруппа</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СезоннаяГруппаБизнесРегиона</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Период</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Коэффициент</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СезоннаяГруппа</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.СезонныеГруппы.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>e631aa19-de48-4156-a412-8413d06abb1d</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СезоннаяГруппаБизнесРегиона</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.СезонныеГруппыБизнесРегионов.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>6d6a002d-0c2e-42a2-a743-6009f98d2c6d</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Номенклатура</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.Номенклатура.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>1330a8cf-7b60-4bc4-952a-4ef0e422db4b</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Подразделение</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.СтруктураПредприятия.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>2349f039-0f0c-42d6-8ced-83993f1ee1a3</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Склад</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="dcscor:DesignTimeValue">Справочник.Склады.ПустаяСсылка</dcsset:right>
+					<dcsset:userSettingID>03f05ce6-cd63-46fd-b156-daeaba0fef9b</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:userSettingID>c72a1621-d7f3-41b2-ac3c-e80d03e52ba0</dcsset:userSettingID>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВариантРассчета</dcscor:parameter>
+					<dcscor:value xsi:type="xs:decimal">0</dcscor:value>
+					<dcsset:userSettingID>1eed8b6a-92ce-4318-b78f-f98c8a4fe91e</dcsset:userSettingID>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

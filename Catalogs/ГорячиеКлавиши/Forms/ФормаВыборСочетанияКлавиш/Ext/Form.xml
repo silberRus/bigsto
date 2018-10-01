@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Выбор сочетания клавиш</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<CommandBarLocation>Top</CommandBarLocation>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<ChildItems>
+			<Button name="ФормаВыбрать" id="27">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.Выбрать</CommandName>
+				<ExtendedTooltip name="ФормаВыбратьExtendedTooltip" id="54"/>
+			</Button>
+			<Button name="ФормаСправка" id="21">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаExtendedTooltip" id="55"/>
+			</Button>
+			<Button name="ФормаИзменитьФорму" id="20">
+				<Type>CommandBarButton</Type>
+				<Visible>false</Visible>
+				<CommandName>Form.StandardCommand.CustomizeForm</CommandName>
+				<ExtendedTooltip name="ФормаИзменитьФормуExtendedTooltip" id="56"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<LabelField name="Представление" id="52">
+			<DataPath>Представление</DataPath>
+			<ReadOnly>true</ReadOnly>
+			<Width>12</Width>
+			<HorizontalStretch>false</HorizontalStretch>
+			<Font ref="sys:DefaultGUIFont" bold="true" italic="false" underline="false" strikeout="false" kind="WindowsFont"/>
+			<ContextMenu name="ПредставлениеКонтекстноеМеню" id="53"/>
+			<ExtendedTooltip name="ПредставлениеExtendedTooltip" id="57"/>
+		</LabelField>
+		<Table name="ТаблицаСочетанийКлавиш" id="1">
+			<Representation>List</Representation>
+			<ChangeRowSet>false</ChangeRowSet>
+			<ChangeRowOrder>false</ChangeRowOrder>
+			<Header>false</Header>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>ТаблицаСочетанийКлавиш</DataPath>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ТаблицаСочетанийКлавишКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="ТаблицаСочетанийКлавишКоманднаяПанель" id="3">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ТаблицаСочетанийКлавишExtendedTooltip" id="58"/>
+			<SearchStringAddition name="ТаблицаСочетанийКлавишСтрокаПоиска" id="83">
+				<AdditionSource>
+					<Item>ТаблицаСочетанийКлавиш</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаСочетанийКлавишСтрокаПоискаКонтекстноеМеню" id="84"/>
+				<ExtendedTooltip name="ТаблицаСочетанийКлавишСтрокаПоискаРасширеннаяПодсказка" id="85"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ТаблицаСочетанийКлавишСостояниеПросмотра" id="86">
+				<AdditionSource>
+					<Item>ТаблицаСочетанийКлавиш</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаСочетанийКлавишСостояниеПросмотраКонтекстноеМеню" id="87"/>
+				<ExtendedTooltip name="ТаблицаСочетанийКлавишСостояниеПросмотраРасширеннаяПодсказка" id="88"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ТаблицаСочетанийКлавишУправлениеПоиском" id="89">
+				<AdditionSource>
+					<Item>ТаблицаСочетанийКлавиш</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаСочетанийКлавишУправлениеПоискомКонтекстноеМеню" id="90"/>
+				<ExtendedTooltip name="ТаблицаСочетанийКлавишУправлениеПоискомРасширеннаяПодсказка" id="91"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ТаблицаСочетанийКлавишВыбор</Event>
+				<Event name="OnActivateRow">ТаблицаСочетанийКлавишПриАктивизацииСтроки</Event>
+				<Event name="OnActivateField">ТаблицаСочетанийКлавишПриАктивизацииПоля</Event>
+			</Events>
+			<ChildItems>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа1" id="28">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа1ExtendedTooltip" id="59"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишКлавиша" id="4">
+							<DataPath>ТаблицаСочетанийКлавиш.Клавиша</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишКлавишаКонтекстноеМеню" id="5"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишКлавишаExtendedTooltip" id="60"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишКлавиша_" id="29">
+							<DataPath>ТаблицаСочетанийКлавиш.Клавиша_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишКлавиша_КонтекстноеМеню" id="30"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишКлавиша_ExtendedTooltip" id="61"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа2" id="31">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа2ExtendedTooltip" id="62"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишCtrl" id="6">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrlКонтекстноеМеню" id="7"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrlExtendedTooltip" id="63"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_" id="32">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_КонтекстноеМеню" id="33"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_ExtendedTooltip" id="64"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа3" id="34">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа3ExtendedTooltip" id="65"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишAlt" id="8">
+							<DataPath>ТаблицаСочетанийКлавиш.Alt</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишAltКонтекстноеМеню" id="9"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишAltExtendedTooltip" id="66"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишAlt_" id="35">
+							<DataPath>ТаблицаСочетанийКлавиш.Alt_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишAlt_КонтекстноеМеню" id="36"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишAlt_ExtendedTooltip" id="67"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа4" id="37">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа4ExtendedTooltip" id="68"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишShift" id="10">
+							<DataPath>ТаблицаСочетанийКлавиш.Shift</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишShiftКонтекстноеМеню" id="11"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишShiftExtendedTooltip" id="69"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишShift_" id="38">
+							<DataPath>ТаблицаСочетанийКлавиш.Shift_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишShift_КонтекстноеМеню" id="39"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишShift_ExtendedTooltip" id="70"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа5" id="40">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа5ExtendedTooltip" id="71"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишAlt_Shift" id="12">
+							<DataPath>ТаблицаСочетанийКлавиш.Alt_Shift</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишAlt_ShiftКонтекстноеМеню" id="13"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишAlt_ShiftExtendedTooltip" id="72"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишAlt_Shift_" id="41">
+							<DataPath>ТаблицаСочетанийКлавиш.Alt_Shift_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишAlt_Shift_КонтекстноеМеню" id="42"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишAlt_Shift_ExtendedTooltip" id="73"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа6" id="43">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа6ExtendedTooltip" id="74"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Shift" id="14">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Shift</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_ShiftКонтекстноеМеню" id="15"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_ShiftExtendedTooltip" id="75"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Shift_" id="44">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Shift_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_Shift_КонтекстноеМеню" id="45"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_Shift_ExtendedTooltip" id="76"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа7" id="46">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа7ExtendedTooltip" id="77"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Alt" id="16">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Alt</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_AltКонтекстноеМеню" id="17"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_AltExtendedTooltip" id="78"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Alt_" id="47">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Alt_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_Alt_КонтекстноеМеню" id="48"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_Alt_ExtendedTooltip" id="79"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="ТаблицаСочетанийКлавишГруппа8" id="49">
+					<ReadOnly>true</ReadOnly>
+					<Width>9</Width>
+					<ExtendedTooltip name="ТаблицаСочетанийКлавишГруппа8ExtendedTooltip" id="80"/>
+					<ChildItems>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Alt_Shift" id="18">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Alt_Shift</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<TextColor>style:НезаполненноеПолеТаблицы</TextColor>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_Alt_ShiftКонтекстноеМеню" id="19"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_Alt_ShiftExtendedTooltip" id="81"/>
+						</InputField>
+						<InputField name="ТаблицаСочетанийКлавишCtrl_Alt_Shift_" id="50">
+							<DataPath>ТаблицаСочетанийКлавиш.Ctrl_Alt_Shift_</DataPath>
+							<ReadOnly>true</ReadOnly>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>9</Width>
+							<ContextMenu name="ТаблицаСочетанийКлавишCtrl_Alt_Shift_КонтекстноеМеню" id="51"/>
+							<ExtendedTooltip name="ТаблицаСочетанийКлавишCtrl_Alt_Shift_ExtendedTooltip" id="82"/>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="ТаблицаСочетанийКлавиш" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица сочетаний клавиш</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="Клавиша" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Клавиша</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Alt" id="3">
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Shift" id="4">
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Alt_Shift" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Alt+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Shift" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Alt" id="7">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Alt</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Alt_Shift" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Alt+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Клавиша_" id="10">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Клавиша</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_" id="11">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Alt_" id="12">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Alt</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Shift_" id="13">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Alt_Shift_" id="14">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Alt+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Shift_" id="15">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Alt_" id="16">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Alt</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Ctrl_Alt_Shift_" id="17">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ctrl+Alt+Shift</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="ИмяКлавиши" id="9">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Имя клавиши</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>0</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СочетаниеКлавиш" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сочетание клавиш</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+		<Attribute name="Представление" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбранное сочетание клавиш</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Выбрать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.ChooseValue</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Выбрать</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+	</Commands>
+</Form>

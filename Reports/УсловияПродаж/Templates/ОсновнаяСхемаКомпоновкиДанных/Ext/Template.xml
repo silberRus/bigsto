@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидЦены</dataPath>
+			<field>ВидЦены</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Упаковка</dataPath>
+			<field>Упаковка</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Цена</dataPath>
+			<field>Цена</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Соглашение</dataPath>
+			<field>Соглашение</field>
+			<presentationExpression>Соглашение.Наименование</presentationExpression>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЭтоФиксированнаяЦена</dataPath>
+			<field>ЭтоФиксированнаяЦена</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментНоменклатуры</dataPath>
+			<field>СегментНоменклатуры</field>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>ПараметрыВыбора</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:ChoiceParameters">
+						<dcscor:item>
+							<dcscor:choiceParameter>Отбор.СпособФормирования</dcscor:choiceParameter>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ПериодическиОбновлять</dcscor:value>
+							<dcscor:value xsi:type="dcscor:DesignTimeValue">Перечисление.СпособыФормированияСегментов.ФормироватьВручную</dcscor:value>
+						</dcscor:item>
+					</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ РАЗЛИЧНЫЕ
+	Сегменты.Номенклатура КАК Номенклатура,
+	Сегменты.Характеристика КАК Характеристика,
+	ИСТИНА КАК ИспользуетсяОтборПоСегментуНоменклатуры
+ПОМЕСТИТЬ ОтборПоСегментуНоменклатуры
+ИЗ
+	РегистрСведений.НоменклатураСегмента КАК Сегменты
+{ГДЕ
+	Сегменты.Сегмент.* КАК СегментНоменклатуры,
+	Сегменты.Номенклатура.* КАК Номенклатура,
+	Сегменты.Характеристика.* КАК Характеристика}
+
+ИНДЕКСИРОВАТЬ ПО
+	Номенклатура,
+	Характеристика,
+	ИспользуетсяОтборПоСегментуНоменклатуры
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 1. КУРСЫ ВАЛЮТ //////////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	КурсыВалютСрезПоследних.Валюта    КАК Валюта,
+	КурсыВалютСрезПоследних.Курс      КАК Курс,
+	КурсыВалютСрезПоследних.Кратность КАК Кратность
+ПОМЕСТИТЬ КурсыВалютСрезПоследних
+ИЗ
+	РегистрСведений.КурсыВалют.СрезПоследних() КАК КурсыВалютСрезПоследних
+ИНДЕКСИРОВАТЬ ПО
+	Валюта
+;
+
+//////////////////////////////////////////////////////////////////////////////////////
+// 2. СЕГМЕНТЫ ПАРТНЕРА //////////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПартнерыСегмента.Сегмент КАК Сегмент
+ПОМЕСТИТЬ ПартнерыСегмента
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК ПартнерыСегмента
+{ГДЕ
+	ПартнерыСегмента.Партнер = &amp;Партнер}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 3. ШАПКА СОГЛАШЕНИЯ /////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоглашениеСКлиентомШапка.Ссылка                 КАК Соглашение,
+	СоглашениеСКлиентомШапка.ВидЦен                 КАК ВидЦен,
+	СоглашениеСКлиентомШапка.Валюта                 КАК Валюта
+ПОМЕСТИТЬ
+	СоглашениеСКлиентомШапка
+ИЗ
+	Справочник.СоглашенияСКлиентами КАК СоглашениеСКлиентомШапка
+{ГДЕ СоглашениеСКлиентомШапка.Ссылка В (&amp;Документ)}
+{ГДЕ СоглашениеСКлиентомШапка.Типовое = &amp;ТолькоТиповые
+	И НЕ СоглашениеСКлиентомШапка.ПометкаУдаления
+	И СоглашениеСКлиентомШапка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+{ГДЕ (СоглашениеСКлиентомШапка.Партнер = &amp;Партнер ИЛИ
+	СоглашениеСКлиентомШапка.СегментПартнеров В 
+	(ВЫБРАТЬ
+		ПартнерыСегмента.Сегмент КАК СегментПартнеров
+	ИЗ
+		ПартнерыСегмента КАК ПартнерыСегмента))
+	И НЕ СоглашениеСКлиентомШапка.ПометкаУдаления
+	И СоглашениеСКлиентомШапка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+ИНДЕКСИРОВАТЬ ПО
+	Соглашение,
+	ВидЦен
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 4. ЦЕНОВЫЕ ГРУППЫ СОГЛАШЕНИЯ ////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоглашениеСКлиентомЦеновыеГруппы.Ссылка        КАК Соглашение,
+	СоглашениеСКлиентомЦеновыеГруппы.ВидЦен        КАК ВидЦен,
+	СоглашениеСКлиентомЦеновыеГруппы.ЦеноваяГруппа КАК ЦеноваяГруппа
+ПОМЕСТИТЬ
+	СоглашениеСКлиентомЦеновыеГруппы
+ИЗ
+	Справочник.СоглашенияСКлиентами.ЦеновыеГруппы КАК СоглашениеСКлиентомЦеновыеГруппы
+{ГДЕ СоглашениеСКлиентомЦеновыеГруппы.Ссылка В (&amp;Документ)}
+{ГДЕ СоглашениеСКлиентомЦеновыеГруппы.Ссылка.Типовое = &amp;ТолькоТиповые
+	И НЕ СоглашениеСКлиентомЦеновыеГруппы.Ссылка.ПометкаУдаления
+	И СоглашениеСКлиентомЦеновыеГруппы.Ссылка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+{ГДЕ (СоглашениеСКлиентомЦеновыеГруппы.Ссылка.Партнер = &amp;Партнер ИЛИ
+	СоглашениеСКлиентомЦеновыеГруппы.Ссылка.СегментПартнеров В 
+	(ВЫБРАТЬ
+		ПартнерыСегмента.Сегмент КАК СегментПартнеров
+	ИЗ
+		ПартнерыСегмента КАК ПартнерыСегмента))
+	И НЕ СоглашениеСКлиентомЦеновыеГруппы.Ссылка.ПометкаУдаления
+	И СоглашениеСКлиентомЦеновыеГруппы.Ссылка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+ИНДЕКСИРОВАТЬ ПО
+	Соглашение,
+	ЦеноваяГруппа,
+	ВидЦен
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 5. ТОВАРЫ СОГЛАШЕНИЯ ////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоглашениеСКлиентомТовары.Ссылка         КАК Соглашение,
+	СоглашениеСКлиентомТовары.ВидЦены        КАК ВидЦены,
+	СоглашениеСКлиентомТовары.Номенклатура   КАК Номенклатура,
+	СоглашениеСКлиентомТовары.Характеристика КАК Характеристика,
+	СоглашениеСКлиентомТовары.Упаковка       КАК Упаковка,
+	СоглашениеСКлиентомТовары.Цена           КАК Цена
+ПОМЕСТИТЬ
+	СоглашениеСКлиентомТовары
+ИЗ
+	Справочник.СоглашенияСКлиентами.Товары КАК СоглашениеСКлиентомТовары
+{ГДЕ СоглашениеСКлиентомТовары.Ссылка В (&amp;Документ)}
+{ГДЕ СоглашениеСКлиентомТовары.Ссылка.Типовое = &amp;ТолькоТиповые
+	И НЕ СоглашениеСКлиентомТовары.Ссылка.ПометкаУдаления
+	И СоглашениеСКлиентомТовары.Ссылка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+{ГДЕ (СоглашениеСКлиентомТовары.Ссылка.Партнер = &amp;Партнер ИЛИ
+	СоглашениеСКлиентомТовары.Ссылка.СегментПартнеров В 
+	(ВЫБРАТЬ
+		ПартнерыСегмента.Сегмент КАК СегментПартнеров
+	ИЗ
+		ПартнерыСегмента КАК ПартнерыСегмента))
+	И НЕ СоглашениеСКлиентомТовары.Ссылка.ПометкаУдаления
+	И СоглашениеСКлиентомТовары.Ссылка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)}
+}
+{ГДЕ (Номенклатура, Характеристика) В
+				(ВЫБРАТЬ
+					ОтборПоСегментуНоменклатуры.Номенклатура,
+					ОтборПоСегментуНоменклатуры.Характеристика
+				ИЗ
+					ОтборПоСегментуНоменклатуры
+				{ГДЕ
+					ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры})
+}
+
+ИНДЕКСИРОВАТЬ ПО
+	Соглашение,
+	Номенклатура,
+	Характеристика,
+	ВидЦены
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 6. ЦЕНЫ ПРАЙС-ЛИСТА И ТОВАРОВ СОГЛАШЕНИЙ ////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоглашениеСКлиентомШапка.Соглашение          КАК Соглашение,
+	ЦеныНоменклатурыСрезПоследних.Номенклатура   КАК Номенклатура,
+	ЦеныНоменклатурыСрезПоследних.Характеристика КАК Характеристика,
+	ЦеныНоменклатурыСрезПоследних.ВидЦены        КАК ВидЦены,
+	NULL                                         КАК ВидЦеныСоглашения,
+	ЦеныНоменклатурыСрезПоследних.Валюта         КАК Валюта,
+	NULL                                         КАК ВалютаСоглашения,
+	ЦеныНоменклатурыСрезПоследних.Цена           КАК Цена,
+	NULL                                         КАК ФиксированнаяЦена,
+	ЦеныНоменклатурыСрезПоследних.Упаковка       КАК Упаковка
+ПОМЕСТИТЬ ЦеныНоменклатуры
+ИЗ
+	СоглашениеСКлиентомШапка,
+	РегистрСведений.ЦеныНоменклатуры.СрезПоследних({КОНЕЦПЕРИОДА(&amp;Период, ДЕНЬ)
+	{(Номенклатура, Характеристика) В
+				(ВЫБРАТЬ
+					ОтборПоСегментуНоменклатуры.Номенклатура,
+					ОтборПоСегментуНоменклатуры.Характеристика
+				ИЗ
+					ОтборПоСегментуНоменклатуры
+				ГДЕ
+					ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры)}
+	},
+	ВидЦены В (
+	ВЫБРАТЬ РАЗЛИЧНЫЕ
+		СоглашениеСКлиентомШапка.ВидЦен
+	ИЗ
+		СоглашениеСКлиентомШапка КАК СоглашениеСКлиентомШапка
+	ОБЪЕДИНИТЬ
+	ВЫБРАТЬ РАЗЛИЧНЫЕ
+		СоглашениеСКлиентомЦеновыеГруппы.ВидЦен
+	ИЗ
+		СоглашениеСКлиентомЦеновыеГруппы КАК СоглашениеСКлиентомЦеновыеГруппы
+	ОБЪЕДИНИТЬ
+	ВЫБРАТЬ РАЗЛИЧНЫЕ
+		СоглашениеСКлиентомТовары.ВидЦены
+	ИЗ
+		СоглашениеСКлиентомТовары КАК СоглашениеСКлиентомТовары
+	)) КАК ЦеныНоменклатурыСрезПоследних
+
+ОБЪЕДИНИТЬ
+
+ВЫБРАТЬ
+	СоглашениеСКлиентомТовары.Соглашение        КАК Соглашение,
+	СоглашениеСКлиентомТовары.Номенклатура      КАК Номенклатура,
+	СоглашениеСКлиентомТовары.Характеристика    КАК Характеристика,
+	NULL                                        КАК ВидЦены,
+	СоглашениеСКлиентомТовары.ВидЦены           КАК ВидЦеныСоглашения,
+	NULL                                        КАК Валюта,
+	СоглашениеСКлиентомТовары.Соглашение.Валюта КАК ВалютаСоглашения,
+	NULL                                        КАК Цена,
+	СоглашениеСКлиентомТовары.Цена              КАК ФиксированнаяЦена,
+	СоглашениеСКлиентомТовары.Упаковка          КАК Упаковка
+ИЗ
+	СоглашениеСКлиентомТовары КАК СоглашениеСКлиентомТовары
+ИНДЕКСИРОВАТЬ ПО
+	Соглашение,
+	Номенклатура,
+	Характеристика,
+	ВидЦены
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 7. ИТОГОВЫЕ ЦЕНЫ НОМЕНКЛАТУРЫ БЕЗ ДУБЛИРУЮЩИХСЯ ЗАПИСЕЙ /////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ЦеныНоменклатуры.Соглашение.Валюта                      КАК ВалютаСоглашения,
+	ЦеныНоменклатуры.Соглашение                             КАК Соглашение,
+	ЦеныНоменклатуры.Номенклатура                           КАК Номенклатура,
+	ЦеныНоменклатуры.Характеристика                         КАК Характеристика,
+	МИНИМУМ (ВЫБОР
+		КОГДА
+			СоглашениеСКлиентомТовары.ВидЦены ЕСТЬ НЕ NULL 
+		ТОГДА
+			СоглашениеСКлиентомТовары.ВидЦены
+		КОГДА
+			СоглашениеСКлиентомЦеновыеГруппы.ЦеноваяГруппа ЕСТЬ НЕ NULL
+		ТОГДА
+			СоглашениеСКлиентомЦеновыеГруппы.ВидЦен
+		КОГДА
+			СоглашениеСКлиентомШапка.ВидЦен &lt;&gt; ЗНАЧЕНИЕ(Справочник.ВидыЦен.ПустаяСсылка)
+		ТОГДА
+			СоглашениеСКлиентомШапка.ВидЦен
+		ИНАЧЕ
+			ЗНАЧЕНИЕ(Справочник.ВидыЦен.ПустаяСсылка)
+	КОНЕЦ)                                       КАК ВидЦеныТоварыСоглашения,
+	МИНИМУМ (ЦеныНоменклатуры.ВидЦены)           КАК ВидЦены,
+	МИНИМУМ (ЦеныНоменклатуры.ВидЦеныСоглашения) КАК ВидЦеныСоглашения,
+	МИНИМУМ (ЦеныНоменклатуры.Валюта)            КАК Валюта,
+	МИНИМУМ (ЦеныНоменклатуры.Цена)              КАК Цена,
+	МИНИМУМ (ЦеныНоменклатуры.ФиксированнаяЦена) КАК ФиксированнаяЦена,
+	МИНИМУМ (ЦеныНоменклатуры.Упаковка)          КАК Упаковка
+ПОМЕСТИТЬ
+	ИтоговыеЦены
+ИЗ
+	ЦеныНоменклатуры КАК ЦеныНоменклатуры
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	РегистрСведений.НоменклатураСегмента КАК НоменклатураСегмента
+ПО
+	НоменклатураСегмента.Номенклатура = ЦеныНоменклатуры.Номенклатура
+	И НоменклатураСегмента.Характеристика = ЦеныНоменклатуры.Характеристика
+	И НоменклатураСегмента.Сегмент = ЦеныНоменклатуры.Соглашение.СегментНоменклатуры
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	СоглашениеСКлиентомШапка КАК СоглашениеСКлиентомШапка
+ПО
+	ЦеныНоменклатуры.Соглашение = СоглашениеСКлиентомШапка.Соглашение
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	СоглашениеСКлиентомЦеновыеГруппы КАК СоглашениеСКлиентомЦеновыеГруппы
+ПО
+	ЦеныНоменклатуры.Соглашение = СоглашениеСКлиентомЦеновыеГруппы.Соглашение
+	И ЦеныНоменклатуры.Номенклатура.ЦеноваяГруппа = СоглашениеСКлиентомЦеновыеГруппы.ЦеноваяГруппа
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	СоглашениеСКлиентомТовары КАК СоглашениеСКлиентомТовары
+ПО
+	ЦеныНоменклатуры.Соглашение = СоглашениеСКлиентомТовары.Соглашение
+	И ЦеныНоменклатуры.Номенклатура = СоглашениеСКлиентомТовары.Номенклатура
+	И ЦеныНоменклатуры.Характеристика = СоглашениеСКлиентомТовары.Характеристика
+	
+ГДЕ
+	(ЦеныНоменклатуры.Соглашение.СегментНоменклатуры = ЗНАЧЕНИЕ(Справочник.СегментыНоменклатуры.ПустаяСсылка)
+	ИЛИ НоменклатураСегмента.Номенклатура ЕСТЬ НЕ NULL)
+	И (ЦеныНоменклатуры.ФиксированнаяЦена &gt; 0 
+	ИЛИ ЦеныНоменклатуры.ВидЦеныСоглашения = СоглашениеСКлиентомТовары.ВидЦены
+	ИЛИ ЦеныНоменклатуры.ВидЦены =
+		ВЫБОР
+			КОГДА
+				СоглашениеСКлиентомТовары.ВидЦены ЕСТЬ НЕ NULL 
+			ТОГДА
+				СоглашениеСКлиентомТовары.ВидЦены
+			КОГДА
+				СоглашениеСКлиентомЦеновыеГруппы.ЦеноваяГруппа ЕСТЬ НЕ NULL
+			ТОГДА
+				СоглашениеСКлиентомЦеновыеГруппы.ВидЦен
+			КОГДА
+				СоглашениеСКлиентомШапка.ВидЦен &lt;&gt; ЗНАЧЕНИЕ(Справочник.ВидыЦен.ПустаяСсылка)
+			ТОГДА
+				СоглашениеСКлиентомШапка.ВидЦен
+			ИНАЧЕ
+				ЗНАЧЕНИЕ(Справочник.ВидыЦен.ПустаяСсылка)
+		КОНЕЦ)
+	{ГДЕ (ЦеныНоменклатуры.Номенклатура, ЦеныНоменклатуры.Характеристика) В
+				(ВЫБРАТЬ
+					ОтборПоСегментуНоменклатуры.Номенклатура,
+					ОтборПоСегментуНоменклатуры.Характеристика
+				ИЗ
+					ОтборПоСегментуНоменклатуры
+				ГДЕ
+					ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры)
+	}
+	СГРУППИРОВАТЬ ПО
+	ЦеныНоменклатуры.Соглашение,
+	ЦеныНоменклатуры.Номенклатура,
+	ЦеныНоменклатуры.Характеристика
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 8. ИТОГОВЫЕ ЦЕНЫ НОМЕНКЛАТУРЫ В ВАЛЮТЕ СОГЛАШЕНИЯ  //////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ИтоговыеЦены.Соглашение                  КАК Соглашение,
+	ИтоговыеЦены.Номенклатура                КАК Номенклатура,
+	ИтоговыеЦены.Характеристика              КАК Характеристика,
+	ИтоговыеЦены.ВидЦеныТоварыСоглашения     КАК ВидЦены,
+	ВЫБОР
+		КОГДА
+			ИтоговыеЦены.ФиксированнаяЦена &gt; 0
+		ТОГДА
+			ИтоговыеЦены.ФиксированнаяЦена
+		КОГДА
+			ИтоговыеЦены.Валюта = ИтоговыеЦены.ВалютаСоглашения
+		ТОГДА
+			ИтоговыеЦены.Цена
+		ИНАЧЕ
+			ВЫРАЗИТЬ(ЕСТЬNULL(ИтоговыеЦены.Цена,0)
+				* ВЫБОР
+					КОГДА ЕСТЬNULL(КурсыВалютСоглашенияСрезПоследних.Кратность, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалютСоглашенияСрезПоследних.Курс, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалютВидаЦенСрезПоследних.Кратность, 0) &gt; 0
+						И ЕСТЬNULL(КурсыВалютВидаЦенСрезПоследних.Курс, 0) &gt; 0
+					ТОГДА 
+						(КурсыВалютВидаЦенСрезПоследних.Курс * КурсыВалютСоглашенияСрезПоследних.Кратность)
+						/ (КурсыВалютСоглашенияСрезПоследних.Курс * КурсыВалютВидаЦенСрезПоследних.Кратность)
+					ИНАЧЕ
+						0
+				КОНЕЦ КАК ЧИСЛО(15, 2))
+			КОНЕЦ КАК Цена,
+	ИтоговыеЦены.Упаковка КАК Упаковка,
+	ВЫБОР
+		КОГДА
+			ИтоговыеЦены.ФиксированнаяЦена &gt; 0
+		ТОГДА
+			ИСТИНА
+		ИНАЧЕ
+			ЛОЖЬ
+	КОНЕЦ КАК ЭтоФиксированнаяЦена
+ИЗ
+	ИтоговыеЦены КАК ИтоговыеЦены
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	КурсыВалютСрезПоследних КАК КурсыВалютВидаЦенСрезПоследних
+ПО
+	КурсыВалютВидаЦенСрезПоследних.Валюта = ИтоговыеЦены.Валюта
+
+ЛЕВОЕ СОЕДИНЕНИЕ
+	КурсыВалютСрезПоследних КАК КурсыВалютСоглашенияСрезПоследних
+ПО
+	КурсыВалютСоглашенияСрезПоследних.Валюта = ИтоговыеЦены.ВалютаСоглашения
+	{ГДЕ (Номенклатура, Характеристика) В
+				(ВЫБРАТЬ
+					ОтборПоСегментуНоменклатуры.Номенклатура,
+					ОтборПоСегментуНоменклатуры.Характеристика
+				ИЗ
+					ОтборПоСегментуНоменклатуры
+				ГДЕ
+					ОтборПоСегментуНоменклатуры.ИспользуетсяОтборПоСегментуНоменклатуры = &amp;ИспользуетсяОтборПоСегментуНоменклатуры)}
+	}</query>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных2</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеВалюта</dataPath>
+			<field>СоглашениеВалюта</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеВидЦен</dataPath>
+			<field>СоглашениеВидЦен</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеГрафикОплаты</dataPath>
+			<field>СоглашениеГрафикОплаты</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеДатаНачалаДействия</dataPath>
+			<field>СоглашениеДатаНачалаДействия</field>
+			<valueType>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеДатаОкончанияДействия</dataPath>
+			<field>СоглашениеДатаОкончанияДействия</field>
+			<valueType>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеКоличествоПериодов</dataPath>
+			<field>СоглашениеКоличествоПериодов</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеКонтрагент</dataPath>
+			<field>СоглашениеКонтрагент</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеМенеджер</dataPath>
+			<field>СоглашениеМенеджер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеНаименование</dataPath>
+			<field>СоглашениеНаименование</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеНалогообложениеНДС</dataPath>
+			<field>СоглашениеНалогообложениеНДС</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеОрганизация</dataPath>
+			<field>СоглашениеОрганизация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеПартнер</dataPath>
+			<field>СоглашениеПартнер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеПериод</dataPath>
+			<field>СоглашениеПериод</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеПроцентВознаграждения</dataPath>
+			<field>СоглашениеПроцентВознаграждения</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеРегулярное</dataPath>
+			<field>СоглашениеРегулярное</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеСегментНоменклатуры</dataPath>
+			<field>СоглашениеСегментНоменклатуры</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеСегментПартнеров</dataPath>
+			<field>СоглашениеСегментПартнеров</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеСклад</dataPath>
+			<field>СоглашениеСклад</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеСсылка</dataPath>
+			<field>СоглашениеСсылка</field>
+			<presentationExpression>СоглашениеНаименование</presentationExpression>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеУдержатьВознаграждение</dataPath>
+			<field>СоглашениеУдержатьВознаграждение</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеХозяйственнаяОперация</dataPath>
+			<field>СоглашениеХозяйственнаяОперация</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеЦенаВключаетНДС</dataPath>
+			<field>СоглашениеЦенаВключаетНДС</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СоглашениеСрокПоставки</dataPath>
+			<field>СоглашениеСрокПоставки</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>//////////////////////////////////////////////////////////////////////////////////////
+// 1. СЕГМЕНТЫ ПАРТНЕРА //////////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПартнерыСегмента.Сегмент КАК Сегмент
+ПОМЕСТИТЬ ПартнерыСегмента
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК ПартнерыСегмента
+{ГДЕ
+	ПартнерыСегмента.Партнер = &amp;Партнер}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+// 2. ШАПКА СОГЛАШЕНИЯ /////////////////////////////////////////////////////////
+
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СоглашениеСКлиентомШапка.Ссылка                 КАК СоглашениеСсылка,
+	СоглашениеСКлиентомШапка.Наименование           КАК СоглашениеНаименование,
+	СоглашениеСКлиентомШапка.Валюта                 КАК СоглашениеВалюта,
+	СоглашениеСКлиентомШапка.ВидЦен                 КАК СоглашениеВидЦен,
+	СоглашениеСКлиентомШапка.ГрафикОплаты           КАК СоглашениеГрафикОплаты,
+	СоглашениеСКлиентомШапка.ДатаНачалаДействия     КАК СоглашениеДатаНачалаДействия,
+	СоглашениеСКлиентомШапка.ДатаОкончанияДействия  КАК СоглашениеДатаОкончанияДействия,
+	СоглашениеСКлиентомШапка.Партнер                КАК СоглашениеПартнер,
+	СоглашениеСКлиентомШапка.Контрагент             КАК СоглашениеКонтрагент,
+	СоглашениеСКлиентомШапка.СегментПартнеров       КАК СоглашениеСегментПартнеров,
+	СоглашениеСКлиентомШапка.Организация            КАК СоглашениеОрганизация,
+	СоглашениеСКлиентомШапка.ХозяйственнаяОперация  КАК СоглашениеХозяйственнаяОперация,
+	СоглашениеСКлиентомШапка.НалогообложениеНДС     КАК СоглашениеНалогообложениеНДС,
+	СоглашениеСКлиентомШапка.ЦенаВключаетНДС        КАК СоглашениеЦенаВключаетНДС,
+	СоглашениеСКлиентомШапка.Склад                  КАК СоглашениеСклад,
+	СоглашениеСКлиентомШапка.СрокПоставки           КАК СоглашениеСрокПоставки,
+	СоглашениеСКлиентомШапка.СегментНоменклатуры    КАК СоглашениеСегментНоменклатуры,
+	СоглашениеСКлиентомШапка.Менеджер               КАК СоглашениеМенеджер,
+	СоглашениеСКлиентомШапка.Регулярное             КАК СоглашениеРегулярное,
+	СоглашениеСКлиентомШапка.Период                 КАК СоглашениеПериод,
+	СоглашениеСКлиентомШапка.КоличествоПериодов     КАК СоглашениеКоличествоПериодов,
+	СоглашениеСКлиентомШапка.УдержатьВознаграждение КАК СоглашениеУдержатьВознаграждение,
+	СоглашениеСКлиентомШапка.ПроцентВознаграждения  КАК СоглашениеПроцентВознаграждения
+	
+ИЗ
+	Справочник.СоглашенияСКлиентами КАК СоглашениеСКлиентомШапка
+ГДЕ
+	НЕ СоглашениеСКлиентомШапка.ПометкаУдаления
+	И СоглашениеСКлиентомШапка.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыСоглашенийСКлиентами.Действует)
+	{ГДЕ СоглашениеСКлиентомШапка.Ссылка В (&amp;Документ)}
+	{ГДЕ СоглашениеСКлиентомШапка.Типовое = {&amp;ТолькоТиповые}}
+	{ГДЕ СоглашениеСКлиентомШапка.Партнер = {&amp;Партнер} ИЛИ
+	СоглашениеСКлиентомШапка.СегментПартнеров В 
+	(ВЫБРАТЬ
+		ПартнерыСегмента.Сегмент КАК СегментПартнеров
+	ИЗ
+		ПартнерыСегмента КАК ПартнерыСегмента)}</query>
+	</dataSet>
+	<totalField>
+		<dataPath>Цена</dataPath>
+		<expression>Минимум(Цена)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВидЦены</dataPath>
+		<expression>Минимум(ВидЦены)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ЭтоФиксированнаяЦена</dataPath>
+		<expression>Минимум(ЭтоФиксированнаяЦена)</expression>
+	</totalField>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ТолькоТиповые</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Только типовые</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">true</value>
+		<useRestriction>false</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>Документ</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Документ</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.СоглашенияСКлиентами</v8:Type>
+		</valueType>
+		<useRestriction>false</useRestriction>
+		<valueListAllowed>true</valueListAllowed>
+	</parameter>
+	<parameter>
+		<name>Партнер</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Партнер</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Партнеры</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Справочник.Партнеры.ПустаяСсылка</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуНоменклатуры</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту номенклатуры</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>ОбщиеПараметры</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Типовые условия продаж</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеСсылка</dcsset:field>
+					<dcsset:title>Наименование</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеВалюта</dcsset:field>
+					<dcsset:title>Валюта</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеВидЦен</dcsset:field>
+					<dcsset:title>Вид цен</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеГрафикОплаты</dcsset:field>
+					<dcsset:title>График оплаты</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеДатаНачалаДействия</dcsset:field>
+					<dcsset:title>Дата начала действия</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеДатаОкончанияДействия</dcsset:field>
+					<dcsset:title>Дата окончания действия</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеСегментПартнеров</dcsset:field>
+					<dcsset:title>Сегмент партнеров</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеОрганизация</dcsset:field>
+					<dcsset:title>Организация</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеХозяйственнаяОперация</dcsset:field>
+					<dcsset:title>Хозяйственная операция</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеНалогообложениеНДС</dcsset:field>
+					<dcsset:title>Налогообложение НДС</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеЦенаВключаетНДС</dcsset:field>
+					<dcsset:title>Цена включает НДС</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеСклад</dcsset:field>
+					<dcsset:title>Склад</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеСрокПоставки</dcsset:field>
+					<dcsset:lwsTitle>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Срок поставки (дн)</v8:content>
+						</v8:item>
+					</dcsset:lwsTitle>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СоглашениеСегментНоменклатуры</dcsset:field>
+					<dcsset:title>Сегмент номенклатуры</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеМенеджер</dcsset:field>
+					<dcsset:title>Менеджер</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеРегулярное</dcsset:field>
+					<dcsset:title>Регулярное</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеПериод</dcsset:field>
+					<dcsset:title>Период</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеКоличествоПериодов</dcsset:field>
+					<dcsset:title>Количество периодов</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеУдержатьВознаграждение</dcsset:field>
+					<dcsset:title>Удержать вознаграждение</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:field>СоглашениеПроцентВознаграждения</dcsset:field>
+					<dcsset:title>Процент вознаграждения</dcsset:title>
+				</dcsset:item>
+				<dcsset:viewMode>Normal</dcsset:viewMode>
+				<dcsset:userSettingID>20e28174-08da-4504-b4cf-825dfae430e5</dcsset:userSettingID>
+				<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Реквизиты условий продаж</v8:content>
+					</v8:item>
+				</dcsset:userSettingPresentation>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СоглашениеОрганизация</dcsset:left>
+					<dcsset:comparisonType>InList</dcsset:comparisonType>
+					<dcsset:right xsi:nil="true"/>
+					<dcsset:userSettingID>bd7ae537-7169-4ff4-a98d-deb1736e8c98</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Организация</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СоглашениеСегментПартнеров</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>48a3bf47-d1cd-43fa-9d79-88d2e51d1021</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сегмент партнеров</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СоглашениеСегментНоменклатуры</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>d4da5b64-1703-4c9b-b905-c3ace029e0ed</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сегмент номенклатуры</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>СоглашениеДатаНачалаДействия</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+			</dcsset:order>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">Output</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Типовые условия продаж</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+			</dcsset:item>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>Цены</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Цены в условиях продаж</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СоглашениеОрганизация</dcsset:left>
+					<dcsset:comparisonType>InList</dcsset:comparisonType>
+					<dcsset:right xsi:nil="true"/>
+					<dcsset:userSettingID>fc35e8c2-38fa-4dfa-b7ed-5cd7128c817a</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Организация</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">СегментНоменклатуры</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>3041cb60-2c6d-4914-9e84-93d7cbe4ae3b</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Номенклатура.ЦеноваяГруппа</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>fe6a4497-f06c-498b-996c-3f33da16670b</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ценовая группа</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Номенклатура</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>58b2e4e7-a1d9-429b-bfc4-922a99cd0e6d</dcsset:userSettingID>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>Партнер</dcscor:parameter>
+					<dcscor:value xsi:type="xs:boolean">false</dcscor:value>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Соглашение</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>Соглашение.Наименование</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>МинимальнаяШирина</dcscor:parameter>
+							<dcscor:value xsi:type="xs:decimal">15</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>МаксимальнаяШирина</dcscor:parameter>
+							<dcscor:value xsi:type="xs:decimal">15</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">Auto</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Цены в условиях продаж</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ВыводитьПараметрыДанных</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemTable">
+				<dcsset:column>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Соглашение</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:placement>Vertically</dcsset:placement>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Соглашение</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Соглашение.Валюта</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:field>Соглашение.НалогообложениеНДС</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:field>Соглашение.ЦенаВключаетНДС</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:field>Соглашение.ГрафикОплаты</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+							<dcsset:title>Период действия</dcsset:title>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:use>false</dcsset:use>
+								<dcsset:field>Соглашение.ДатаНачалаДействия</dcsset:field>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:use>false</dcsset:use>
+								<dcsset:field>Соглашение.ДатаОкончанияДействия</dcsset:field>
+							</dcsset:item>
+							<dcsset:placement>Horizontally</dcsset:placement>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:use>false</dcsset:use>
+							<dcsset:field>ВидЦены</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Цена</dcsset:field>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+					</dcsset:selection>
+					<dcsset:conditionalAppearance>
+						<dcsset:item>
+							<dcsset:selection>
+								<dcsset:item>
+									<dcsset:field>Соглашение.ЦенаВключаетНДС</dcsset:field>
+								</dcsset:item>
+							</dcsset:selection>
+							<dcsset:filter/>
+							<dcsset:appearance>
+								<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+									<dcscor:parameter>Формат</dcscor:parameter>
+									<dcscor:value xsi:type="xs:string">БЛ='Цена не включает НДС'; БИ='Цена включает НДС'</dcscor:value>
+								</dcscor:item>
+							</dcsset:appearance>
+						</dcsset:item>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+				</dcsset:column>
+				<dcsset:row>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>Номенклатура.ЦеноваяГруппа</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>Номенклатура.ЦеноваяГруппа</dcsset:field>
+							<dcsset:title>Ценовая группа</dcsset:title>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:outputParameters>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>РасположениеИтогов</dcscor:parameter>
+							<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+						</dcscor:item>
+					</dcsset:outputParameters>
+					<dcsset:item>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Номенклатура</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Характеристика</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Упаковка</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>Номенклатура.Артикул</dcsset:field>
+								<dcsset:title>Артикул</dcsset:title>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemFolder">
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Номенклатура</dcsset:field>
+								</dcsset:item>
+								<dcsset:item xsi:type="dcsset:SelectedItemField">
+									<dcsset:field>Характеристика</dcsset:field>
+								</dcsset:item>
+								<dcsset:placement>Together</dcsset:placement>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>Номенклатура.ЕдиницаИзмерения</dcsset:field>
+								<dcsset:lwsTitle>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Ед. изм.</v8:content>
+									</v8:item>
+								</dcsset:lwsTitle>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:field>Упаковка</dcsset:field>
+								<dcsset:title>Упаковка</dcsset:title>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemField">
+								<dcsset:use>false</dcsset:use>
+								<dcsset:field>Номенклатура.СтавкаНДС</dcsset:field>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+							<dcsset:viewMode>Normal</dcsset:viewMode>
+						</dcsset:selection>
+						<dcsset:conditionalAppearance>
+							<dcsset:item>
+								<dcsset:selection>
+									<dcsset:item>
+										<dcsset:field>Цена</dcsset:field>
+									</dcsset:item>
+								</dcsset:selection>
+								<dcsset:filter>
+									<dcsset:item xsi:type="dcsset:FilterItemComparison">
+										<dcsset:left xsi:type="dcscor:Field">ЭтоФиксированнаяЦена</dcsset:left>
+										<dcsset:comparisonType>Equal</dcsset:comparisonType>
+										<dcsset:right xsi:type="xs:boolean">true</dcsset:right>
+									</dcsset:item>
+								</dcsset:filter>
+								<dcsset:appearance>
+									<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+										<dcscor:parameter>ЦветТекста</dcscor:parameter>
+										<dcscor:value xsi:type="v8ui:Color">style:ИндивидуальнаяЦена</dcscor:value>
+									</dcscor:item>
+								</dcsset:appearance>
+							</dcsset:item>
+						</dcsset:conditionalAppearance>
+						<dcsset:outputParameters>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:use>false</dcscor:use>
+								<dcscor:parameter>ТипЗаголовкаПолей</dcscor:parameter>
+								<dcscor:value xsi:type="dcscor:DataCompositionFieldsTitleType">Short</dcscor:value>
+							</dcscor:item>
+							<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+								<dcscor:use>false</dcscor:use>
+								<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+								<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">Output</dcscor:value>
+							</dcscor:item>
+						</dcsset:outputParameters>
+						<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					</dcsset:item>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+				</dcsset:row>
+				<dcsset:columnsViewMode>Normal</dcsset:columnsViewMode>
+				<dcsset:rowsViewMode>Normal</dcsset:rowsViewMode>
+			</dcsset:item>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

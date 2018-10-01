@@ -1,0 +1,813 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Подготовка заданий торговым представителям</v8:content>
+		</v8:item>
+	</Title>
+	<AutoSaveDataInSettings>Use</AutoSaveDataInSettings>
+	<SaveDataInSettings>UseList</SaveDataInSettings>
+	<AutoTitle>false</AutoTitle>
+	<CommandBarLocation>None</CommandBarLocation>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="BeforeLoadDataFromSettingsAtServer">ПриЗагрузкеДанныхИзНастроекНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="Настройки" id="76">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройки</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="НастройкиExtendedTooltip" id="94"/>
+			<ChildItems>
+				<InputField name="ПериодПодготовкиЗаданий" id="55">
+					<DataPath>ПериодПодготовкиЗаданий</DataPath>
+					<TitleLocation>Left</TitleLocation>
+					<Width>15</Width>
+					<ContextMenu name="ПериодПодготовкиЗаданийКонтекстноеМеню" id="56"/>
+					<ExtendedTooltip name="ПериодПодготовкиЗаданийExtendedTooltip" id="95"/>
+					<Events>
+						<Event name="OnChange">ПериодПодготовкиЗаданийПриИзменении</Event>
+					</Events>
+				</InputField>
+				<InputField name="ТорговыйПредставитель" id="78">
+					<DataPath>ТорговыйПредставитель</DataPath>
+					<ClearButton>true</ClearButton>
+					<OpenButton>false</OpenButton>
+					<ContextMenu name="ТорговыйПредставительКонтекстноеМеню" id="79"/>
+					<ExtendedTooltip name="ТорговыйПредставительExtendedTooltip" id="96"/>
+					<Events>
+						<Event name="OnChange">ТорговыйПредставительПриИзменении</Event>
+					</Events>
+				</InputField>
+				<InputField name="Куратор" id="80">
+					<DataPath>Куратор</DataPath>
+					<DropListButton>true</DropListButton>
+					<ClearButton>true</ClearButton>
+					<OpenButton>false</OpenButton>
+					<ContextMenu name="КураторКонтекстноеМеню" id="81"/>
+					<ExtendedTooltip name="КураторExtendedTooltip" id="97"/>
+					<Events>
+						<Event name="OnChange">КураторПриИзменении</Event>
+					</Events>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПользовательскихНастроек" id="132">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа пользовательских настроек</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа пользовательских настроек</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПользовательскихНастроекРасширеннаяПодсказка" id="133"/>
+		</UsualGroup>
+		<Table name="СписокЗаданий" id="1">
+			<Representation>List</Representation>
+			<SkipOnInput>false</SkipOnInput>
+			<UseAlternationRowColor>true</UseAlternationRowColor>
+			<EnableStartDrag>true</EnableStartDrag>
+			<DataPath>СписокЗаданий</DataPath>
+			<AutoRefresh>false</AutoRefresh>
+			<AutoRefreshPeriod>60</AutoRefreshPeriod>
+			<Period>
+				<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+				<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+				<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+			</Period>
+			<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+			<RestoreCurrentRow>false</RestoreCurrentRow>
+			<TopLevelParent xsi:nil="true"/>
+			<ShowRoot>true</ShowRoot>
+			<AllowRootChoice>false</AllowRootChoice>
+			<UpdateOnDataChange>Auto</UpdateOnDataChange>
+			<UserSettingsGroup>ГруппаПользовательскихНастроек</UserSettingsGroup>
+			<ContextMenu name="СписокЗаданийКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="СписокЗаданийКоманднаяПанель" id="3">
+				<ChildItems>
+					<ButtonGroup name="КомандыСписка" id="86">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Команды списка</v8:content>
+							</v8:item>
+						</Title>
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Команды списка</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="КомандыСпискаExtendedTooltip" id="98"/>
+						<ChildItems>
+							<Button name="СписокЗаданийДобавитьЗадание" id="59">
+								<Type>CommandBarButton</Type>
+								<Representation>PictureAndText</Representation>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ДобавитьЗадание</CommandName>
+								<Picture>
+									<xr:Ref>StdPicture.CreateListItem</xr:Ref>
+									<xr:LoadTransparent>true</xr:LoadTransparent>
+								</Picture>
+								<ExtendedTooltip name="СписокЗаданийДобавитьЗаданиеExtendedTooltip" id="99"/>
+							</Button>
+							<Button name="СписокЗаданийНайти" id="60">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.СписокЗаданий.StandardCommand.Find</CommandName>
+								<ExtendedTooltip name="СписокЗаданийНайтиExtendedTooltip" id="100"/>
+							</Button>
+							<Button name="СписокЗаданийОтменитьПоиск" id="61">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Item.СписокЗаданий.StandardCommand.CancelSearch</CommandName>
+								<ExtendedTooltip name="СписокЗаданийОтменитьПоискExtendedTooltip" id="101"/>
+							</Button>
+						</ChildItems>
+					</ButtonGroup>
+					<Popup name="Печать" id="67">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Печать</v8:content>
+							</v8:item>
+						</Title>
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Печать</v8:content>
+							</v8:item>
+						</ToolTip>
+						<ExtendedTooltip name="ПечатьExtendedTooltip" id="102"/>
+						<ChildItems>
+							<Button name="СписокПартнеровПечатьБланкаЗадания" id="68">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ПечатьБланкаЗадания</CommandName>
+								<ExtendedTooltip name="СписокПартнеровПечатьБланкаЗаданияExtendedTooltip" id="103"/>
+							</Button>
+							<Button name="СписокПартнеровПечатьСводногоЗадания" id="69">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.ПечатьСводногоЗадания</CommandName>
+								<ExtendedTooltip name="СписокПартнеровПечатьСводногоЗаданияExtendedTooltip" id="104"/>
+							</Button>
+							<Button name="СписокПартнеровНастройкаПечатиБланковЗадания" id="70">
+								<Type>CommandBarButton</Type>
+								<SkipOnInput>false</SkipOnInput>
+								<CommandName>Form.Command.НастройкаПечатиБланковЗадания</CommandName>
+								<ExtendedTooltip name="СписокПартнеровНастройкаПечатиБланковЗаданияExtendedTooltip" id="105"/>
+							</Button>
+						</ChildItems>
+					</Popup>
+					<Button name="СписокЗаданийСправка" id="88">
+						<Type>CommandBarButton</Type>
+						<SkipOnInput>false</SkipOnInput>
+						<CommandName>Form.StandardCommand.Help</CommandName>
+						<ExtendedTooltip name="СписокЗаданийСправкаExtendedTooltip" id="107"/>
+					</Button>
+					<Button name="СписокЗаданийИзменитьФорму" id="134">
+						<Type>CommandBarButton</Type>
+						<OnlyInAllActions>false</OnlyInAllActions>
+						<CommandName>Form.StandardCommand.CustomizeForm</CommandName>
+						<ExtendedTooltip name="СписокЗаданийИзменитьФормуРасширеннаяПодсказка" id="135"/>
+					</Button>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="СписокЗаданийExtendedTooltip" id="108"/>
+			<SearchStringAddition name="СписокЗаданийСтрокаПоиска" id="122">
+				<AdditionSource>
+					<Item>СписокЗаданий</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокЗаданийСтрокаПоискаКонтекстноеМеню" id="123"/>
+				<ExtendedTooltip name="СписокЗаданийСтрокаПоискаРасширеннаяПодсказка" id="124"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="СписокЗаданийСостояниеПросмотра" id="125">
+				<AdditionSource>
+					<Item>СписокЗаданий</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокЗаданийСостояниеПросмотраКонтекстноеМеню" id="126"/>
+				<ExtendedTooltip name="СписокЗаданийСостояниеПросмотраРасширеннаяПодсказка" id="127"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="СписокЗаданийУправлениеПоиском" id="128">
+				<AdditionSource>
+					<Item>СписокЗаданий</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="СписокЗаданийУправлениеПоискомКонтекстноеМеню" id="129"/>
+				<ExtendedTooltip name="СписокЗаданийУправлениеПоискомРасширеннаяПодсказка" id="130"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">СписокЗаданийВыбор</Event>
+			</Events>
+			<ChildItems>
+				<LabelField name="СписокЗаданийПартнер" id="57">
+					<DataPath>СписокЗаданий.Партнер</DataPath>
+					<ContextMenu name="СписокЗаданийПартнерКонтекстноеМеню" id="58"/>
+					<ExtendedTooltip name="СписокЗаданийПартнерExtendedTooltip" id="109"/>
+				</LabelField>
+				<ColumnGroup name="Условия" id="92">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Условия</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Условия</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="УсловияExtendedTooltip" id="110"/>
+					<ChildItems>
+						<LabelField name="СписокЗаданийСоглашение" id="20">
+							<DataPath>СписокЗаданий.Соглашение</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Соглашение</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="СписокЗаданийСоглашениеКонтекстноеМеню" id="21"/>
+							<ExtendedTooltip name="СписокЗаданийСоглашениеExtendedTooltip" id="111"/>
+						</LabelField>
+						<LabelField name="СписокЗаданийУсловияОбслуживания" id="24">
+							<DataPath>СписокЗаданий.УсловияОбслуживания</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Условия обслуживания</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="СписокЗаданийУсловияОбслуживанияКонтекстноеМеню" id="25"/>
+							<ExtendedTooltip name="СписокЗаданийУсловияОбслуживанияExtendedTooltip" id="112"/>
+						</LabelField>
+					</ChildItems>
+				</ColumnGroup>
+				<ColumnGroup name="Визиты" id="91">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Визиты</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Визиты</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ВизитыExtendedTooltip" id="113"/>
+					<ChildItems>
+						<LabelField name="СписокЗаданийПоследнийВизит" id="84">
+							<DataPath>СписокЗаданий.ПоследнийВизит</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Последний визит</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="СписокЗаданийПоследнийВизитКонтекстноеМеню" id="85"/>
+							<ExtendedTooltip name="СписокЗаданийПоследнийВизитExtendedTooltip" id="114"/>
+						</LabelField>
+						<LabelField name="СписокЗаданийПлановаяДатаПосещения" id="18">
+							<DataPath>СписокЗаданий.ПлановаяДатаПосещения</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Визит по графику</v8:content>
+								</v8:item>
+							</Title>
+							<HorizontalStretch>false</HorizontalStretch>
+							<Format>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>ДФ=dd.MM.yyyy</v8:content>
+								</v8:item>
+							</Format>
+							<ContextMenu name="СписокЗаданийПлановаяДатаПосещенияКонтекстноеМеню" id="19"/>
+							<ExtendedTooltip name="СписокЗаданийПлановаяДатаПосещенияExtendedTooltip" id="115"/>
+						</LabelField>
+					</ChildItems>
+				</ColumnGroup>
+				<PictureField name="СписокЗаданийИндексКартинки" id="89">
+					<DataPath>СписокЗаданий.ИндексКартинки</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Индекс картинки</v8:content>
+						</v8:item>
+					</Title>
+					<TitleLocation>None</TitleLocation>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Задание  "к отработке"</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Width>2</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ValuesPicture>
+						<xr:Ref>CommonPicture.КартинкаПометка</xr:Ref>
+						<xr:LoadTransparent>true</xr:LoadTransparent>
+						<xr:TransparentPixel x="5" y="1"/>
+					</ValuesPicture>
+					<ContextMenu name="СписокЗаданийИндексКартинкиКонтекстноеМеню" id="90"/>
+					<ExtendedTooltip name="СписокЗаданийИндексКартинкиExtendedTooltip" id="116"/>
+				</PictureField>
+				<ColumnGroup name="Планы" id="93">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Планы</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Планы</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ПланыExtendedTooltip" id="117"/>
+					<ChildItems>
+						<LabelField name="СписокЗаданийЗапланировано" id="10">
+							<DataPath>СписокЗаданий.Запланировано</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Запланировано</v8:content>
+								</v8:item>
+							</Title>
+							<HorizontalStretch>false</HorizontalStretch>
+							<ContextMenu name="СписокЗаданийЗапланированоКонтекстноеМеню" id="11"/>
+							<ExtendedTooltip name="СписокЗаданийЗапланированоExtendedTooltip" id="118"/>
+						</LabelField>
+						<LabelField name="СписокЗаданийЗаданиеТорговомуПредставителю" id="8">
+							<DataPath>СписокЗаданий.ЗаданиеТорговомуПредставителю</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Задание</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="СписокЗаданийЗаданиеТорговомуПредставителюКонтекстноеМеню" id="9"/>
+							<ExtendedTooltip name="СписокЗаданийЗаданиеТорговомуПредставителюExtendedTooltip" id="119"/>
+						</LabelField>
+					</ChildItems>
+				</ColumnGroup>
+				<LabelField name="СписокЗаданийТорговыйПредставитель" id="22">
+					<DataPath>СписокЗаданий.ТорговыйПредставитель</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Торговый представитель</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="СписокЗаданийТорговыйПредставительКонтекстноеМеню" id="23"/>
+					<ExtendedTooltip name="СписокЗаданийТорговыйПредставительExtendedTooltip" id="120"/>
+				</LabelField>
+				<LabelField name="СписокЗаданийКуратор" id="82">
+					<DataPath>СписокЗаданий.Куратор</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Куратор</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="СписокЗаданийКураторКонтекстноеМеню" id="83"/>
+					<ExtendedTooltip name="СписокЗаданийКураторExtendedTooltip" id="121"/>
+				</LabelField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="СписокЗаданий" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список заданий</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>false</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	МИНИМУМ(ВЫБОР
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Понедельник ТОГДА
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 1
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 1 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 1 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Вторник	ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 2
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 2 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 2 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Среда ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 3
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 3 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 3 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Четверг ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 4
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 4 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 4 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Пятница ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 5
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 5 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 5 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Суббота ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 6
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 6 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 6 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			КОГДА УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.ДеньНедели = &amp;Воскресенье ТОГДА 
+				ВЫБОР
+					КОГДА ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) &gt; 7
+					ТОГДА ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 7 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета) + 7)
+					ИНАЧЕ ДОБАВИТЬКДАТЕ(ОсновнойЗапрос.НачальнаяДатаРасчета, ДЕНЬ, 7 - ДЕНЬНЕДЕЛИ(ОсновнойЗапрос.НачальнаяДатаРасчета))
+				КОНЕЦ
+			ИНАЧЕ &amp;ПустаяДата
+			КОНЕЦ) КАК ПлановаяДатаПосещения,
+	ОсновнойЗапрос.УсловияОбслуживания КАК УсловияОбслуживания,
+	ОсновнойЗапрос.Соглашение КАК Соглашение,
+	ОсновнойЗапрос.Куратор КАК Куратор,
+	ОсновнойЗапрос.ТорговыйПредставитель КАК ТорговыйПредставитель,
+	МИНИМУМ(ОсновнойЗапрос.Запланировано) КАК Запланировано,
+	ОсновнойЗапрос.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю,
+	ОсновнойЗапрос.Партнер КАК Партнер,
+	МАКСИМУМ(ОсновнойЗапрос.ПоследнийВизит) КАК ПоследнийВизит,
+	СУММА(ОсновнойЗапрос.ИндексКартинки) КАК ИндексКартинки
+ИЗ
+	(ВЫБРАТЬ
+		ПартнерыИУсловияОбслуживания.УсловияОбслуживания КАК УсловияОбслуживания,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.Соглашение ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.Соглашение
+			ИНАЧЕ ЗапланированныеЗадания.Соглашение
+		КОНЕЦ КАК Соглашение,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.Куратор ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.Куратор
+			ИНАЧЕ ЗапланированныеЗадания.Куратор
+		КОНЕЦ КАК Куратор,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.ТорговыйПредставитель ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.ТорговыйПредставитель
+			ИНАЧЕ ЗапланированныеЗадания.ТорговыйПредставитель
+		КОНЕЦ КАК ТорговыйПредставитель,
+		МИНИМУМ(ЗапланированныеЗадания.Запланировано) КАК Запланировано,
+		ЗапланированныеЗадания.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю,
+		ПартнерыИУсловияОбслуживания.Партнер КАК Партнер,
+		МАКСИМУМ(ПоследниеВизиты.ПоследнийВизит) КАК ПоследнийВизит,
+		СУММА(ВЫБОР
+				КОГДА ЗапланированныеЗадания.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.КОтработке)
+					ТОГДА 0
+				ИНАЧЕ 1
+			КОНЕЦ) КАК ИндексКартинки,
+		МИНИМУМ(ВЫБОР
+				КОГДА ПоследниеВизиты.ПоследнийВизит &lt; &amp;НачальнаяДатаПланирования
+						И ПоследниеВизиты.ПоследнийВизит &lt;&gt; &amp;ПустаяДата
+					ТОГДА ВЫБОР
+							КОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(ПоследниеВизиты.ПоследнийВизит, ДЕНЬ), ДЕНЬ, 1) &lt;= &amp;КонечнаяДатаПланирования
+									ИЛИ &amp;КонечнаяДатаПланирования = &amp;ПустаяДата
+								ТОГДА ДОБАВИТЬКДАТЕ(НАЧАЛОПЕРИОДА(ПоследниеВизиты.ПоследнийВизит, ДЕНЬ), ДЕНЬ, 1)
+							ИНАЧЕ NULL
+						КОНЕЦ
+				ИНАЧЕ &amp;НачальнаяДатаПланирования
+			КОНЕЦ) КАК НачальнаяДатаРасчета
+	ИЗ
+		(ВЫБРАТЬ
+			Партнеры.Ссылка КАК Партнер,
+			ЕСТЬNULL(УсловияОбслуживанияПартнеровТорговымиПредставителями.Ссылка, ЗНАЧЕНИЕ(Справочник.УсловияОбслуживанияПартнеровТорговымиПредставителями.ПустаяСсылка)) КАК УсловияОбслуживания,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.Соглашение КАК Соглашение,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.Куратор КАК Куратор,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.ТорговыйПредставитель КАК ТорговыйПредставитель
+		ИЗ
+			Справочник.Партнеры КАК Партнеры
+				ЛЕВОЕ СОЕДИНЕНИЕ Справочник.УсловияОбслуживанияПартнеровТорговымиПредставителями КАК УсловияОбслуживанияПартнеровТорговымиПредставителями
+				ПО Партнеры.Ссылка = УсловияОбслуживанияПартнеровТорговымиПредставителями.Владелец
+		ГДЕ
+			(НЕ Партнеры.ПометкаУдаления)
+			И Партнеры.ОбслуживаетсяТорговымиПредставителями
+			И ((НЕ УсловияОбслуживанияПартнеровТорговымиПредставителями.ПометкаУдаления)
+					ИЛИ УсловияОбслуживанияПартнеровТорговымиПредставителями.ПометкаУдаления ЕСТЬ NULL )
+		
+		СГРУППИРОВАТЬ ПО
+			Партнеры.Ссылка,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.Соглашение,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.Куратор,
+			УсловияОбслуживанияПартнеровТорговымиПредставителями.ТорговыйПредставитель,
+			ЕСТЬNULL(УсловияОбслуживанияПартнеровТорговымиПредставителями.Ссылка, ЗНАЧЕНИЕ(Справочник.УсловияОбслуживанияПартнеровТорговымиПредставителями.ПустаяСсылка))) КАК ПартнерыИУсловияОбслуживания
+			ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+				МАКСИМУМ(ЗаданиеТорговомуПредставителю.ДатаВизитаФакт) КАК ПоследнийВизит,
+				ЗаданиеТорговомуПредставителю.Партнер КАК Партнер,
+				ЗаданиеТорговомуПредставителю.УсловияОбслуживания КАК УсловияОбслуживания
+			ИЗ
+				Документ.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю
+			ГДЕ
+				(НЕ ЗаданиеТорговомуПредставителю.ПометкаУдаления)
+				И ЗаданиеТорговомуПредставителю.Партнер.ОбслуживаетсяТорговымиПредставителями
+				И ЗаданиеТорговомуПредставителю.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.Отработано)
+			
+			СГРУППИРОВАТЬ ПО
+				ЗаданиеТорговомуПредставителю.Партнер,
+				ЗаданиеТорговомуПредставителю.УсловияОбслуживания) КАК ПоследниеВизиты
+			ПО ПартнерыИУсловияОбслуживания.Партнер = ПоследниеВизиты.Партнер
+				И ПартнерыИУсловияОбслуживания.УсловияОбслуживания = ПоследниеВизиты.УсловияОбслуживания
+			ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+				ЗаданиеТорговомуПредставителю.Ссылка КАК ЗаданиеТорговомуПредставителю,
+				ЗаданиеТорговомуПредставителю.Партнер КАК Партнер,
+				ЗаданиеТорговомуПредставителю.Соглашение КАК Соглашение,
+				ЗаданиеТорговомуПредставителю.ТорговыйПредставитель КАК ТорговыйПредставитель,
+				МИНИМУМ(ЗаданиеТорговомуПредставителю.ДатаВизитаПлан) КАК Запланировано,
+				ЗаданиеТорговомуПредставителю.Куратор КАК Куратор,
+				ЗаданиеТорговомуПредставителю.УсловияОбслуживания КАК УсловияОбслуживания,
+				ЗаданиеТорговомуПредставителю.Статус КАК Статус
+			ИЗ
+				Документ.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю
+			ГДЕ
+				(НЕ ЗаданиеТорговомуПредставителю.ПометкаУдаления)
+				И ЗаданиеТорговомуПредставителю.ДатаВизитаПлан &gt;= &amp;ДатаНачалаРаботы
+				И ЗаданиеТорговомуПредставителю.Партнер.ОбслуживаетсяТорговымиПредставителями
+				И (ЗаданиеТорговомуПредставителю.ДатаВизитаПлан &lt;= &amp;КонечнаяДатаПланирования
+						ИЛИ &amp;КонечнаяДатаПланирования = &amp;ПустаяДата)
+				И (ЗаданиеТорговомуПредставителю.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.НеПодготовлено)
+						ИЛИ ЗаданиеТорговомуПредставителю.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.Котработке))
+			
+			СГРУППИРОВАТЬ ПО
+				ЗаданиеТорговомуПредставителю.Ссылка,
+				ЗаданиеТорговомуПредставителю.Партнер,
+				ЗаданиеТорговомуПредставителю.Соглашение,
+				ЗаданиеТорговомуПредставителю.ТорговыйПредставитель,
+				ЗаданиеТорговомуПредставителю.Куратор,
+				ЗаданиеТорговомуПредставителю.УсловияОбслуживания,
+				ЗаданиеТорговомуПредставителю.Статус) КАК ЗапланированныеЗадания
+			ПО ПартнерыИУсловияОбслуживания.Партнер = ЗапланированныеЗадания.Партнер
+				И ПартнерыИУсловияОбслуживания.УсловияОбслуживания = ЗапланированныеЗадания.УсловияОбслуживания
+	
+	СГРУППИРОВАТЬ ПО
+		ПартнерыИУсловияОбслуживания.Партнер,
+		ПартнерыИУсловияОбслуживания.УсловияОбслуживания,
+		ЗапланированныеЗадания.ЗаданиеТорговомуПредставителю,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.Соглашение ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.Соглашение
+			ИНАЧЕ ЗапланированныеЗадания.Соглашение
+		КОНЕЦ,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.Куратор ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.Куратор
+			ИНАЧЕ ЗапланированныеЗадания.Куратор
+		КОНЕЦ,
+		ВЫБОР
+			КОГДА ЗапланированныеЗадания.ТорговыйПредставитель ЕСТЬ NULL 
+				ТОГДА ПартнерыИУсловияОбслуживания.ТорговыйПредставитель
+			ИНАЧЕ ЗапланированныеЗадания.ТорговыйПредставитель
+		КОНЕЦ) КАК ОсновнойЗапрос
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.УсловияОбслуживанияПартнеровТорговымиПредставителями.ГрафикПосещения КАК УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения
+		ПО ОсновнойЗапрос.УсловияОбслуживания = УсловияОбслуживанияПартнеровТорговымиПредставителямиГрафикПосещения.Ссылка
+
+СГРУППИРОВАТЬ ПО
+	ОсновнойЗапрос.Партнер,
+	ОсновнойЗапрос.ЗаданиеТорговомуПредставителю,
+	ОсновнойЗапрос.ТорговыйПредставитель,
+	ОсновнойЗапрос.Куратор,
+	ОсновнойЗапрос.УсловияОбслуживания,
+	ОсновнойЗапрос.Соглашение
+
+ОБЪЕДИНИТЬ
+
+ВЫБРАТЬ
+	МИНИМУМ(&amp;ПустаяДата),
+	ЗапланированныеЗаданияБезУсловий.УсловияОбслуживания,
+	ЗапланированныеЗаданияБезУсловий.Соглашение,
+	ЗапланированныеЗаданияБезУсловий.Куратор,
+	ЗапланированныеЗаданияБезУсловий.ТорговыйПредставитель,
+	МИНИМУМ(ЗапланированныеЗаданияБезУсловий.ДатаВизитаПлан),
+	ЗапланированныеЗаданияБезУсловий.Ссылка,
+	ЗапланированныеЗаданияБезУсловий.Партнер,
+	МАКСИМУМ(ПоследниеВизиты.ПоследнийВизит),
+	СУММА(ВЫБОР
+			КОГДА ЗапланированныеЗаданияБезУсловий.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.КОтработке)
+				ТОГДА 0
+			ИНАЧЕ 1
+		КОНЕЦ)
+ИЗ
+	Документ.ЗаданиеТорговомуПредставителю КАК ЗапланированныеЗаданияБезУсловий
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			МАКСИМУМ(ЗаданиеТорговомуПредставителю.ДатаВизитаФакт) КАК ПоследнийВизит,
+			ЗаданиеТорговомуПредставителю.Партнер КАК Партнер,
+			ЗаданиеТорговомуПредставителю.Соглашение КАК Соглашение
+		ИЗ
+			Документ.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю
+		ГДЕ
+			(НЕ ЗаданиеТорговомуПредставителю.ПометкаУдаления)
+			И ЗаданиеТорговомуПредставителю.Партнер.ОбслуживаетсяТорговымиПредставителями
+			И ЗаданиеТорговомуПредставителю.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.Отработано)
+		
+		СГРУППИРОВАТЬ ПО
+			ЗаданиеТорговомуПредставителю.Партнер,
+			ЗаданиеТорговомуПредставителю.Соглашение) КАК ПоследниеВизиты
+		ПО ЗапланированныеЗаданияБезУсловий.Партнер = ПоследниеВизиты.Партнер
+			И ЗапланированныеЗаданияБезУсловий.Соглашение = ПоследниеВизиты.Соглашение
+ГДЕ
+	(НЕ ЗапланированныеЗаданияБезУсловий.ПометкаУдаления)
+	И ЗапланированныеЗаданияБезУсловий.Партнер.ОбслуживаетсяТорговымиПредставителями
+	И ЗапланированныеЗаданияБезУсловий.УсловияОбслуживания = ЗНАЧЕНИЕ(Справочник.УсловияОбслуживанияПартнеровТорговымиПредставителями.ПустаяСсылка)
+	И (ЗапланированныеЗаданияБезУсловий.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.НеПодготовлено)
+			ИЛИ ЗапланированныеЗаданияБезУсловий.Статус = ЗНАЧЕНИЕ(Перечисление.СтатусыЗаданийТорговымПредставителям.КОтработке))
+	И ЗапланированныеЗаданияБезУсловий.ДатаВизитаПлан &gt;= &amp;ДатаНачалаРаботы
+	И (ЗапланированныеЗаданияБезУсловий.ДатаВизитаПлан &lt;= &amp;КонечнаяДатаПланирования
+			ИЛИ &amp;КонечнаяДатаПланирования = &amp;ПустаяДата)
+
+СГРУППИРОВАТЬ ПО
+	ЗапланированныеЗаданияБезУсловий.УсловияОбслуживания,
+	ЗапланированныеЗаданияБезУсловий.Соглашение,
+	ЗапланированныеЗаданияБезУсловий.Куратор,
+	ЗапланированныеЗаданияБезУсловий.ТорговыйПредставитель,
+	ЗапланированныеЗаданияБезУсловий.Ссылка,
+	ЗапланированныеЗаданияБезУсловий.Партнер
+
+УПОРЯДОЧИТЬ ПО
+	Партнер,
+	ПлановаяДатаПосещения,
+	Куратор,
+	ТорговыйПредставитель</QueryText>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ПустаяДата" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пустая дата</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПериодПодготовкиЗаданий" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Период подготовки заданий</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:StandardPeriod</v8:Type>
+			</Type>
+			<Save>
+				<Field>ПериодПодготовкиЗаданий</Field>
+			</Save>
+		</Attribute>
+		<Attribute name="Куратор" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Куратор</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Пользователи</v8:Type>
+			</Type>
+			<Save>
+				<Field>Куратор</Field>
+			</Save>
+		</Attribute>
+		<Attribute name="ТорговыйПредставитель" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Торговый представитель</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Пользователи</v8:Type>
+			</Type>
+			<Save>
+				<Field>ТорговыйПредставитель</Field>
+			</Save>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="ДобавитьЗадание" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить задание</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить задание</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ДобавитьЗадание</Action>
+		</Command>
+		<Command name="ПечатьБланкаЗадания" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Бланк задания</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать бланка задания</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПечатьБланкаЗадания</Action>
+		</Command>
+		<Command name="ПечатьСводногоЗадания" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сводное задание</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Печать сводного задания</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ПечатьСводногоЗадания</Action>
+		</Command>
+		<Command name="НастройкаПечатиБланковЗадания" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка печати бланков задания</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка печати бланков задания</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>НастройкаПечатиБланковЗадания</Action>
+		</Command>
+	</Commands>
+</Form>

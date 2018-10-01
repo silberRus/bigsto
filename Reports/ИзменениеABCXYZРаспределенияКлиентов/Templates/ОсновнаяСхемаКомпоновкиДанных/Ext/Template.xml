@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Партнер</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПрошлоеЗначениеПараметраКлассификации</dataPath>
+			<field>ПрошлоеЗначениеПараметраКлассификации</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Прошлое значение параметра классификации</v8:content>
+				</v8:item>
+			</title>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ЧН=-</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыделятьОтрицательные</dcscor:parameter>
+					<dcscor:value xsi:type="xs:boolean">true</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПрошлыйABC</dataPath>
+			<field>ПрошлыйABC</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Прошлый ABC</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПрошлыйXYZ</dataPath>
+			<field>ПрошлыйXYZ</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Прошлый XYZ</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущееЗначениеПараметраКлассификации</dataPath>
+			<field>ТекущееЗначениеПараметраКлассификации</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущее значение параметра классификации</v8:content>
+				</v8:item>
+			</title>
+			<appearance>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Формат</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">ЧН=-</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыделятьОтрицательные</dcscor:parameter>
+					<dcscor:value xsi:type="xs:boolean">true</dcscor:value>
+				</dcscor:item>
+			</appearance>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущийABC</dataPath>
+			<field>ТекущийABC</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий ABC</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТекущийXYZ</dataPath>
+			<field>ТекущийXYZ</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий XYZ</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТеущийABC</dataPath>
+			<field>ТеущийABC</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Текущий ABC</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ЕСТЬNULL(ТекущийXYZ.Класс, ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ПустаяСсылка)) КАК ТекущийXYZ,
+	ЕСТЬNULL(ТекущийABC.Класс, ЗНАЧЕНИЕ(Перечисление.ABCКлассификация.ПустаяСсылка)) КАК ТекущийABC,
+	ЕСТЬNULL(ТекущийABC.ЗначениеПараметраКлассификации, 0) КАК ТекущееЗначениеПараметраКлассификации,
+	ЕСТЬNULL(ПрошлыйXYZ.Класс, ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ПустаяСсылка)) КАК ПрошлыйXYZ,
+	ЕСТЬNULL(ПрошлыйABC.Класс, ЗНАЧЕНИЕ(Перечисление.ABCКлассификация.ПустаяСсылка)) КАК ПрошлыйABC,
+	ЕСТЬNULL(ПрошлыйABC.ЗначениеПараметраКлассификации, 0) КАК ПрошлоеЗначениеПараметраКлассификации,
+	Партнеры.Ссылка КАК Партнер
+{ВЫБРАТЬ
+	ТекущийXYZ,
+	ТекущийABC,
+	ТекущееЗначениеПараметраКлассификации,
+	ПрошлыйXYZ,
+	ПрошлыйABC,
+	ПрошлоеЗначениеПараметраКлассификации,
+	Партнер.*}
+ИЗ
+	Справочник.Партнеры КАК Партнеры
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			ABCXYZКлассификацияКлиентовСрезПоследних.Партнер КАК Партнер,
+			ABCXYZКлассификацияКлиентовСрезПоследних.Класс КАК Класс,
+			ABCXYZКлассификацияКлиентовСрезПоследних.ЗначениеПараметраКлассификации КАК ЗначениеПараметраКлассификации,
+			&amp;СтрокаТекущая КАК Классификация
+		ИЗ
+			РегистрСведений.ABCXYZКлассификацияКлиентов.СрезПоследних(&amp;ТекущийПериод, ) КАК ABCXYZКлассификацияКлиентовСрезПоследних
+		ГДЕ
+			ABCXYZКлассификацияКлиентовСрезПоследних.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.ABC)
+			И ABCXYZКлассификацияКлиентовСрезПоследних.ТипПараметраКлассификации = &amp;ТипПараметраКлассификации) КАК ТекущийABC
+		ПО Партнеры.Ссылка = ТекущийABC.Партнер
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			ABCXYZКлассификацияКлиентовСрезПоследних.Партнер КАК Партнер,
+			ABCXYZКлассификацияКлиентовСрезПоследних.Класс КАК Класс,
+			ABCXYZКлассификацияКлиентовСрезПоследних.ЗначениеПараметраКлассификации КАК ЗначениеПараметраКлассификации,
+			&amp;СтрокаПредыдущая КАК Классификация
+		ИЗ
+			РегистрСведений.ABCXYZКлассификацияКлиентов.СрезПоследних(&amp;ПрошлыйПериод, ) КАК ABCXYZКлассификацияКлиентовСрезПоследних
+		ГДЕ
+			ABCXYZКлассификацияКлиентовСрезПоследних.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.ABC)
+			И ABCXYZКлассификацияКлиентовСрезПоследних.ТипПараметраКлассификации = &amp;ТипПараметраКлассификации) КАК ПрошлыйABC
+		ПО Партнеры.Ссылка = ПрошлыйABC.Партнер
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			ABCXYZКлассификацияКлиентовСрезПоследних.Партнер КАК Партнер,
+			ABCXYZКлассификацияКлиентовСрезПоследних.Класс КАК Класс,
+			&amp;СтрокаТекущая КАК Классификация
+		ИЗ
+			РегистрСведений.ABCXYZКлассификацияКлиентов.СрезПоследних(&amp;ТекущийПериод, ) КАК ABCXYZКлассификацияКлиентовСрезПоследних
+		ГДЕ
+			ABCXYZКлассификацияКлиентовСрезПоследних.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.XYZ)
+			И ABCXYZКлассификацияКлиентовСрезПоследних.ТипПараметраКлассификации = &amp;ТипПараметраКлассификации) КАК ТекущийXYZ
+		ПО Партнеры.Ссылка = ТекущийXYZ.Партнер
+		ЛЕВОЕ СОЕДИНЕНИЕ (ВЫБРАТЬ
+			ABCXYZКлассификацияКлиентовСрезПоследних.Партнер КАК Партнер,
+			ABCXYZКлассификацияКлиентовСрезПоследних.Класс КАК Класс,
+			&amp;СтрокаПредыдущая КАК Классификация
+		ИЗ
+			РегистрСведений.ABCXYZКлассификацияКлиентов.СрезПоследних(&amp;ПрошлыйПериод, ) КАК ABCXYZКлассификацияКлиентовСрезПоследних
+		ГДЕ
+			ABCXYZКлассификацияКлиентовСрезПоследних.ТипКлассификации = ЗНАЧЕНИЕ(Перечисление.ТипыКлассификации.XYZ)
+			И ABCXYZКлассификацияКлиентовСрезПоследних.ТипПараметраКлассификации = &amp;ТипПараметраКлассификации) КАК ПрошлыйXYZ
+		ПО Партнеры.Ссылка = ПрошлыйXYZ.Партнер
+ГДЕ
+	(НЕ Партнеры.ПометкаУдаления) И (НЕ Партнеры.Предопределенный)
+{ГДЕ
+	(ЕСТЬNULL(ТекущийXYZ.Класс, ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ПустаяСсылка))).* КАК ТекущийXYZ,
+	(ЕСТЬNULL(ТекущийABC.Класс, ЗНАЧЕНИЕ(Перечисление.ABCКлассификация.ПустаяСсылка))).* КАК ТеущийABC,
+	ТекущийABC.ЗначениеПараметраКлассификации КАК ТекущееЗначениеПараметраКлассификации,
+	(ЕСТЬNULL(ПрошлыйXYZ.Класс, ЗНАЧЕНИЕ(Перечисление.XYZКлассификация.ПустаяСсылка))).* КАК ПрошлыйXYZ,
+	(ЕСТЬNULL(ПрошлыйABC.Класс, ЗНАЧЕНИЕ(Перечисление.ABCКлассификация.ПустаяСсылка))).* КАК ПрошлыйABC,
+	ПрошлыйABC.ЗначениеПараметраКлассификации КАК ПрошлоеЗначениеПараметраКлассификации,
+	Партнеры.Ссылка.* КАК Партнер}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<calculatedField>
+		<dataPath>ПредыдущаяКлассификация</dataPath>
+		<expression>Отчеты.ИзменениеABCXYZРаспределенияКлиентов.ПолучитьПредставлениеКлассификации(ПрошлыйABC, ПрошлыйXYZ)</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Предыдущая классификация</v8:content>
+			</v8:item>
+		</title>
+	</calculatedField>
+	<calculatedField>
+		<dataPath>ТекущаяКлассификация</dataPath>
+		<expression>Отчеты.ИзменениеABCXYZРаспределенияКлиентов.ПолучитьПредставлениеКлассификации(ТекущийABC, ТекущийXYZ)</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущая классификация</v8:content>
+			</v8:item>
+		</title>
+	</calculatedField>
+	<parameter>
+		<name>ПрошлыйПериод</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Прошлый период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ТекущийПериод</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущий период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ТипПараметраКлассификации</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Тип параметра классификации</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:EnumRef.ТипыПараметровКлассификации</v8:Type>
+		</valueType>
+		<value xsi:type="dcscor:DesignTimeValue">Перечисление.ТипыПараметровКлассификации.ПустаяСсылка</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>СтрокаПредыдущая</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Строка предыдущая</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<parameter>
+		<name>СтрокаТекущая</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Строка текущая</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>ИзменениеABCXYZРаспределенияКлиентов</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Изменение ABC/XYZ-распределения клиентов</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Партнер</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПредыдущаяКлассификация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПрошлоеЗначениеПараметраКлассификации</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТекущаяКлассификация</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ТекущееЗначениеПараметраКлассификации</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>РасположениеРеквизитов</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionAttributesPlacement">Separately</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Изменение ABC/XYZ-распределения клиентов</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьПараметрыДанных</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

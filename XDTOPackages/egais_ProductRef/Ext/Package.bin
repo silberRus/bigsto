@@ -1,0 +1,72 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ProductRef" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ClientRef"/>
+	<valueType name="MarkNumberType" variety="Atomic" minLength="1" maxLength="9">
+		<typeDef base="xs:string" variety="Atomic"/>
+		<pattern>([0-9])*</pattern>
+	</valueType>
+	<valueType name="ProductType" base="xs:string" variety="Atomic">
+		<enumeration>АП</enumeration>
+		<enumeration>ССП</enumeration>
+		<enumeration>ССНП</enumeration>
+		<enumeration>Спирт</enumeration>
+	</valueType>
+	<valueType name="RankType" variety="Atomic" length="3">
+		<typeDef base="xs:string" variety="Atomic"/>
+		<pattern>[0-9]{3}</pattern>
+	</valueType>
+	<valueType name="WbUnitType" base="xs:string" variety="Atomic">
+		<enumeration>Packed</enumeration>
+		<enumeration>Unpacked</enumeration>
+	</valueType>
+	<objectType name="InformAType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="RegId" type="d3p1:NoEmptyString50" nillable="false"/>
+	</objectType>
+	<objectType name="InformBType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="InformBItem" type="d3p1:InformBTypeItem" nillable="false"/>
+	</objectType>
+	<objectType name="InformBTypeItem">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="BRegId" type="d3p1:NoEmptyString50" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="MarkInfo" type="d3p1:MarkInfoType" lowerBound="0" nillable="false"/>
+	</objectType>
+	<objectType name="MarkInfoType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Type" type="d3p1:NoEmptyString50"/>
+		<property name="Ranges">
+			<typeDef xsi:type="ObjectType">
+				<property name="Range" upperBound="-1">
+					<typeDef xsi:type="ObjectType">
+						<property name="Identity" type="xs:string" lowerBound="0" nillable="false"/>
+						<property xmlns:d7p1="http://fsrar.ru/WEGAIS/ProductRef" name="Rank" type="d7p1:RankType"/>
+						<property xmlns:d7p1="http://fsrar.ru/WEGAIS/ProductRef" name="Start" type="d7p1:MarkNumberType"/>
+						<property xmlns:d7p1="http://fsrar.ru/WEGAIS/ProductRef" name="Last" type="d7p1:MarkNumberType"/>
+					</typeDef>
+				</property>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="ProductInfo" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="Type" type="d3p1:ProductType" lowerBound="0" nillable="false"/>
+		<property name="FullName" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="ShortName" lowerBound="0" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="64"/>
+		</property>
+		<property name="AlcCode" nillable="false">
+			<typeDef xmlns:d4p1="http://fsrar.ru/WEGAIS/Common" xsi:type="ValueType" base="d4p1:NoEmptyString" variety="Atomic" maxLength="64"/>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Capacity" type="d3p1:PositiveDecimalType" lowerBound="0" nillable="false"/>
+		<property name="AlcVolume" lowerBound="0" nillable="false">
+			<typeDef xsi:type="ValueType" base="xs:decimal" variety="Atomic" minInclusive="0" maxInclusive="100"/>
+		</property>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="Producer" type="d3p1:OrgInfo" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ClientRef" name="Importer" type="d3p1:OrgInfo" lowerBound="0" nillable="false"/>
+		<property name="ProductVCode" nillable="false">
+			<typeDef xmlns:d4p1="http://fsrar.ru/WEGAIS/Common" xsi:type="ValueType" base="d4p1:NoEmptyString" variety="Atomic" maxLength="5"/>
+		</property>
+	</objectType>
+	<objectType name="ProductsType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="Product" type="d3p1:ProductInfo" upperBound="-1"/>
+	</objectType>
+</package>

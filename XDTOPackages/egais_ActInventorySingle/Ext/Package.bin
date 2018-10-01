@@ -1,0 +1,41 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ActInventorySingle" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ClientRef"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ActInventoryABInfo"/>
+	<objectType name="ActInventoryPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef" name="Product" type="d3p1:ProductInfo"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Quantity" type="d3p1:PositiveDecimalType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ActInventoryABInfo" name="InformA" type="d3p1:InformARegType" nillable="false"/>
+		<property name="InformB">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActInventoryABInfo" name="InformBItem" type="d5p1:InformBTypeRegItem" upperBound="-1" nillable="false"/>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="ActInventoryType">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="Number" type="d5p1:NoEmptyString50"/>
+				<property name="DivisionName" lowerBound="0">
+					<typeDef xmlns:d6p1="http://fsrar.ru/WEGAIS/Common" xsi:type="ValueType" base="d6p1:NoEmptyString" variety="Atomic" maxLength="255"/>
+				</property>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="InventoryBasis" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="InventoryBasisNumber" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="InventoryBasisDate" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="InventoryDateBegin" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="InventoryDateEnd" type="d5p1:DateNoTime"/>
+				<property name="Note" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="500"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActInventorySingle" name="Position" type="d5p1:ActInventoryPositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

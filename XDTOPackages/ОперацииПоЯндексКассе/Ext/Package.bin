@@ -1,0 +1,154 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://yamoney.1c.ru/XMLSchema" elementFormQualified="true" attributeFormQualified="false">
+	<property xmlns:d2p1="http://yamoney.1c.ru/XMLSchema" name="CreateOrder" type="d2p1:CreateOrder"/>
+	<property xmlns:d2p1="http://yamoney.1c.ru/XMLSchema" name="CreateOrderResponce" type="d2p1:CreateOrderResponce"/>
+	<property xmlns:d2p1="http://yamoney.1c.ru/XMLSchema" name="GetSettingsResponce" type="d2p1:GetSettingsResponce"/>
+	<property xmlns:d2p1="http://yamoney.1c.ru/XMLSchema" name="ListOperationsResponce" type="d2p1:ListOperationsResponce"/>
+	<valueType name="ТипOrderNumber" base="xs:string" variety="Atomic" maxLength="64"/>
+	<valueType name="ТипИНН" base="xs:string" variety="Atomic" minLength="10" maxLength="12"/>
+	<valueType name="ТипСумма" base="xs:decimal" variety="Atomic" totalDigits="18" fractionDigits="2"/>
+	<objectType name="CreateOrder">
+		<property name="shopId" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="scid" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="sum" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипСумма" variety="Atomic"/>
+		</property>
+		<property name="ym_merchant_receipt" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="checksum" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="128"/>
+		</property>
+		<property name="items" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="supplierInfo" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="orderDetails" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="customerNumber" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="64"/>
+		</property>
+		<property name="orderNumber" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипOrderNumber" variety="Atomic"/>
+		</property>
+		<property name="paymentType" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2"/>
+		</property>
+		<property name="cms_name" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="custName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="CustINN" lowerBound="0" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипИНН" variety="Atomic"/>
+		</property>
+		<property name="CustKPP" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="supplierName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="BankBIK" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="9"/>
+		</property>
+		<property name="BankCorAccount" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="20"/>
+		</property>
+		<property name="supplierBankName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="CustAccount" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="20"/>
+		</property>
+		<property name="uin" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="testMode" type="xs:boolean" lowerBound="0" form="Attribute"/>
+	</objectType>
+	<objectType name="CreateOrderResponce">
+		<property name="Status" type="xs:int" lowerBound="1" form="Attribute"/>
+		<property name="TechMessage" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="responseDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="OrderState" type="xs:int" lowerBound="0" form="Attribute"/>
+		<property name="OrderURL" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="customerContact" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="checksum" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="128"/>
+		</property>
+	</objectType>
+	<objectType name="GetSettingsResponce">
+		<property name="formatVersion" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="12"/>
+		</property>
+		<property xmlns:d3p1="http://yamoney.1c.ru/XMLSchema" name="Settings" type="d3p1:Settings"/>
+	</objectType>
+	<objectType name="ListOperationsResponce">
+		<property name="Count" type="xs:int" lowerBound="1" form="Attribute"/>
+		<property name="Status" type="xs:int" lowerBound="1" form="Attribute"/>
+		<property name="TechMessage" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="requestDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="formatVersion" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="12"/>
+		</property>
+		<property name="OperationInfo" lowerBound="0" upperBound="-1" nillable="true">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://yamoney.1c.ru/XMLSchema" name="PaymentData" type="d5p1:PaymentData" lowerBound="0"/>
+				<property xmlns:d5p1="http://yamoney.1c.ru/XMLSchema" name="RefundData" type="d5p1:RefundData" lowerBound="0"/>
+			</typeDef>
+		</property>
+		<property xmlns:d3p1="http://yamoney.1c.ru/XMLSchema" name="Settings" type="d3p1:Settings" lowerBound="0"/>
+	</objectType>
+	<objectType name="PaymentData">
+		<property name="shopId" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="invoiceId" type="xs:long" lowerBound="0" form="Attribute"/>
+		<property name="orderNumber" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипOrderNumber" variety="Atomic"/>
+		</property>
+		<property name="createdDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="paymentDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="orderSumAmount" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипСумма" variety="Atomic"/>
+		</property>
+		<property name="orderSumCurrencyPaycash" type="xs:int" lowerBound="0" form="Attribute"/>
+		<property name="shopSumAmount" lowerBound="0" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипСумма" variety="Atomic"/>
+		</property>
+		<property name="shopSumCurrencyPaycash" type="xs:int" lowerBound="0" form="Attribute"/>
+		<property name="paymentType" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="2"/>
+		</property>
+		<property name="Inn" lowerBound="0" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипИНН" variety="Atomic"/>
+		</property>
+		<property name="Kpp" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="supplierName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="supplierBankName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="BankBIK" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="9"/>
+		</property>
+		<property name="BankCorAccount" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="20"/>
+		</property>
+		<property name="CustAccount" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="20"/>
+		</property>
+		<property name="paymentName" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="penReceiptDateTime" type="xs:string" lowerBound="0" form="Attribute"/>
+		<property name="penReceiptTotal" lowerBound="0" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипСумма" variety="Atomic"/>
+		</property>
+		<property name="penFnNumber" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="16"/>
+		</property>
+		<property name="penFiscalDocumentNumber" type="xs:int" lowerBound="0" form="Attribute"/>
+		<property name="penFiscalDocumentAttribute" lowerBound="0" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="19"/>
+		</property>
+		<property name="customerContact" type="xs:string" lowerBound="0" form="Attribute"/>
+	</objectType>
+	<objectType name="RefundData">
+		<property name="returnId" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="invoiceId" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="shopId" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="amount" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипСумма" variety="Atomic"/>
+		</property>
+		<property name="currency" type="xs:int" lowerBound="1" form="Attribute"/>
+		<property name="cause" lowerBound="1" form="Attribute">
+			<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="255"/>
+		</property>
+		<property name="createdDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="processedDatetime" type="xs:dateTime" lowerBound="1" form="Attribute"/>
+		<property name="sender" type="xs:string" lowerBound="1" form="Attribute"/>
+		<property name="orderNumber" lowerBound="1" form="Attribute">
+			<typeDef xmlns:d4p1="http://yamoney.1c.ru/XMLSchema" xsi:type="ValueType" base="d4p1:ТипOrderNumber" variety="Atomic"/>
+		</property>
+	</objectType>
+	<objectType name="Settings">
+		<property name="shopid" type="xs:long" lowerBound="1" form="Attribute"/>
+		<property name="scid" type="xs:long" lowerBound="1" form="Attribute"/>
+	</objectType>
+</package>

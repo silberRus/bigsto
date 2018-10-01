@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>СвободныеОстатки</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СвободныеОстатки</dataPath>
+			<field>СвободныеОстатки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Свободные остатки</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СегментНоменклатуры</dataPath>
+			<field>СегментНоменклатуры</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сегмент номенклатуры</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Склад</dataPath>
+			<field>Склад</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Склад</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<role>
+				<dcscom:dimension>true</dcscom:dimension>
+			</role>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Период</dataPath>
+			<field>Период</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Период</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	СправочникНоменклатура.Ссылка КАК Номенклатура,
+	ЕСТЬNULL(СправочникХарактеристики.Ссылка, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) КАК Характеристика
+ПОМЕСТИТЬ ОтборПоСегментуНоменклатуры
+ИЗ
+	Справочник.Номенклатура КАК СправочникНоменклатура
+		ЛЕВОЕ СОЕДИНЕНИЕ Справочник.ХарактеристикиНоменклатуры КАК СправочникХарактеристики
+		ПО (СправочникХарактеристики.Владелец = ВЫБОР
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеДляВидаНоменклатуры)
+					ТОГДА СправочникНоменклатура.ВидНоменклатуры
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ИндивидуальныеДляНоменклатуры)
+					ТОГДА СправочникНоменклатура.Ссылка
+				КОГДА СправочникНоменклатура.ИспользованиеХарактеристик = ЗНАЧЕНИЕ(Перечисление.ВариантыИспользованияХарактеристикНоменклатуры.ОбщиеСДругимВидомНоменклатуры)
+					ТОГДА СправочникНоменклатура.ВладелецХарактеристик
+				ИНАЧЕ НЕОПРЕДЕЛЕНО
+			КОНЕЦ)
+		{ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.НоменклатураСегмента КАК НоменклатураСегмента
+		ПО СправочникНоменклатура.Ссылка = НоменклатураСегмента.Номенклатура
+			И (ЕСТЬNULL(СправочникХарактеристики.Ссылка, ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка)) = НоменклатураСегмента.Характеристика)}
+{ГДЕ
+	(ЕСТЬNULL(НоменклатураСегмента.Сегмент, ЗНАЧЕНИЕ(Справочник.СегментыНоменклатуры.ПустаяСсылка))) КАК СегментНоменклатуры}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	&amp;НачалоПериодаСмещения КАК Период,
+	Набор.Номенклатура КАК Номенклатура,
+	Набор.Характеристика КАК Характеристика,
+	СУММА(Набор.СвободныеОстатки) КАК СвободныеОстатки
+ИЗ
+	(ВЫБРАТЬ
+		Остатки.Номенклатура КАК Номенклатура,
+		Остатки.Характеристика КАК Характеристика,
+		Остатки.ВНаличииОстаток - Остатки.ВРезервеСоСкладаОстаток - Остатки.ВРезервеПодЗаказОстаток КАК СвободныеОстатки
+	ИЗ
+		РегистрНакопления.СвободныеОстатки.Остатки(&amp;НачалоПериодаСмещения, {(Склад), ((Номенклатура, Характеристика) В
+				    (ВЫБРАТЬ
+				        ОтборПоСегментуНоменклатуры.Номенклатура,
+				        ОтборПоСегментуНоменклатуры.Характеристика
+				    ИЗ
+				        ОтборПоСегментуНоменклатуры
+				    ГДЕ
+				        &amp;ИспользуетсяОтборПоСегментуНоменклатуры = ИСТИНА))}) КАК Остатки
+	
+	ОБЪЕДИНИТЬ ВСЕ
+	
+	ВЫБРАТЬ
+		РезервИзЗаказов.Номенклатура,
+		РезервИзЗаказов.Характеристика,
+		РезервИзЗаказов.Количество
+	ИЗ
+		РегистрСведений.ДоступныеОстаткиПланируемыхПоступлений КАК РезервИзЗаказов
+	ГДЕ
+		РезервИзЗаказов.ДатаДоступности = ДАТАВРЕМЯ(1, 1, 1)
+		И РезервИзЗаказов.Количество &lt; 0
+	{ГДЕ
+		РезервИзЗаказов.Склад КАК Склад,
+		((РезервИзЗаказов.Номенклатура, РезервИзЗаказов.Характеристика) В
+				(ВЫБРАТЬ
+					ОтборПоСегментуНоменклатуры.Номенклатура,
+					ОтборПоСегментуНоменклатуры.Характеристика
+				ИЗ
+					ОтборПоСегментуНоменклатуры
+				ГДЕ
+					&amp;ИспользуетсяОтборПоСегментуНоменклатуры = ИСТИНА))}) КАК Набор
+
+СГРУППИРОВАТЬ ПО
+	Набор.Номенклатура,
+	Набор.Характеристика
+
+ИМЕЮЩИЕ
+	СУММА(Набор.СвободныеОстатки) &gt; 0</query>
+	</dataSet>
+	<totalField>
+		<dataPath>СвободныеОстатки</dataPath>
+		<expression>Сумма(ЕстьNull(СвободныеОстатки, 0))</expression>
+	</totalField>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>ИспользуетсяОтборПоСегментуНоменклатуры</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Используется отбор по сегменту номенклатуры</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:boolean</v8:Type>
+		</valueType>
+		<value xsi:type="xs:boolean">false</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>НачалоПериодаСмещения</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода смещения</v8:content>
+			</v8:item>
+		</title>
+		<value xsi:nil="true"/>
+		<useRestriction>true</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows"/>
+	</settingsVariant>
+</DataCompositionSchema>

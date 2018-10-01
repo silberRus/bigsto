@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номенклатура</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.Номенклатура</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КодАкцизнойМарки</dataPath>
+			<field>КодАкцизнойМарки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Код акцизной марки</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:TypeId>13b280bf-7077-44ad-b4fd-d4e5bf96dcd2</v8:TypeId>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>НомерМарки</dataPath>
+			<field>НомерМарки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер марки</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>9</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</valueType>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>Маска</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">999999999</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Характеристика</dataPath>
+			<field>Характеристика</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Характеристика</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:CatalogRef.ХарактеристикиНоменклатуры</v8:Type>
+			</valueType>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СерияМарки</dataPath>
+			<field>СерияМарки</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Серия марки</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>3</v8:Length>
+					<v8:AllowedLength>Fixed</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</valueType>
+			<inputParameters>
+				<dcscor:item>
+					<dcscor:parameter>Маска</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">999</dcscor:value>
+				</dcscor:item>
+			</inputParameters>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ЗапросАкцизныхМарок</dataPath>
+			<field>ЗапросАкцизныхМарок</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Запрос акцизных марок</v8:content>
+				</v8:item>
+			</title>
+			<valueType>
+				<v8:Type xmlns:d5p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d5p1:DocumentRef.ЗапросАкцизныхМарокЕГАИС</v8:Type>
+			</valueType>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ
+	ИсходныеДанные.Ссылка КАК ЗапросАкцизныхМарок,
+	ИсходныеДанные.КодАкцизнойМарки КАК КодАкцизнойМарки,
+	ИсходныеДанные.СерияМарки КАК СерияМарки,
+	ИсходныеДанные.НомерМарки КАК НомерМарки,
+	ИсходныеДанные.Номенклатура КАК Номенклатура,
+	ИсходныеДанные.Характеристика КАК Характеристика,
+	ИсходныеДанные.Порядок КАК Порядок
+ПОМЕСТИТЬ ИсходныеДанные
+ИЗ
+	(ВЫБРАТЬ
+		ЗНАЧЕНИЕ(Документ.ЗапросАкцизныхМарокЕГАИС.ПустаяСсылка) КАК Ссылка,
+		"" КАК КодАкцизнойМарки,
+		"" КАК СерияМарки,
+		"" КАК НомерМарки,
+		ЗНАЧЕНИЕ(Справочник.Номенклатура.ПустаяСсылка) КАК Номенклатура,
+		ЗНАЧЕНИЕ(Справочник.ХарактеристикиНоменклатуры.ПустаяСсылка) КАК Характеристика,
+		0 КАК Порядок) КАК ИсходныеДанные
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ИсходныеДанныеПоследнийЗапрос.ЗапросАкцизныхМарок КАК ЗапросАкцизныхМарок,
+	ИсходныеДанныеПоследнийЗапрос.КодАкцизнойМарки КАК КодАкцизнойМарки,
+	ИсходныеДанныеПоследнийЗапрос.СерияМарки КАК СерияМарки,
+	ИсходныеДанныеПоследнийЗапрос.НомерМарки КАК НомерМарки,
+	ИсходныеДанныеПоследнийЗапрос.Номенклатура КАК Номенклатура,
+	ИсходныеДанныеПоследнийЗапрос.Характеристика КАК Характеристика,
+	ИсходныеДанныеПоследнийЗапрос.Порядок КАК Порядок
+{ВЫБРАТЬ
+	ЗапросАкцизныхМарок.*,
+	КодАкцизнойМарки,
+	СерияМарки,
+	НомерМарки,
+	Номенклатура.*,
+	Характеристика.*}
+ИЗ
+	ИсходныеДанные КАК ИсходныеДанныеПоследнийЗапрос
+{ГДЕ
+	ИсходныеДанныеПоследнийЗапрос.ЗапросАкцизныхМарок.* КАК ЗапросАкцизныхМарок,
+	ИсходныеДанныеПоследнийЗапрос.Номенклатура.* КАК Номенклатура}
+
+УПОРЯДОЧИТЬ ПО
+	ИсходныеДанныеПоследнийЗапрос.Порядок</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<settingsVariant>
+		<dcsset:name>Основной</dcsset:name>
+		<dcsset:presentation xsi:type="xs:string">Основной</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

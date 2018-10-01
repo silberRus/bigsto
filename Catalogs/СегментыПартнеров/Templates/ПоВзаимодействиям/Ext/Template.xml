@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ФормированиеСегмента</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДатаПоследнегоВзаимодействия</dataPath>
+			<field>ДатаПоследнегоВзаимодействия</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоВзаимодейстий</dataPath>
+			<field>КоличествоВзаимодейстий</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ВложенныйЗапрос.Партнер КАК Партнер
+{ВЫБРАТЬ
+	Партнер.*}
+ИЗ
+	(ВЫБРАТЬ
+		ВложенныйЗапрос.Контакт КАК Партнер,
+		КОЛИЧЕСТВО(РАЗЛИЧНЫЕ ВложенныйЗапрос.Ссылка) КАК КоличествоВзаимодейстий,
+		МАКСИМУМ(ВложенныйЗапрос.Дата) КАК ДатаПоследнегоВзаимодействия
+	ИЗ
+		(ВЫБРАТЬ
+			ВЫБОР
+				КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.Контакт
+				ИНАЧЕ Документ.Контакт.Владелец
+			КОНЕЦ КАК Контакт,
+			Документ.Ссылка КАК Ссылка,
+			Документ.Ссылка.Дата КАК Дата
+		ИЗ
+			Документ.Встреча.Участники КАК Документ
+		ГДЕ
+			(Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ВЫБОР
+				КОГДА Документ.АбонентКонтакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.АбонентКонтакт
+				ИНАЧЕ Документ.АбонентКонтакт.Владелец
+			КОНЕЦ,
+			Документ.Ссылка,
+			Документ.Дата
+		ИЗ
+			Документ.ТелефонныйЗвонок КАК Документ
+		ГДЕ
+			(Документ.АбонентКонтакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.АбонентКонтакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Дата &lt;= &amp;ДатаОкончания)}
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ВЫБОР
+				КОГДА Документ.ОтправительКонтакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.ОтправительКонтакт
+				ИНАЧЕ Документ.ОтправительКонтакт.Владелец
+			КОНЕЦ,
+			Документ.Ссылка,
+			Документ.Ссылка.Дата
+		ИЗ
+			Документ.ЭлектронноеПисьмоВходящее КАК Документ
+		ГДЕ
+			(Документ.ОтправительКонтакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.ОтправительКонтакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ВЫБОР
+				КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.Контакт
+				ИНАЧЕ Документ.Контакт.Владелец
+			КОНЕЦ,
+			Документ.Ссылка,
+			Документ.Ссылка.Дата
+		ИЗ
+			Документ.ЭлектронноеПисьмоИсходящее.ПолучателиПисьма КАК Документ
+		ГДЕ
+			(Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ
+			ВЫБОР
+				КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.Контакт
+				ИНАЧЕ Документ.Контакт.Владелец
+			КОНЕЦ,
+			Документ.Ссылка,
+			Документ.Ссылка.Дата
+		ИЗ
+			Документ.ЭлектронноеПисьмоИсходящее.ПолучателиКопий КАК Документ
+		ГДЕ
+			(Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+		
+		ОБЪЕДИНИТЬ ВСЕ
+		
+		ВЫБРАТЬ РАЗЛИЧНЫЕ
+			ВЫБОР
+				КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ТОГДА Документ.Контакт
+				ИНАЧЕ Документ.Контакт.Владелец
+			КОНЕЦ,
+			Документ.Ссылка,
+			Документ.Ссылка.Дата
+		ИЗ
+			Документ.ЭлектронноеПисьмоИсходящее.ПолучателиСкрытыхКопий КАК Документ
+		ГДЕ
+			(Документ.Контакт ССЫЛКА Справочник.Партнеры
+					ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+		{ГДЕ
+			(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+			(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}) КАК ВложенныйЗапрос
+	{ГДЕ
+		ВложенныйЗапрос.Контакт.* КАК Партнер}
+	
+	СГРУППИРОВАТЬ ПО
+		ВложенныйЗапрос.Контакт) КАК ВложенныйЗапрос
+{ГДЕ
+	ВложенныйЗапрос.КоличествоВзаимодейстий,
+	ВложенныйЗапрос.ДатаПоследнегоВзаимодействия}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<dataSet xsi:type="DataSetQuery">
+		<name>ВыводСегмента</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Сегмент</dataPath>
+			<field>Сегмент</field>
+			<useRestriction>
+				<condition>true</condition>
+			</useRestriction>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ПартнерСегмента</dataPath>
+			<field>ПартнерСегмента</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Клиент сегмента</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДатаПоследнегоВзаимодействия</dataPath>
+			<field>ДатаПоследнегоВзаимодействия</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДокументВзаимодействий</dataPath>
+			<field>ДокументВзаимодействий</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоличествоВзаимодействий</dataPath>
+			<field>КоличествоВзаимодействий</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ПартнерыСегмента.Партнер
+ПОМЕСТИТЬ СоставСегмента
+ИЗ
+	РегистрСведений.ПартнерыСегмента КАК ПартнерыСегмента
+{ГДЕ
+	ПартнерыСегмента.Сегмент}
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ВЫБОР
+		КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.Контакт
+		ИНАЧЕ Документ.Контакт.Владелец
+	КОНЕЦ КАК Контакт,
+	Документ.Ссылка КАК Ссылка,
+	Документ.Ссылка.Дата КАК Дата,
+	1 КАК КоличествоВзаимодействий
+{ВЫБРАТЬ
+	Контакт.* КАК ПартнерСегмента,
+	Ссылка.* КАК ДокументВзаимодействий,
+	Дата КАК ДатаПоследнегоВзаимодействия,
+	КоличествоВзаимодействий}
+ИЗ
+	Документ.Встреча.Участники КАК Документ
+ГДЕ
+	(Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.Контакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.Контакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВЫБОР
+		КОГДА Документ.АбонентКонтакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.АбонентКонтакт
+		ИНАЧЕ Документ.АбонентКонтакт.Владелец
+	КОНЕЦ,
+	Документ.Ссылка,
+	Документ.Дата,
+	1
+ИЗ
+	Документ.ТелефонныйЗвонок КАК Документ
+ГДЕ
+	(Документ.АбонентКонтакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.АбонентКонтакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.АбонентКонтакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.АбонентКонтакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.АбонентКонтакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Дата &lt;= &amp;ДатаОкончания)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВЫБОР
+		КОГДА Документ.ОтправительКонтакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.ОтправительКонтакт
+		ИНАЧЕ Документ.ОтправительКонтакт.Владелец
+	КОНЕЦ,
+	Документ.Ссылка,
+	Документ.Ссылка.Дата,
+	1
+ИЗ
+	Документ.ЭлектронноеПисьмоВходящее КАК Документ
+ГДЕ
+	(Документ.ОтправительКонтакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.ОтправительКонтакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.ОтправительКонтакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.ОтправительКонтакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.ОтправительКонтакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВЫБОР
+		КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.Контакт
+		ИНАЧЕ Документ.Контакт.Владелец
+	КОНЕЦ,
+	Документ.Ссылка,
+	Документ.Ссылка.Дата,
+	1
+ИЗ
+	Документ.ЭлектронноеПисьмоИсходящее.ПолучателиПисьма КАК Документ
+ГДЕ
+	(Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.Контакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.Контакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ
+	ВЫБОР
+		КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.Контакт
+		ИНАЧЕ Документ.Контакт.Владелец
+	КОНЕЦ,
+	Документ.Ссылка,
+	Документ.Ссылка.Дата,
+	1
+ИЗ
+	Документ.ЭлектронноеПисьмоИсходящее.ПолучателиКопий КАК Документ
+ГДЕ
+	(Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.Контакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.Контакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}
+
+ОБЪЕДИНИТЬ ВСЕ
+
+ВЫБРАТЬ РАЗЛИЧНЫЕ
+	ВЫБОР
+		КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ТОГДА Документ.Контакт
+		ИНАЧЕ Документ.Контакт.Владелец
+	КОНЕЦ,
+	Документ.Ссылка,
+	Документ.Ссылка.Дата,
+	1
+ИЗ
+	Документ.ЭлектронноеПисьмоИсходящее.ПолучателиСкрытыхКопий КАК Документ
+ГДЕ
+	(Документ.Контакт ССЫЛКА Справочник.Партнеры
+			ИЛИ Документ.Контакт ССЫЛКА Справочник.КонтактныеЛицаПартнеров)
+	И ВЫБОР
+			КОГДА Документ.Контакт ССЫЛКА Справочник.Партнеры
+				ТОГДА Документ.Контакт В
+						(ВЫБРАТЬ
+							СоставСегмента.Партнер
+						ИЗ
+							СоставСегмента КАК СоставСегмента)
+			ИНАЧЕ Документ.Контакт.Владелец В
+					(ВЫБРАТЬ
+						СоставСегмента.Партнер
+					ИЗ
+						СоставСегмента КАК СоставСегмента)
+		КОНЕЦ
+{ГДЕ
+	(Документ.Ссылка.Дата &gt;= &amp;ДатаНачала),
+	(Документ.Ссылка.Дата &lt;= &amp;ДатаОкончания)}</query>
+		<autoFillFields>false</autoFillFields>
+	</dataSet>
+	<totalField>
+		<dataPath>ДатаПоследнегоВзаимодействия</dataPath>
+		<expression>Максимум(ДатаПоследнегоВзаимодействия)</expression>
+		<group>ПартнерСегмента</group>
+	</totalField>
+	<totalField>
+		<dataPath>КоличествоВзаимодействий</dataPath>
+		<expression>Сумма(КоличествоВзаимодействий)</expression>
+		<group>ПартнерСегмента</group>
+	</totalField>
+	<parameter>
+		<name>ДатаНачала</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Дата начала</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;Период.ДатаНачала</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>ДатаОкончания</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Дата окончания</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;Период.ДатаОкончания</expression>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>v8:StandardPeriod</v8:Type>
+		</valueType>
+		<value xsi:type="v8:StandardPeriod">
+			<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+			<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+			<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+		</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>ФормированиеСегмента</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Формирование сегмента</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Партнер</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:left xsi:type="dcscor:Field">Партнер.ПометкаУдаления</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:right xsi:type="xs:boolean">false</dcsset:right>
+					<dcsset:viewMode>Inaccessible</dcsset:viewMode>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>Партнер</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+	<settingsVariant>
+		<dcsset:name>ВыводСегмента</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Вывод сегмента</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ПартнерСегмента</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>КоличествоВзаимодействий</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДатаПоследнегоВзаимодействия</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДокументВзаимодействий</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ДокументВзаимодействий.Тема</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>РасположениеРеквизитов</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionAttributesPlacement">Separately</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ПартнерСегмента</dcsset:field>
+						<dcsset:groupType>Items</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:item xsi:type="dcsset:StructureItemGroup">
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto">
+							<dcsset:use>false</dcsset:use>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>ДокументВзаимодействий</dcsset:field>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>ДокументВзаимодействий.Тема</dcsset:field>
+							<dcsset:lwsTitle>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Тема</v8:content>
+								</v8:item>
+							</dcsset:lwsTitle>
+						</dcsset:item>
+						<dcsset:item xsi:type="dcsset:SelectedItemField">
+							<dcsset:field>ДокументВзаимодействий.Ответственный</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+				</dcsset:item>
+			</dcsset:item>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>НаборДанных1</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Номенклатура</dataPath>
+			<field>Номенклатура</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Регистратор</dataPath>
+			<field>Регистратор</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РольАссортимента</dataPath>
+			<field>РольАссортимента</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ФорматМагазина</dataPath>
+			<field>ФорматМагазина</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>СтадияАссортимента</dataPath>
+			<field>СтадияАссортимента</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВидЦены</dataPath>
+			<field>ВидЦены</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>КоллекцияНоменклатуры</dataPath>
+			<field>КоллекцияНоменклатуры</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>РейтингПродаж</dataPath>
+			<field>РейтингПродаж</field>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ВидыЦен.Ссылка КАК ВидЦены
+ПОМЕСТИТЬ РазрешенныеВидыЦен
+ИЗ
+	Справочник.ВидыЦен КАК ВидыЦен
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ
+	ФорматыМагазинов.Ссылка КАК ФорматМагазина,
+	&amp;Номенклатура КАК Номенклатура
+ПОМЕСТИТЬ втФорматыМагазинов
+ИЗ
+	Справочник.ФорматыМагазинов КАК ФорматыМагазинов
+ГДЕ
+	НЕ ФорматыМагазинов.ЭтоГруппа
+;
+
+////////////////////////////////////////////////////////////////////////////////
+ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ФорматыМагазинов.ФорматМагазина КАК ФорматМагазина,
+	ФорматыМагазинов.Номенклатура КАК Номенклатура,
+	Ассортимент.РольАссортимента КАК РольАссортимента,
+	ВЫБОР
+		КОГДА Ассортимент.Номенклатура ЕСТЬ NULL 
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииАссортимента.ПустаяСсылка)
+		КОГДА Ассортимент.РазрешеныПродажи
+				И Ассортимент.РазрешеныЗакупки
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииАссортимента.РазрешеныЗакупкиИПродажи)
+		КОГДА Ассортимент.РазрешеныПродажи
+				И НЕ Ассортимент.РазрешеныЗакупки
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииАссортимента.РазрешеныТолькоПродажи)
+		КОГДА Ассортимент.РазрешеныЗакупки
+				И НЕ Ассортимент.РазрешеныПродажи
+			ТОГДА ЗНАЧЕНИЕ(Перечисление.СтадииАссортимента.РазрешеныТолькоЗакупки)
+		ИНАЧЕ ЗНАЧЕНИЕ(Перечисление.СтадииАссортимента.ЗапрещеныЗакупкиИПродажи)
+	КОНЕЦ КАК СтадияАссортимента,
+	РазрешенныеВидыЦен.ВидЦены КАК ВидЦены,
+	Ассортимент.Регистратор КАК Регистратор,
+	Ассортимент.РейтингПродаж,
+	Ассортимент.КоллекцияНоменклатуры
+ИЗ
+	втФорматыМагазинов КАК ФорматыМагазинов
+		ЛЕВОЕ СОЕДИНЕНИЕ РегистрСведений.Ассортимент.СрезПоследних(КОНЕЦПЕРИОДА(&amp;НаДату, ДЕНЬ), ) КАК Ассортимент
+		ПО (Ассортимент.Номенклатура = ФорматыМагазинов.Номенклатура)
+			И (Ассортимент.ОбъектПланирования = ФорматыМагазинов.ФорматМагазина)
+		ЛЕВОЕ СОЕДИНЕНИЕ РазрешенныеВидыЦен КАК РазрешенныеВидыЦен
+		ПО (РазрешенныеВидыЦен.ВидЦены = Ассортимент.ВидЦены)</query>
+	</dataSet>
+	<totalField>
+		<dataPath>РольАссортимента</dataPath>
+		<expression>РольАссортимента</expression>
+	</totalField>
+	<totalField>
+		<dataPath>СтадияАссортимента</dataPath>
+		<expression>СтадияАссортимента</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВидЦены</dataPath>
+		<expression>ВидЦены</expression>
+	</totalField>
+	<totalField>
+		<dataPath>РейтингПродаж</dataPath>
+		<expression>РейтингПродаж</expression>
+	</totalField>
+	<totalField>
+		<dataPath>КоллекцияНоменклатуры</dataPath>
+		<expression>КоллекцияНоменклатуры</expression>
+	</totalField>
+	<parameter>
+		<name>Период</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>Номенклатура</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Номенклатура</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type xmlns:d4p1="http://v8.1c.ru/8.1/data/enterprise/current-config">d4p1:CatalogRef.Номенклатура</v8:Type>
+		</valueType>
+		<value xsi:nil="true"/>
+		<useRestriction>false</useRestriction>
+		<use>Always</use>
+	</parameter>
+	<parameter>
+		<name>НаДату</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>На дату</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>false</useRestriction>
+		<use>Always</use>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>ОсновнойКонтекст</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущее состояние ассортимента</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ФорматМагазина</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>РольАссортимента</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>СтадияАссортимента</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВидЦены</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>РейтингПродаж</dcsset:field>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>НаДату</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardBeginningDate">
+						<v8:variant xsi:type="v8:StandardBeginningDateVariant">BeginningOfThisDay</v8:variant>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:order>
+				<dcsset:item xsi:type="dcsset:OrderItemField">
+					<dcsset:field>ФорматМагазина</dcsset:field>
+					<dcsset:orderType>Asc</dcsset:orderType>
+				</dcsset:item>
+			</dcsset:order>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>РасположениеИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ВертикальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemGroup">
+				<dcsset:groupItems>
+					<dcsset:item xsi:type="dcsset:GroupItemField">
+						<dcsset:field>ФорматМагазина</dcsset:field>
+						<dcsset:groupType>Hierarchy</dcsset:groupType>
+						<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+						<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+						<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+					</dcsset:item>
+				</dcsset:groupItems>
+				<dcsset:order>
+					<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+				</dcsset:order>
+				<dcsset:selection>
+					<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+				</dcsset:selection>
+				<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+			</dcsset:item>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

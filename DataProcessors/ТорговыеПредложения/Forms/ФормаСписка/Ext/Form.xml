@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Публикуемые торговые предложения</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="ChoiceProcessing">ОбработкаВыбора</Event>
+		<Event name="NotificationProcessing">ОбработкаОповещения</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<CommandBar name="КоманднаяПанель" id="82">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Командная панель</v8:content>
+				</v8:item>
+			</Title>
+			<CommandSource>Item.Список</CommandSource>
+			<ExtendedTooltip name="КоманднаяПанельРасширеннаяПодсказка" id="83"/>
+			<ChildItems>
+				<Button name="Синхронизировать" id="41">
+					<Type>CommandBarButton</Type>
+					<DefaultButton>true</DefaultButton>
+					<CommandName>Form.Command.Синхронизировать</CommandName>
+					<ExtendedTooltip name="СинхронизироватьРасширеннаяПодсказка" id="42"/>
+				</Button>
+				<Button name="Добавить" id="43">
+					<Type>CommandBarButton</Type>
+					<CommandName>Form.Command.Добавить</CommandName>
+					<ExtendedTooltip name="ДобавитьРасширеннаяПодсказка" id="44"/>
+				</Button>
+				<Button name="СнятьСПубликации" id="45">
+					<Type>CommandBarButton</Type>
+					<Representation>PictureAndText</Representation>
+					<OnlyInAllActions>true</OnlyInAllActions>
+					<CommandName>Form.Command.УдалитьПубликацию</CommandName>
+					<ExtendedTooltip name="СнятьСПубликацииРасширеннаяПодсказка" id="46"/>
+				</Button>
+				<Button name="ИзменитьФорму" id="61">
+					<Type>CommandBarButton</Type>
+					<CommandName>Form.StandardCommand.CustomizeForm</CommandName>
+					<ExtendedTooltip name="ИзменитьФормуРасширеннаяПодсказка" id="62"/>
+				</Button>
+				<Button name="ОтчетПубликуемыеТорговыеПредложения" id="122">
+					<Type>CommandBarButton</Type>
+					<CommandName>Form.Command.ОтчетПубликуемыеТорговыеПредложения</CommandName>
+					<ExtendedTooltip name="ОтчетПубликуемыеТорговыеПредложенияРасширеннаяПодсказка" id="123"/>
+				</Button>
+				<Button name="СписокСправка" id="84">
+					<Type>CommandBarButton</Type>
+					<CommandName>Form.StandardCommand.Help</CommandName>
+					<ExtendedTooltip name="СписокСправкаРасширеннаяПодсказка" id="85"/>
+				</Button>
+			</ChildItems>
+		</CommandBar>
+		<UsualGroup name="ГруппаСписокИНастройки" id="72">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список и настройки</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаСписокИНастройкиРасширеннаяПодсказка" id="73"/>
+			<ChildItems>
+				<Table name="Список" id="1">
+					<CommandBarLocation>None</CommandBarLocation>
+					<ReadOnly>true</ReadOnly>
+					<Height>5</Height>
+					<UseAlternationRowColor>true</UseAlternationRowColor>
+					<EnableStartDrag>true</EnableStartDrag>
+					<DataPath>Список</DataPath>
+					<RowPictureDataPath>Список.НомерКартинкиСтроки</RowPictureDataPath>
+					<RowsPicture>
+						<xr:Ref>CommonPicture.СтатусСинхронизацииТорговыеПредложения</xr:Ref>
+						<xr:LoadTransparent>true</xr:LoadTransparent>
+					</RowsPicture>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Список</v8:content>
+						</v8:item>
+					</Title>
+					<CommandSet>
+						<ExcludedCommand>CancelSearch</ExcludedCommand>
+						<ExcludedCommand>Change</ExcludedCommand>
+						<ExcludedCommand>Copy</ExcludedCommand>
+						<ExcludedCommand>Create</ExcludedCommand>
+						<ExcludedCommand>Find</ExcludedCommand>
+					</CommandSet>
+					<SearchStringLocation>None</SearchStringLocation>
+					<SearchControlLocation>None</SearchControlLocation>
+					<AutoRefresh>false</AutoRefresh>
+					<AutoRefreshPeriod>60</AutoRefreshPeriod>
+					<Period>
+						<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+						<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+						<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+					</Period>
+					<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+					<RestoreCurrentRow>false</RestoreCurrentRow>
+					<TopLevelParent xsi:nil="true"/>
+					<ShowRoot>true</ShowRoot>
+					<AllowRootChoice>false</AllowRootChoice>
+					<UpdateOnDataChange>Auto</UpdateOnDataChange>
+					<ContextMenu name="СписокКонтекстноеМеню" id="2"/>
+					<AutoCommandBar name="СписокКоманднаяПанель" id="3"/>
+					<ExtendedTooltip name="СписокРасширеннаяПодсказка" id="4"/>
+					<SearchStringAddition name="СписокСтрокаПоиска" id="5">
+						<AdditionSource>
+							<Item>Список</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="СписокСтрокаПоискаКонтекстноеМеню" id="6"/>
+						<ExtendedTooltip name="СписокСтрокаПоискаРасширеннаяПодсказка" id="7"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="СписокСостояниеПросмотра" id="8">
+						<AdditionSource>
+							<Item>Список</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="СписокСостояниеПросмотраКонтекстноеМеню" id="9"/>
+						<ExtendedTooltip name="СписокСостояниеПросмотраРасширеннаяПодсказка" id="10"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="СписокУправлениеПоиском" id="11">
+						<AdditionSource>
+							<Item>Список</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="СписокУправлениеПоискомКонтекстноеМеню" id="12"/>
+						<ExtendedTooltip name="СписокУправлениеПоискомРасширеннаяПодсказка" id="13"/>
+					</SearchControlAddition>
+					<Events>
+						<Event name="Selection">СписокВыбор</Event>
+						<Event name="BeforeDeleteRow">СписокПередУдалением</Event>
+						<Event name="OnGetDataAtServer">СписокПриПолученииДанныхНаСервере</Event>
+					</Events>
+					<ChildItems>
+						<ColumnGroup name="СписокГруппаСостоянияОшибки" id="66">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Состояния ошибки</v8:content>
+								</v8:item>
+							</Title>
+							<Width>10</Width>
+							<ExtendedTooltip name="СписокГруппаСостоянияОшибкиРасширеннаяПодсказка" id="67"/>
+							<ChildItems>
+								<ColumnGroup name="СписокГруппаСостояния" id="56">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Состояние</v8:content>
+										</v8:item>
+									</Title>
+									<Width>10</Width>
+									<Group>InCell</Group>
+									<ExtendedTooltip name="СписокГруппаСостоянияРасширеннаяПодсказка" id="57"/>
+									<ChildItems>
+										<LabelField name="СписокСостояние" id="38">
+											<DataPath>Список.Состояние</DataPath>
+											<Width>5</Width>
+											<ContextMenu name="СписокСостояниеКонтекстноеМеню" id="39"/>
+											<ExtendedTooltip name="СписокСостояниеРасширеннаяПодсказка" id="40"/>
+										</LabelField>
+										<LabelField name="СписокДатаСинхронизации" id="58">
+											<DataPath>Список.ДатаСинхронизации</DataPath>
+											<ShowInHeader>false</ShowInHeader>
+											<Width>5</Width>
+											<ContextMenu name="СписокДатаСинхронизацииКонтекстноеМеню" id="59"/>
+											<ExtendedTooltip name="СписокДатаСинхронизацииРасширеннаяПодсказка" id="60"/>
+										</LabelField>
+									</ChildItems>
+								</ColumnGroup>
+								<LabelField name="СписокОписаниеОшибки" id="63">
+									<DataPath>Список.ОписаниеОшибки</DataPath>
+									<AutoCellHeight>true</AutoCellHeight>
+									<ShowInHeader>false</ShowInHeader>
+									<Width>10</Width>
+									<TextColor>style:ПоясняющийТекст</TextColor>
+									<Font ref="style:NormalTextFont" height="7" kind="StyleItem"/>
+									<ContextMenu name="СписокОписаниеОшибкиКонтекстноеМеню" id="64"/>
+									<ExtendedTooltip name="СписокОписаниеОшибкиРасширеннаяПодсказка" id="65"/>
+								</LabelField>
+							</ChildItems>
+						</ColumnGroup>
+						<LabelField name="СписокТорговоеПредложение" id="14">
+							<DataPath>Список.ТорговоеПредложение</DataPath>
+							<Width>10</Width>
+							<ContextMenu name="СписокТорговоеПредложениеКонтекстноеМеню" id="15"/>
+							<ExtendedTooltip name="СписокТорговоеПредложениеРасширеннаяПодсказка" id="16"/>
+						</LabelField>
+						<LabelField name="СписокОрганизация" id="23">
+							<DataPath>Список.Организация</DataPath>
+							<Width>10</Width>
+							<ContextMenu name="СписокОрганизацияКонтекстноеМеню" id="24"/>
+							<ExtendedTooltip name="СписокОрганизацияРасширеннаяПодсказка" id="25"/>
+						</LabelField>
+						<LabelField name="СписокАдресЭлектроннойПочты" id="89">
+							<DataPath>Список.АдресЭлектроннойПочты</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Уведомление по эл.почте</v8:content>
+								</v8:item>
+							</Title>
+							<CellHyperlink>true</CellHyperlink>
+							<Width>5</Width>
+							<ContextMenu name="СписокАдресЭлектроннойПочтыКонтекстноеМеню" id="90"/>
+							<ExtendedTooltip name="СписокАдресЭлектроннойПочтыРасширеннаяПодсказка" id="91"/>
+						</LabelField>
+						<LabelField name="СписокДополнительноеОписание" id="94">
+							<DataPath>Список.ДополнительноеОписание</DataPath>
+							<UserVisible>
+								<xr:Common>false</xr:Common>
+							</UserVisible>
+							<CellHyperlink>true</CellHyperlink>
+							<Width>10</Width>
+							<ContextMenu name="СписокДополнительноеОписаниеКонтекстноеМеню" id="95"/>
+							<ExtendedTooltip name="СписокДополнительноеОписаниеРасширеннаяПодсказка" id="96"/>
+						</LabelField>
+						<InputField name="СписокСопоставление" id="127">
+							<DataPath>Список.Сопоставление</DataPath>
+							<CellHyperlink>true</CellHyperlink>
+							<Width>10</Width>
+							<ContextMenu name="СписокСопоставлениеКонтекстноеМеню" id="128"/>
+							<ExtendedTooltip name="СписокСопоставлениеРасширеннаяПодсказка" id="129"/>
+						</InputField>
+					</ChildItems>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПодвал" id="97">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Подвал</v8:content>
+				</v8:item>
+			</Title>
+			<HorizontalStretch>true</HorizontalStretch>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПодвалРасширеннаяПодсказка" id="98"/>
+			<ChildItems>
+				<UsualGroup name="СинхронизацияПоРасписанию" id="99">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Синхронизация по расписанию</v8:content>
+						</v8:item>
+					</Title>
+					<Group>Vertical</Group>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="СинхронизацияПоРасписаниюРасширеннаяПодсказка" id="100"/>
+					<ChildItems>
+						<UsualGroup name="НастройкиСинхронизации" id="101">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Настройки синхронизации</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="НастройкиСинхронизацииРасширеннаяПодсказка" id="102"/>
+							<ChildItems>
+								<CheckBoxField name="АвтоматическиСинхронизировать" id="103">
+									<DataPath>АвтоматическиСинхронизировать</DataPath>
+									<TitleLocation>Right</TitleLocation>
+									<CheckBoxType>Auto</CheckBoxType>
+									<ContextMenu name="АвтоматическиСинхронизироватьКонтекстноеМеню" id="104"/>
+									<ExtendedTooltip name="АвтоматическиСинхронизироватьРасширеннаяПодсказка" id="105"/>
+									<Events>
+										<Event name="OnChange">АвтоматическиСинхронизироватьПриИзменении</Event>
+									</Events>
+								</CheckBoxField>
+								<Button name="НастроитьРасписание" id="106">
+									<Type>Hyperlink</Type>
+									<CommandName>Form.Command.НастроитьРасписание</CommandName>
+									<ExtendedTooltip name="НастроитьРасписаниеРасширеннаяПодсказка" id="107"/>
+								</Button>
+							</ChildItems>
+						</UsualGroup>
+						<LabelDecoration name="Расписание" id="119">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<TextColor>style:ПоясняющийТекст</TextColor>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>каждый день, по дням недели [суббота, воскресенье ]; с 1:00:00 один раз в день, завершать после 7:00:00</v8:content>
+								</v8:item>
+							</Title>
+							<VerticalAlign>Top</VerticalAlign>
+							<ContextMenu name="РасписаниеКонтекстноеМеню" id="120"/>
+							<ExtendedTooltip name="РасписаниеРасширеннаяПодсказка" id="121"/>
+						</LabelDecoration>
+					</ChildItems>
+				</UsualGroup>
+				<Button name="ОткрытьСопоставлениеНоменклатуры" id="68">
+					<Type>Hyperlink</Type>
+					<GroupHorizontalAlign>Right</GroupHorizontalAlign>
+					<CommandName>Form.Command.ОткрытьСопоставлениеНоменклатуры</CommandName>
+					<ToolTipRepresentation>Button</ToolTipRepresentation>
+					<ExtendedTooltip name="ОткрытьСопоставлениеНоменклатурыРасширеннаяПодсказка" id="69">
+						<Title formatted="false">
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Сопоставление номенклатуры с сервисом 1С:Бизнес-сеть позволяет организовать эффективный поиск торговых предложений покупателями при установке отборов поиска.</v8:content>
+							</v8:item>
+						</Title>
+					</ExtendedTooltip>
+				</Button>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.ТорговыеПредложения</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+		<Attribute name="Список" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Список</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<UseAlways>
+				<Field>~Список.КоличествоПозиций</Field>
+				<Field>~Список.УведомлятьОЗаказахНаПочту</Field>
+				<Field>Список.ДействиеСинхронизации</Field>
+				<Field>Список.НомерКартинкиСтроки</Field>
+				<Field>Список.ТорговоеПредложение</Field>
+				<Field>Список.УведомлятьОЗаказах</Field>
+			</UseAlways>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>true</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	СостоянияПереопределяемый.ТорговоеПредложение КАК ТорговоеПредложение,
+	СостоянияПереопределяемый.ДатаСинхронизации КАК ДатаСинхронизации,
+	СостоянияПереопределяемый.Состояние КАК Состояние,
+	СостоянияПереопределяемый.ДействиеСинхронизации КАК ДействиеСинхронизации,
+	СостоянияПереопределяемый.ОписаниеОшибки КАК ОписаниеОшибки,
+	СостоянияПереопределяемый.УведомлятьОЗаказах КАК УведомлятьОЗаказах,
+	СостоянияПереопределяемый.АдресЭлектроннойПочты КАК АдресЭлектроннойПочты,
+	СостоянияПереопределяемый.ДополнительноеОписание КАК ДополнительноеОписание,
+	СостоянияПереопределяемый.Организация КАК Организация,
+	ПРЕДСТАВЛЕНИЕ(СостоянияПереопределяемый.ТорговоеПредложение) КАК Наименование,
+	0 КАК НомерКартинкиСтроки,
+	ВЫРАЗИТЬ("" КАК Строка (50)) КАК Сопоставление
+ИЗ
+	РегистрСведений.СостоянияСинхронизацииТорговыеПредложения КАК СостоянияПереопределяемый</QueryText>
+				<MainTable>InformationRegister.СостоянияСинхронизацииТорговыеПредложения</MainTable>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ЗарегистрированныеОрганизации" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Зарегистрированные организации</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueListType</v8:Type>
+			</Type>
+			<Settings xsi:type="v8:TypeDescription"/>
+		</Attribute>
+		<Attribute name="АвтоматическиСинхронизировать" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Автоматически синхронизировать</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ИмяОбъектаСоглашения" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Имя объекта соглашения</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Синхронизировать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Синхронизировать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выгрузить торговые предложения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СинхронизироватьТорговыеПредложения</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="Добавить" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.CreateListItem</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>Добавить</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+		<Command name="ОткрытьСопоставлениеНоменклатуры" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сопоставление номенклатуры</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Открыть сопоставление номенклатуры</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>ОткрытьСопоставлениеНоменклатуры</Action>
+		</Command>
+		<Command name="НастроитьРасписание" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настроить расписание</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настроить расписание</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>НастроитьРасписание</Action>
+		</Command>
+		<Command name="УдалитьПубликацию" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить публикацию</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Удалить публикацию</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Delete</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>УдалитьПубликацию</Action>
+		</Command>
+		<Command name="ОтчетПубликуемыеТорговыеПредложения" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Публикуемые предложения</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отчет публикуемые торговые предложения</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Picture>
+				<xr:Ref>StdPicture.Report</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</Picture>
+			<Action>ОтчетПубликуемыеТорговыеПредложения</Action>
+			<Representation>TextPicture</Representation>
+		</Command>
+	</Commands>
+</Form>

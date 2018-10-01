@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Оплата НДС в бюджет</v8:content>
+		</v8:item>
+	</Title>
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<ShowTitle>false</ShowTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="FillCheckProcessingAtServer">ОбработкаПроверкиЗаполненияНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<LabelField name="СчетФактура" id="64">
+			<DataPath>СчетФактура</DataPath>
+			<TitleLocation>None</TitleLocation>
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<Hiperlink>true</Hiperlink>
+			<ContextMenu name="СчетФактураКонтекстноеМеню" id="65"/>
+			<ExtendedTooltip name="СчетФактураРасширеннаяПодсказка" id="66"/>
+		</LabelField>
+		<CommandBar name="КнопкиКоманднойПанели" id="70">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Командная панель</v8:content>
+				</v8:item>
+			</Title>
+			<ExtendedTooltip name="КнопкиКоманднойПанелиРасширеннаяПодсказка" id="71"/>
+			<ChildItems>
+				<Button name="ФормаЗаписать" id="44">
+					<Type>CommandBarButton</Type>
+					<DefaultButton>true</DefaultButton>
+					<CommandName>Form.Command.Записать</CommandName>
+					<ExtendedTooltip name="ФормаЗаписатьРасширеннаяПодсказка" id="45"/>
+				</Button>
+				<Button name="Добавить" id="76">
+					<Type>CommandBarButton</Type>
+					<Representation>PictureAndText</Representation>
+					<CommandName>Form.Item.ДокументыОплаты.StandardCommand.Add</CommandName>
+					<ExtendedTooltip name="ДобавитьРасширеннаяПодсказка" id="77"/>
+				</Button>
+				<Button name="ФормаЗаполнить" id="37">
+					<Type>CommandBarButton</Type>
+					<TitleHeight>2</TitleHeight>
+					<CommandName>Form.Command.Заполнить</CommandName>
+					<ExtendedTooltip name="ФормаЗаполнитьРасширеннаяПодсказка" id="38"/>
+				</Button>
+				<ButtonGroup name="ГруппаКоманднойПанелиЕще" id="72">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа командной панели еще</v8:content>
+						</v8:item>
+					</Title>
+					<CommandSource>Form</CommandSource>
+					<ExtendedTooltip name="ГруппаКоманднойПанелиЕщеРасширеннаяПодсказка" id="73"/>
+				</ButtonGroup>
+				<Button name="КнопкаСправка" id="74">
+					<Type>CommandBarButton</Type>
+					<OnlyInAllActions>true</OnlyInAllActions>
+					<CommandName>Form.StandardCommand.Help</CommandName>
+					<ExtendedTooltip name="КнопкаСправкаРасширеннаяПодсказка" id="75"/>
+				</Button>
+			</ChildItems>
+		</CommandBar>
+		<Table name="ДокументыОплаты" id="1">
+			<Representation>List</Representation>
+			<AutoInsertNewRow>true</AutoInsertNewRow>
+			<EnableStartDrag>true</EnableStartDrag>
+			<EnableDrag>true</EnableDrag>
+			<DataPath>ДокументыОплаты</DataPath>
+			<RowPictureDataPath>ДокументыОплаты.РучнаяКорректировка</RowPictureDataPath>
+			<RowsPicture>
+				<xr:Ref>CommonPicture.РучнаяКорректировка32</xr:Ref>
+				<xr:LoadTransparent>true</xr:LoadTransparent>
+			</RowsPicture>
+			<RowFilter xsi:nil="true"/>
+			<ContextMenu name="ДокументыОплатыКонтекстноеМеню" id="2"/>
+			<AutoCommandBar name="ДокументыОплатыКоманднаяПанель" id="3">
+				<Autofill>false</Autofill>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ДокументыОплатыРасширеннаяПодсказка" id="4"/>
+			<SearchStringAddition name="ДокументыОплатыСтрокаПоиска" id="5">
+				<AdditionSource>
+					<Item>ДокументыОплаты</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ДокументыОплатыСтрокаПоискаКонтекстноеМеню" id="6"/>
+				<ExtendedTooltip name="ДокументыОплатыСтрокаПоискаРасширеннаяПодсказка" id="7"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ДокументыОплатыСостояниеПросмотра" id="8">
+				<AdditionSource>
+					<Item>ДокументыОплаты</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ДокументыОплатыСостояниеПросмотраКонтекстноеМеню" id="9"/>
+				<ExtendedTooltip name="ДокументыОплатыСостояниеПросмотраРасширеннаяПодсказка" id="10"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ДокументыОплатыУправлениеПоиском" id="11">
+				<AdditionSource>
+					<Item>ДокументыОплаты</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ДокументыОплатыУправлениеПоискомКонтекстноеМеню" id="12"/>
+				<ExtendedTooltip name="ДокументыОплатыУправлениеПоискомРасширеннаяПодсказка" id="13"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="OnEditEnd">ДокументыОплатыПриОкончанииРедактирования</Event>
+			</Events>
+			<ChildItems>
+				<PictureField name="ДокументыОплатыРучнаяКорректировка" id="67">
+					<DataPath>ДокументыОплаты.РучнаяКорректировка</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<TitleLocation>None</TitleLocation>
+					<EditMode>EnterOnInput</EditMode>
+					<ValuesPicture>
+						<xr:Ref>CommonPicture.РучнаяКорректировка32</xr:Ref>
+						<xr:LoadTransparent>true</xr:LoadTransparent>
+					</ValuesPicture>
+					<ContextMenu name="ДокументыОплатыРучнаяКорректировкаКонтекстноеМеню" id="68"/>
+					<ExtendedTooltip name="ДокументыОплатыРучнаяКорректировкаРасширеннаяПодсказка" id="69"/>
+				</PictureField>
+				<ColumnGroup name="ДокументПеречисленияНалога" id="49">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Документ перечисления налога</v8:content>
+						</v8:item>
+					</Title>
+					<Group>Horizontal</Group>
+					<ShowInHeader>true</ShowInHeader>
+					<ExtendedTooltip name="ДокументПеречисленияНалогаРасширеннаяПодсказка" id="50"/>
+					<ChildItems>
+						<InputField name="ДокументыОплатыНомер" id="17">
+							<DataPath>ДокументыОплаты.Номер</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>10</Width>
+							<AutoMarkIncomplete>true</AutoMarkIncomplete>
+							<ContextMenu name="ДокументыОплатыНомерКонтекстноеМеню" id="18"/>
+							<ExtendedTooltip name="ДокументыОплатыНомерРасширеннаяПодсказка" id="19"/>
+						</InputField>
+						<InputField name="ДокументыОплатыДата" id="20">
+							<DataPath>ДокументыОплаты.Дата</DataPath>
+							<EditMode>EnterOnInput</EditMode>
+							<Width>10</Width>
+							<AutoMarkIncomplete>true</AutoMarkIncomplete>
+							<ContextMenu name="ДокументыОплатыДатаКонтекстноеМеню" id="21"/>
+							<ExtendedTooltip name="ДокументыОплатыДатаРасширеннаяПодсказка" id="22"/>
+							<Events>
+								<Event name="OnChange">ДокументыОплатыДатаПриИзменении</Event>
+							</Events>
+						</InputField>
+					</ChildItems>
+				</ColumnGroup>
+				<InputField name="ДокументыОплатыДатаПеречисленияНалога" id="46">
+					<DataPath>ДокументыОплаты.ДатаПеречисленияНалога</DataPath>
+					<EditMode>EnterOnInput</EditMode>
+					<Width>16</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="ДокументыОплатыДатаПеречисленияНалогаКонтекстноеМеню" id="47"/>
+					<ExtendedTooltip name="ДокументыОплатыДатаПеречисленияНалогаРасширеннаяПодсказка" id="48"/>
+				</InputField>
+				<InputField name="ДокументыОплатыСумма" id="23">
+					<DataPath>ДокументыОплаты.Сумма</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сумма НДС</v8:content>
+						</v8:item>
+					</Title>
+					<EditMode>EnterOnInput</EditMode>
+					<Width>10</Width>
+					<AutoMarkIncomplete>true</AutoMarkIncomplete>
+					<ContextMenu name="ДокументыОплатыСуммаКонтекстноеМеню" id="24"/>
+					<ExtendedTooltip name="ДокументыОплатыСуммаРасширеннаяПодсказка" id="25"/>
+				</InputField>
+				<InputField name="ДокументыОплатыОтступ" id="61">
+					<DataPath>ДокументыОплаты.Отступ</DataPath>
+					<ReadOnly>true</ReadOnly>
+					<TitleLocation>None</TitleLocation>
+					<EditMode>EnterOnInput</EditMode>
+					<ContextMenu name="ДокументыОплатыОтступКонтекстноеМеню" id="62"/>
+					<ExtendedTooltip name="ДокументыОплатыОтступРасширеннаяПодсказка" id="63"/>
+				</InputField>
+			</ChildItems>
+		</Table>
+		<UsualGroup name="ГруппаОплаты" id="42">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа оплаты</v8:content>
+				</v8:item>
+			</Title>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаОплатыРасширеннаяПодсказка" id="43"/>
+			<ChildItems>
+				<LabelField name="НадписьОплачено" id="39">
+					<DataPath>НадписьОплачено</DataPath>
+					<TitleLocation>None</TitleLocation>
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Height>2</Height>
+					<ContextMenu name="НадписьОплаченоКонтекстноеМеню" id="40"/>
+					<ExtendedTooltip name="НадписьОплаченоРасширеннаяПодсказка" id="41"/>
+				</LabelField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПодтвержденияОплаты" id="51">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа подтверждения оплаты</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПодтвержденияОплатыРасширеннаяПодсказка" id="52"/>
+			<ChildItems>
+				<CheckBoxField name="ОплатаПодтверждена" id="53">
+					<DataPath>ОплатаПодтверждена</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="ОплатаПодтвержденаКонтекстноеМеню" id="54"/>
+					<ExtendedTooltip name="ОплатаПодтвержденаРасширеннаяПодсказка" id="55"/>
+					<Events>
+						<Event name="OnChange">ОплатаПодтвержденаПриИзменении</Event>
+					</Events>
+				</CheckBoxField>
+				<UsualGroup name="ОтметкаОРегистрации" id="26">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Отметка налогового органа</v8:content>
+						</v8:item>
+					</Title>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ОтметкаОРегистрацииРасширеннаяПодсказка" id="27"/>
+					<ChildItems>
+						<LabelDecoration name="Оступ" id="56">
+							<Width>2</Width>
+							<ContextMenu name="ОступКонтекстноеМеню" id="57"/>
+							<ExtendedTooltip name="ОступРасширеннаяПодсказка" id="58"/>
+						</LabelDecoration>
+						<UsualGroup name="ГруппировкаПолей" id="59">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группировка полей</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппировкаПолейРасширеннаяПодсказка" id="60"/>
+							<ChildItems>
+								<InputField name="НомерОтметкиОРегистрации" id="34">
+									<DataPath>НомерОтметкиОРегистрации</DataPath>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Номер отметки о регистрации заявления в налоговом органе.</v8:content>
+										</v8:item>
+									</ToolTip>
+									<HorizontalStretch>false</HorizontalStretch>
+									<AutoMarkIncomplete>true</AutoMarkIncomplete>
+									<ContextMenu name="НомерОтметкиОРегистрацииКонтекстноеМеню" id="35"/>
+									<ExtendedTooltip name="НомерОтметкиОРегистрацииРасширеннаяПодсказка" id="36"/>
+								</InputField>
+								<InputField name="ДатаПодтвержденияОплаты" id="28">
+									<DataPath>ДатаПодтвержденияОплаты</DataPath>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дата подтверждения оплаты</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Дата подтвердждения оплаты налоговым органом.</v8:content>
+										</v8:item>
+									</ToolTip>
+									<AutoMarkIncomplete>true</AutoMarkIncomplete>
+									<ContextMenu name="ДатаПодтвержденияОплатыКонтекстноеМеню" id="29"/>
+									<ExtendedTooltip name="ДатаПодтвержденияОплатыРасширеннаяПодсказка" id="30"/>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="ДокументыОплаты" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Документы оплаты</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8:ValueTable</v8:Type>
+			</Type>
+			<Columns>
+				<Column name="РучнаяКорректировка" id="1">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Ручн.</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>1</v8:Digits>
+							<v8:FractionDigits>0</v8:FractionDigits>
+							<v8:AllowedSign>Any</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="Номер" id="2">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Номер</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>15</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+				<Column name="Дата" id="3">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дата</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:dateTime</v8:Type>
+						<v8:DateQualifiers>
+							<v8:DateFractions>Date</v8:DateFractions>
+						</v8:DateQualifiers>
+					</Type>
+				</Column>
+				<Column name="Сумма" id="4">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сумма</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:decimal</v8:Type>
+						<v8:NumberQualifiers>
+							<v8:Digits>15</v8:Digits>
+							<v8:FractionDigits>2</v8:FractionDigits>
+							<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+						</v8:NumberQualifiers>
+					</Type>
+				</Column>
+				<Column name="ДатаПеречисленияНалога" id="5">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дата перечисления налога</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:dateTime</v8:Type>
+						<v8:DateQualifiers>
+							<v8:DateFractions>Date</v8:DateFractions>
+						</v8:DateQualifiers>
+					</Type>
+				</Column>
+				<Column name="Отступ" id="6">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Отступ</v8:content>
+						</v8:item>
+					</Title>
+					<Type>
+						<v8:Type>xs:string</v8:Type>
+						<v8:StringQualifiers>
+							<v8:Length>1</v8:Length>
+							<v8:AllowedLength>Variable</v8:AllowedLength>
+						</v8:StringQualifiers>
+					</Type>
+				</Column>
+			</Columns>
+		</Attribute>
+		<Attribute name="СчетФактура" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Счет фактура</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DocumentRef.ТаможеннаяДекларацияИмпорт</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЗаявлениеОВвозеТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.СчетФактураНалоговыйАгент</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="НомерОтметкиОРегистрации" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Номер отметки о регистрации</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>16</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+			<FillCheck>ShowError</FillCheck>
+		</Attribute>
+		<Attribute name="ДатаПодтвержденияОплаты" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дата подтверждения оплаты</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>Date</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+			<FillCheck>ShowError</FillCheck>
+		</Attribute>
+		<Attribute name="НадписьОплачено" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Надпись оплачено</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="СуммаНДСПоДокументу" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Сумма НДС по документу</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>15</v8:Digits>
+					<v8:FractionDigits>2</v8:FractionDigits>
+					<v8:AllowedSign>Any</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ЭтоЗаявлениеОВвозе" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Это заявление о ввозе</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ЭтоНалоговыйАгент" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Это налоговый агент</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ОплатаПодтверждена" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Получено подтверждение налогового органа</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Заполнить" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Заполнить</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Заполнить</Action>
+		</Command>
+		<Command name="Записать" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать и закрыть</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Записать</Action>
+		</Command>
+	</Commands>
+	<Parameters>
+		<Parameter name="СчетФактура">
+			<Type>
+				<v8:Type>cfg:DocumentRef.ТаможеннаяДекларацияИмпорт</v8:Type>
+				<v8:Type>cfg:DocumentRef.ЗаявлениеОВвозеТоваров</v8:Type>
+				<v8:Type>cfg:DocumentRef.СчетФактураНалоговыйАгент</v8:Type>
+			</Type>
+		</Parameter>
+	</Parameters>
+</Form>

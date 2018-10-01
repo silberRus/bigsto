@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<WindowOpeningMode>LockOwnerWindow</WindowOpeningMode>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаВыбрать" id="20">
+				<Type>CommandBarButton</Type>
+				<Representation>PictureAndText</Representation>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.Выбрать</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.ChooseValue</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="ФормаВыбратьРасширеннаяПодсказка" id="21"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаШапка" id="111">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа шапка</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа шапка</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<Representation>None</Representation>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаШапкаРасширеннаяПодсказка" id="112"/>
+			<ChildItems>
+				<InputField name="БанковскийСчет" id="34">
+					<DataPath>БанковскийСчет</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Счет</v8:content>
+						</v8:item>
+					</Title>
+					<AutoMarkIncomplete>true</AutoMarkIncomplete>
+					<ContextMenu name="БанковскийСчетКонтекстноеМеню" id="35"/>
+					<ExtendedTooltip name="БанковскийСчетРасширеннаяПодсказка" id="36"/>
+					<Events>
+						<Event name="OnChange">БанковскийСчетПриИзменении</Event>
+					</Events>
+				</InputField>
+				<InputField name="ТипНалогаОтбор" id="102">
+					<DataPath>ТипНалогаОтбор</DataPath>
+					<Visible>false</Visible>
+					<Enabled>false</Enabled>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Налог</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТипНалогаОтборКонтекстноеМеню" id="103"/>
+					<ExtendedTooltip name="ТипНалогаОтборРасширеннаяПодсказка" id="104"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<Table name="ТаблицаПлатежей" id="39">
+			<ReadOnly>true</ReadOnly>
+			<DefaultItem>true</DefaultItem>
+			<RowSelectionMode>Row</RowSelectionMode>
+			<UseAlternationRowColor>true</UseAlternationRowColor>
+			<EnableStartDrag>true</EnableStartDrag>
+			<DataPath>ТаблицаПлатежей</DataPath>
+			<RowPictureDataPath>ТаблицаПлатежей.DefaultPicture</RowPictureDataPath>
+			<SearchStringLocation>None</SearchStringLocation>
+			<ViewStatusLocation>None</ViewStatusLocation>
+			<SearchControlLocation>None</SearchControlLocation>
+			<AutoRefresh>false</AutoRefresh>
+			<AutoRefreshPeriod>60</AutoRefreshPeriod>
+			<Period>
+				<v8:variant xsi:type="v8:StandardPeriodVariant">Custom</v8:variant>
+				<v8:startDate>0001-01-01T00:00:00</v8:startDate>
+				<v8:endDate>0001-01-01T00:00:00</v8:endDate>
+			</Period>
+			<ChoiceFoldersAndItems>Items</ChoiceFoldersAndItems>
+			<RestoreCurrentRow>false</RestoreCurrentRow>
+			<TopLevelParent xsi:nil="true"/>
+			<ShowRoot>true</ShowRoot>
+			<AllowRootChoice>false</AllowRootChoice>
+			<UpdateOnDataChange>Auto</UpdateOnDataChange>
+			<ContextMenu name="ТаблицаПлатежейКонтекстноеМеню" id="40"/>
+			<AutoCommandBar name="ТаблицаПлатежейКоманднаяПанель" id="41">
+				<ChildItems>
+					<ButtonGroup name="ТаблицаПлатежейГруппаКомандыФормы" id="98">
+						<Title>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Таблица платежей группа команды формы</v8:content>
+							</v8:item>
+						</Title>
+						<ToolTip>
+							<v8:item>
+								<v8:lang>ru</v8:lang>
+								<v8:content>Таблица платежей группа команды формы</v8:content>
+							</v8:item>
+						</ToolTip>
+						<CommandSource>Form</CommandSource>
+						<ExtendedTooltip name="ТаблицаПлатежейГруппаКомандыФормыРасширеннаяПодсказка" id="99"/>
+						<ChildItems>
+							<Button name="ФормаСправка" id="100">
+								<Type>CommandBarButton</Type>
+								<OnlyInAllActions>false</OnlyInAllActions>
+								<CommandName>Form.StandardCommand.Help</CommandName>
+								<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="101"/>
+							</Button>
+						</ChildItems>
+					</ButtonGroup>
+				</ChildItems>
+			</AutoCommandBar>
+			<ExtendedTooltip name="ТаблицаПлатежейРасширеннаяПодсказка" id="42"/>
+			<SearchStringAddition name="ТаблицаПлатежейСтрокаПоиска" id="77">
+				<AdditionSource>
+					<Item>ТаблицаПлатежей</Item>
+					<Type>SearchStringRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаПлатежейСтрокаПоискаКонтекстноеМеню" id="78"/>
+				<ExtendedTooltip name="ТаблицаПлатежейСтрокаПоискаРасширеннаяПодсказка" id="79"/>
+			</SearchStringAddition>
+			<ViewStatusAddition name="ТаблицаПлатежейСостояниеПросмотра" id="80">
+				<AdditionSource>
+					<Item>ТаблицаПлатежей</Item>
+					<Type>ViewStatusRepresentation</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаПлатежейСостояниеПросмотраКонтекстноеМеню" id="81"/>
+				<ExtendedTooltip name="ТаблицаПлатежейСостояниеПросмотраРасширеннаяПодсказка" id="82"/>
+			</ViewStatusAddition>
+			<SearchControlAddition name="ТаблицаПлатежейУправлениеПоиском" id="83">
+				<AdditionSource>
+					<Item>ТаблицаПлатежей</Item>
+					<Type>SearchControl</Type>
+				</AdditionSource>
+				<ContextMenu name="ТаблицаПлатежейУправлениеПоискомКонтекстноеМеню" id="84"/>
+				<ExtendedTooltip name="ТаблицаПлатежейУправлениеПоискомРасширеннаяПодсказка" id="85"/>
+			</SearchControlAddition>
+			<Events>
+				<Event name="Selection">ТаблицаПлатежейВыбор</Event>
+			</Events>
+			<ChildItems>
+				<LabelField name="ТаблицаПлатежейТипНалога" id="105">
+					<DataPath>ТаблицаПлатежей.ТипНалога</DataPath>
+					<ContextMenu name="ТаблицаПлатежейТипНалогаКонтекстноеМеню" id="106"/>
+					<ExtendedTooltip name="ТаблицаПлатежейТипНалогаРасширеннаяПодсказка" id="107"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейРегистрацияВНалоговомОргане" id="92">
+					<DataPath>ТаблицаПлатежей.РегистрацияВНалоговомОргане</DataPath>
+					<Visible>false</Visible>
+					<ContextMenu name="ТаблицаПлатежейРегистрацияВНалоговомОрганеКонтекстноеМеню" id="93"/>
+					<ExtendedTooltip name="ТаблицаПлатежейРегистрацияВНалоговомОрганеРасширеннаяПодсказка" id="94"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейДата" id="43">
+					<DataPath>ТаблицаПлатежей.Дата</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Дата последнего</v8:content>
+						</v8:item>
+					</Title>
+					<Width>6</Width>
+					<ContextMenu name="ТаблицаПлатежейДатаКонтекстноеМеню" id="44"/>
+					<ExtendedTooltip name="ТаблицаПлатежейДатаРасширеннаяПодсказка" id="45"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейСубконто1" id="108">
+					<DataPath>ТаблицаПлатежей.Субконто1</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Вид платежа</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейСубконто1КонтекстноеМеню" id="109"/>
+					<ExtendedTooltip name="ТаблицаПлатежейСубконто1РасширеннаяПодсказка" id="110"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейНазначениеПлатежа" id="46">
+					<DataPath>ТаблицаПлатежей.НазначениеПлатежа</DataPath>
+					<Width>40</Width>
+					<ContextMenu name="ТаблицаПлатежейНазначениеПлатежаКонтекстноеМеню" id="47"/>
+					<ExtendedTooltip name="ТаблицаПлатежейНазначениеПлатежаРасширеннаяПодсказка" id="48"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейИННПлательщика" id="113">
+					<DataPath>ТаблицаПлатежей.ИННПлательщика</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ИНН</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейИННПлательщикаКонтекстноеМеню" id="114"/>
+					<ExtendedTooltip name="ТаблицаПлатежейИННПлательщикаРасширеннаяПодсказка" id="115"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейКПППлательщика" id="116">
+					<DataPath>ТаблицаПлатежей.КПППлательщика</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>КПП</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейКПППлательщикаКонтекстноеМеню" id="117"/>
+					<ExtendedTooltip name="ТаблицаПлатежейКПППлательщикаРасширеннаяПодсказка" id="118"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейКонтрагент" id="52">
+					<DataPath>ТаблицаПлатежей.Контрагент</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Получатель</v8:content>
+						</v8:item>
+					</Title>
+					<Width>20</Width>
+					<ContextMenu name="ТаблицаПлатежейКонтрагентКонтекстноеМеню" id="53"/>
+					<ExtendedTooltip name="ТаблицаПлатежейКонтрагентРасширеннаяПодсказка" id="54"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейСчетУчета" id="55">
+					<DataPath>ТаблицаПлатежей.СчетУчета</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Счет учета</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейСчетУчетаКонтекстноеМеню" id="56"/>
+					<ExtendedTooltip name="ТаблицаПлатежейСчетУчетаРасширеннаяПодсказка" id="57"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейКодБК" id="49">
+					<DataPath>ТаблицаПлатежей.КодБК</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>КБК</v8:content>
+						</v8:item>
+					</Title>
+					<Width>25</Width>
+					<ContextMenu name="ТаблицаПлатежейКодБККонтекстноеМеню" id="50"/>
+					<ExtendedTooltip name="ТаблицаПлатежейКодБКРасширеннаяПодсказка" id="51"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейКодОКАТО" id="58">
+					<DataPath>ТаблицаПлатежей.КодОКАТО</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>ОКТМО</v8:content>
+						</v8:item>
+					</Title>
+					<Width>18</Width>
+					<ContextMenu name="ТаблицаПлатежейКодОКАТОКонтекстноеМеню" id="59"/>
+					<ExtendedTooltip name="ТаблицаПлатежейКодОКАТОРасширеннаяПодсказка" id="60"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейСтатусСоставителя" id="61">
+					<DataPath>ТаблицаПлатежей.СтатусСоставителя</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статус плательщика</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейСтатусСоставителяКонтекстноеМеню" id="62"/>
+					<ExtendedTooltip name="ТаблицаПлатежейСтатусСоставителяРасширеннаяПодсказка" id="63"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейПоказательОснования" id="64">
+					<DataPath>ТаблицаПлатежей.ПоказательОснования</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Основание</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейПоказательОснованияКонтекстноеМеню" id="65"/>
+					<ExtendedTooltip name="ТаблицаПлатежейПоказательОснованияРасширеннаяПодсказка" id="66"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейКоличество" id="74">
+					<DataPath>ТаблицаПлатежей.Количество</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Перечислено, раз</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейКоличествоКонтекстноеМеню" id="75"/>
+					<ExtendedTooltip name="ТаблицаПлатежейКоличествоРасширеннаяПодсказка" id="76"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейСтатьяДвиженияДенежныхСредств" id="86">
+					<DataPath>ТаблицаПлатежей.СтатьяДвиженияДенежныхСредств</DataPath>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Статья ДДС</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ТаблицаПлатежейСтатьяДвиженияДенежныхСредствКонтекстноеМеню" id="87"/>
+					<ExtendedTooltip name="ТаблицаПлатежейСтатьяДвиженияДенежныхСредствРасширеннаяПодсказка" id="88"/>
+				</LabelField>
+				<LabelField name="ТаблицаПлатежейБанковскийСчетКонтрагента" id="89">
+					<DataPath>ТаблицаПлатежей.БанковскийСчетКонтрагента</DataPath>
+					<ContextMenu name="ТаблицаПлатежейБанковскийСчетКонтрагентаКонтекстноеМеню" id="90"/>
+					<ExtendedTooltip name="ТаблицаПлатежейБанковскийСчетКонтрагентаРасширеннаяПодсказка" id="91"/>
+				</LabelField>
+			</ChildItems>
+		</Table>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="БанковскийСчет" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Банковский счет</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.БанковскиеСчетаОрганизаций</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ТаблицаПлатежей" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Таблица платежей</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:DynamicList</v8:Type>
+			</Type>
+			<UseAlways>
+				<Field>ТаблицаПлатежей.АналитикаАктивовПассивов</Field>
+				<Field>ТаблицаПлатежей.БанковскийСчетКонтрагента</Field>
+				<Field>ТаблицаПлатежей.Дата</Field>
+				<Field>ТаблицаПлатежей.ИННПлательщика</Field>
+				<Field>ТаблицаПлатежей.КПППлательщика</Field>
+				<Field>ТаблицаПлатежей.КодБК</Field>
+				<Field>ТаблицаПлатежей.КодОКАТО</Field>
+				<Field>ТаблицаПлатежей.Количество</Field>
+				<Field>ТаблицаПлатежей.Контрагент</Field>
+				<Field>ТаблицаПлатежей.НазначениеПлатежа</Field>
+				<Field>ТаблицаПлатежей.Подразделение</Field>
+				<Field>ТаблицаПлатежей.ПоказательОснования</Field>
+				<Field>ТаблицаПлатежей.ПоказательТипа</Field>
+				<Field>ТаблицаПлатежей.РегистрацияВНалоговомОргане</Field>
+				<Field>ТаблицаПлатежей.СтатусСоставителя</Field>
+				<Field>ТаблицаПлатежей.СтатьяДвиженияДенежныхСредств</Field>
+				<Field>ТаблицаПлатежей.СтатьяРасходов</Field>
+				<Field>ТаблицаПлатежей.Субконто1</Field>
+				<Field>ТаблицаПлатежей.Субконто2</Field>
+				<Field>ТаблицаПлатежей.Субконто3</Field>
+				<Field>ТаблицаПлатежей.СчетУчета</Field>
+				<Field>ТаблицаПлатежей.ТипНалога</Field>
+			</UseAlways>
+			<Settings xsi:type="DynamicList">
+				<ManualQuery>true</ManualQuery>
+				<DynamicDataRead>false</DynamicDataRead>
+				<QueryText>ВЫБРАТЬ
+	ВЫРАЗИТЬ("" КАК Строка(20)) КАК КодБК,
+	ВЫРАЗИТЬ("" КАК Строка(11)) КАК КодОКАТО,
+	ВЫРАЗИТЬ("" КАК Строка(2)) КАК СтатусСоставителя,
+	ВЫРАЗИТЬ("" КАК Строка(2)) КАК ПоказательОснования,
+	ВЫРАЗИТЬ("" КАК Строка(2)) КАК ПоказательТипа,
+	"" КАК Контрагент,
+	"" КАК Дата,
+	ВЫРАЗИТЬ("" КАК Строка(210)) КАК НазначениеПлатежа,
+	"" КАК БанковскийСчетКонтрагента,
+	"" КАК СтатьяДвиженияДенежныхСредств,
+	"" КАК СтатьяРасходов,
+	"" КАК АналитикаАктивовПассивов,
+	"" КАК Подразделение,
+	"" КАК РегистрацияВНалоговомОргане,
+	ВЫРАЗИТЬ("" КАК Строка(12)) КАК ИННПлательщика,
+	ВЫРАЗИТЬ("" КАК Строка(9)) КАК КПППлательщика,
+	"" КАК ТипНалога,
+	"" КАК СчетУчета,
+	"" КАК Субконто1,
+	"" КАК Субконто2,
+	"" КАК Субконто3,
+	0 КАК Количество</QueryText>
+				<ListSettings>
+					<dcsset:filter>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>dfcece9d-5077-440b-b6b3-45a5cb4538eb</dcsset:userSettingID>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemField">
+							<dcsset:field>Количество</dcsset:field>
+							<dcsset:orderType>Desc</dcsset:orderType>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>88619765-ccb3-46c6-ac52-38e9c992ebd4</dcsset:userSettingID>
+					</dcsset:order>
+					<dcsset:conditionalAppearance>
+						<dcsset:item>
+							<dcsset:selection>
+								<dcsset:item>
+									<dcsset:field>Дата</dcsset:field>
+								</dcsset:item>
+							</dcsset:selection>
+							<dcsset:filter/>
+							<dcsset:appearance>
+								<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+									<dcscor:parameter>Формат</dcscor:parameter>
+									<dcscor:value xsi:type="xs:string">ДФ=dd.MM.yyyy</dcscor:value>
+								</dcscor:item>
+							</dcsset:appearance>
+						</dcsset:item>
+						<dcsset:viewMode>Normal</dcsset:viewMode>
+						<dcsset:userSettingID>b75fecce-942b-4aed-abc9-e6a02e460fb3</dcsset:userSettingID>
+					</dcsset:conditionalAppearance>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					<dcsset:itemsUserSettingID>911b6018-f537-43e8-a417-da56b22f9aec</dcsset:itemsUserSettingID>
+				</ListSettings>
+			</Settings>
+		</Attribute>
+		<Attribute name="ПрименениеПриказа126н" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Применение приказа126н</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ТипНалогаОтбор" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Тип налога отбор</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:EnumRef.ТипыНалогов</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="Выбрать" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Выбрать</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Выбрать</Action>
+		</Command>
+	</Commands>
+</Form>

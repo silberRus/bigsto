@@ -1,0 +1,35 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ActWriteOff_v3" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<import namespace="http://fsrar.ru/WEGAIS/CommonEnum"/>
+	<import namespace="http://fsrar.ru/WEGAIS/CommonV3"/>
+	<import namespace="http://fsrar.ru/WEGAIS/ProductRef_v2"/>
+	<objectType name="ActWriteOffPositionType" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Quantity" type="d3p1:PositiveDecimalType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="SumSale" type="d3p1:NoNegativeDecimalType" lowerBound="0"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ActWriteOff_v3" name="InformF1F2" type="d3p1:InformF1F2" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/CommonV3" name="MarkCodeInfo" type="d3p1:AMCforDocType" lowerBound="0"/>
+	</objectType>
+	<objectType name="ActWriteOffType_v3">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="Identity" type="d3p1:IdentityType" lowerBound="0" nillable="false"/>
+		<property name="Header">
+			<typeDef xsi:type="ObjectType" ordered="false" sequenced="true">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ActNumber" type="d5p1:NoEmptyString50"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/Common" name="ActDate" type="d5p1:DateNoTime"/>
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/CommonEnum" name="TypeWriteOff" type="d5p1:TypeWriteOff"/>
+				<property name="Note" lowerBound="0">
+					<typeDef xsi:type="ValueType" base="xs:string" variety="Atomic" maxLength="500"/>
+				</property>
+			</typeDef>
+		</property>
+		<property name="Content">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ActWriteOff_v3" name="Position" type="d5p1:ActWriteOffPositionType" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+	<objectType name="InformF1F2" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="InformF2" type="d3p1:InformF2TypeItem" lowerBound="0" nillable="false"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/ProductRef_v2" name="InformF1" type="d3p1:InformF1Type" lowerBound="0" nillable="false"/>
+	</objectType>
+</package>

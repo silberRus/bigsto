@@ -1,0 +1,858 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="СоздатьЗадания" id="39">
+				<Type>CommandBarButton</Type>
+				<Representation>Text</Representation>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.СоздатьЗадания</CommandName>
+				<Picture>
+					<xr:Ref>StdPicture.CreateListItem</xr:Ref>
+					<xr:LoadTransparent>true</xr:LoadTransparent>
+				</Picture>
+				<ExtendedTooltip name="СоздатьЗаданияРасширеннаяПодсказка" id="40"/>
+			</Button>
+			<Button name="Отмена" id="37">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.Отмена</CommandName>
+				<ExtendedTooltip name="ОтменаРасширеннаяПодсказка" id="38"/>
+			</Button>
+			<Button name="НастройкаАвтоматическогоСозданияПересчетов" id="111">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.Command.НастройкаАвтоматическогоСозданияПересчетов</CommandName>
+				<ExtendedTooltip name="НастройкаАвтоматическогоСозданияПересчетовРасширеннаяПодсказка" id="112"/>
+			</Button>
+			<Button name="ФормаСправка" id="109">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Help</CommandName>
+				<ExtendedTooltip name="ФормаСправкаРасширеннаяПодсказка" id="110"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+		<Event name="FillCheckProcessingAtServer">ОбработкаПроверкиЗаполненияНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаДобавлятьЗаданияНаПересчет" id="55">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Добавлять в задания на пересчет</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа добавлять задания на пересчет</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Horizontal</Group>
+			<ExtendedTooltip name="ГруппаДобавлятьЗаданияНаПересчетРасширеннаяПодсказка" id="56"/>
+			<ChildItems>
+				<UsualGroup name="ГруппаПересчетПоНаполненности" id="10">
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа пересчет по наполненности</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Vertical</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаПересчетПоНаполненностиРасширеннаяПодсказка" id="11"/>
+					<ChildItems>
+						<RadioButtonField name="ПересчетПоНаполненности" id="50">
+							<DataPath>ПересчетПоНаполненности</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Фильтр по остаткам</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>None</TitleLocation>
+							<RadioButtonType>Auto</RadioButtonType>
+							<ColumnsCount>1</ColumnsCount>
+							<ChoiceList>
+								<xr:Item>
+									<xr:Presentation/>
+									<xr:CheckState>0</xr:CheckState>
+									<xr:Value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>только ячейки с остатками товаров</v8:content>
+											</v8:item>
+										</Presentation>
+										<Value xsi:type="xs:string">ТолькоЯчейкиСОстатками</Value>
+									</xr:Value>
+								</xr:Item>
+								<xr:Item>
+									<xr:Presentation/>
+									<xr:CheckState>0</xr:CheckState>
+									<xr:Value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>все ячейки, вне зависимости от остатков товаров</v8:content>
+											</v8:item>
+										</Presentation>
+										<Value xsi:type="xs:string">ВсеЯчейки</Value>
+									</xr:Value>
+								</xr:Item>
+								<xr:Item>
+									<xr:Presentation/>
+									<xr:CheckState>0</xr:CheckState>
+									<xr:Value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>только пустые ячейки</v8:content>
+											</v8:item>
+										</Presentation>
+										<Value xsi:type="xs:string">ТолькоПустыеЯчейки</Value>
+									</xr:Value>
+								</xr:Item>
+							</ChoiceList>
+							<ContextMenu name="ПересчетПоНаполненностиКонтекстноеМеню" id="51"/>
+							<ExtendedTooltip name="ПересчетПоНаполненностиРасширеннаяПодсказка" id="52"/>
+						</RadioButtonField>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ГруппаПересчетПоОсобымУсловиям" id="53">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа пересчет по особым условиям</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа пересчет по особым условиям</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Vertical</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаПересчетПоОсобымУсловиямРасширеннаяПодсказка" id="54"/>
+					<ChildItems>
+						<RadioButtonField name="ПересчетПоОсобымУсловиям" id="57">
+							<DataPath>ПересчетПоОсобымУсловиям</DataPath>
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Фильтр по условиям</v8:content>
+								</v8:item>
+							</Title>
+							<TitleLocation>None</TitleLocation>
+							<RadioButtonType>Auto</RadioButtonType>
+							<ColumnsCount>1</ColumnsCount>
+							<ChoiceList>
+								<xr:Item>
+									<xr:Presentation/>
+									<xr:CheckState>0</xr:CheckState>
+									<xr:Value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>ячейки без ограничений по условиям</v8:content>
+											</v8:item>
+										</Presentation>
+										<Value xsi:type="xs:string">Все</Value>
+									</xr:Value>
+								</xr:Item>
+								<xr:Item>
+									<xr:Presentation/>
+									<xr:CheckState>0</xr:CheckState>
+									<xr:Value xsi:type="FormChoiceListDesTimeValue">
+										<Presentation>
+											<v8:item>
+												<v8:lang>ru</v8:lang>
+												<v8:content>только ячейки, подходящие по условиям:</v8:content>
+											</v8:item>
+										</Presentation>
+										<Value xsi:type="xs:string">ПоУсловию</Value>
+									</xr:Value>
+								</xr:Item>
+							</ChoiceList>
+							<ContextMenu name="ПересчетПоОсобымУсловиямКонтекстноеМеню" id="58"/>
+							<ExtendedTooltip name="ПересчетПоОсобымУсловиямРасширеннаяПодсказка" id="59"/>
+							<Events>
+								<Event name="OnChange">ПересчетПоОсобымУсловиямПриИзменении</Event>
+							</Events>
+						</RadioButtonField>
+						<UsualGroup name="ГруппаОсобыеУсловияОтступ" id="60">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа особые условия отступ</v8:content>
+								</v8:item>
+							</Title>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа особые условия отступ</v8:content>
+								</v8:item>
+							</ToolTip>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаОсобыеУсловияОтступРасширеннаяПодсказка" id="61"/>
+							<ChildItems>
+								<LabelDecoration name="ДекорацияОтступ2" id="64">
+									<Width>1</Width>
+									<ContextMenu name="ДекорацияОтступ2КонтекстноеМеню" id="65"/>
+									<ExtendedTooltip name="ДекорацияОтступ2РасширеннаяПодсказка" id="66"/>
+								</LabelDecoration>
+								<UsualGroup name="ГруппаОсобыеУсловия" id="62">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа особые условия</v8:content>
+										</v8:item>
+									</Title>
+									<ToolTip>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа особые условия</v8:content>
+										</v8:item>
+									</ToolTip>
+									<Group>Vertical</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="ГруппаОсобыеУсловияРасширеннаяПодсказка" id="63"/>
+									<ChildItems>
+										<CheckBoxField name="ПересчетСомнительныхЯчеек" id="7">
+											<DataPath>ПересчетСомнительныхЯчеек</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>ячейка отмечена к пересчету или были ошибки отбора (размещения)</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Right</TitleLocation>
+											<CheckBoxType>Auto</CheckBoxType>
+											<ContextMenu name="ПересчетСомнительныхЯчеекКонтекстноеМеню" id="8"/>
+											<ExtendedTooltip name="ПересчетСомнительныхЯчеекРасширеннаяПодсказка" id="9"/>
+										</CheckBoxField>
+										<CheckBoxField name="ПересчетПоНастройкамПериодичности" id="1">
+											<DataPath>ПересчетПоНастройкамПериодичности</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>настало время пересчета ячейки</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Right</TitleLocation>
+											<CheckBoxType>Auto</CheckBoxType>
+											<ContextMenu name="ПересчетПоНастройкамПериодичностиКонтекстноеМеню" id="2"/>
+											<ExtendedTooltip name="ПересчетПоНастройкамПериодичностиРасширеннаяПодсказка" id="3"/>
+										</CheckBoxField>
+										<CheckBoxField name="ПересчетПоЯчейкамСОтрицательнымиОстатками" id="106">
+											<DataPath>ПересчетПоЯчейкамСОтрицательнымиОстатками</DataPath>
+											<Title>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>по ячейке есть отрицательные остатки товаров</v8:content>
+												</v8:item>
+											</Title>
+											<TitleLocation>Right</TitleLocation>
+											<CheckBoxType>Auto</CheckBoxType>
+											<ContextMenu name="ПересчетПоЯчейкамСОтрицательнымиОстаткамиКонтекстноеМеню" id="107"/>
+											<ExtendedTooltip name="ПересчетПоЯчейкамСОтрицательнымиОстаткамиРасширеннаяПодсказка" id="108"/>
+										</CheckBoxField>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаОтборПересчета" id="48">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дополнительные условия отбора ячеек</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Группа отбор пересчета</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Group>Vertical</Group>
+			<ExtendedTooltip name="ГруппаОтборПересчетаРасширеннаяПодсказка" id="49"/>
+			<ChildItems>
+				<Table name="ОтборПересчетаНастройкиОтбор" id="44">
+					<Representation>Tree</Representation>
+					<Autofill>true</Autofill>
+					<InitialTreeView>ExpandAllLevels</InitialTreeView>
+					<EnableStartDrag>true</EnableStartDrag>
+					<EnableDrag>true</EnableDrag>
+					<DataPath>ОтборПересчета.Settings.Filter</DataPath>
+					<ViewMode>All</ViewMode>
+					<SettingsNamedItemDetailedRepresentation>false</SettingsNamedItemDetailedRepresentation>
+					<ContextMenu name="ОтборПересчетаНастройкиОтборКонтекстноеМеню" id="45"/>
+					<AutoCommandBar name="ОтборПересчетаНастройкиОтборКоманднаяПанель" id="46">
+						<ChildItems>
+							<Button name="ОтборПересчетаНастройкиОтборДобавитьЭлементОтбора" id="78">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.AddFilterItem</CommandName>
+								<Title>
+									<v8:item>
+										<v8:lang>ru</v8:lang>
+										<v8:content>Добавить условие</v8:content>
+									</v8:item>
+								</Title>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборДобавитьЭлементОтбораРасширеннаяПодсказка" id="79"/>
+							</Button>
+							<Button name="ОтборПересчетаНастройкиОтборСгруппироватьЭлементыОтбора" id="80">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.GroupFilterItems</CommandName>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборСгруппироватьЭлементыОтбораРасширеннаяПодсказка" id="81"/>
+							</Button>
+							<Button name="ОтборПересчетаНастройкиОтборПереместитьВверх" id="82">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.MoveUp</CommandName>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборПереместитьВверхРасширеннаяПодсказка" id="83"/>
+							</Button>
+							<Button name="ОтборПересчетаНастройкиОтборПереместитьВниз" id="84">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.MoveDown</CommandName>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборПереместитьВнизРасширеннаяПодсказка" id="85"/>
+							</Button>
+							<Button name="ОтборПересчетаНастройкиОтборУдалить" id="86">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.Delete</CommandName>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборУдалитьРасширеннаяПодсказка" id="87"/>
+							</Button>
+							<Button name="ОтборПересчетаНастройкиОтборСвойстваЭлементаПользовательскойНастройки" id="88">
+								<Type>CommandBarButton</Type>
+								<CommandName>Form.Item.ОтборПересчетаНастройкиОтбор.StandardCommand.UserSettingItemProperties</CommandName>
+								<ExtendedTooltip name="ОтборПересчетаНастройкиОтборСвойстваЭлементаПользовательскойНастройкиРасширеннаяПодсказка" id="89"/>
+							</Button>
+						</ChildItems>
+					</AutoCommandBar>
+					<ExtendedTooltip name="ОтборПересчетаНастройкиОтборРасширеннаяПодсказка" id="47"/>
+					<SearchStringAddition name="ОтборПересчетаНастройкиОтборСтрокаПоиска" id="188">
+						<AdditionSource>
+							<Item>ОтборПересчетаНастройкиОтбор</Item>
+							<Type>SearchStringRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ОтборПересчетаНастройкиОтборСтрокаПоискаКонтекстноеМеню" id="189"/>
+						<ExtendedTooltip name="ОтборПересчетаНастройкиОтборСтрокаПоискаРасширеннаяПодсказка" id="190"/>
+					</SearchStringAddition>
+					<ViewStatusAddition name="ОтборПересчетаНастройкиОтборСостояниеПросмотра" id="191">
+						<AdditionSource>
+							<Item>ОтборПересчетаНастройкиОтбор</Item>
+							<Type>ViewStatusRepresentation</Type>
+						</AdditionSource>
+						<ContextMenu name="ОтборПересчетаНастройкиОтборСостояниеПросмотраКонтекстноеМеню" id="192"/>
+						<ExtendedTooltip name="ОтборПересчетаНастройкиОтборСостояниеПросмотраРасширеннаяПодсказка" id="193"/>
+					</ViewStatusAddition>
+					<SearchControlAddition name="ОтборПересчетаНастройкиОтборУправлениеПоиском" id="194">
+						<AdditionSource>
+							<Item>ОтборПересчетаНастройкиОтбор</Item>
+							<Type>SearchControl</Type>
+						</AdditionSource>
+						<ContextMenu name="ОтборПересчетаНастройкиОтборУправлениеПоискомКонтекстноеМеню" id="195"/>
+						<ExtendedTooltip name="ОтборПересчетаНастройкиОтборУправлениеПоискомРасширеннаяПодсказка" id="196"/>
+					</SearchControlAddition>
+				</Table>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаРазбиениеЗаданийПо" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Разбивать задания по</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<ExtendedTooltip name="ГруппаРазбиениеЗаданийПоРасширеннаяПодсказка" id="13"/>
+			<ChildItems>
+				<CheckBoxField name="РазбиватьПоРабочимУчасткам" id="14">
+					<DataPath>РазбиватьПоРабочимУчасткам</DataPath>
+					<TitleLocation>Right</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="РазбиватьПоРабочимУчасткамКонтекстноеМеню" id="15"/>
+					<ExtendedTooltip name="РазбиватьПоРабочимУчасткамРасширеннаяПодсказка" id="16"/>
+				</CheckBoxField>
+				<UsualGroup name="ГруппаРазбиениеПоКоличествуЯчеек" id="20">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа разбиение по количеству ячеек</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа разбиение по количеству ячеек</v8:content>
+						</v8:item>
+					</ToolTip>
+					<Group>Vertical</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаРазбиениеПоКоличествуЯчеекРасширеннаяПодсказка" id="21"/>
+					<ChildItems>
+						<CheckBoxField name="РазбиватьПоКоличествуЯчеек" id="17">
+							<DataPath>РазбиватьПоКоличествуЯчеек</DataPath>
+							<TitleLocation>Right</TitleLocation>
+							<CheckBoxType>Auto</CheckBoxType>
+							<ContextMenu name="РазбиватьПоКоличествуЯчеекКонтекстноеМеню" id="18"/>
+							<ExtendedTooltip name="РазбиватьПоКоличествуЯчеекРасширеннаяПодсказка" id="19"/>
+							<Events>
+								<Event name="OnChange">РазбиватьПоКоличествуЯчеекПриИзменении</Event>
+							</Events>
+						</CheckBoxField>
+						<Pages name="ГруппаКоличествоЯчеекСтраницы" id="197">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа количество ячеек страницы</v8:content>
+								</v8:item>
+							</Title>
+							<PagesRepresentation>None</PagesRepresentation>
+							<ExtendedTooltip name="ГруппаКоличествоЯчеекСтраницыРасширеннаяПодсказка" id="198"/>
+							<ChildItems>
+								<Page name="ГруппаКоличествоЯчеекДоступно" id="25">
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа количество ячеек доступно</v8:content>
+										</v8:item>
+									</Title>
+									<Group>Horizontal</Group>
+									<ExtendedTooltip name="ГруппаКоличествоЯчеекДоступноРасширеннаяПодсказка" id="26"/>
+									<ChildItems>
+										<LabelDecoration name="ДекорацияОтступ" id="27">
+											<Width>1</Width>
+											<ContextMenu name="ДекорацияОтступКонтекстноеМеню" id="28"/>
+											<ExtendedTooltip name="ДекорацияОтступРасширеннаяПодсказка" id="29"/>
+										</LabelDecoration>
+										<InputField name="КоличествоЯчеекВЗадании" id="22">
+											<DataPath>КоличествоЯчеекВЗадании</DataPath>
+											<TitleLocation>Right</TitleLocation>
+											<Width>3</Width>
+											<HorizontalStretch>false</HorizontalStretch>
+											<EditFormat>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>ЧДЦ=</v8:content>
+												</v8:item>
+											</EditFormat>
+											<ContextMenu name="КоличествоЯчеекВЗаданииКонтекстноеМеню" id="23"/>
+											<ExtendedTooltip name="КоличествоЯчеекВЗаданииРасширеннаяПодсказка" id="24"/>
+										</InputField>
+									</ChildItems>
+								</Page>
+								<Page name="ГруппаКоличествоЯчеекНедоступно" id="199">
+									<Enabled>false</Enabled>
+									<Title>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Группа количество ячеек доступно</v8:content>
+										</v8:item>
+									</Title>
+									<Group>Horizontal</Group>
+									<ExtendedTooltip name="ГруппаКоличествоЯчеекНедоступноРасширеннаяПодсказка" id="200"/>
+									<ChildItems>
+										<LabelDecoration name="ДекорацияОтступ1" id="201">
+											<Width>1</Width>
+											<ContextMenu name="ДекорацияОтступ1КонтекстноеМеню" id="202"/>
+											<ExtendedTooltip name="ДекорацияОтступ1РасширеннаяПодсказка" id="203"/>
+										</LabelDecoration>
+										<InputField name="КоличествоЯчеекВЗадании1" id="204">
+											<DataPath>КоличествоЯчеекВЗадании</DataPath>
+											<TitleLocation>Right</TitleLocation>
+											<Width>3</Width>
+											<HorizontalStretch>false</HorizontalStretch>
+											<EditFormat>
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>ЧДЦ=</v8:content>
+												</v8:item>
+											</EditFormat>
+											<ContextMenu name="КоличествоЯчеекВЗадании1КонтекстноеМеню" id="205"/>
+											<ExtendedTooltip name="КоличествоЯчеекВЗадании1РасширеннаяПодсказка" id="206"/>
+										</InputField>
+									</ChildItems>
+								</Page>
+							</ChildItems>
+						</Pages>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПараметрыРегламентногоЗадания" id="151">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Параметры регламентного задания</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<ExtendedTooltip name="ГруппаПараметрыРегламентногоЗаданияРасширеннаяПодсказка" id="152"/>
+			<ChildItems>
+				<InputField name="НаименованиеРегламентногоЗадания" id="162">
+					<DataPath>НаименованиеРегламентногоЗадания</DataPath>
+					<HorizontalStretch>true</HorizontalStretch>
+					<ContextMenu name="НаименованиеРегламентногоЗаданияКонтекстноеМеню" id="163"/>
+					<ExtendedTooltip name="НаименованиеРегламентногоЗаданияРасширеннаяПодсказка" id="164"/>
+				</InputField>
+				<UsualGroup name="Группа3" id="175">
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="Группа3РасширеннаяПодсказка" id="176"/>
+					<ChildItems>
+						<UsualGroup name="Группа4" id="179">
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="Группа4РасширеннаяПодсказка" id="180"/>
+							<ChildItems>
+								<UsualGroup name="Группа1" id="165">
+									<Group>Horizontal</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="Группа1РасширеннаяПодсказка" id="166"/>
+									<ChildItems>
+										<InputField name="ПриОшибкахПовторятьРегламентноеЗадание" id="156">
+											<DataPath>ПриОшибкахПовторятьРегламентноеЗадание</DataPath>
+											<SpinButton>true</SpinButton>
+											<ContextMenu name="ПриОшибкахПовторятьРегламентноеЗаданиеКонтекстноеМеню" id="157"/>
+											<ExtendedTooltip name="ПриОшибкахПовторятьРегламентноеЗаданиеРасширеннаяПодсказка" id="158"/>
+										</InputField>
+										<LabelDecoration name="Декорация1" id="169">
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>раз</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="Декорация1КонтекстноеМеню" id="170"/>
+											<ExtendedTooltip name="Декорация1ExtendedTooltip" id="171"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
+								<UsualGroup name="Группа2" id="167">
+									<Group>Horizontal</Group>
+									<Representation>None</Representation>
+									<ShowTitle>false</ShowTitle>
+									<ExtendedTooltip name="Группа2РасширеннаяПодсказка" id="168"/>
+									<ChildItems>
+										<InputField name="ПриОшибкахПовторятьЧерезРегламентноеЗадание" id="159">
+											<DataPath>ПриОшибкахПовторятьЧерезРегламентноеЗадание</DataPath>
+											<SpinButton>true</SpinButton>
+											<ContextMenu name="ПриОшибкахПовторятьЧерезРегламентноеЗаданиеКонтекстноеМеню" id="160"/>
+											<ExtendedTooltip name="ПриОшибкахПовторятьЧерезРегламентноеЗаданиеРасширеннаяПодсказка" id="161"/>
+										</InputField>
+										<LabelDecoration name="Декорация2" id="172">
+											<AutoMaxWidth>false</AutoMaxWidth>
+											<Title formatted="false">
+												<v8:item>
+													<v8:lang>ru</v8:lang>
+													<v8:content>секунд</v8:content>
+												</v8:item>
+											</Title>
+											<ContextMenu name="Декорация2КонтекстноеМеню" id="173"/>
+											<ExtendedTooltip name="Декорация2ExtendedTooltip" id="174"/>
+										</LabelDecoration>
+									</ChildItems>
+								</UsualGroup>
+							</ChildItems>
+						</UsualGroup>
+						<UsualGroup name="Группа5" id="181">
+							<Group>Vertical</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="Группа5РасширеннаяПодсказка" id="182"/>
+							<ChildItems>
+								<LabelField name="РасписаниеРегламентногоЗадания" id="185">
+									<DataPath>РасписаниеРегламентногоЗадания</DataPath>
+									<Hiperlink>true</Hiperlink>
+									<ContextMenu name="РасписаниеРегламентногоЗаданияКонтекстноеМеню" id="186"/>
+									<ExtendedTooltip name="РасписаниеРегламентногоЗаданияРасширеннаяПодсказка" id="187"/>
+									<Events>
+										<Event name="Click">РасписаниеРегламентногоЗаданияНажатие</Event>
+									</Events>
+								</LabelField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="ПересчетПоНастройкамПериодичности" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пересчет по настройкам периодичности</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПересчетСомнительныхЯчеек" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пересчет сомнительных ячеек</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РазбиватьПоРабочимУчасткам" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>рабочим участкам</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="РазбиватьПоКоличествуЯчеек" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>количеству ячеек</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоЯчеекВЗадании" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ячейки(ячеек) в одном задании</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>0</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+			<FillCheck>ShowError</FillCheck>
+		</Attribute>
+		<Attribute name="ОтборПересчета" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отбор пересчета</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>dcsset:SettingsComposer</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПересчетПоНаполненности" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пересчет по наполненности</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПересчетПоОсобымУсловиям" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пересчет по особым условиям</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="Склад" id="10">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Склад</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.Склады</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="Помещение" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Помещение</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:CatalogRef.СкладскиеПомещения</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ПересчетПоЯчейкамСОтрицательнымиОстатками" id="13">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ДатаПересчета" id="14">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Дата пересчета</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:dateTime</v8:Type>
+				<v8:DateQualifiers>
+					<v8:DateFractions>DateTime</v8:DateFractions>
+				</v8:DateQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="НаименованиеРегламентногоЗадания" id="18">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Наименование</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПриОшибкахПовторятьРегламентноеЗадание" id="19">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При ошибках повторять</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПриОшибкахПовторятьЧерезРегламентноеЗадание" id="21">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При ошибках повторять через</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>10</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РасписаниеРегламентногоЗадания" id="17">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Расписание</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+		<Attribute name="ДействиеНадРегламентнымЗаданием" id="16">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Действие над регламентным заданием</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="СоздатьЗадания" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать задания</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Создать задания</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>СоздатьЗадания</Action>
+		</Command>
+		<Command name="Отмена" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Отмена</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>Отмена</Action>
+		</Command>
+		<Command name="НастройкаАвтоматическогоСозданияПересчетов" id="4">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка автоматического создания пересчетов</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка автоматического создания пересчетов</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>НастройкаАвтоматическогоСозданияПересчетов</Action>
+		</Command>
+	</Commands>
+</Form>

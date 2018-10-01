@@ -1,0 +1,23 @@
+﻿<package xmlns="http://v8.1c.ru/8.1/xdto" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://fsrar.ru/WEGAIS/ReplyHistoryShop" elementFormQualified="true" attributeFormQualified="false">
+	<import namespace="http://fsrar.ru/WEGAIS/Common"/>
+	<objectType name="DocDataType">
+		<property name="DocType" type="xs:string"/>
+		<property name="DocId" type="xs:string"/>
+		<property name="OperDate" type="xs:dateTime"/>
+		<property name="Quantity" type="xs:decimal"/>
+		<property name="RegForm2" type="xs:string"/>
+	</objectType>
+	<objectType name="ReplyHistoryTransferShop" ordered="false" sequenced="true">
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="ReplyDate" type="d3p1:DateWTime"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="monthReport" type="d3p1:MonthType"/>
+		<property xmlns:d3p1="http://fsrar.ru/WEGAIS/Common" name="yearReport" type="d3p1:YearType"/>
+		<property name="AlcCode" nillable="false">
+			<typeDef xmlns:d4p1="http://fsrar.ru/WEGAIS/Common" xsi:type="ValueType" base="d4p1:NoEmptyString" variety="Atomic" maxLength="64"/>
+		</property>
+		<property name="History">
+			<typeDef xsi:type="ObjectType">
+				<property xmlns:d5p1="http://fsrar.ru/WEGAIS/ReplyHistoryShop" name="DocData" type="d5p1:DocDataType" lowerBound="0" upperBound="-1"/>
+			</typeDef>
+		</property>
+	</objectType>
+</package>

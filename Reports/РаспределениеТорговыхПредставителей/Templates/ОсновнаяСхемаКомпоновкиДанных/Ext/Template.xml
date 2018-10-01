@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<DataCompositionSchema xmlns="http://v8.1c.ru/8.1/data-composition-system/schema" xmlns:dcscom="http://v8.1c.ru/8.1/data-composition-system/common" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<dataSource>
+		<name>ИсточникДанных1</name>
+		<dataSourceType>Local</dataSourceType>
+	</dataSource>
+	<dataSet xsi:type="DataSetQuery">
+		<name>Запрос</name>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ДатаВизитаПлан</dataPath>
+			<field>ДатаВизитаПлан</field>
+			<presentationExpression>Формат(ДатаВизитаПлан, "ДФ=дд.ММ.гг") + " " + "(" + Формат(ДатаВизитаПлан, "ДФ=ддд")+ ")"</presentationExpression>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ТорговыйПредставитель</dataPath>
+			<field>ТорговыйПредставитель</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Визиты</dataPath>
+			<field>Визиты</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Визиты</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Партнер</dataPath>
+			<field>Партнер</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Клиент</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВремяНачала</dataPath>
+			<field>ВремяНачала</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>ВремяОкончания</dataPath>
+			<field>ВремяОкончания</field>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Задание</dataPath>
+			<field>Задание</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Задание</v8:content>
+				</v8:item>
+			</title>
+			<useRestriction>
+				<field>true</field>
+			</useRestriction>
+			<presentationExpression>Строка(Задание.Номер) + " от " + Формат(Задание.Дата, "ДФ=дд.ММ.гг")</presentationExpression>
+		</field>
+		<field xsi:type="DataSetFieldField">
+			<dataPath>Длительность</dataPath>
+			<field>Длительность</field>
+			<title xsi:type="v8:LocalStringType">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Длительность</v8:content>
+				</v8:item>
+			</title>
+		</field>
+		<dataSource>ИсточникДанных1</dataSource>
+		<query>ВЫБРАТЬ РАЗРЕШЕННЫЕ
+	ЗаданиеТорговомуПредставителю.ДатаВизитаПлан КАК ДатаВизитаПлан,
+	ЗаданиеТорговомуПредставителю.ТорговыйПредставитель КАК ТорговыйПредставитель,
+	КОЛИЧЕСТВО(РАЗЛИЧНЫЕ ЗаданиеТорговомуПредставителю.Ссылка) КАК Визиты,
+	ЗаданиеТорговомуПредставителю.Партнер,
+	ЗаданиеТорговомуПредставителю.ВремяНачала КАК ВремяНачала,
+	ЗаданиеТорговомуПредставителю.ВремяОкончания,
+	ЗаданиеТорговомуПредставителю.Ссылка КАК Задание,
+	ВЫБОР
+		КОГДА ЗаданиеТорговомуПредставителю.ВремяНачала &lt;&gt; &amp;ПустаяДата
+				И ЗаданиеТорговомуПредставителю.ВремяОкончания &gt; ЗаданиеТорговомуПредставителю.ВремяНачала
+			ТОГДА ЕСТЬNULL(РАЗНОСТЬДАТ(ЗаданиеТорговомуПредставителю.ВремяНачала, ЗаданиеТорговомуПредставителю.ВремяОкончания, СЕКУНДА), 0)
+		ИНАЧЕ 0
+	КОНЕЦ КАК Длительность
+ИЗ
+	Документ.ЗаданиеТорговомуПредставителю КАК ЗаданиеТорговомуПредставителю
+ГДЕ
+	(НЕ ЗаданиеТорговомуПредставителю.ПометкаУдаления)
+	И (ЗаданиеТорговомуПредставителю.ДатаВизитаПлан &gt;= НАЧАЛОПЕРИОДА(&amp;НачалоПериода, ДЕНЬ)
+				И (ЗаданиеТорговомуПредставителю.ДатаВизитаПлан &lt;= КОНЕЦПЕРИОДА(&amp;КонецПериода, ДЕНЬ)
+					ИЛИ &amp;КонецПериода = &amp;ПустаяДата)
+			ИЛИ ЗаданиеТорговомуПредставителю.ДатаВизитаПлан = &amp;ПустаяДата)
+
+СГРУППИРОВАТЬ ПО
+	ЗаданиеТорговомуПредставителю.ТорговыйПредставитель,
+	ЗаданиеТорговомуПредставителю.Партнер,
+	ЗаданиеТорговомуПредставителю.ДатаВизитаПлан,
+	ЗаданиеТорговомуПредставителю.ВремяНачала,
+	ЗаданиеТорговомуПредставителю.ВремяОкончания,
+	ЗаданиеТорговомуПредставителю.Ссылка
+
+УПОРЯДОЧИТЬ ПО
+	ТорговыйПредставитель,
+	ДатаВизитаПлан,
+	ВремяНачала</query>
+	</dataSet>
+	<calculatedField>
+		<dataPath>ДеньНедели</dataPath>
+		<expression>ДеньНедели(ДатаВизитаПлан)</expression>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>День недели</v8:content>
+			</v8:item>
+		</title>
+	</calculatedField>
+	<totalField>
+		<dataPath>Визиты</dataPath>
+		<expression>Количество(Визиты)</expression>
+	</totalField>
+	<totalField>
+		<dataPath>ВремяНачала</dataPath>
+		<expression>Минимум(ВремяНачала)</expression>
+		<group>Задание</group>
+		<group>Партнер</group>
+		<group>ТорговыйПредставитель</group>
+	</totalField>
+	<totalField>
+		<dataPath>ВремяОкончания</dataPath>
+		<expression>Максимум(ВремяОкончания)</expression>
+		<group>Задание</group>
+		<group>Партнер</group>
+		<group>ТорговыйПредставитель</group>
+	</totalField>
+	<totalField>
+		<dataPath>Длительность</dataPath>
+		<expression>Сумма(Длительность)</expression>
+	</totalField>
+	<parameter>
+		<name>ПериодОтчета</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Период</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>v8:StandardPeriod</v8:Type>
+		</valueType>
+		<value xsi:type="v8:StandardPeriod">
+			<v8:variant xsi:type="v8:StandardPeriodVariant">ThisWeek</v8:variant>
+		</value>
+		<useRestriction>false</useRestriction>
+	</parameter>
+	<parameter>
+		<name>НачалоПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Начало периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;ПериодОтчета.ДатаНачала</expression>
+	</parameter>
+	<parameter>
+		<name>КонецПериода</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Окончание периода</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>&amp;ПериодОтчета.ДатаОкончания</expression>
+	</parameter>
+	<parameter>
+		<name>ТекущаяДата</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Текущая дата</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>DateTime</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<expression>ТекущаяДатаСеанса()</expression>
+	</parameter>
+	<parameter>
+		<name>ПустаяДата</name>
+		<title xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Пустая дата</v8:content>
+			</v8:item>
+		</title>
+		<valueType>
+			<v8:Type>xs:dateTime</v8:Type>
+			<v8:DateQualifiers>
+				<v8:DateFractions>Date</v8:DateFractions>
+			</v8:DateQualifiers>
+		</valueType>
+		<value xsi:type="xs:dateTime">0001-01-01T00:00:00</value>
+		<useRestriction>true</useRestriction>
+		<availableAsField>false</availableAsField>
+	</parameter>
+	<settingsVariant>
+		<dcsset:name>КалендарьВизитовТорговыхПредставителей</dcsset:name>
+		<dcsset:presentation xsi:type="v8:LocalStringType">
+			<v8:item>
+				<v8:lang>ru</v8:lang>
+				<v8:content>Календарь визитов торговых представителей</v8:content>
+			</v8:item>
+		</dcsset:presentation>
+		<dcsset:settings xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows">
+			<dcsset:userFields>
+				<dcsset:item xsi:type="dcsset:UserFieldExpression">
+					<dcsset:dataPath>UserFields.field2</dcsset:dataPath>
+					<dcsset:title>ДлительностьЧасов</dcsset:title>
+					<dcsset:detailExpression>Выбор
+	Когда Длительность = 0 Или Длительность Есть Null
+		Тогда ""
+	Иначе Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "ЧАС")) + ":" + Выбор
+			Когда РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "ЧАС") * 60 &lt; 10
+				Тогда "0" + Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "ЧАС") * 60)
+			Иначе Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Длительность), "ЧАС") * 60)
+		Конец
+Конец</dcsset:detailExpression>
+					<dcsset:detailExpressionPresentation>Выбор
+	Когда Длительность = 0 Или Длительность Есть Null
+		Тогда ""
+	Иначе Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "ЧАС")) + ":" + Выбор
+			Когда РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "ЧАС") * 60 &lt; 10
+				Тогда "0" + Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "ЧАС") * 60)
+			Иначе Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Длительность), "ЧАС") * 60)
+		Конец
+Конец</dcsset:detailExpressionPresentation>
+					<dcsset:totalExpression>Выбор
+	Когда Сумма(Длительность) = 0 Или Сумма(Длительность) Есть Null
+		Тогда ""
+	Иначе Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "ЧАС")) + ":" + Выбор
+			Когда РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60 &lt; 10
+				Тогда "0" + Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60)
+			Иначе Строка(РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;ПустаяДата, ДобавитьКДате(&amp;ПустаяДата, "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60)
+		Конец
+Конец</dcsset:totalExpression>
+					<dcsset:totalExpressionPresentation>Выбор
+	Когда Сумма(Длительность) = 0 Или Сумма(Длительность) Есть Null
+		Тогда ""
+	Иначе Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "ЧАС")) + ":" + Выбор
+			Когда РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60 &lt; 10
+				Тогда "0" + Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60)
+			Иначе Строка(РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "МИНУТА") - РазностьДат(&amp;[Пустая дата], ДобавитьКДате(&amp;[Пустая дата], "СЕКУНДА", Сумма(Длительность)), "ЧАС") * 60)
+		Конец
+Конец</dcsset:totalExpressionPresentation>
+				</dcsset:item>
+			</dcsset:userFields>
+			<dcsset:selection>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>Визиты</dcsset:field>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВремяНачала</dcsset:field>
+					<dcsset:title>Нач.</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>ВремяОкончания</dcsset:field>
+					<dcsset:title>Кон.</dcsset:title>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:SelectedItemField">
+					<dcsset:field>UserFields.field2</dcsset:field>
+					<dcsset:title>Длит.</dcsset:title>
+				</dcsset:item>
+			</dcsset:selection>
+			<dcsset:filter>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">ТорговыйПредставитель</dcsset:left>
+					<dcsset:comparisonType>Equal</dcsset:comparisonType>
+					<dcsset:userSettingID>e70b9f2c-f86c-42a4-9c35-35e4953137ec</dcsset:userSettingID>
+				</dcsset:item>
+				<dcsset:item xsi:type="dcsset:FilterItemComparison">
+					<dcsset:use>false</dcsset:use>
+					<dcsset:left xsi:type="dcscor:Field">Партнер</dcsset:left>
+					<dcsset:comparisonType>InListByHierarchy</dcsset:comparisonType>
+					<dcsset:right xsi:type="v8:ValueListType">
+						<v8:valueType/>
+						<v8:lastId xsi:type="xs:decimal">-1</v8:lastId>
+					</dcsset:right>
+					<dcsset:viewMode>Normal</dcsset:viewMode>
+					<dcsset:userSettingID>6e23828d-9617-437c-b921-bfe23423939c</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Клиент</v8:content>
+						</v8:item>
+					</dcsset:userSettingPresentation>
+				</dcsset:item>
+			</dcsset:filter>
+			<dcsset:dataParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ПериодОтчета</dcscor:parameter>
+					<dcscor:value xsi:type="v8:StandardPeriod">
+						<v8:variant xsi:type="v8:StandardPeriodVariant">ThisWeek</v8:variant>
+					</dcscor:value>
+					<dcsset:userSettingID>8d169779-2a38-4892-a7d1-2a48395f99e4</dcsset:userSettingID>
+					<dcsset:userSettingPresentation xsi:type="xs:string">Период</dcsset:userSettingPresentation>
+				</dcscor:item>
+			</dcsset:dataParameters>
+			<dcsset:conditionalAppearance>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>Визиты</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>МаксимальнаяШирина</dcscor:parameter>
+							<dcscor:value xsi:type="xs:decimal">8</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>ВремяНачала</dcsset:field>
+						</dcsset:item>
+						<dcsset:item>
+							<dcsset:field>ВремяОкончания</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>МаксимальнаяШирина</dcscor:parameter>
+							<dcscor:value xsi:type="xs:decimal">5</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection>
+						<dcsset:item>
+							<dcsset:field>UserFields.field2</dcsset:field>
+						</dcsset:item>
+					</dcsset:selection>
+					<dcsset:filter/>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ГоризонтальноеПоложение</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:HorizontalAlign">Right</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+				</dcsset:item>
+				<dcsset:item>
+					<dcsset:selection/>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Задание.Статус</dcsset:left>
+							<dcsset:comparisonType>Equal</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:string">Отработано</dcsset:right>
+							<dcsset:presentation xsi:type="xs:string">Задание отработано</dcsset:presentation>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:appearance>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">web:LightGray</dcscor:value>
+						</dcscor:item>
+					</dcsset:appearance>
+					<dcsset:presentation xsi:type="xs:string">Выделение цветом отработанных заданий</dcsset:presentation>
+				</dcsset:item>
+			</dcsset:conditionalAppearance>
+			<dcsset:outputParameters>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>МакетОформления</dcscor:parameter>
+					<dcscor:value xsi:type="xs:string">Основной</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>ГоризонтальноеРасположениеОбщихИтогов</dcscor:parameter>
+					<dcscor:value xsi:type="dcscor:DataCompositionTotalPlacement">None</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+					<dcscor:value xsi:type="dcsset:DataCompositionTextOutputType">Output</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+					<dcscor:parameter>Заголовок</dcscor:parameter>
+					<dcscor:value xsi:type="v8:LocalStringType">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Календарь визитов торговых представителей</v8:content>
+						</v8:item>
+					</dcscor:value>
+				</dcscor:item>
+			</dcsset:outputParameters>
+			<dcsset:item xsi:type="dcsset:StructureItemTable">
+				<dcsset:column>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>ДатаВизитаПлан</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>Day</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="dcscor:Field">DataParameters.НачалоПериода</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="dcscor:Field">DataParameters.КонецПериода</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:filter>
+						<dcsset:item xsi:type="dcsset:FilterItemComparison">
+							<dcsset:left xsi:type="dcscor:Field">Визиты</dcsset:left>
+							<dcsset:comparisonType>Greater</dcsset:comparisonType>
+							<dcsset:right xsi:type="xs:decimal">0</dcsset:right>
+							<dcsset:presentation xsi:type="v8:LocalStringType">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Только дни с визитами</v8:content>
+								</v8:item>
+							</dcsset:presentation>
+							<dcsset:viewMode>Normal</dcsset:viewMode>
+							<dcsset:userSettingID>75b7e632-c38d-42a8-a8ba-8b8c6b567ae9</dcsset:userSettingID>
+						</dcsset:item>
+					</dcsset:filter>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:conditionalAppearance>
+						<dcsset:item>
+							<dcsset:selection/>
+							<dcsset:filter>
+								<dcsset:item xsi:type="dcsset:FilterItemComparison">
+									<dcsset:left xsi:type="dcscor:Field">ДеньНедели</dcsset:left>
+									<dcsset:comparisonType>Greater</dcsset:comparisonType>
+									<dcsset:right xsi:type="xs:decimal">5</dcsset:right>
+								</dcsset:item>
+							</dcsset:filter>
+							<dcsset:appearance>
+								<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+									<dcscor:parameter>ЦветФона</dcscor:parameter>
+									<dcscor:value xsi:type="v8ui:Color">#FFACAC</dcscor:value>
+								</dcscor:item>
+							</dcsset:appearance>
+						</dcsset:item>
+					</dcsset:conditionalAppearance>
+					<dcsset:outputParameters>
+						<dcscor:item xsi:type="dcsset:SettingsParameterValue">
+							<dcscor:parameter>РасположениеРеквизитов</dcscor:parameter>
+							<dcscor:value xsi:type="dcsset:DataCompositionAttributesPlacement">WithOwnerField</dcscor:value>
+						</dcscor:item>
+					</dcsset:outputParameters>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+				</dcsset:column>
+				<dcsset:row>
+					<dcsset:name>ТорговыйПредставитель</dcsset:name>
+					<dcsset:groupItems>
+						<dcsset:item xsi:type="dcsset:GroupItemField">
+							<dcsset:field>ТорговыйПредставитель</dcsset:field>
+							<dcsset:groupType>Items</dcsset:groupType>
+							<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+							<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+							<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+						</dcsset:item>
+					</dcsset:groupItems>
+					<dcsset:order>
+						<dcsset:item xsi:type="dcsset:OrderItemAuto"/>
+					</dcsset:order>
+					<dcsset:selection>
+						<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+					</dcsset:selection>
+					<dcsset:item>
+						<dcsset:groupItems>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Партнер</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:GroupItemField">
+								<dcsset:field>Задание</dcsset:field>
+								<dcsset:groupType>Items</dcsset:groupType>
+								<dcsset:periodAdditionType>None</dcsset:periodAdditionType>
+								<dcsset:periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionBegin>
+								<dcsset:periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</dcsset:periodAdditionEnd>
+							</dcsset:item>
+						</dcsset:groupItems>
+						<dcsset:order>
+							<dcsset:item xsi:type="dcsset:OrderItemField">
+								<dcsset:field>Задание.ДатаВизитаПлан</dcsset:field>
+								<dcsset:orderType>Asc</dcsset:orderType>
+							</dcsset:item>
+							<dcsset:item xsi:type="dcsset:OrderItemField">
+								<dcsset:field>Задание.ВремяНачала</dcsset:field>
+								<dcsset:orderType>Asc</dcsset:orderType>
+							</dcsset:item>
+						</dcsset:order>
+						<dcsset:selection>
+							<dcsset:item xsi:type="dcsset:SelectedItemAuto"/>
+						</dcsset:selection>
+						<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+					</dcsset:item>
+					<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+				</dcsset:row>
+				<dcsset:columnsViewMode>Normal</dcsset:columnsViewMode>
+				<dcsset:rowsViewMode>Normal</dcsset:rowsViewMode>
+			</dcsset:item>
+			<dcsset:itemsViewMode>Normal</dcsset:itemsViewMode>
+		</dcsset:settings>
+	</settingsVariant>
+</DataCompositionSchema>

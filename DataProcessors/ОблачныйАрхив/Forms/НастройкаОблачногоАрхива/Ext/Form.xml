@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Настройка 1С:Облачный архив</v8:content>
+		</v8:item>
+	</Title>
+	<Height>40</Height>
+	<AutoTitle>false</AutoTitle>
+	<Customizable>false</Customizable>
+	<CommandBarLocation>Bottom</CommandBarLocation>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1">
+		<HorizontalAlign>Right</HorizontalAlign>
+		<Autofill>false</Autofill>
+		<ChildItems>
+			<Button name="ФормаКомандаГотово" id="11">
+				<Type>CommandBarButton</Type>
+				<DefaultButton>true</DefaultButton>
+				<CommandName>Form.Command.КомандаЗаписатьИЗакрыть</CommandName>
+				<ExtendedTooltip name="ФормаКомандаГотовоРасширеннаяПодсказка" id="12"/>
+			</Button>
+			<Button name="ФормаЗакрыть" id="13">
+				<Type>CommandBarButton</Type>
+				<CommandName>Form.StandardCommand.Close</CommandName>
+				<Title>
+					<v8:item>
+						<v8:lang>ru</v8:lang>
+						<v8:content>Отмена</v8:content>
+					</v8:item>
+				</Title>
+				<ExtendedTooltip name="ФормаЗакрытьРасширеннаяПодсказка" id="14"/>
+			</Button>
+		</ChildItems>
+	</AutoCommandBar>
+	<Events>
+		<Event name="ChoiceProcessing">ОбработкаВыбора</Event>
+		<Event name="OnOpen">ПриОткрытии</Event>
+		<Event name="OnCreateAtServer">ПриСозданииНаСервере</Event>
+	</Events>
+	<ChildItems>
+		<UsualGroup name="ГруппаОбщаяИнформация" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Общая информация</v8:content>
+				</v8:item>
+			</Title>
+			<Group>Vertical</Group>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаОбщаяИнформацияРасширеннаяПодсказка" id="2"/>
+			<ChildItems>
+				<InputField name="ИмяИБ" id="18">
+					<DataPath>ИмяИБ</DataPath>
+					<SkipOnInput>true</SkipOnInput>
+					<WarningOnEditRepresentation>Show</WarningOnEditRepresentation>
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<ContextMenu name="ИмяИБКонтекстноеМеню" id="19"/>
+					<ExtendedTooltip name="ИмяИБРасширеннаяПодсказка" id="20"/>
+					<Events>
+						<Event name="OnChange">ИмяИБПриИзменении</Event>
+					</Events>
+				</InputField>
+				<InputField name="ИдентификаторКомпьютера" id="79">
+					<DataPath>ИдентификаторКомпьютера</DataPath>
+					<SkipOnInput>true</SkipOnInput>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Идентификатор компьютера хранится в реестре Windows по адресу: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MachineGuid.
+Необходимо заполнить это поле для каждого компьютера, где планируется использовать Агента резервного копирования.</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ToolTipRepresentation>Button</ToolTipRepresentation>
+					<WarningOnEditRepresentation>Show</WarningOnEditRepresentation>
+					<WarningOnEdit>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Не рекомендуется изменять это значение, если оно уже заполнено</v8:content>
+						</v8:item>
+					</WarningOnEdit>
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<ContextMenu name="ИдентификаторКомпьютераКонтекстноеМеню" id="80"/>
+					<ExtendedTooltip name="ИдентификаторКомпьютераРасширеннаяПодсказка" id="81"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаНастройкаРасписания" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Настройка расписания</v8:content>
+				</v8:item>
+			</Title>
+			<Height>2</Height>
+			<HorizontalStretch>true</HorizontalStretch>
+			<GroupVerticalAlign>Center</GroupVerticalAlign>
+			<Group>Horizontal</Group>
+			<VerticalAlign>Center</VerticalAlign>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаНастройкаРасписанияРасширеннаяПодсказка" id="4"/>
+			<ChildItems>
+				<CheckBoxField name="РасписаниеВключено" id="26">
+					<DataPath>РасписаниеВключено</DataPath>
+					<TitleLocation>None</TitleLocation>
+					<CheckBoxType>Auto</CheckBoxType>
+					<ContextMenu name="РасписаниеВключеноКонтекстноеМеню" id="27"/>
+					<ExtendedTooltip name="РасписаниеВключеноРасширеннаяПодсказка" id="28"/>
+					<Events>
+						<Event name="OnChange">РасписаниеВключеноПриИзменении</Event>
+					</Events>
+				</CheckBoxField>
+				<LabelDecoration name="ДекорацияРасписание" id="29">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<Title formatted="true">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Выполнять автоматическое резервное копирование по &lt;link backup1C:EditBackupScheduler&gt;расписанию&lt;/&gt;.</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ДекорацияРасписаниеКонтекстноеМеню" id="30"/>
+					<ExtendedTooltip name="ДекорацияРасписаниеРасширеннаяПодсказка" id="31"/>
+					<Events>
+						<Event name="URLProcessing">ОбработкаНавигационнойСсылки</Event>
+					</Events>
+				</LabelDecoration>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаПараметрыХраненияРезервныхКопий" id="5">
+			<EnableContentChange>true</EnableContentChange>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Параметры хранения резервных копий в хранилище 1С:Облачный архив</v8:content>
+				</v8:item>
+			</Title>
+			<TitleFont ref="style:NormalTextFont" kind="StyleItem"/>
+			<HorizontalStretch>true</HorizontalStretch>
+			<Group>Vertical</Group>
+			<VerticalSpacing>Half</VerticalSpacing>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаПараметрыХраненияРезервныхКопийРасширеннаяПодсказка" id="6"/>
+			<ChildItems>
+				<LabelDecoration name="ДекорацияПараметрыХраненияРезервныхКопий" id="41">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Height>2</Height>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<VerticalStretch>false</VerticalStretch>
+					<TextColor>web:MediumSeaGreen</TextColor>
+					<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Параметры хранения резервных копий в хранилище 1С:Облачный архив</v8:content>
+						</v8:item>
+					</Title>
+					<VerticalAlign>Bottom</VerticalAlign>
+					<ContextMenu name="ДекорацияПараметрыХраненияРезервныхКопийКонтекстноеМеню" id="42"/>
+					<ExtendedTooltip name="ДекорацияПараметрыХраненияРезервныхКопийРасширеннаяПодсказка" id="43"/>
+				</LabelDecoration>
+				<InputField name="КоличествоХранимыхКопий_Ежедневные" id="32">
+					<DataPath>КоличествоХранимыхКопий_Ежедневные</DataPath>
+					<Width>5</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="КоличествоХранимыхКопий_ЕжедневныеКонтекстноеМеню" id="33"/>
+					<ExtendedTooltip name="КоличествоХранимыхКопий_ЕжедневныеРасширеннаяПодсказка" id="34"/>
+				</InputField>
+				<InputField name="КоличествоХранимыхКопий_Еженедельные" id="35">
+					<DataPath>КоличествоХранимыхКопий_Еженедельные</DataPath>
+					<Width>5</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="КоличествоХранимыхКопий_ЕженедельныеКонтекстноеМеню" id="36"/>
+					<ExtendedTooltip name="КоличествоХранимыхКопий_ЕженедельныеРасширеннаяПодсказка" id="37"/>
+				</InputField>
+				<InputField name="КоличествоХранимыхКопий_Ежемесячные" id="38">
+					<DataPath>КоличествоХранимыхКопий_Ежемесячные</DataPath>
+					<Width>5</Width>
+					<HorizontalStretch>false</HorizontalStretch>
+					<ContextMenu name="КоличествоХранимыхКопий_ЕжемесячныеКонтекстноеМеню" id="39"/>
+					<ExtendedTooltip name="КоличествоХранимыхКопий_ЕжемесячныеРасширеннаяПодсказка" id="40"/>
+				</InputField>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаЗапускСервисаВWindows" id="44">
+			<EnableContentChange>true</EnableContentChange>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Запуск сервиса резервного копирования в Windows</v8:content>
+				</v8:item>
+			</Title>
+			<TitleFont ref="style:NormalTextFont" kind="StyleItem"/>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Данные локального администратора Windows</v8:content>
+				</v8:item>
+			</ToolTip>
+			<HorizontalStretch>true</HorizontalStretch>
+			<Group>Vertical</Group>
+			<VerticalSpacing>Half</VerticalSpacing>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаЗапускСервисаВWindowsРасширеннаяПодсказка" id="45"/>
+			<ChildItems>
+				<LabelDecoration name="ДекорацияГруппаЗапускСервисаВWindowsТекст" id="46">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Height>2</Height>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<VerticalStretch>false</VerticalStretch>
+					<TextColor>web:MediumSeaGreen</TextColor>
+					<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Запуск сервиса резервного копирования в Windows</v8:content>
+						</v8:item>
+					</Title>
+					<VerticalAlign>Bottom</VerticalAlign>
+					<ContextMenu name="ДекорацияГруппаЗапускСервисаВWindowsТекстКонтекстноеМеню" id="47"/>
+					<ExtendedTooltip name="ДекорацияГруппаЗапускСервисаВWindowsТекстРасширеннаяПодсказка" id="48"/>
+				</LabelDecoration>
+				<LabelDecoration name="ДекорацияГруппаЗапускСервисаВWindowsПодсказка" id="55">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<MaxWidth>50</MaxWidth>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<VerticalStretch>false</VerticalStretch>
+					<TextColor>style:ПоясняющийТекст</TextColor>
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Реквизиты локального администратора операционной системы, от имени которого происходит запуск сервиса резервного копирования:</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ДекорацияГруппаЗапускСервисаВWindowsПодсказкаКонтекстноеМеню" id="56"/>
+					<ExtendedTooltip name="ДекорацияГруппаЗапускСервисаВWindowsПодсказкаРасширеннаяПодсказка" id="57"/>
+				</LabelDecoration>
+				<UsualGroup name="ГруппаЛогинАдминистратораОС" id="82">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Группа Логин администратора ОС</v8:content>
+						</v8:item>
+					</Title>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаЛогинАдминистратораОСРасширеннаяПодсказка" id="83"/>
+					<ChildItems>
+						<InputField name="ЛогинАдминистратораОС" id="49">
+							<DataPath>ЛогинАдминистратораОС</DataPath>
+							<ToolTip>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Если у администратора, от имени которого запускается сервис Агента резервного копирования, изменился пароль, или необходимо изменить саму учетную запись, то заполните поля Логин (без имени домена) и Пароль.</v8:content>
+								</v8:item>
+							</ToolTip>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<MaxWidth>20</MaxWidth>
+							<ContextMenu name="ЛогинАдминистратораОСКонтекстноеМеню" id="50"/>
+							<ExtendedTooltip name="ЛогинАдминистратораОСРасширеннаяПодсказка" id="51"/>
+							<Events>
+								<Event name="OnChange">ЛогинАдминистратораОСПриИзменении</Event>
+							</Events>
+						</InputField>
+						<LabelDecoration name="ДекорацияЛогинАдминистратораОС" id="89">
+							<HorizontalStretch>true</HorizontalStretch>
+							<TextColor>style:SpecialTextColor</TextColor>
+							<Font ref="style:SmallTextFont" kind="StyleItem"/>
+							<ContextMenu name="ДекорацияЛогинАдминистратораОСКонтекстноеМеню" id="90"/>
+							<ExtendedTooltip name="ДекорацияЛогинАдминистратораОСРасширеннаяПодсказка" id="91"/>
+						</LabelDecoration>
+					</ChildItems>
+				</UsualGroup>
+				<UsualGroup name="ГруппаПарольИКнопка" id="60">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Пароль и кнопка</v8:content>
+						</v8:item>
+					</Title>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаПарольИКнопкаРасширеннаяПодсказка" id="61"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаПарольАдминистратораОС" id="84">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Группа пароль администратора ОС</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Horizontal</Group>
+							<Representation>None</Representation>
+							<ShowTitle>false</ShowTitle>
+							<ExtendedTooltip name="ГруппаПарольАдминистратораОСРасширеннаяПодсказка" id="85"/>
+							<ChildItems>
+								<InputField name="ПарольАдминистратораОС" id="52">
+									<DataPath>ПарольАдминистратораОС</DataPath>
+									<AutoMaxWidth>false</AutoMaxWidth>
+									<MaxWidth>20</MaxWidth>
+									<PasswordMode>true</PasswordMode>
+									<OpenButton>true</OpenButton>
+									<InputHint>
+										<v8:item>
+											<v8:lang>ru</v8:lang>
+											<v8:content>Введите пароль</v8:content>
+										</v8:item>
+									</InputHint>
+									<ContextMenu name="ПарольАдминистратораОСКонтекстноеМеню" id="53"/>
+									<ExtendedTooltip name="ПарольАдминистратораОСРасширеннаяПодсказка" id="54"/>
+									<Events>
+										<Event name="OnChange">ПарольАдминистратораОСПриИзменении</Event>
+										<Event name="Opening">ПарольАдминистратораОСОткрытие</Event>
+									</Events>
+								</InputField>
+								<LabelDecoration name="ДекорацияПарольАдминистратораОС" id="86">
+									<HorizontalStretch>true</HorizontalStretch>
+									<TextColor>style:SpecialTextColor</TextColor>
+									<Font ref="style:SmallTextFont" kind="StyleItem"/>
+									<ContextMenu name="ДекорацияПарольАдминистратораОСКонтекстноеМеню" id="87"/>
+									<ExtendedTooltip name="ДекорацияПарольАдминистратораОСРасширеннаяПодсказка" id="88"/>
+								</LabelDecoration>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<UsualGroup name="ГруппаТехническаяИнформация" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Техническая информация</v8:content>
+				</v8:item>
+			</Title>
+			<HorizontalStretch>true</HorizontalStretch>
+			<VerticalStretch>true</VerticalStretch>
+			<Group>Vertical</Group>
+			<ShowTitle>false</ShowTitle>
+			<ExtendedTooltip name="ГруппаТехническаяИнформацияРасширеннаяПодсказка" id="8"/>
+			<ChildItems>
+				<LabelDecoration name="ДекорацияГруппаТехническаяИнформацияТекст" id="68">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<Height>2</Height>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<VerticalStretch>false</VerticalStretch>
+					<TextColor>web:MediumSeaGreen</TextColor>
+					<Font ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+					<Title formatted="false">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Техническая информация</v8:content>
+						</v8:item>
+					</Title>
+					<VerticalAlign>Bottom</VerticalAlign>
+					<ContextMenu name="ДекорацияГруппаТехническаяИнформацияТекстКонтекстноеМеню" id="69"/>
+					<ExtendedTooltip name="ДекорацияГруппаТехническаяИнформацияТекстРасширеннаяПодсказка" id="70"/>
+				</LabelDecoration>
+				<LabelDecoration name="ДекорацияЖурналРаботыРезервногоКопированияИВерсияАгента" id="65">
+					<AutoMaxWidth>false</AutoMaxWidth>
+					<AutoMaxHeight>false</AutoMaxHeight>
+					<HorizontalStretch>true</HorizontalStretch>
+					<Title formatted="true">
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>&lt;link backup1C:BackupAgentEventLog&gt;Журнал работы&lt;/&gt; Агента резервного копирования
+
+Установленная версия Агента резервного копирования: &lt;b&gt;1.2.3.4&lt;/&gt;
+Установленная версия подсистемы Облачный архив: &lt;b&gt;2.3.4.5&lt;/&gt;</v8:content>
+						</v8:item>
+					</Title>
+					<ContextMenu name="ДекорацияЖурналРаботыРезервногоКопированияИВерсияАгентаКонтекстноеМеню" id="66"/>
+					<ExtendedTooltip name="ДекорацияЖурналРаботыРезервногоКопированияИВерсияАгентаРасширеннаяПодсказка" id="67"/>
+					<Events>
+						<Event name="URLProcessing">ОбработкаНавигационнойСсылки</Event>
+					</Events>
+				</LabelDecoration>
+				<UsualGroup name="ГруппаОшибка" id="71">
+					<EnableContentChange>true</EnableContentChange>
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Сохранение настроек не было завершено.</v8:content>
+						</v8:item>
+					</Title>
+					<TitleTextColor>style:FormTextColor</TitleTextColor>
+					<TitleFont ref="style:NormalTextFont" bold="true" italic="false" underline="false" strikeout="false" kind="StyleItem"/>
+					<HorizontalStretch>true</HorizontalStretch>
+					<VerticalStretch>false</VerticalStretch>
+					<Group>Horizontal</Group>
+					<Representation>None</Representation>
+					<ShowTitle>false</ShowTitle>
+					<ExtendedTooltip name="ГруппаОшибкаРасширеннаяПодсказка" id="72"/>
+					<ChildItems>
+						<PictureDecoration name="ДекорацияОшибкаИконка" id="73">
+							<Width>4</Width>
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<Height>2</Height>
+							<AutoMaxHeight>false</AutoMaxHeight>
+							<HorizontalStretch>false</HorizontalStretch>
+							<VerticalStretch>false</VerticalStretch>
+							<Picture>
+								<xr:Ref>CommonPicture.ИнтернетПоддержкаПользователейВнимание</xr:Ref>
+								<xr:LoadTransparent>true</xr:LoadTransparent>
+							</Picture>
+							<ContextMenu name="ДекорацияОшибкаИконкаКонтекстноеМеню" id="74"/>
+							<ExtendedTooltip name="ДекорацияОшибкаИконкаРасширеннаяПодсказка" id="75"/>
+						</PictureDecoration>
+						<LabelDecoration name="ДекорацияОшибкаТекст" id="76">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<MaxWidth>50</MaxWidth>
+							<HorizontalStretch>true</HorizontalStretch>
+							<VerticalStretch>true</VerticalStretch>
+							<Title formatted="true">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Во время сохранения настроек произошли ошибки.
+Техническая информация о проблеме записана в журнал регистрации.
+&lt;link backup1C:EventLog_Settings&gt;Журнал регистрации&lt;/&gt;.</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ДекорацияОшибкаТекстКонтекстноеМеню" id="77"/>
+							<ExtendedTooltip name="ДекорацияОшибкаТекстРасширеннаяПодсказка" id="78"/>
+							<Events>
+								<Event name="URLProcessing">ОбработкаНавигационнойСсылки</Event>
+							</Events>
+						</LabelDecoration>
+					</ChildItems>
+				</UsualGroup>
+			</ChildItems>
+		</UsualGroup>
+		<LabelDecoration name="ДекорацияТехническаяПоддержка_Настройки" id="62">
+			<AutoMaxWidth>false</AutoMaxWidth>
+			<AutoMaxHeight>false</AutoMaxHeight>
+			<Title formatted="true">
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>При возникновении проблем обратитесь в &lt;link backup1C:TechSupport_Settings&gt;техническую поддержку&lt;/&gt;.</v8:content>
+				</v8:item>
+			</Title>
+			<ContextMenu name="ДекорацияТехническаяПоддержка_НастройкиКонтекстноеМеню" id="63"/>
+			<ExtendedTooltip name="ДекорацияТехническаяПоддержка_НастройкиРасширеннаяПодсказка" id="64"/>
+			<Events>
+				<Event name="URLProcessing">ОбработкаНавигационнойСсылки</Event>
+			</Events>
+		</LabelDecoration>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="Объект" id="1">
+			<Type>
+				<v8:Type>cfg:DataProcessorObject.ОблачныйАрхив</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+		</Attribute>
+		<Attribute name="ИдентификаторИБ" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор базы для 1С:Облачный архив</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>150</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИмяИБ" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Имя файлов резервных копий</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>150</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РасписаниеВключено" id="5">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Расписание включено</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоХранимыхКопий_Ежемесячные" id="6">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>За последние месяцы</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>2</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоХранимыхКопий_Ежедневные" id="7">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>За последние дни</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>2</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КоличествоХранимыхКопий_Еженедельные" id="8">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>За последние недели</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:decimal</v8:Type>
+				<v8:NumberQualifiers>
+					<v8:Digits>2</v8:Digits>
+					<v8:FractionDigits>0</v8:FractionDigits>
+					<v8:AllowedSign>Nonnegative</v8:AllowedSign>
+				</v8:NumberQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ЛогинАдминистратораОС" id="9">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Логин</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>100</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПарольАдминистратораОС" id="10">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Пароль</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>100</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="РасписаниеАвтоматическогоРезервногоКопирования" id="11">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Расписание автоматического резервного копирования</v8:content>
+				</v8:item>
+			</Title>
+			<Type/>
+		</Attribute>
+		<Attribute name="ИдентификаторКомпьютера" id="12">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор компьютера</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>50</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КаталогУстановкиАгентаКопирования" id="13">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Каталог установки агента копирования</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>255</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="КаталогИБ" id="14">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Каталог ИБ</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>255</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИдентификаторИБ_Полный" id="15">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Идентификатор базы для 1С:Облачный архив (с суффиксом "Авто")</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>150</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ИмяИБ_Полный" id="16">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Имя файлов резервных копий с суффиксом</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>150</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ПараметрыАдминистратораОСБылиИзменены" id="17">
+			<Type>
+				<v8:Type>xs:boolean</v8:Type>
+			</Type>
+		</Attribute>
+		<Attribute name="ЦветГиперссылки" id="18">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Цвет гиперссылки</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>v8ui:Color</v8:Type>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="КомандаЗаписатьИЗакрыть" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>ОК</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Записать и закрыть</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>КомандаЗаписатьИЗакрытьНажатие</Action>
+		</Command>
+	</Commands>
+</Form>
